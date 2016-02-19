@@ -1,0 +1,307 @@
+%\documentclass[]{beamer}
+%\documentclass[handout]{beamer}
+\documentclass[handout,draft]{beamer}
+
+% Preambulo
+\input{preamble.tex}
+
+\title{Herramientas de Teledetección Cuantitativa\\{\small Clase 4}}
+\author{Francisco Nemi\~na}
+\institute[Inst.]{\includegraphics[height=1cm]{imagenes/logosopi.png}\phantom{pepe} \includegraphics[height=1cm]{imagenes/2mp.png}\phantom{pepe} \includegraphics[height=1cm]{imagenes/conae.png}}
+\date{}
+%\titlegraphic{
+%\includegraphics[height=1cm]{IMAGENES/minplan.png}\phantom{1}
+%\includegraphics[height=1cm]{IMAGENES/conae.png}\phantom{1}
+%\includegraphics[height=1cm]{IMAGENES/sopi.png}}
+
+\logo{\includegraphics[height=0.7cm]{imagenes/sopi.png}}
+
+\AtBeginSection[]
+{
+\begin{frame}
+\frametitle{Esquema de presentaci\'on}
+\tableofcontents[currentsection]
+\end{frame}
+}
+
+
+\begin{document}
+\begin{frame}
+    \maketitle
+\end{frame}
+
+\section{Clasificaciones tem\'aticas}
+
+\subsection{Escenas del cap\'itulo anterior}
+\begin{frame}{Motivaci\'on}
+  \begin{center}
+      \resizebox{0.4 \linewidth}{!}{%
+        \begin{tikzpicture}[node distance = 2cm, auto]
+          \node[block]                                (init) {Firma Espectral};\pause
+          \node[block, below= of init]                (resp) {Reflectancia Espectral Efectiva};
+          \path[line] (init) --          (resp);
+          \pause
+          \node[block, below= of resp]             (ques) {Categor\'ias};
+          \path[line] (resp) --          (ques);\pause
+        \end{tikzpicture}%
+      }%
+    \end{center}
+\end{frame}
+%--- Next Frame ---%
+
+\subsection{Nueva idea}
+
+\begin{frame}{Nueva idea}
+  \begin{block}{Mapas tem\'aticos}
+    Queremos cambiar de informaci\'on espectral a categor\'ias. \pause Seguimos reduciendo la dimensionalidad de la imagen con otras t\'ecnicas.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Nueva idea}
+  \begin{figure}
+  \includegraphics[width=0.6\textwidth]{imagenes/imagen.png}
+  \caption{Imagen de la zona de inter\'es en combinaci\'on RGB.}
+  \end{figure}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Nueva idea}
+  \begin{figure}
+    \includegraphics[width=0.5\textwidth]{imagenes/cluster.png}
+    \caption{Clustering en $R^2$.\footfullcite{cluster}}
+  \end{figure}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Nueva idea}
+  \begin{figure}
+  \includegraphics[width=0.6\textwidth]{imagenes/im_class.png}
+  \caption{Mapa tem\'atico de la zona de inter\'es.}
+\end{figure}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Nueva idea}
+  \begin{exampleblock}{¿C\'omo?}
+    Realizando clasificaciones en el espacio vectorial de la imagen. Estos algoritmos se van a basar en los valores individuales de cada vector (p\'ixel)
+  \end{exampleblock}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Nueva idea}
+  \begin{figure}
+    \includegraphics[width=0.9\textwidth]{imagenes/timeline.png}
+    \caption{L\'inea de tiempo de distintos m\'etodos de clasificaci\'on.\footfullcite{timeline}}
+  \end{figure}
+\end{frame}
+%--- Next Frame ---%
+
+\section{Clustering}
+
+\subsection{Introducci\'on}
+
+\begin{frame}{Introducci\'on}
+  \begin{block}{Distancia}
+    Para poder trabajar c\'omodos en el espacio vectorial vamos a tener que definir la distancia entre dos vectores $$ d(\rho_1, \rho_2) = \left( | \rho_{1,i} - \rho_{2,i} |^p \right)^{1/p}$$
+  \end{block}
+\end{frame}
+
+\begin{frame}{Introducci\'on}
+  \begin{exampleblock}{Taxisita}
+    Cuando $p=1$ tenemos
+    $$ d(\rho_1, \rho_2) = \left( | \rho_{1,i} - \rho_{2,i} | \right)$$
+  \end{exampleblock}\pause
+  \begin{exampleblock}{Eucl\'idea}
+    Cuando $p=2$ tenemos
+    $$ d(\rho_1, \rho_2) = \left( | \rho_{1,i} - \rho_{2,i} |^2 \right)^{1/2}$$
+  \end{exampleblock}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Introducci\'on}
+  \begin{block}{Criterio habitual}
+    Encontrar clases $c_i$ que minimice $$SSE = \sum_{c_i} \sum_{x \in c_i} (x-x_i)^2 $$ donde $x_i$ es el promedio de todos los valores de cada clase.
+  \end{block}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Introducci\'on}
+  \begin{exampleblock}{Una soluci\'on}
+    Si $c_i = {x_i}$ esto da cero y es m\'inimo. Entonces tiene al menos una soluci\'on.
+  \end{exampleblock}\pause
+  \begin{block}{Otras soluciones}
+    Tenemos que encontrar N categor\'ias $c_i$ que minimicen esto.
+  \end{block}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Introducci\'on}
+  \begin{block}{Cuentas}
+    Esto son MUCHAS cuentas y tomar\'ia mucho tiempo. \pause Tenemos que buscar otra manera m\'as eficiente de hacerlo.
+  \end{block}
+\end{frame}
+%--- Next Frame ---%
+
+\subsection{k-means}
+\begin{frame}{k-means}
+  \begin{exampleblock}{Ejemplo en 1-D}
+    Edades.
+  \end{exampleblock}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{k-means}
+  \begin{figure}
+    \includegraphics[width=0.6\textwidth]{imagenes/byn.png}
+    \caption{Imagen a clasificar.\footfullcite{kmean}}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{k-means}
+  \begin{figure}
+    \includegraphics[width=0.9\textwidth]{imagenes/step1.png}
+    \caption{Proceso paso a paso.\footfullcite{kmean}}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{k-means}
+  \begin{figure}
+    \includegraphics[width=0.9\textwidth]{imagenes/step2.png}
+    \caption{Proceso paso a paso.\footfullcite{kmean}}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{k-means}
+  \begin{figure}
+    \includegraphics[width=0.9\textwidth]{imagenes/step.png}
+    \caption{Proceso paso a paso.\footfullcite{kmean}}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{k-means}
+  \begin{block}{Descripci\'on del algoritmo}
+    \begin{enumerate}[<+>]
+      \item Selecciono N clases iniciales
+      \item Asigno los p\'ixeles a estas clases
+      \item Calculo los centroides de las clases clasificadas
+      \item Repito 2 - 4 con los nuevos centroides hasta converger
+    \end{enumerate}
+  \end{block}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{k-means}
+  \begin{figure}
+    \includegraphics[width=0.8\textwidth]{imagenes/sse.png}
+    \caption{Y que pasa con la funci\'on de SSE a minimizar. \footfullcite{richards2013remote}}
+  \end{figure}
+\end{frame}
+
+\subsection{Problemas}
+
+\begin{frame}{Problemas}
+  \begin{figure}
+    \includegraphics[width=0.8\textwidth]{imagenes/minimo.png}
+    \caption{M\'inimo local vs. m\'inimo global en 1-D.\footfullcite{minimo}}
+  \end{figure}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Problemas}
+  \begin{alertblock}{Seleccion inicial de clases}
+    Lo que determina a que m\'inimo converge es la selecci\'on inicial de clases. Adem\'as no siempre me garantizo generar N clases, puedo generar menos de las deseadas.
+  \end{alertblock}\pause
+  \begin{block}{Como elijo las medias iniciales}
+    \begin{itemize}[<+>]
+      \item De forma estoc\'astica
+      \item Con alg\'un criterio estad\'istico
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\subsection{isodata}
+
+\begin{frame}{isodata}
+  \begin{block}{Diferencias con respecto a kmeans}
+    El algoritmo es b\'asicamente el mismo, pero implementa tres condiciones adicionales.
+    \begin{itemize}[<+>]
+      \item Eliminar cluster si no son estad\'isticamente relevantes.
+      \item Fusionar cluster si espectralmente son similares.
+      \item Partir clusters que son muy alargados.
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}{isodata}
+  \begin{figure}
+    \includegraphics[width=0.6\textwidth]{imagenes/isodata.png}
+    \caption{Clasificaci\'on no supervisada por isodata.\footfullcite{isodata}}
+  \end{figure}
+\end{frame}
+%--- Next Frame ---%
+
+\section{Consideraciones finales}
+
+\subsection{Tecnicas pos-clasificaci\'on}
+
+\begin{frame}{Tecnicas pos-clasificaci\'on}
+  \begin{block}{Filtrado}
+    Nos va a permitir reducir algunos mitigar una limitaci\'on com\'un en la clasificaci\'on como es la existencia de parches de escasa superficie.\pause  Suavizan las clasificaciones.
+  \end{block}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Tecnicas pos-clasificaci\'on}
+  \begin{figure}
+    \includegraphics[width=0.6\textwidth]{imagenes/filter.png}
+    \caption{Ejemplo de filtrado por mayor\'ia.\footfullcite{filter}}
+  \end{figure}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Tecnicas pos-clasificaci\'on}
+  \begin{block}{Fusi\'on}
+    Nos permite convertir las clases de clasificaci\'on generadas por algun algoritmo en clases tem\'aticas.
+  \end{block}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Tecnicas pos-clasificaci\'on}
+  \begin{figure}
+    \includegraphics[width=0.6\textwidth]{imagenes/im_class.png}
+    \caption{Imagen con clases fusionadas.}
+  \end{figure}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Tecnicas pos-clasificaci\'on}
+  \begin{figure}
+    \includegraphics[width=0.6\textwidth]{imagenes/im_fus.png}
+    \caption{Imagen con clases fusionadas.}
+  \end{figure}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Tecnicas pos-clasificaci\'on}
+  \begin{figure}
+    \includegraphics[width=0.6\textwidth]{imagenes/im_filter.png}
+    \caption{Imagen con clases fusionadas.}
+  \end{figure}
+\end{frame}
+%--- Next Frame ---%
+
+\section{Pr\'actica}
+
+\begin{frame}{Pr\'actica}
+  \begin{exampleblock}{Actividades pr\'acticas de la cuarta clase}
+    \begin{enumerate}[<+>]
+      \item Abrir im\'agenes Landsat 8 y digitalizar coberturas de inter\'es.
+      \item Clasifique la imagen por el método k-means con 7 clases.
+      \item Clasifique la imagen por el método k-means con 70 clases.
+      \item Utilizar la herramienta de estad\'isticas globales para estimar las \'areas correspondientes a cada uso y cobertura.
+    \end{enumerate}
+  \end{exampleblock}
+\end{frame}
+%--- Next Frame ---%
+
+\end{document}
