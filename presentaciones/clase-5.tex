@@ -1,11 +1,11 @@
 %\documentclass[]{beamer}
-%\documentclass[handout]{beamer}
-\documentclass[handout,draft]{beamer}
+\documentclass[handout]{beamer}
+%\documentclass[handout,draft]{beamer}
 
 % Preambulo
 \input{preamble.tex}
 
-\title{Herramientas de Teledetección Cuantitativa\\{\small Clase 5}}
+\title{Herramientas de Teledetección Cuantitativa\\{\small Clase 4}}
 \author{Francisco Nemi\~na}
 \institute[Inst.]{\includegraphics[height=1cm]{imagenes/logosopi.png}\phantom{pepe} \includegraphics[height=1cm]{imagenes/2mp.png}\phantom{pepe} \includegraphics[height=1cm]{imagenes/conae.png}}
 \date{}
@@ -30,42 +30,9 @@
     \maketitle
 \end{frame}
 
-\section{Matem\'atica}
-\subsection{Estad\'istica}
-\begin{frame}{\subsecname}
-  \begin{block}{Notaci\'on}
-    Notamos a la media para la clase $\omega_i$ como $$m_i = \frac{1}{q_i-1} \sum_j^{q_i} x_j$$ donde $q_i$ es la cantidad de p\'ixeles de la clase.
-  \end{block}\pause
-  \begin{block}{Notaci\'on}
-    La varianza como $$\sigma_i^2 = \frac{1}{q_i-1} \sum_j^{q_i} (x_j-m_i)^2$$ d\'onde los $x_j$ pertenecen a la clase $i$.
-  \end{block}
-\end{frame}
-%--- Next Frame ---%
+\section{Clasificaciones tem\'aticas}
 
-\begin{frame}{\subsecname}
-  \begin{block}{Probabilidad condicional}
-    Recordamos a la probabilidad condicional como $$p(x|\omega_i)$$ como la probabilidad de encontrar a un p\'ixel en el punto $x$ del espacio espectral dado que sabemos que pertenece a la clase $\omega_i$.
-  \end{block}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{\subsecname}
-  \begin{block}{Teorema de Bayes}
-    $$p(\omega_i|x) = \frac{p(x|\omega_i) p(\omega_i)}{p(x)}$$
-    Es decir, la probabilidad de que un p\'ixel pertenezca a la clase $\omega_i$ dado que se encuentra en el punto del espacio espectral $x$.
-  \end{block}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{\subsecname}
-  \begin{block}{Distribuci\'on de Gauss multidimensional}
-    Si definimos a la matriz de covarianza como $$C_i = \frac{1}{q_i-1} \sum_j^{q_i} (x_j-m_i)(x_j-m_i)^T$$ podemos definir la distribuci\'on de Gauss en un espacio multidimensional como $$p(x|\omega_i) \sim \exp (\frac{-1}{2} (x-m_i)^T C_i^{-1} (x-m_i) )$$
-  \end{block}
-\end{frame}
-%--- Next Frame ---%
-
-\section{Clasificaci\'on supervisada}
-\subsection{Idea}
+\subsection{Escenas del cap\'itulo anterior}
 \begin{frame}{Motivaci\'on}
   \begin{center}
       \resizebox{0.4 \linewidth}{!}{%
@@ -82,230 +49,256 @@
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{\subsecname}
-  \begin{alertblock}{Importante}
-    Ahora tenemos que definir apriori cuales son las clases que queremos y como encontrarlas.
-  \end{alertblock}
-\end{frame}
-%--- Next Frame ---%
+\subsection{Nueva idea}
 
-\begin{frame}{\subsecname}
+\begin{frame}{Nueva idea}
+  \begin{block}{Mapas tem\'aticos}
+    Queremos cambiar de informaci\'on espectral a categor\'ias. \pause Seguimos reduciendo la dimensionalidad de la imagen con otras t\'ecnicas.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Nueva idea}
   \begin{figure}
-  \includegraphics[width=0.6\textwidth]{imagenes/vector-3.png}
-  \caption{Espacio vectorial.\footfullcite{richards2013remote}}
+  \includegraphics[width=0.6\textwidth]{imagenes/imagen.png}
+  \caption{Imagen de la zona de inter\'es en combinaci\'on RGB.}
   \end{figure}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{\subsecname}
+\begin{frame}{Nueva idea}
   \begin{figure}
-  \includegraphics[width=0.6\textwidth]{imagenes/vector-2.png}
-  \caption{Clasificaci\'on del espacio vectorial a partir de clases de entrenamiento.\footfullcite{richards2013remote}}
+    \includegraphics[width=0.5\textwidth]{imagenes/cluster.png}
+    \caption{Clustering en $R^2$.\footfullcite{cluster}}
+  \end{figure}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Nueva idea}
+  \begin{figure}
+  \includegraphics[width=0.6\textwidth]{imagenes/im_class.png}
+  \caption{Mapa tem\'atico de la zona de inter\'es.}
+\end{figure}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Nueva idea}
+  \begin{exampleblock}{¿C\'omo?}
+    Realizando clasificaciones en el espacio vectorial de la imagen. Estos algoritmos se van a basar en los valores individuales de cada vector (p\'ixel)
+  \end{exampleblock}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Nueva idea}
+  \begin{figure}
+    \includegraphics[width=0.9\textwidth]{imagenes/timeline.png}
+    \caption{L\'inea de tiempo de distintos m\'etodos de clasificaci\'on.\footfullcite{timeline}}
+  \end{figure}
+\end{frame}
+%--- Next Frame ---%
+
+\section{Clustering}
+
+\subsection{Introducci\'on}
+
+\begin{frame}{Introducci\'on}
+  \begin{block}{Distancia}
+    Para poder trabajar c\'omodos en el espacio vectorial vamos a tener que definir la distancia entre dos vectores $$ d(\rho_1, \rho_2) = \left( | \rho_{1,i} - \rho_{2,i} |^p \right)^{1/p}$$
+  \end{block}
+\end{frame}
+
+\begin{frame}{Introducci\'on}
+  \begin{exampleblock}{Taxisita}
+    Cuando $p=1$ tenemos
+    $$ d(\rho_1, \rho_2) = \left( | \rho_{1,i} - \rho_{2,i} | \right)$$
+  \end{exampleblock}\pause
+  \begin{exampleblock}{Eucl\'idea}
+    Cuando $p=2$ tenemos
+    $$ d(\rho_1, \rho_2) = \left( | \rho_{1,i} - \rho_{2,i} |^2 \right)^{1/2}$$
+  \end{exampleblock}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Introducci\'on}
+  \begin{block}{Criterio habitual}
+    Encontrar clases $c_i$ que minimice $$SSE = \sum_{c_i} \sum_{x \in c_i} (x-x_i)^2 $$ donde $x_i$ es el promedio de todos los valores de cada clase.
+  \end{block}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Introducci\'on}
+  \begin{exampleblock}{Una soluci\'on}
+    Si $c_i = {x_i}$ esto da cero y es m\'inimo. Entonces tiene al menos una soluci\'on.
+  \end{exampleblock}\pause
+  \begin{block}{Otras soluciones}
+    Tenemos que encontrar N categor\'ias $c_i$ que minimicen esto.
+  \end{block}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Introducci\'on}
+  \begin{block}{Cuentas}
+    Esto son MUCHAS cuentas y tomar\'ia mucho tiempo. \pause Tenemos que buscar otra manera m\'as eficiente de hacerlo.
+  \end{block}
+\end{frame}
+%--- Next Frame ---%
+
+\subsection{k-means}
+\begin{frame}{k-means}
+  \begin{exampleblock}{Ejemplo en 1-D}
+    Edades.
+  \end{exampleblock}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{k-means}
+  \begin{figure}
+    \includegraphics[width=0.6\textwidth]{imagenes/byn.png}
+    \caption{Imagen a clasificar.\footfullcite{kmean}}
   \end{figure}
 \end{frame}
 
-\begin{frame}{\subsecname}
-  \begin{block}{Esquema general}
+\begin{frame}{k-means}
+  \begin{figure}
+    \includegraphics[width=0.9\textwidth]{imagenes/step1.png}
+    \caption{Proceso paso a paso.\footfullcite{kmean}}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{k-means}
+  \begin{figure}
+    \includegraphics[width=0.9\textwidth]{imagenes/step2.png}
+    \caption{Proceso paso a paso.\footfullcite{kmean}}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{k-means}
+  \begin{figure}
+    \includegraphics[width=0.9\textwidth]{imagenes/step.png}
+    \caption{Proceso paso a paso.\footfullcite{kmean}}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{k-means}
+  \begin{block}{Descripci\'on del algoritmo}
     \begin{enumerate}[<+>]
-      \item Decidir cuales son las clases de intere\'es.
-      \item Elegir p\'ixeles conocidos y representativos para cada clase a utilizar como \'areas de entrenamiento.
-      \item Estimar los par\'ametros del m\'etodo de clasificaci\'on.
-      \item Usar el clasificador para clasificar los pixeles.
-      \item Producir mapas tem\'aticos para extraer informaci\'on.
-      \item Corroborar la precisi\'on de la clasificaci\'on con datos de campo
+      \item Selecciono N clases iniciales
+      \item Asigno los p\'ixeles a estas clases
+      \item Calculo los centroides de las clases clasificadas
+      \item Repito 2 - 4 con los nuevos centroides hasta converger
     \end{enumerate}
   \end{block}
 \end{frame}
 %--- Next Frame ---%
 
-%--- Next Frame ---%
-\subsection{M\'etodos}
-\begin{frame}{\subsecname}
-  \begin{block}{Generales}
-    \begin{itemize}
-      \item<.> Paralelep\'ipedos
-      \item<.> Distancia m\'inima
-      \item<1> M\'axima verosimilitud
-      \item<.> \'Angulo espectral
-    \end{itemize}
-  \end{block}
+\begin{frame}{k-means}
+  \begin{figure}
+    \includegraphics[width=0.8\textwidth]{imagenes/sse.png}
+    \caption{Y que pasa con la funci\'on de SSE a minimizar. \footfullcite{richards2013remote}}
+  \end{figure}
+\end{frame}
+
+\subsection{Problemas}
+
+\begin{frame}{Problemas}
+  \begin{figure}
+    \includegraphics[width=0.8\textwidth]{imagenes/minimo.png}
+    \caption{M\'inimo local vs. m\'inimo global en 1-D.\footfullcite{minimo}}
+  \end{figure}
 \end{frame}
 %--- Next Frame ---%
 
-\subsection{M\'axima verosimilitud}
-
-\begin{frame}{\subsecname}
-  \begin{block}{Clasificador Bayesiano}
-    Si conocemos las probabilidades condicionales $p(\omega_i|x)$ entonces un p\'ixel $x$ pertenece a la clase $\omega_i$ si $$p(\omega_i|x)>p(\omega_j|x)$$ si $i \neq j$.
-  \end{block}
-  \pause
-  \begin{alertblock}{Problema}
-    No conocemos $p(\omega_i|x)$.
-  \end{alertblock}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{\subsecname}
-  \begin{block}{Soluci\'on}
-    Usamos el teorema de Bayes y podemos escribir que un p\'ixel $x$ pertenece a la clase $\omega_i$ si $$p(x|\omega_i)p(\omega_i)>p(x|\omega_j)p(\omega_j)$$ si $i \neq j$.
-  \end{block}
-  \pause
-  \begin{block}{Funci\'on discriminante}
-    Si definimos $g_i(x) = \log (p(x|\omega_i)p(\omega_i))$ entonces lo anterior se convierte en $x$ pertenece a la clase $\omega_i$ si $$g_i(x)>g_j(x)$$ si $i \neq j$.
-  \end{block}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{\subsecname}
-  \begin{block}{Caso Gaussiano}
-    Si suponemos que la distribuci\'on $p$ es normal y que, apriori la probabilidad de pertenecer a una clase es equiprobable, tenemos que
-    $$g_i(x) = -\log |C_i| - (x-m_i)^T C_i^{-1} (x-m_i)$$.
-  \end{block}
-  \pause
-  \begin{alertblock}{Observaciones:}
-    Como la distribuci\'on de Gauss no se anula nunca, esto puede clasificar a lo largo de todo el espacio
-  \end{alertblock}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{\subsecname}
-  \begin{block}{Superficies de equiprobabilidad}
-    Si buscamos la superficies de $$g_i = g_j$$ ese espacio queda dividido en distintos sectores donde es siempre mayor la probabilidad de pertenecer a una clase.
-    \pause
-    Son
+\begin{frame}{Problemas}
+  \begin{alertblock}{Seleccion inicial de clases}
+    Lo que determina a que m\'inimo converge es la selecci\'on inicial de clases. Adem\'as no siempre me garantizo generar N clases, puedo generar menos de las deseadas.
+  \end{alertblock}\pause
+  \begin{block}{Como elijo las medias iniciales}
     \begin{itemize}[<+>]
-      \item Elipses
-      \item Par\'abolas
-      \item Hip\'erbolas
+      \item De forma estoc\'astica
+      \item Con alg\'un criterio estad\'istico
     \end{itemize}
   \end{block}
 \end{frame}
-%--- Next Frame ---%
 
-\begin{frame}{\subsecname}
-  \begin{figure}
-  \includegraphics[width=0.6\textwidth]{imagenes/areas.png}
-  \caption{Vista en el espacio vectorial.\footfullcite{clasif1}}
-  \end{figure}
-\end{frame}
-%--- Next Frame ---%
+\subsection{isodata}
 
-\begin{frame}{\subsecname}
-  \begin{figure}
-  \includegraphics[width=0.6\textwidth]{imagenes/max.png}
-  \caption{Vista en el espacio vectorial.\footfullcite{clasif1}}
-  \end{figure}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{\subsecname}
-  \begin{block}{N\'umero de p\'ixeles necesarios}
-    Para estimar la matriz de covarianza se necesitan al menos $N(N+1)$ elementos. Es decir, al menos $N+1$ p\'ixeles.
-  \end{block}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{\subsecname}
-  \begin{figure}
-  \includegraphics[width=0.8\textwidth]{imagenes/train.png}
-  \caption{Clasificaci\'on supervisada incrementando el n\'umero de p\'ixeles de entrenamiento.\footfullcite{richards2013remote}}
-  \end{figure}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{\subsecname}
-  \begin{alertblock}{N\'umero de p\'ixeles necesarios}
-    En la pr\'actica, se necesitan entre $10N$ y $100N$ p\'ixeles.
-  \end{alertblock}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{\subsecname}
-  \begin{figure}
-  \includegraphics[width=0.6\textwidth]{imagenes/thresh.png}
-  \caption{Problemas de clasificaci\'on y umbral.\footfullcite{richards2013remote}}
-  \end{figure}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{\subsecname}
-  \begin{figure}
-  \includegraphics[width=0.8\textwidth]{imagenes/hughes.png}
-  \caption{Otro problema, fen\'omeno de Hughes.\footfullcite{richards2013remote}}
-  \end{figure}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{\subsecname}
-  \begin{figure}
-  \includegraphics[width=0.6\textwidth]{imagenes/t_area.png}
-  \caption{Imagen con \'areas de entrenamineto.\footfullcite{richards2013remote}}
-  \end{figure}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{\subsecname}
-  \begin{figure}
-  \includegraphics[width=0.6\textwidth]{imagenes/t_map.png}
-  \caption{Imagen clasificada.\footfullcite{richards2013remote}}
-  \end{figure}
-\end{frame}
-%--- Next Frame ---%
-
-\subsection{Otros m\'etodos}
-\begin{frame}{\subsecname}
-  \begin{block}{Pocos p\'ixeles}
-    Si contamos con pocos p\'ixeles de entrenamiento, podemos caer en otros metodos.
-    \begin{itemize}
-      \item<.> Paralelep\'ipedos
-      \item<1> Distancia m\'inima
-      \item<.> M\'axima verosimilitud
-      \item<1> \'Angulo espectral
+\begin{frame}{isodata}
+  \begin{block}{Diferencias con respecto a kmeans}
+    El algoritmo es b\'asicamente el mismo, pero implementa tres condiciones adicionales.
+    \begin{itemize}[<+>]
+      \item Eliminar cluster si no son estad\'isticamente relevantes.
+      \item Fusionar cluster si espectralmente son similares.
+      \item Partir clusters que son muy alargados.
     \end{itemize}
   \end{block}
 \end{frame}
-%--- Next Frame ---%
 
-\begin{frame}{\subsecname}
-  \begin{block}{Distancia m\'inima}
-    Si buscamos la superficies de $g_i = g_j$ con $g_i = 2 m_i x - m_i m_i$
-    y me divide a mi espacio por hiperplanos.
-  \end{block}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{\subsecname}
+\begin{frame}{isodata}
   \begin{figure}
-  \includegraphics[width=0.6\textwidth]{imagenes/min.png}
-  \caption{Vista en el espacio vectorial.\footfullcite{clasif1}}
+    \includegraphics[width=0.6\textwidth]{imagenes/isodata.png}
+    \caption{Clasificaci\'on no supervisada por isodata.\footfullcite{isodata}}
   \end{figure}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{\subsecname}
-  \begin{block}{Angulo espectral}
-    Dividimos en este caso al espacio utilizando el \'angulo correspondiente a los p\'ixeles de entrenamiento.
+\section{Consideraciones finales}
+
+\subsection{Tecnicas pos-clasificaci\'on}
+
+\begin{frame}{Tecnicas pos-clasificaci\'on}
+  \begin{block}{Filtrado}
+    Nos va a permitir reducir algunos mitigar una limitaci\'on com\'un en la clasificaci\'on como es la existencia de parches de escasa superficie.\pause  Suavizan las clasificaciones.
   \end{block}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{\subsecname}
+\begin{frame}{Tecnicas pos-clasificaci\'on}
   \begin{figure}
-  \includegraphics[width=0.6\textwidth]{imagenes/angle.png}
-  \caption{Vista en el espacio vectorial.\footfullcite{richards2013remote}}
+    \includegraphics[width=0.6\textwidth]{imagenes/filter.png}
+    \caption{Ejemplo de filtrado por mayor\'ia.\footfullcite{filter}}
+  \end{figure}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Tecnicas pos-clasificaci\'on}
+  \begin{block}{Fusi\'on}
+    Nos permite convertir las clases de clasificaci\'on generadas por algun algoritmo en clases tem\'aticas.
+  \end{block}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Tecnicas pos-clasificaci\'on}
+  \begin{figure}
+    \includegraphics[width=0.6\textwidth]{imagenes/im_class.png}
+    \caption{Imagen con clases fusionadas.}
+  \end{figure}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Tecnicas pos-clasificaci\'on}
+  \begin{figure}
+    \includegraphics[width=0.6\textwidth]{imagenes/im_fus.png}
+    \caption{Imagen con clases fusionadas.}
+  \end{figure}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Tecnicas pos-clasificaci\'on}
+  \begin{figure}
+    \includegraphics[width=0.6\textwidth]{imagenes/im_filter.png}
+    \caption{Imagen con clases fusionadas.}
   \end{figure}
 \end{frame}
 %--- Next Frame ---%
 
 \section{Pr\'actica}
 
-\begin{frame}{\secname}
+\begin{frame}{Pr\'actica}
   \begin{exampleblock}{Actividades pr\'acticas de la cuarta clase}
     \begin{enumerate}[<+>]
-      \item Abra las im\'agenes Landsat 8 y digitalice las coberturas de inter\'es.
-      \item Clasifique la imagen utilizando un vector de entrenamiento por clase.
-      \item Clasifique la imagen utilizando varios vectores de entrenamiento por clase.
-      \item Utilizce la herramienta de estad\'isticas globales para estimar las \'areas correspondientes a cada uso y cobertura.
+      \item Abrir im\'agenes Landsat 8 y digitalizar coberturas de inter\'es.
+      \item Clasifique la imagen por el método k-means con 7 clases.
+      \item Clasifique la imagen por el método k-means con 70 clases.
+      \item Utilizar la herramienta de estad\'isticas globales para estimar las \'areas correspondientes a cada uso y cobertura.
     \end{enumerate}
   \end{exampleblock}
 \end{frame}

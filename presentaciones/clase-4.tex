@@ -1,11 +1,11 @@
 %\documentclass[]{beamer}
-%\documentclass[handout]{beamer}
-\documentclass[handout,draft]{beamer}
+\documentclass[handout]{beamer}
+%\documentclass[handout,draft]{beamer}
 
 % Preambulo
 \input{preamble.tex}
 
-\title{Herramientas de Teledetección Cuantitativa\\{\small Clase 4}}
+\title{Herramientas de Teledetección Cuantitativa\\{\small Clase 3}}
 \author{Francisco Nemi\~na}
 \institute[Inst.]{\includegraphics[height=1cm]{imagenes/logosopi.png}\phantom{pepe} \includegraphics[height=1cm]{imagenes/2mp.png}\phantom{pepe} \includegraphics[height=1cm]{imagenes/conae.png}}
 \date{}
@@ -30,9 +30,9 @@
     \maketitle
 \end{frame}
 
-\section{Clasificaciones tem\'aticas}
+\section{Transformaciones}
+\subsection{Motivaci\'on}
 
-\subsection{Escenas del cap\'itulo anterior}
 \begin{frame}{Motivaci\'on}
   \begin{center}
       \resizebox{0.4 \linewidth}{!}{%
@@ -41,7 +41,7 @@
           \node[block, below= of init]                (resp) {Reflectancia Espectral Efectiva};
           \path[line] (init) --          (resp);
           \pause
-          \node[block, below= of resp]             (ques) {Categor\'ias};
+          \node[decision, below= of resp]             (ques) {????};
           \path[line] (resp) --          (ques);\pause
         \end{tikzpicture}%
       }%
@@ -49,256 +49,439 @@
 \end{frame}
 %--- Next Frame ---%
 
-\subsection{Nueva idea}
-
-\begin{frame}{Nueva idea}
-  \begin{block}{Mapas tem\'aticos}
-    Queremos cambiar de informaci\'on espectral a categor\'ias. \pause Seguimos reduciendo la dimensionalidad de la imagen con otras t\'ecnicas.
-  \end{block}
-\end{frame}
-
-\begin{frame}{Nueva idea}
-  \begin{figure}
-  \includegraphics[width=0.6\textwidth]{imagenes/imagen.png}
-  \caption{Imagen de la zona de inter\'es en combinaci\'on RGB.}
-  \end{figure}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{Nueva idea}
-  \begin{figure}
-    \includegraphics[width=0.5\textwidth]{imagenes/cluster.png}
-    \caption{Clustering en $R^2$.\footfullcite{cluster}}
-  \end{figure}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{Nueva idea}
-  \begin{figure}
-  \includegraphics[width=0.6\textwidth]{imagenes/im_class.png}
-  \caption{Mapa tem\'atico de la zona de inter\'es.}
-\end{figure}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{Nueva idea}
-  \begin{exampleblock}{¿C\'omo?}
-    Realizando clasificaciones en el espacio vectorial de la imagen. Estos algoritmos se van a basar en los valores individuales de cada vector (p\'ixel)
-  \end{exampleblock}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{Nueva idea}
-  \begin{figure}
-    \includegraphics[width=0.9\textwidth]{imagenes/timeline.png}
-    \caption{L\'inea de tiempo de distintos m\'etodos de clasificaci\'on.\footfullcite{timeline}}
-  \end{figure}
-\end{frame}
-%--- Next Frame ---%
-
-\section{Clustering}
-
-\subsection{Introducci\'on}
-
-\begin{frame}{Introducci\'on}
-  \begin{block}{Distancia}
-    Para poder trabajar c\'omodos en el espacio vectorial vamos a tener que definir la distancia entre dos vectores $$ d(\rho_1, \rho_2) = \left( | \rho_{1,i} - \rho_{2,i} |^p \right)^{1/p}$$
-  \end{block}
-\end{frame}
-
-\begin{frame}{Introducci\'on}
-  \begin{exampleblock}{Taxisita}
-    Cuando $p=1$ tenemos
-    $$ d(\rho_1, \rho_2) = \left( | \rho_{1,i} - \rho_{2,i} | \right)$$
-  \end{exampleblock}\pause
-  \begin{exampleblock}{Eucl\'idea}
-    Cuando $p=2$ tenemos
-    $$ d(\rho_1, \rho_2) = \left( | \rho_{1,i} - \rho_{2,i} |^2 \right)^{1/2}$$
-  \end{exampleblock}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{Introducci\'on}
-  \begin{block}{Criterio habitual}
-    Encontrar clases $c_i$ que minimice $$SSE = \sum_{c_i} \sum_{x \in c_i} (x-x_i)^2 $$ donde $x_i$ es el promedio de todos los valores de cada clase.
-  \end{block}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{Introducci\'on}
-  \begin{exampleblock}{Una soluci\'on}
-    Si $c_i = {x_i}$ esto da cero y es m\'inimo. Entonces tiene al menos una soluci\'on.
-  \end{exampleblock}\pause
-  \begin{block}{Otras soluciones}
-    Tenemos que encontrar N categor\'ias $c_i$ que minimicen esto.
-  \end{block}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{Introducci\'on}
-  \begin{block}{Cuentas}
-    Esto son MUCHAS cuentas y tomar\'ia mucho tiempo. \pause Tenemos que buscar otra manera m\'as eficiente de hacerlo.
-  \end{block}
-\end{frame}
-%--- Next Frame ---%
-
-\subsection{k-means}
-\begin{frame}{k-means}
-  \begin{exampleblock}{Ejemplo en 1-D}
-    Edades.
-  \end{exampleblock}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{k-means}
-  \begin{figure}
-    \includegraphics[width=0.6\textwidth]{imagenes/byn.png}
-    \caption{Imagen a clasificar.\footfullcite{kmean}}
-  \end{figure}
-\end{frame}
-
-\begin{frame}{k-means}
-  \begin{figure}
-    \includegraphics[width=0.9\textwidth]{imagenes/step1.png}
-    \caption{Proceso paso a paso.\footfullcite{kmean}}
-  \end{figure}
-\end{frame}
-
-\begin{frame}{k-means}
-  \begin{figure}
-    \includegraphics[width=0.9\textwidth]{imagenes/step2.png}
-    \caption{Proceso paso a paso.\footfullcite{kmean}}
-  \end{figure}
-\end{frame}
-
-\begin{frame}{k-means}
-  \begin{figure}
-    \includegraphics[width=0.9\textwidth]{imagenes/step.png}
-    \caption{Proceso paso a paso.\footfullcite{kmean}}
-  \end{figure}
-\end{frame}
-
-\begin{frame}{k-means}
-  \begin{block}{Descripci\'on del algoritmo}
-    \begin{enumerate}[<+>]
-      \item Selecciono N clases iniciales
-      \item Asigno los p\'ixeles a estas clases
-      \item Calculo los centroides de las clases clasificadas
-      \item Repito 2 - 4 con los nuevos centroides hasta converger
-    \end{enumerate}
-  \end{block}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{k-means}
-  \begin{figure}
-    \includegraphics[width=0.8\textwidth]{imagenes/sse.png}
-    \caption{Y que pasa con la funci\'on de SSE a minimizar. \footfullcite{richards2013remote}}
-  \end{figure}
-\end{frame}
-
-\subsection{Problemas}
-
-\begin{frame}{Problemas}
-  \begin{figure}
-    \includegraphics[width=0.8\textwidth]{imagenes/minimo.png}
-    \caption{M\'inimo local vs. m\'inimo global en 1-D.\footfullcite{minimo}}
-  \end{figure}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{Problemas}
-  \begin{alertblock}{Seleccion inicial de clases}
-    Lo que determina a que m\'inimo converge es la selecci\'on inicial de clases. Adem\'as no siempre me garantizo generar N clases, puedo generar menos de las deseadas.
-  \end{alertblock}\pause
-  \begin{block}{Como elijo las medias iniciales}
+\begin{frame}{Motivaci\'on}
+  \begin{block}{T\'ecnicas de reducci\'on de la dimensionalidad}
     \begin{itemize}[<+>]
-      \item De forma estoc\'astica
-      \item Con alg\'un criterio estad\'istico
+      \item Rotaciones
+      \item \'Indices
+      \item Clasificaciones
+    \end{itemize}
+    \pause
+    Empezamos con las primeras dos.
+  \end{block}
+\end{frame}
+%--- Next Frame ---%
+
+\subsection{Matem\'atica}
+
+
+\begin{frame}{Matem\'atica}
+  \begin{block}{Definici\'on:}
+    Un vector es un objeto de la forma $$\left(
+    \begin{array}{c}
+          v_1 \\
+          \vdots \\
+          v_n
+        \end{array}
+        \right) $$.
+  \end{block}\pause
+  \begin{block}{Propiedades}
+    Con dos operaciones
+    $$ \begin{array}{c} v+w \\ \alpha v \end{array}  $$
+    \pause
+    y viven en un lugar que se llama espacio vectoral
+  \end{block}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Matem\'atica}
+  \begin{block}{Definici\'on:}
+    Las matrices se pueden pensar como transformaciones que convierten a un vector en otro. \pause
+    $$ Av = w$$
+  \end{block}\pause
+  \begin{alertblock}{Propiedad}
+    Como las transformaciones que utilizaremos son lineales, con s\'olo definirlas en unos pocos valores alcanza. \pause Elegir bien los vectores para definir la transformaci\'on es \'util.
+  \end{alertblock}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Matem\'atica}
+  \begin{figure}
+    \includegraphics[width=0.6\textwidth]{imagenes/elandsat.png}
+    \caption{Comparaci\'on entre firma espectral y valores medidos para un p\'ixel\footfullcite{richards2013remote}}
+  \end{figure}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Matem\'atica}
+  \begin{figure}
+    \includegraphics[width=0.6\textwidth]{imagenes/vector.png}
+    \caption{P\'ixeles en $R^2$.\footfullcite{richards2013remote}}
+  \end{figure}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Matem\'atica}
+  \begin{alertblock}{Respuesta efectiva como vector}
+    A la respuesta espectral efectiva la puedo pensar como un vector de reflectancias
+    $$\left(
+    \begin{array}{c}
+          \rho_1 \\
+          \vdots \\
+          \rho_n
+        \end{array}
+    \right) $$.
+  \end{alertblock}
+  \pause
+\end{frame}
+\begin{frame}{Matem\'atica}
+  \begin{exampleblock}{Ejemplo:}
+    $$v_{(x,y)}=\left(
+    \begin{array}{c}
+      0.03 \\
+      0.08 \\
+      0.04 \\
+      0.40 \\
+      0.20 \\
+      0.15
+    \end{array}
+    \right) ,
+    a_{(x,y)}=\left(
+    \begin{array}{c}
+      0.05 \\
+      0.03 \\
+      0.01 \\
+      0.01 \\
+      0.00 \\
+      0.00
+    \end{array}
+    \right) ,
+    s_{(x,y)}=\left(
+    \begin{array}{c}
+      0.08 \\
+      0.10 \\
+      0.15 \\
+      0.20 \\
+      0.25 \\
+      0.30
+    \end{array}
+    \right) $$
+  \end{exampleblock}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Matem\'atica}
+  \begin{alertblock}{Motivaci\'on}
+    Podemos pensar a una imagen como vectores en un espacio vectorial. El n\'umero de bandas es la dimensi\'on de ese espacio.
+  \end{alertblock}
+\end{frame}
+%--- Next Frame ---%
+
+\section{Rotaciones}
+\subsection{Idea}
+\begin{frame}{Idea}
+  Empecemos con un ejemplo para una imagen de dos bandas
+  \begin{figure}
+  \centering
+  \includegraphics[width=0.6\textwidth]{imagenes/nir-red.png}
+  \caption{Imagen de dos bandas.}
+  \end{figure}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Idea}
+  \begin{figure}
+  \centering
+  \includegraphics[width=0.8\textwidth]{imagenes/nir-red2.png}
+  \caption{Imagen de dos bandas en el espacio vectorial.}
+  \end{figure}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Idea}
+  \begin{alertblock}{Transformaci\'on}
+    Una combinaci\'on obvia es $$ DIF = 0.5NIR-0.5RED$$
+    y
+    $$ SUM = 0.5NIR+0.5RED $$
+  \end{alertblock}
+\end{frame}
+%--- Next Frame ---%
+
+
+\begin{frame}{Idea}
+  \begin{alertblock}{Importante}
+    No siempre m\'as bandas significa mas informaci\'on.
+  \end{alertblock}
+\end{frame}
+%--- Next Frame ---%
+
+\subsection{Componentes principales}
+
+\begin{frame}{Componentes principales}
+  \begin{block}{Idea}
+    Queremos ver si un set bandas est\'a correlacionadas o no.
+  \end{block}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Componentes principales}
+  \begin{figure}
+  \centering
+  \includegraphics[width=0.8\textwidth]{imagenes/corr.png}
+  \caption{Datos correlacionados y no correlacionados\footfullcite{richards2013remote}}
+  \end{figure}
+\end{frame}
+%--- Next Frame ---%
+
+
+
+\begin{frame}{Componentes principales}
+  \begin{block}{Matriz de correlaci\'on}
+    Tiene en sus componentes las funciones de correlaci\'on entre cada banda\pause
+    \[
+    A = \begin{bmatrix}
+        corr_{11}       & corr_{12} & corr_{13} & \dots & corr_{1n} \\
+        corr_{21}       & corr_{22} & corr_{23} & \dots & corr_{2n} \\
+        \vdots          & \vdots    & \vdots    & \ddots & \vdots \\
+        corr_{n1}       & corr_{d2} & corr_{n3} & \dots & corr_{nn}
+    \end{bmatrix} \]
+  \end{block}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Componentes principales}
+  \begin{block}{Observaciones}
+      Queremos que la correlaci\'on cruzada entre bandas sea cero. \pause Matem\'aticamente lo pedimos como
+        $$Av=\lambda v$$
+      Y nos quedamos como vectores \'utiles a los que cumplan esto.
+  \end{block}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Componentes principales}
+  \begin{block}{Matriz de correlaci\'on}
+    La forma de la matriz va a depender de las combinaciones lineal que haga entre los vectores \pause
+    \[
+    \begin{bmatrix}
+        \lambda{1}       & 0 & 0 & \dots & 0 \\
+        0       & \lambda_{2} & 0 & \dots & 0 \\
+        \vdots & \vdots & \vdots & \ddots & \vdots \\
+        0       & 0 & 0 & \dots & \lambda_{n}
+    \end{bmatrix} \]
+    \pause
+    donde son los autovectores $$\lambda_{1}  > \lambda_{2} > \dots > \lambda_{n}$$
+  \end{block}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Componentes principales}
+  \begin{block}{Observaciones}
+    \begin{itemize}[<+>]
+      \item $\frac{\lambda_i}{\sum_i \lambda_i}$ me habla de cuanto me explica ese vector sobre la variabilidad de la imagen
+      \item $(v_1 , \dots , v_n)$ el autovector que me representa la combinaci\'on de bandas de un autovalor dado.
+      \item Estas combinaci\'on lineal de bandas tienen la informaci\'on m\'as relevante.
     \end{itemize}
   \end{block}
 \end{frame}
+%--- Next Frame ---%
 
-\subsection{isodata}
+\begin{frame}{Componentes principales}
+  \begin{exampleblock}{Ejemplo}
+    Volviendo al ejemplo de antes
+    \[
+    \begin{bmatrix}
+        1       & 0.329127 \\
+        0.329127 & 1
+    \end{bmatrix} \]
+  \end{exampleblock}
+\end{frame}
+%--- Next Frame ---%
 
-\begin{frame}{isodata}
-  \begin{block}{Diferencias con respecto a kmeans}
-    El algoritmo es b\'asicamente el mismo, pero implementa tres condiciones adicionales.
+\begin{frame}{Componentes principales}
+  \begin{exampleblock}{Ejemplo}
+    Al diagonalizar me queda
+    \[
+    \begin{bmatrix}
+        1.343685       & 0 \\
+        0       & 0.656315
+    \end{bmatrix} \]
+    con autovectores $$0.707107\, NIR-0.707107 \, RED$$  y $$0.707107 \, NIR+0.707107\, RED$$ \pause
+    Ac\'a el primer vector explica el el 67\% de la variabilidad de la imagen y el segundo del 33\%.
+  \end{exampleblock}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Componentes principales}
+  \begin{figure}
+  \centering
+  \includegraphics[width=0.6\textwidth]{imagenes/pca1.png}
+  \caption{Ejemplo con las bandas NIR-RED en la imagen.}
+  \end{figure}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Componentes principales}
+  \begin{figure}
+  \centering
+  \includegraphics[width=0.8\textwidth]{imagenes/pca2.png}
+  \caption{Ejemplo con las bandas NIR-RED en el espacio vectorial.}
+  \end{figure}
+\end{frame}
+%--- Next Frame ---%
+
+
+\subsection{Transformada tasseled-cap}
+
+\begin{frame}{Transformada tasseled-cap}
+  \begin{block}{Utilidad}
+    La utilidad de esto no suele ser con dos bandas, si no con muchas m\'as.
+  \end{block}\pause
+  \begin{block}{Problema}
+    Ac\'a es mas f\'acil darse cuenta que brinda mas informaci\'on, el tema es interpretar esa informaci\'on.
+  \end{block}\pause
+  \begin{block}{Idea}
+    Encontrar alguna transformaci\'on que me permita descartar bandas pero que tengan relaci\'on con distintos comportamientos biof\'isicos.
+  \end{block}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Transformada tasseled-cap}
+  \begin{figure}
+  \centering
+  \includegraphics[width=0.8\textwidth]{imagenes/tc.png}
+  \caption{Movimiento asociado al comportamiento fenol\'ogico de un p\'ixel de vegetaci\'on en el espacio vectorial.\footfullcite{richards2013remote}}
+  \end{figure}
+\end{frame}
+%--- Next Frame ---%
+
+
+\begin{frame}{Transformada tasseled-cap}
+    \begin{figure}
+      \begin{tabular}{l c c c c c c }
+        Combinaci\'on  & Azul & Verde & Rojo & NIR & SWIR 1 & SWIR 2\\
+        Brillo &  0.30  & 0.27  & 0.47  & 0.55  & 0.50  & 0.18\\
+        Verdor & -0.29  &-0.24  &-0.54  & 0.72 & 0.07  &-0.16\\
+        Humedad&  0.15  & 0.19  & 0.32  & 0.34  &-0.71  &-0.45
+      \end{tabular}
+      \caption{Transformada tasseled-cap para landsat 8 \footfullcite{baig2014derivation}}
+    \end{figure}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Transformada tasseled-cap}
+  \begin{block}{Idea}
+    Todo esto logra hacer que el n\'umero de bandas que utilizo sea menor que el n\'umero de bandas inicial
+  \end{block}
+\end{frame}
+%--- Next Frame ---%
+
+\section{\'Indices}
+
+\begin{frame}{\'Indices}
+  \begin{block}{\'Indices}
     \begin{itemize}[<+>]
-      \item Eliminar cluster si no son estad\'isticamente relevantes.
-      \item Fusionar cluster si espectralmente son similares.
-      \item Partir clusters que son muy alargados.
+      \item Nos van a permitir reducir mas la dimensi\'onalidad.
+      \item Perdiendo informaci\'on.
+      \item Ganando y mucho en la interpretaci\'on de los resultados.
+      \item Adem\'as voy a encontrar correlaciones con variables biof\'isicas.
     \end{itemize}
   \end{block}
 \end{frame}
+%--- Next Frame ---%
 
-\begin{frame}{isodata}
-  \begin{figure}
-    \includegraphics[width=0.6\textwidth]{imagenes/isodata.png}
-    \caption{Clasificaci\'on no supervisada por isodata.\footfullcite{isodata}}
-  \end{figure}
+\subsection{\'Indices de Vegetaci\'on}
+
+\begin{frame}{\'Indices de Vegetaci\'on}
+    \begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{imagenes/salto_nr.png}
+    \caption{Salto de reflectancia entre la regi\'on entre el rojo y el infrarrojo cercano.\footfullcite{clark2007usgs}}
+    \end{figure}
 \end{frame}
 %--- Next Frame ---%
 
-\section{Consideraciones finales}
+\begin{frame}{\'Indices de Vegetaci\'on}
+  \begin{block}{Definici\'on}
+    Cociente simple $$\frac{NIR}{RED}$$
+    Es de lo mas sencillo que uno puede pensar.
+  \end{block}
+  \begin{exampleblock}{Ejemplos}
+    \begin{figure}
+      \begin{tabular}{l c }
+        Cobertura  & $NIR/RED$\\
+        Suelo & 1.57\\
+        Agua & 0.51\\
+        Vegetacion & 5.25
+      \end{tabular}
+      \caption{Valores t\'ipicos para el cociente simple}
+    \end{figure}
+  \end{exampleblock}
+\end{frame}
+%--- Next Frame ---%
 
-\subsection{Tecnicas pos-clasificaci\'on}
+\begin{frame}{\'Indices de Vegetaci\'on}
+  \begin{block}{Definici\'on}
+    Cociente simple $$\frac{NIR-RED}{NIR+RED}$$
+    La idea es normalizar la diferencia para simplificar la interpretaci\'on
+  \end{block}
+  \begin{exampleblock}{Ejemplos}
+    \begin{figure}
+      \begin{tabular}{l c }
+        Cobertura  & $NDVI$\\
+        Suelo & 0.22 \\
+        Agua & -0.32 \\
+        Vegetacion & 0.68
+      \end{tabular}
+      \caption{Valores t\'ipicos para el cociente simple}
+    \end{figure}
+  \end{exampleblock}
+\end{frame}
+%--- Next Frame ---%
 
-\begin{frame}{Tecnicas pos-clasificaci\'on}
-  \begin{block}{Filtrado}
-    Nos va a permitir reducir algunos mitigar una limitaci\'on com\'un en la clasificaci\'on como es la existencia de parches de escasa superficie.\pause  Suavizan las clasificaciones.
+\begin{frame}{\'Indices de Vegetaci\'on}
+  \begin{block}{Observaci\'on}
+    Se relaciona con el anterior como $$\frac{NIR/RED-1}{NIR/RED+1}$$
   \end{block}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{Tecnicas pos-clasificaci\'on}
-  \begin{figure}
-    \includegraphics[width=0.6\textwidth]{imagenes/filter.png}
-    \caption{Ejemplo de filtrado por mayor\'ia.\footfullcite{filter}}
-  \end{figure}
+\begin{frame}{\'Indices de Vegetaci\'on}
+  \begin{alertblock}{Observaci\'on}
+    Este \'indice esta relacionado con varias variables biof\'isicas.
+  \end{alertblock}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{Tecnicas pos-clasificaci\'on}
-  \begin{block}{Fusi\'on}
-    Nos permite convertir las clases de clasificaci\'on generadas por algun algoritmo en clases tem\'aticas.
+\begin{frame}{\'Indices de Vegetaci\'on}
+    \begin{figure}
+    \centering
+    \includegraphics[width=0.6\textwidth]{imagenes/avndvi.png}
+    \caption{NDVI vs cantidad de biomasa h\'umeda.\footfullcite{tucker1979red}}
+    \end{figure}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{\'Indices de Vegetaci\'on}
+    \begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{imagenes/ndvivst.png}
+    \caption{Variaci\'on del NDVI en funci\'on de la epoca del año.\footfullcite{de2010spatio}}
+    \end{figure}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{\'Indices de Vegetaci\'on}
+  \begin{block}{Problemas}
+    \begin{itemize}[<+>]
+      \item Este \'indice puede saturar.
+      \item En suelos con baja cobertura vegetal suele ser mas dif\'icil de interpretar.
+      \item Estoy sacrificando informaci\'on que puede ser relevante.
+    \end{itemize}
+    Por suerte hay otros \'indices que mejoran esta situaci\'on
   \end{block}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{Tecnicas pos-clasificaci\'on}
-  \begin{figure}
-    \includegraphics[width=0.6\textwidth]{imagenes/im_class.png}
-    \caption{Imagen con clases fusionadas.}
-  \end{figure}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{Tecnicas pos-clasificaci\'on}
-  \begin{figure}
-    \includegraphics[width=0.6\textwidth]{imagenes/im_fus.png}
-    \caption{Imagen con clases fusionadas.}
-  \end{figure}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{Tecnicas pos-clasificaci\'on}
-  \begin{figure}
-    \includegraphics[width=0.6\textwidth]{imagenes/im_filter.png}
-    \caption{Imagen con clases fusionadas.}
-  \end{figure}
-\end{frame}
-%--- Next Frame ---%
 
 \section{Pr\'actica}
 
 \begin{frame}{Pr\'actica}
-  \begin{exampleblock}{Actividades pr\'acticas de la cuarta clase}
-    \begin{enumerate}[<+>]
+  \begin{exampleblock}{Actividades pr\'acticas de la tercer clase}
+    \begin{enumerate}
       \item Abrir im\'agenes Landsat 8 y digitalizar coberturas de inter\'es.
-      \item Clasifique la imagen por el método k-means con 7 clases.
-      \item Clasifique la imagen por el método k-means con 70 clases.
-      \item Utilizar la herramienta de estad\'isticas globales para estimar las \'areas correspondientes a cada uso y cobertura.
+      \item Calcular el \'indice de vegetaci\'on para las im\'agenes de febrero y agosto.
+      \item Realizar curvas fenol\'ogicas a partir del \'indice de vegetaci\'on en la imagen MODIS.
+      \item Utilizar la herramienta de componentes principales para reducir la dimensi\'onalidad de la imagen MODIS.
     \end{enumerate}
   \end{exampleblock}
 \end{frame}
