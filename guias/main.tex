@@ -356,6 +356,75 @@ sugerencias por categoria.
 FAO.}
 \end{table}
 
+\section{Ecuaciones}
+Ecuaciones utiles para el curso. Todas las magnitudes entre 0 y 1 estan
+escaladas entre 0 y 10,000. Las mismas estan pensadas para usar como tipo de
+dato entero de 16bits.
 
+\begin{table}[hbt]
+    \centering
+    \begin{tabular}{lcl}
+        \toprule
+        Nombre & Ecuaci\'on & Observaciones\\
+        \midrule
+        Reflectancia TOA & $\rho'_\lambda =
+        (G_\lambda*DN+B_\lambda)\times10000$ &
+        $G_\lambda$ : ganancia\\
+        & & $B_\lambda$ : desvio\\
+        Correccion por COS & $\rho_\lambda = \rho'_\lambda /
+        \sin(\theta_e)$ & $\theta_e$ : angulo de elevaci\'on \\
+        Correccion por DOS1 & $\rho^*_\lambda = \rho_\lambda -
+        \rho_{\lambda,min}$ & \\
+        NDVI & $\displaystyle\frac{\rho_{nir} -
+    \rho_{rojo}}{\rho_{nir}+\rho_{rojo}}\times10000$ & \\
+        EVI & $\displaystyle G\frac{\rho_{nir} -
+    \rho_{rojo}}{\rho_{nir}+C_1\rho_{rojo}-C_2\rho_{azul}+L}\times10000$ &
+        $G=2.5$ \\
+        & & $C_1=6.0$\\
+        & & $C_2=7.5$\\
+        & & $L = 1.0$\\
+        SAVI & $\displaystyle(1+L)\frac{\rho_{nir} -
+    \rho_{rojo}}{\rho_{nir}+\rho_{rojo}+L}\times10000$ & $L$ : Linea de suelo\\
+        \bottomrule
+    \end{tabular}
+    \caption{Ecuaciones escaladas para utilizar con tipo de dato entero de 16
+    bits}
+\end{table}
+
+\section{Transformada tasseled-cap}
+Transformada tasseled cap para Landsat 8-OLI.
+
+\begin{table}[htb]
+    \centering
+    \begin{tabular}{@{}lr@{}lr@{}lr@{}lr@{}lr@{}lr@{}l@{}}
+        \toprule
+                   & \multicolumn{2}{c}{(Azul)}  & \multicolumn{2}{c}{(Verde)} &
+        \multicolumn{2}{c}{(Rojo)}  & \multicolumn{2}{c}{(NIR)}   &
+        \multicolumn{2}{c}{(SWIR1)} & \multicolumn{2}{c}{(SWIR2)} \\ 
+                   & \multicolumn{2}{c}{Banda 2} & \multicolumn{2}{c}{Banda 3} &
+        \multicolumn{2}{c}{Banda 4} & \multicolumn{2}{c}{Banda 5} &
+        \multicolumn{2}{c}{Banda 6} & \multicolumn{2}{c}{Banda 7} \\
+        \midrule
+        Brightness & 0,           & 3029         & 0,           & 2786         &
+        0,           & 4733         & 0,           & 5599         & 0,
+        & 5080         & 0,           & 1872         \\
+        Greenness  & -0,          & 2941         & -0,          & 2430         &
+        -0,          & 5424         & 0,           & 7276         & 0,
+        & 0713         & -0,          & 1608         \\
+        Wetness    & 0,           & 1511         & 0,           & 1973         &
+        0,           & 3283         & 0,           & 3407         & -0,
+        & 7117         & -0,          & 4559         \\
+        TCT4       & -0,          & 8239         & 0,           & 0849         &
+        0,           & 4396         & -0,          & 0580         & 0,
+        & 2013         & -0,          & 2773         \\
+        TCT5       & -0,          & 3294         & 0,           & 0557         &
+        0,           & 1056         & 0,           & 1855         & -0,
+        & 4349         & 0,           & 8085         \\
+        TCT6       & 0,           & 1079         & -0,          & 9023         &
+        0,           & 4119         & 0,           & 0575         & 0,
+        & 0259         & 0,           & 0252         \\ \bottomrule
+    \end{tabular}
+    \caption{Transformada tasseled-cap para landsat 8.}
+\end{table}
 %\printbibliography\
 \end{document}
