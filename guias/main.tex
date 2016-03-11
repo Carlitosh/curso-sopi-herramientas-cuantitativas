@@ -32,13 +32,14 @@ territorio, contando con un registro histórico con el cual realizar
 comparaciones.
 
 En la provincia de Misiones, el departamento de Iguaz\'u es lindante a Brasil y 
-Paraguay siendo parte de la zona conocida como \emph{triple frontera}. Dentro del 
+Paraguay siendo parte de la zona conocida como triple frontera
+perteneciente a la ecorregi\'on conocida como \emph{selva paranaense}. Dentro del 
 mismo podemos encontrar la Represa de Urugua-\'{\i} y el parque nacional
 Iguaz\'u.
 
-Tomaremos entonces a dicha regi\'on como \'area de estudio durante este curso
-con el objetivo de obtener una estimaci\'on validada de las \'areas
-correspondients a los distintos usos del suelo dentro del departamento.
+Tomaremos entonces al departamento como \'area de estudio durante este curso
+con el objetivo de obtener un mapa de uso y cobertura dentro del mismo que nos
+permita estimar y validar  las \'areas correspondients a los mismos. 
 
 Utilizaremos para esto imagenes satelitales de los satelites Landsat 8, SPOT-5 y
 el producto de MOD13Q1 obtenido de los satelites TERRA y AQUA obtenidas durante el
@@ -46,15 +47,16 @@ periodo que va de agosto de 2013 a agostod de 2014.
 
 \newpage
 \section{Análisis de Firmas Espectrales}
-Es objetivo de esta practica familiarizarse con la zona de interes, estudiar la
-firma espectral de distintas categorias de uso del suelo y comprender como se
-relacionan las mismas con los valores obtenidos por el sat\'elite
+Es objetivo de esta practica es familiarizarse con la zona de interes, estudiar
+y caracterizar el comportamiento espectral de distintas las categorias de uso y
+cobertura y comprender como se relacionan las mismas con los valores obtenidos 
+por a partir de im\'agenes  satelitales.
 
 \subsection{Actividades pr\'acticas}
 \begin{enumerate}
-    \item Abra la imagen \texttt{l8\_oli\_2014\-08\-06.tif}. Realice distintas
-        combinaciones de banda y seleccione la que mejor le permita distinguir 
-        detalles de la vegetación.
+    \item Abra la imagen \texttt{l8\_oli\_20140211.tif}. Realice distintas
+        combinaciones de banda y seleccione aquella que le permita distinguir 
+        detalles mas de la vegetación.
     \item Encuentre dentro de la escena parches de coberturas uniformes y 
         digitalícelos utilizando la herramienta de edición vectorial. Tome
         ejemplos de distintas coberturas correspondientes a los casos A11, A12,
@@ -64,7 +66,7 @@ relacionan las mismas con los valores obtenidos por el sat\'elite
         en el punto 2. Compararla con la firma espectral disponible para dicha
         cobertura.
     \item Repita el proceso para coberturas del mismo tipo en la imagen 
-        correspondiente a \texttt{l1\_l8\_oli\_2013\-08\-19.tif}.
+        correspondiente a \texttt{l1\_l8\_oli\_20130819.tif}.
 \end{enumerate}
 \subsection{Preguntas}
 \begin{enumerate}
@@ -73,41 +75,39 @@ relacionan las mismas con los valores obtenidos por el sat\'elite
         infrarrojo cercano y el infrarrojo medio aporta más información sobre la
         vegetación.
     \item Compare las respuestas espectrales de la vegetación en la zona del
-        espectro visible en de las im\'agenes \texttt{l8\_oli\_2014\-08\-06.tif}
-        y \texttt{l1\_l8\_oli\_2013\-08\-19.tif} y explique qué diferencias
-        encuentra. ¿De qué color debe verse la vegetación si su respuesta fuese
-        como la de la firma espectral del mes de agosto?
+        espectro visible en de las im\'agenes \texttt{l8\_oli\_20140211.tif}
+        y \texttt{l1\_l8\_oli\_20130819.tif} y explique qué diferencias
+        encuentra. ?`Le parece que las mismas pueden asociarse a un
+        comportamiento biof\'isico de la vegetaci\'on?
     \item Compare las respuestas espectrales obtenidas para el agua en los meses
-        de las im\'agenes \texttt{l8\_oli\_2014\-08\-06.tif}
-        y \texttt{l1\_l8\_oli\_2013\-08\-19.tif}. En caso de encontrar diferencias, 
+        de las im\'agenes \texttt{l8\_oli\_20140211.tif}
+        y \texttt{l1\_l8\_oli\_20130819.tif}. En caso de encontrar diferencias, 
         diga en que zona del espectro se encuentran las mismas y a qué supone que 
         se debe esta diferencia.
-    \item Seleccione una de las dos imágenes en la cual considere que las
-        respuestas espectrales son más similares a la firma espectral que espera
-        observar. A partir de dicha imagen genere un gráfico que incluya las
-        firmas espectrales de 4 tipos de cobertura de vegetación. Describa
-        brevemente el comportamiento de la respuesta espectral de la vegetación
-        en la zona entre el rojo y el infrarrojo cercano.
+    \item A partir de dicha la imagen \texttt{l8\_oli\_20140211.tif} genere un 
+        gráfico que incluya las firmas espectrales de 4 tipos de cobertura de 
+        vegetación. Describa cualitativamente las caracteristicas comunes de las
+        cuatro firmas. ?`Donde presentan mayor diferencia? ?`A que se debe?
 \end{enumerate}
 
 \newpage
 \section{Corrección Radiométrica de Imágenes satelitales}
 Es objetivo de esta practica es conocer como afecta la interacción entre la luz
-y la atmósfera a la toma de firmas espectrales en el terreno a partir de una
-imagen satelital y estudiar distintos métodos empíricos y estadísticos para
-corregirlas.
+y la atmósfera a la radiometr\'ia de una imagen satelital y la respuesta
+espectral de los distintos usos y coberturas  y estudiar distintos métodos empíricos 
+y estadísticos para corregirla.
 \subsection{Actividades pr\'acticas}
 \begin{enumerate}
-    \item Convierta la imagen  \texttt{l1\_l8\_oli\_2013\-08\-19.tif} a reflectancia a 
+    \item Convierta la imagen  \texttt{l1\_l8\_oli\_20130819.tif} a reflectancia a 
         tope de la atmósfera utilizando los parámetros de calibración que se 
         encuentran dentro del metadato de la misma.
     \item Corrija la imagen del punto anterior utilizando el coseno del ángulo solar 
         como única corrección.
     \item Grafique el histograma para cada banda de la imagen anterior y utilícelos 
         para corregirla por el método de substracción de cuerpo obscuro (DOS1).
-    \item Compare las firmas espectrales para los distintos métodos de
-        corrección radiométrica con la obtenida para la imagen 
-        \texttt{l8\_oli\_2013\-08\-19.tif}.
+    \item Compare las firmass espectrales obtenidas en el punto anterior con las
+        obtenidas a partir de la imagen \texttt{l8\_oli\_20130819.tif} para
+        distintos usos y coberturas.
 \end{enumerate}
 
 \subsection{Preguntas}
@@ -129,14 +129,14 @@ corregirlas.
 \end{enumerate}
 \newpage
 \section{Calculo de \'{\i}ndices espectrales}
-El objetivo de esta práctica es estudiar los \'{\i}indices espectrales
-calculados a partir de  imágenes satelitales y sus distintos usos como un caso
+El objetivo de esta práctica generar e interpretar \'{\i}ndices espectrales
+a partir de  imágenes satelitales y sus distintos usos como un caso
 particular de reducci\'on de la dimensionalidad.
 
 \subsection{Actividades pr\'acticas}
 \begin{enumerate}
-    \item Abra las imagenes \texttt{l8\_oli\_2013\-08\-19.tif} y 
-        \texttt{l8\_oli\_2013\-02\-11.tif} y calcule los indices NDVI y EVI en 
+    \item Abra las imagenes \texttt{l8\_oli\_20130819.tif} y 
+        \texttt{l8\_oli\_20130211.tif} y calcule los indices NDVI y EVI en 
         para ambas.
     \item Apile cada par de  índices y visualice la imagen en la combinación que 
         muestre ambos en simultáneo.
@@ -155,16 +155,16 @@ particular de reducci\'on de la dimensionalidad.
     \item ¿Cómo se observa, en la imagen de índices apilados las distintas
         coberturas? Explique brevemente a que se debe dicha diferencia.
     \item Muestre en un gráfico de variación anual del NDVI para distintas coberturas.
-        ¿Cuál es la que presenta la estacionalidad más marcada? Identifique, si es
+        ¿Cuál es la que presenta mayor variaci\'on en el tiempo? Identifique, si es
         posible, la temporada de crecimiento para la misma.
-    \item Grafique en simultaneo los \'{\i}ndices EVI y NDVI.?`Encuentra alguna
+    \item Grafique en simultaneo los \'{\i}ndices EVI y NDVI. ?`Encuentra alguna
         diferencia entre el comportamiento temporal de ambos? 
-    \item Calculo el \'{\i}ndice NDVI a partir de la imagen
+    \item Calcule el \'{\i}ndice NDVI a partir de la imagen
         \texttt{l1\_l8\_oli\_2013\-08\-19.tif}
         y comparelos con el obtenido a partir de la
         imagen \texttt{8\_oli\_2013\-08\-19.tif} estudiando el valor para distintos
-        tipos de cobertura.?`Coinciden los mismos??`A que se debe la
-        diferencia?
+        tipos de cobertura. ?`Coinciden los mismos? ?`Es biologicamente relevante
+        este cambio?
 \end{enumerate}
 \newpage
 \section{Rotaciones y transformaciones}
@@ -180,36 +180,33 @@ utilizacion de rotaciones y transformaciones espectrales.
         por componentes principales y diga que información puede distinguir en la 
         misma. 
     \item \label{pca} Apile las imagenes
-        \begin{itemize}
-        \item \texttt{l8\_oli\_2013\-08\-19.tif}
-        \item \texttt{l8\_oli\_2013\-11\-07.tif}
-        \item \texttt{l8\_oli\_2014\-02\-11.tif}
-        \item \texttt{l8\_oli\_2014\-05\-18.tif}
-        \end{itemize}
-        y aplique la transformaci\'on por componentes principales a la misma.
-        Analise las distintas compotentes.
-    \item Utilizando la imagen \texttt{l8\_oli\_2014\-08\-06.tif} calcule la 
-        transformada tasseled-cap y compare la componentes de \emph{verdor} con
+        ; \texttt{l8\_oli\_2013\-08\-19.tif}
+        ; \texttt{l8\_oli\_2013\-11\-07.tif}
+        ; \texttt{l8\_oli\_2014\-02\-11.tif}
+        y \texttt{l8\_oli\-\_2014\-05\-18.tif}.
+        Aplique la transformaci\'on por componentes principales.
+        Analice las distintas compotentes.
+    \item Con imagen \texttt{l8\_oli\_2014\-08\-06.tif} calcule la 
+        transformada tasseled-cap. Compare la componente de \emph{verdor} con
         el NDVI\@.
-    \item Utilizando la imagen \texttt{l8\_oli\_2014\-08\-06.tif} calcule la 
+    \item Con la imagen \texttt{l8\_oli\_2014\-08\-06.tif} calcule la 
         transformada por componentes principales y compare sus componentes con la
         componente de verdor de la transformada tasseled-cap.
 \end{enumerate}
 
 \subsection{Preguntas}
 \begin{enumerate}
-    \item ¿Cómo se relacionan las primeras 3 componentes de la transformada por
-        componentes principales con las curvas de variación del NDVI antes
-        estudiadas? 
+    \item ¿Cómo se relacionan las primeras 2 componentes de la transformada por
+        componentes principales con el promedio y el comportamiento anual de la
+        variaci\'on temporal del NDVI\@? 
     \item En la imagen obtenida a partir del proceso de calculo de componentes
-        principales sobre el apilado de imagenes Landsat,?`Cuantas componentes
-        se necesitan para explicar el 95\% de la variabilidad de la imagen?
+        principales sobre el apilado de imagenes Landsat, ?`Cuantas componentes
+        se necesitan para explicar el 75\% de la variabilidad de la imagen?
     \item Describa, brevemente, como se interpretan las primeras 3 componentes
-        de la imagen obtenida en el punto~\ref{pca}?`Como se relaciona esto con la
+        de la imagen obtenida en el punto~\ref{pca}. ?`Como se relaciona esto con la
         firma espectral de la vegetaci\'on?
-    \item Interprete brevemente la componente de brillo de la transformada
-        tasseled cap.?`Con que componente de una transformada por PCA esta 
-        asociada?
+    \item Interprete brevemente la componente de brillo y verdorde la transformada
+        tasseled cap.
 \end{enumerate}
 
 \section{Métodos no supervisados de clasificación}
@@ -228,7 +225,7 @@ mapas de uso y cobertura con sus respectivas áreas.
         k-means, pero ahora utilice 50
         clases. Analice y asigne a estas clases las categorias A11, A12,
         B15, B27, B28 de la tabla~\ref{tabla1} del ap\'endic~\ref{apcate}.
-    \item Clasifique las primeras 6 bandas de  imagen obtenida en el punto~\ref{pca} 
+    \item Clasifique las primeras 6 la bandas de imagen obtenida en el punto~\ref{pca} 
         de la secci\'on~\ref{rot:pra} utilizando el m\'etodo k-means
         asignando un total de 50 clases. Analice y asigne a estas clases las categorias A11, A12,
         B15, B27, B28 de la tabla~\ref{tabla1} del ap\'endice~\ref{apcate}.
@@ -240,13 +237,14 @@ mapas de uso y cobertura con sus respectivas áreas.
 \subsection{Preguntas}
 \begin{enumerate}
     \item ¿Qué diferencia encuentra entre las imágenes clasificadas? Justifique
-        las diferencias desde el punto de vista del método de k-means.
-    \item Utilice la imagen  \texttt{mod13q1\_ndvi\_2013\-07\-27\_2014\-08\-28.tif }para 
+        las diferencias desde el punto de vista de la variaci\'on del parametro
+        de numero de clases del método de k-means.
+    \item Clasifique la imagen  \texttt{mod13q1\_ndvi\_2013\-07\-27\_2014\-08\-28.tif }para 
         generar una nueva clasificación por el método k-means. Confeccione una 
-        tabla comparativa de las áreas de los distintos usos y coberturas 
-        obtenidas de las cuatro im\'agenes clasificadas.
+        tabla comparativa de las áreas de los distintos usos y coberturas.
     \item ¿Considera que el método de k-means da resultados satisfactorios para
-        la clasificación de áreas urbanas? ¿A qué se debe este problema?
+        la clasificación de áreas urbanas? ¿A qué se debe este problema? ?`Como
+        lo corroborar\'ia?
     \item Utilice los filtros por mayoría en las imágenes clasificadas y
         describa brevemente que sucede con los bordes de las distintas clases.
 \end{enumerate}
@@ -259,11 +257,11 @@ mapas de uso y cobertura con sus respectivas áreas.
 
 \subsection{Actividades pr\'acticas}
 \begin{enumerate}
-    \item Digitalice un parche  para las categorias A11, A12, B15, B27, B28 de la 
+    \item Digitalice un parche homogeneo  para las categorias A11, A12, B15, B27, B28 de la 
     tabla~\ref{tabla1} del ap\'endice~\ref{apcate} creando una capa vectorial para 
     cada tipo de cobertura. Grafique la firma espectral y el desvío de cada una. 
-    \item Clasifique la imagen \texttt{l8\_oli\_2014\-08\-06.tif} las
-    áreas de entrenamiento creadas en el punto anterior. Utilizando la herramienta
+    \item Clasifique la imagen \texttt{l8\_oli\_2014\-08\-06.tif} utilizando las
+    áreas de entrenamiento creadas en el punto anterior. Con la herramienta
     de estadísticas globales, encuentre el área correspondiente a cada tipo de uso y
     cobertura.
     \item Cargue las capas vectoriales de la carpeta \texttt{entrenamiento} y
@@ -283,9 +281,9 @@ mapas de uso y cobertura con sus respectivas áreas.
         necesidad de tomar distintas clases de entrenamiento para cada uso y
         cobertura encontrado en la imagen. ¿Cómo se determina la homogeneidad de
         cada uno de estos parches?
-    \item ¿Cuál es el problema de aumentar el número de bandas del satélite
-        utilizadas para la clasificación sin aumentar el número de píxeles de
-        entrenamiento?
+    \item Compare las clasificaciones obtenidas al utilizar distintos umbrales. 
+        ¿Que pasa con las \'areas clasificadas como sin clase cuando el umbral
+        vale cero?
     \item Compare las áreas obtenidas a partir del método k-means, utilizando la
         imagen fusionada, y la clasificación por máxima verosimilitud y diga si
         las mismas son comparables o no.
@@ -299,35 +297,32 @@ y los problemas que pueden presentarse.
 
 \subsection{Actividades pr\'acticas}
 \begin{enumerate}
-    \item Abra la imagen \texttt{spot5\_hrg2\_2013\-12\-25\_702\_402.tif} y
+    \item Abra la imagen \texttt{spot5\_hrg2\_2013\-12\-25\_702\_402.tif} e
         identifique coberturas de las categorias A11, A12, B15, B27, B28 de la 
         tabla~\ref{tabla1} del ap\'endic~\ref{apcate}. Digitalice un poligono
-        para cada una de las mismas.
+        para cada una.
     \item Cargue los polígonos de la carpeta \texttt{validacion} correspondientes a cada clase de
         uso y cobertura del suelo. 
     \item Realice la matriz de confusión para cada una de las clasificaciones.
     \item A partir de las matrices obtenidas calcule la precisión global,
         precisiones del usuario el productor y el índice kappa para cada una de
-        ellas. Utilizando ademas los datos de area de cada imagen obtenga las
+        ellas. Utilizando ademas los datos de \'area de cada imagen, obtenga las
         areas y errores correspondientes a cada categoria de uso y cobertura.
 \end{enumerate}
 \subsection{Preguntas}
 \begin{enumerate}
     \item Calcule la precisión de las clasificaciones obtenidas a partir de la
-    imagen de NDVI y del apilado de las imágenes Landsat 8. Para ello
-    construya la matriz de confusión para cada una y calcule  las precisiones
-    globales, del usuario y del productor. Muestre las matrices de confusión
-    obtenidas y sus precisiones globales para la clasificación del NDVI, la
-    clasificación de las imágenes apiladas, la clasificación por el método
-    k-means de 50 clases fusionadas y la clasificación supervisada.
+    imagen de NDVI y del apilado de las imágenes Landsat 8. ?`Cual es el
+    m\'etodo con mayor presici\'on global
+    \item Utilice el método de mayor precisión global para estimar el área  de cada
+    uso y cobertura. Encuentre el error correspondiente a los mismos.
     \item ¿Cuál de los métodos elegidos muestra mejores resultados para la
     clasificación de areas de vegetaci\'on natural? ¿Qué clasificaci\'on elegiría, desde
     el punto de vista del usuario, para estimar el área del embalse
     Urugua-\'{\i}? Justifique su respuesta.
-    \item Utilice el método de mayor precisión global para estimar el área  de cada
-    uso y cobertura. Encuentre el error correspondiente a los mismos.
-    \item ?`Cuales son las categorias con menor precisi\'on del productor??`Que
-        le dice esto sobre los m\'etodos de clasificaci\'on?
+    \item ?`Cuales son las categorias con menor precisi\'on del productor? ?`Que
+        le dice esto sobre los m\'etodos de clasificaci\'on? ?`Cual es la
+        utilidad de la presici\'on del productor y del usuario?
 \end{enumerate}
 \newpage
 \appendix
