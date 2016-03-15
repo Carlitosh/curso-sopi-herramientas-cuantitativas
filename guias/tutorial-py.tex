@@ -37,37 +37,41 @@ En esta seccion veremos como instalar y ejecutar python en Linux.
 \subsection{Instalar miniconda}
 
 De la p\'agina de conda, \url{http://conda.pydata.org/miniconda.html}, descargue 
-el instalador de miniconda correspondiente a su sistema operativo. 
+el instalador de miniconda de la versi\'on 3.5 correspondiente a su sistema operativo. 
 
 Abra una terminal y ejecute el comando
-
+\begin{quote}
 \begin{verbatim}
-bashsh ~/Downloads/Anaconda3-2.4.0-Linux-x86_64.sh
+bash ~/Downloads/Anaconda3-2.4.0-Linux-x86_64.sh
 \end{verbatim}
-
+\end{quote}
 Siga el proceso de instalacion aceptando la licencia. Cuando le pregunte si
 desea agregar miniconda a la variable path, responda \texttt{yes} y precione
-enter.
+enter. Cierre luego la terminal.
 
 \subsection{Configuraci\'on de paquetes de python}
 
 Abra una terminal. Ejecute luego los siguientes comandos, presionando enter
 luego de cada uno. Responda \texttt{y} cuando el instalador le pregunte 
-
+\begin{quote}
 \begin{verbatim}
 conda create -n py34 python=3.4
 source activate py34
 conda install -n py34 numpy scipy matplotlib scikit-learn jupyter gdal
 \end{verbatim}
+\end{quote}
+Cierre luego la terminal.
 
 \subsection{Ejecutar jupyter notebook}
 Para ejecutar los notebooks de pythons abra una terminal. Ejecute luego los 
 siguientes comandos, presionando enter luego de cada uno
 
+\begin{quote}
 \begin{verbatim}
 source activate py34
 jupyter notebook
 \end{verbatim}
+\end{quote}
 
 \section{Windows}
 En esta seccion veremos como instalar y ejecutar python en windows.
@@ -75,41 +79,55 @@ En esta seccion veremos como instalar y ejecutar python en windows.
 \subsection{Instalar miniconda}
 
 De la p\'agina de conda, \url{http://conda.pydata.org/miniconda.html}, descargue 
-el instalador de miniconda correspondiente a su sistema operativo. 
+el instalador de miniconda de la versi\'on 3.5 correspondiente a su sistema
+operativo. Ejec\'utelo. Cuando le mismo le pregunte para que usuario instalarlo,
+seleccione la opcion \emph{Just me}.
 
 \subsection{Configuraci\'on de paquetes de python}
 
 Abra una terminal haciendo click en \emph{inicio} y en el campo de \emph{Buscar
 programas y archivos} escriba 
+\begin{quote}
 \begin{verbatim}
 cmd.exe
 \end{verbatim}
+\end{quote}
 y precione enter.
 
 Ejecute luego los siguientes comandos, presionando enter luego de cada uno. Responda 
 \texttt{y} cuando el instalador le pregunte.
 
+\begin{quote}
 \begin{verbatim}
 conda create -n py34 python=3.4
 activate py34
 conda install -n py34 numpy scipy matplotlib scikit-learn jupyter gdal
 \end{verbatim}
+\end{quote}
+
+Cierre luego la terminal.
 
 \subsection{Ejecutar jupyter notebook}
 Para ejecutar los notebooks de pythons abra una terminal haciendo click en 
 \emph{inicio} y en el campo de \emph{Buscar programas y archivos} escriba 
+\begin{quote}
 \begin{verbatim}
 cmd.exe
 \end{verbatim}
+\end{quote}
 y precione enter.
 
 Ejecute luego los siguientes comandos, presionando enter luego de cada uno
 
+\begin{quote}
 \begin{verbatim}
 activate py34
 jupyter notebook
 \end{verbatim}
+\end{quote}
 
+Recuerde que para ejecutarlos debe tener configurado \emph{firefox} o
+\emph{google-chrome} como su navegador predeterminado.
 
 %\printbibliography\
 \end{document}
