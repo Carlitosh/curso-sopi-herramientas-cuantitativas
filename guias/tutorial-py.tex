@@ -1,0 +1,115 @@
+\documentclass[hidelinks,12pt]{article}
+
+% Preambulo por defecto
+\input{preamble.tex}
+
+\definecolor{A11}{HTML}{B2DF8A}
+\definecolor{A12}{HTML}{33A02C}
+\definecolor{A23}{HTML}{FDBF6F}
+\definecolor{A24}{HTML}{FF7F00}
+\definecolor{B15}{HTML}{FB9A99}
+\definecolor{B16}{HTML}{E31A1C}
+\definecolor{B27}{HTML}{A6CEE3}
+\definecolor{B28}{HTML}{1F78B4}
+
+\title{SoPI II \- Herramientas de Teledetecci\'on Cuantitativa \\ 
+\emph{Tutorial de instalaci\'on de python}}
+\author{Francisco
+Nemi\~na\thanks{\href{mailto:fnemina@conae.govar}{fnemina@conae.gov.ar}}}
+\affil{Unidad de Educaci\'on y Formaci\'on Masiva\\ 
+    Comisi\'on Nacional de Actividades Espaciales}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Introducci\'on}
+Este tutorial lo guiar\'a en los pasos necesarios para instalar y utilizar
+python en windows.
+
+Los notebook hechos con dicho lenguaje seran utilizados como herramientas
+complementarias durante el curso.
+
+\section{Linux}
+En esta seccion veremos como instalar y ejecutar python en Linux.
+
+\subsection{Instalar miniconda}
+
+De la p\'agina de conda, \url{http://conda.pydata.org/miniconda.html}, descargue 
+el instalador de miniconda correspondiente a su sistema operativo. 
+
+Abra una terminal y ejecute el comando
+
+\begin{verbatim}
+bashsh ~/Downloads/Anaconda3-2.4.0-Linux-x86_64.sh
+\end{verbatim}
+
+Siga el proceso de instalacion aceptando la licencia. Cuando le pregunte si
+desea agregar miniconda a la variable path, responda \texttt{yes} y precione
+enter.
+
+\subsection{Configuraci\'on de paquetes de python}
+
+Abra una terminal. Ejecute luego los siguientes comandos, presionando enter
+luego de cada uno. Responda \texttt{y} cuando el instalador le pregunte 
+
+\begin{verbatim}
+conda create -n py34 python=3.4
+source activate py34
+conda install -n py34 numpy scipy matplotlib scikit-learn jupyter gdal
+\end{verbatim}
+
+\subsection{Ejecutar jupyter notebook}
+Para ejecutar los notebooks de pythons abra una terminal. Ejecute luego los 
+siguientes comandos, presionando enter luego de cada uno
+
+\begin{verbatim}
+source activate py34
+jupyter notebook
+\end{verbatim}
+
+\section{Windows}
+En esta seccion veremos como instalar y ejecutar python en windows.
+
+\subsection{Instalar miniconda}
+
+De la p\'agina de conda, \url{http://conda.pydata.org/miniconda.html}, descargue 
+el instalador de miniconda correspondiente a su sistema operativo. 
+
+\subsection{Configuraci\'on de paquetes de python}
+
+Abra una terminal haciendo click en \emph{inicio} y en el campo de \emph{Buscar
+programas y archivos} escriba 
+\begin{verbatim}
+cmd.exe
+\end{verbatim}
+y precione enter.
+
+Ejecute luego los siguientes comandos, presionando enter luego de cada uno. Responda 
+\texttt{y} cuando el instalador le pregunte.
+
+\begin{verbatim}
+conda create -n py34 python=3.4
+activate py34
+conda install -n py34 numpy scipy matplotlib scikit-learn jupyter gdal
+\end{verbatim}
+
+\subsection{Ejecutar jupyter notebook}
+Para ejecutar los notebooks de pythons abra una terminal haciendo click en 
+\emph{inicio} y en el campo de \emph{Buscar programas y archivos} escriba 
+\begin{verbatim}
+cmd.exe
+\end{verbatim}
+y precione enter.
+
+Ejecute luego los siguientes comandos, presionando enter luego de cada uno
+
+\begin{verbatim}
+activate py34
+jupyter notebook
+\end{verbatim}
+
+
+%\printbibliography\
+\end{document}
