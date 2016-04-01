@@ -136,7 +136,7 @@ particular de reducci\'on de la dimensionalidad.
 \subsection{Actividades pr\'acticas}
 \begin{enumerate}
     \item Abra las imagenes \texttt{l8\_oli\_20130819.tif} y 
-        \texttt{l8\_oli\_20130211.tif} y calcule los indices NDVI y EVI en 
+        \texttt{l8\_oli\_20140211.tif} y calcule los indices NDVI y EVI en 
         para ambas.
     \item Apile cada par de  índices y visualice la imagen en la combinación que 
         muestre ambos en simultáneo.
@@ -146,8 +146,8 @@ particular de reducci\'on de la dimensionalidad.
         \texttt{mod13q1\_evi\_2013\-07\-27\_2014\-08\-28.tif}.
     \item Estime la pendiente de la linea de suelo a partir de la
         interpretaci\'on de un scatter-plot de las bandas del infrarrojo cercano
-        y rojo de la imagen \texttt{l8\_oli\_2013\-08\-19.tif} y utilicela para
-        calcular el \'{\i}ndice SAVI\@.
+        y rojo de la imagen \texttt{l8\_oli\_2014\-02\-11.tif} y utilicela para
+        calcular el \'{\i}ndice TSAVI\@.
 \end{enumerate}
 
 \subsection{Preguntas}
@@ -180,18 +180,18 @@ utilizacion de rotaciones y transformaciones espectrales.
         por componentes principales y diga que información puede distinguir en la 
         misma. 
     \item \label{pca} Apile las imagenes
-        ; \texttt{l8\_oli\_2013\-08\-19.tif}
+        \texttt{l8\_oli\_2013\-08\-19.tif}
         ; \texttt{l8\_oli\_2013\-11\-07.tif}
         ; \texttt{l8\_oli\_2014\-02\-11.tif}
         y \texttt{l8\_oli\-\_2014\-05\-18.tif}.
         Aplique la transformaci\'on por componentes principales.
         Analice las distintas compotentes.
-    \item Con imagen \texttt{l8\_oli\_2014\-08\-06.tif} calcule la 
+    \item Con imagen \texttt{l8\_oli\_2014\-02\-11.tif} calcule la 
         transformada tasseled-cap. Compare la componente de \emph{verdor} con
         el NDVI\@.
-    \item Con la imagen \texttt{l8\_oli\_2014\-08\-06.tif} calcule la 
-        transformada por componentes principales y compare sus componentes con la
-        componente de verdor de la transformada tasseled-cap.
+    \item Con la imagen \texttt{l8\_oli\_2014\-02\-11.tif} calcule la 
+        transformada por componentes principales y compare las primeras
+        componentes con las de la transformada tasseled-cap.
 \end{enumerate}
 
 \subsection{Preguntas}
@@ -217,11 +217,11 @@ mapas de uso y cobertura con sus respectivas áreas.
 
 \subsection{Actividades pr\'acticas}
 \begin{enumerate}
-    \item Clasifique la imagen \texttt{l8\_oli\_2014\-08\-06.tif} por el método 
+    \item Clasifique la imagen \texttt{l8\_oli\_2014\-02\-11.tif} por el método 
         k-means, asignando un número total
         de 5 clases. Analice y asigne a estas clases las categorias A11, A12,
         B15, B27, B28 de la tabla~\ref{tabla1} del ap\'endice~\ref{apcate}.
-    \item Clasifique la imagen \texttt{l8\_oli\_2014\-08\-06.tif} por el método de 
+    \item Clasifique la imagen \texttt{l8\_oli\_2014\-02\-11.tif} por el método de 
         k-means, pero ahora utilice 50
         clases. Analice y asigne a estas clases las categorias A11, A12,
         B15, B27, B28 de la tabla~\ref{tabla1} del ap\'endic~\ref{apcate}.
@@ -260,12 +260,12 @@ mapas de uso y cobertura con sus respectivas áreas.
     \item Digitalice un parche homogeneo  para las categorias A11, A12, B15, B27, B28 de la 
     tabla~\ref{tabla1} del ap\'endice~\ref{apcate} creando una capa vectorial para 
     cada tipo de cobertura. Grafique la firma espectral y el desvío de cada una. 
-    \item Clasifique la imagen \texttt{l8\_oli\_2014\-08\-06.tif} utilizando las
+    \item Clasifique la imagen \texttt{l8\_oli\_2014\-02\-11.tif} utilizando las
     áreas de entrenamiento creadas en el punto anterior. Con la herramienta
     de estadísticas globales, encuentre el área correspondiente a cada tipo de uso y
     cobertura.
     \item Cargue las capas vectoriales de la carpeta \texttt{entrenamiento} y
-        vuelva a clasificar la imagen \texttt{l8\_oli\_2014\-08\-06.tif}.
+        vuelva a clasificar la imagen \texttt{l8\_oli\_2014\-02\-11.tif}.
     \item Fusione la imagen en las clases de uso y cobertura deseada, y utilice la
     imagen obtenida para calcular nuevamente el área correspondiente a cada uso y
     cobertura del suelo. 
@@ -375,16 +375,19 @@ dato entero de 16bits.
         \sin(\theta_e)$ & $\theta_e$ : angulo de elevaci\'on \\
         Correccion por DOS1 & $\rho^*_\lambda = \rho_\lambda -
         \rho_{\lambda,min}$ & \\
-        NDVI & $\displaystyle\frac{\rho_{nir} -
+        NDVI & $\frac{\rho_{nir} -
     \rho_{rojo}}{\rho_{nir}+\rho_{rojo}}\times10000$ & \\
-        EVI & $\displaystyle G\frac{\rho_{nir} -
+        EVI & $G\frac{\rho_{nir} -
     \rho_{rojo}}{\rho_{nir}+C_1\rho_{rojo}-C_2\rho_{azul}+L}\times10000$ &
-        $G=2.5$ \\
-        & & $C_1=6.0$\\
-        & & $C_2=7.5$\\
-        & & $L = 1.0$\\
-        SAVI & $\displaystyle(1+L)\frac{\rho_{nir} -
-    \rho_{rojo}}{\rho_{nir}+\rho_{rojo}+L}\times10000$ & $L$ : Linea de suelo\\
+        $G=2.5$, $L=1.0$ \\
+        & & $C_1=6.0$, $C_2 = 7.5$\\
+        SAVI & $(1+L)\frac{\rho_{nir} -
+    \rho_{rojo}}{\rho_{nir}+\rho_{rojo}+L}\times10000$ & $L = 0.5$\\
+        TSAVI & $m\frac{\rho_{nir} -
+        m\rho_{rojo}-b}{m\rho_{nir}+\rho_{rojo}-mb}\times10000$ & $m$ :
+        Pendiente \\
+        & & $b$ : Ordenada al origen\\
+        & & de la linea de suelo.\\
         \bottomrule
     \end{tabular}
     \caption{Ecuaciones escaladas para utilizar con tipo de dato entero de 16
