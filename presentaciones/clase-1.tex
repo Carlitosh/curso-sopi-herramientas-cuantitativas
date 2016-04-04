@@ -7,7 +7,9 @@
 
 \title{Herramientas de Teledetección Cuantitativa\\{\small Clase 1}}
 \author{Francisco Nemi\~na}
-\institute[Inst.]{\includegraphics[height=1cm]{imagenes/logosopi.png}\phantom{pepe} \includegraphics[height=1cm]{imagenes/2mp.png}\phantom{pepe} \includegraphics[height=1cm]{imagenes/conae.png}}
+\institute{Unidad de Educaci\'on y Formaci\'on Masiva \\ Comisi\'on Nacional de
+Actividades Espaciales}
+%\institute[Inst.]{\includegraphics[height=1cm]{Figures/logosopi.png}\phantom{pepe} \includegraphics[height=1cm]{Figures/2mp.png}\phantom{pepe} \includegraphics[height=1cm]{Figures/conae.png}}
 \date{}
 %\titlegraphic{
 %\includegraphics[height=1cm]{imagenes/minplan.png}\phantom{1}
@@ -46,18 +48,18 @@
 \begin{frame}[fragile]{Organizaci\'on del curso}
   \begin{block}{Plataforma de Educaci\'on a Distancia}
     \verb+https://sopi.conae.gov.ar/aulavirtual+\\
-    \verb+Contraseña: sopiII2015+
+    \verb+Contraseña: benteveo2016+
   \end{block}\pause
   \begin{block}{Aprobaci\'on}
     \begin{enumerate}
-      \item 75\% de asistencia.
-      \item 7 cuestionarios te\'orico-pr\'acticos sobre las clases
-      \item 1 trabajo final integrador
+        \item \emph{75\% de asistencia.}
+        \item sumar 60 puntos entre
+            \begin{itemize}
+                \item 7 cuestionarios te\'orico-pr\'acticos sobre las clases
+                \item 1 trabajo final integrador
+            \end{itemize}
     \end{enumerate}\pause
   \end{block}
-  \begin{alertblock}{Modalidad de trabajo}
-    Te\'orico-pr\'actico con la inclusión de lecturas complementarias.
-  \end{alertblock}
 \end{frame}
 %--- Next Frame ---%
 
@@ -157,7 +159,7 @@
 \begin{frame}{Radiancia}
   \begin{block}{Curva de irradiancia}
     C\'alculo de la irradiancia de un cuerpo negro
-    $$ L(\lambda,T) = \frac{2hc^2}{\lambda^5}\frac{1}{e^{\frac{hc}{\lambda k_B T}}-1}$$
+    $$ E(\lambda,T) = \frac{2hc^2}{\lambda^5}\frac{1}{e^{\frac{hc}{\lambda k_B T}}-1}$$
   \end{block}
 \end{frame}
 %--- Next Frame ---%
@@ -186,14 +188,14 @@
   \begin{exampleblock}{Valores tipos de E para Landsat}
     En $[L_{\lambda}] = \frac{W}{m^2 \mu m}$
     \begin{figure}
-      \begin{tabular}{l c c}
-        Banda & ETM+  & TM    \\
-        1     & 1970  & 1954  \\
-        2     & 1843  & 1826  \\
-        3     & 1555  & 1558  \\
-        4     & 1047  & 1047  \\
-        5     & 227.1 & 217.2 \\
-        7     & 80.53 & 80.29 \\
+      \begin{tabular}{l c c c}
+          Banda & ETM+  & TM    &  OLI \\
+          1     & 1970  & 1954  & 1925 \\
+          2     & 1843  & 1826  & 1826 \\
+          3     & 1555  & 1558  & 1574 \\
+          4     & 1047  & 1047  & 955  \\
+          5     & 227.1 & 217.2 & 242 \\
+          7     & 80.53 & 80.29 & 82.5\\
       \end{tabular}
     \end{figure}
   \end{exampleblock}
