@@ -1,0 +1,16 @@
+#Ecuaciones para copiar y pegar en el SoPI.
+#Configurar el tipo de dato como entero de 16bits.
+
+(G*X+B)*10000
+
+X/sin(3.14159265*ANG/180.0)
+
+X-Xmin
+
+(N-R)/(N+R)
+
+2.5*(N-R)/(N+6.0*R-7.5*A+1.0)*10000
+
+(1+0.5)*(N-R)/(N+R+0.5)*10000
+
+m*(N-m*R-b)/(m*N+R-m*b)*10000
