@@ -19,8 +19,7 @@ Actividades Espaciales}
 \logo{\includegraphics[height=0.7cm]{imagenes/sopi.png}}
 
 \AtBeginSection[]
-{
-\begin{frame}
+{\begin{frame}
 \frametitle{Esquema de presentaci\'on}
 \tableofcontents[currentsection]
 \end{frame}
@@ -54,315 +53,12 @@ Actividades Espaciales}
 \begin{frame}{Motivaci\'on}
   \begin{block}{T\'ecnicas de reducci\'on de la dimensionalidad}
     \begin{itemize}[<+>]
-      \item Rotaciones
       \item \'Indices
+      \item Rotaciones
       \item Clasificaciones
     \end{itemize}
     \pause
-    Empezamos con las primeras dos.
-  \end{block}
-\end{frame}
-%--- Next Frame ---%
-
-\subsection{Matem\'atica}
-
-
-\begin{frame}{Matem\'atica}
-  \begin{block}{Definici\'on:}
-    Un vector es un objeto de la forma $$\left(
-    \begin{array}{c}
-          v_1 \\
-          \vdots \\
-          v_n
-        \end{array}
-        \right) $$.
-  \end{block}\pause
-  \begin{block}{Propiedades}
-    Con dos operaciones
-    $$ \begin{array}{c} v+w \\ \alpha v \end{array}  $$
-    \pause
-    y viven en un lugar que se llama espacio vectoral
-  \end{block}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{Matem\'atica}
-  \begin{block}{Definici\'on:}
-    Las matrices se pueden pensar como transformaciones que convierten a un vector en otro. \pause
-    $$ Av = w$$
-  \end{block}\pause
-  \begin{alertblock}{Propiedad}
-    Como las transformaciones que utilizaremos son lineales, con s\'olo definirlas en unos pocos valores alcanza. \pause Elegir bien los vectores para definir la transformaci\'on es \'util.
-  \end{alertblock}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{Matem\'atica}
-  \begin{figure}
-    \includegraphics[width=0.6\textwidth]{imagenes/elandsat.png}
-    \caption{Comparaci\'on entre firma espectral y valores medidos para un p\'ixel\footfullcite{richards2013remote}}
-  \end{figure}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{Matem\'atica}
-  \begin{figure}
-    \includegraphics[width=0.6\textwidth]{imagenes/vector.png}
-    \caption{P\'ixeles en $R^2$.\footfullcite{richards2013remote}}
-  \end{figure}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{Matem\'atica}
-  \begin{alertblock}{Respuesta efectiva como vector}
-    A la respuesta espectral efectiva la puedo pensar como un vector de reflectancias
-    $$\left(
-    \begin{array}{c}
-          \rho_1 \\
-          \vdots \\
-          \rho_n
-        \end{array}
-    \right) $$.
-  \end{alertblock}
-  \pause
-\end{frame}
-\begin{frame}{Matem\'atica}
-  \begin{exampleblock}{Ejemplo:}
-    $$v_{(x,y)}=\left(
-    \begin{array}{c}
-      0.03 \\
-      0.08 \\
-      0.04 \\
-      0.40 \\
-      0.20 \\
-      0.15
-    \end{array}
-    \right) ,
-    a_{(x,y)}=\left(
-    \begin{array}{c}
-      0.05 \\
-      0.03 \\
-      0.01 \\
-      0.01 \\
-      0.00 \\
-      0.00
-    \end{array}
-    \right) ,
-    s_{(x,y)}=\left(
-    \begin{array}{c}
-      0.08 \\
-      0.10 \\
-      0.15 \\
-      0.20 \\
-      0.25 \\
-      0.30
-    \end{array}
-    \right) $$
-  \end{exampleblock}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{Matem\'atica}
-  \begin{alertblock}{Motivaci\'on}
-    Podemos pensar a una imagen como vectores en un espacio vectorial. El n\'umero de bandas es la dimensi\'on de ese espacio.
-  \end{alertblock}
-\end{frame}
-%--- Next Frame ---%
-
-\section{Rotaciones}
-\subsection{Idea}
-\begin{frame}{Idea}
-  Empecemos con un ejemplo para una imagen de dos bandas
-  \begin{figure}
-  \centering
-  \includegraphics[width=0.6\textwidth]{imagenes/nir-red.png}
-  \caption{Imagen de dos bandas.}
-  \end{figure}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{Idea}
-  \begin{figure}
-  \centering
-  \includegraphics[width=0.8\textwidth]{imagenes/nir-red2.png}
-  \caption{Imagen de dos bandas en el espacio vectorial.}
-  \end{figure}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{Idea}
-  \begin{alertblock}{Transformaci\'on}
-    Una combinaci\'on obvia es $$ DIF = 0.5NIR-0.5RED$$
-    y
-    $$ SUM = 0.5NIR+0.5RED $$
-  \end{alertblock}
-\end{frame}
-%--- Next Frame ---%
-
-
-\begin{frame}{Idea}
-  \begin{alertblock}{Importante}
-    No siempre m\'as bandas significa mas informaci\'on.
-  \end{alertblock}
-\end{frame}
-%--- Next Frame ---%
-
-\subsection{Componentes principales}
-
-\begin{frame}{Componentes principales}
-  \begin{block}{Idea}
-    Queremos ver si un set bandas est\'a correlacionadas o no.
-  \end{block}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{Componentes principales}
-  \begin{figure}
-  \centering
-  \includegraphics[width=0.8\textwidth]{imagenes/corr.png}
-  \caption{Datos correlacionados y no correlacionados\footfullcite{richards2013remote}}
-  \end{figure}
-\end{frame}
-%--- Next Frame ---%
-
-
-
-\begin{frame}{Componentes principales}
-  \begin{block}{Matriz de correlaci\'on}
-    Tiene en sus componentes las funciones de correlaci\'on entre cada banda\pause
-    \[
-    A = \begin{bmatrix}
-        corr_{11}       & corr_{12} & corr_{13} & \dots & corr_{1n} \\
-        corr_{21}       & corr_{22} & corr_{23} & \dots & corr_{2n} \\
-        \vdots          & \vdots    & \vdots    & \ddots & \vdots \\
-        corr_{n1}       & corr_{d2} & corr_{n3} & \dots & corr_{nn}
-    \end{bmatrix} \]
-  \end{block}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{Componentes principales}
-  \begin{block}{Observaciones}
-      Queremos que la correlaci\'on cruzada entre bandas sea cero. \pause Matem\'aticamente lo pedimos como
-        $$Av=\lambda v$$
-      Y nos quedamos como vectores \'utiles a los que cumplan esto.
-  \end{block}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{Componentes principales}
-  \begin{block}{Matriz de correlaci\'on}
-    La forma de la matriz va a depender de las combinaciones lineal que haga entre los vectores \pause
-    \[
-    \begin{bmatrix}
-        \lambda{1}       & 0 & 0 & \dots & 0 \\
-        0       & \lambda_{2} & 0 & \dots & 0 \\
-        \vdots & \vdots & \vdots & \ddots & \vdots \\
-        0       & 0 & 0 & \dots & \lambda_{n}
-    \end{bmatrix} \]
-    \pause
-    donde son los autovectores $$\lambda_{1}  > \lambda_{2} > \dots > \lambda_{n}$$
-  \end{block}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{Componentes principales}
-  \begin{block}{Observaciones}
-    \begin{itemize}[<+>]
-      \item $\frac{\lambda_i}{\sum_i \lambda_i}$ me habla de cuanto me explica ese vector sobre la variabilidad de la imagen
-      \item $(v_1 , \dots , v_n)$ el autovector que me representa la combinaci\'on de bandas de un autovalor dado.
-      \item Estas combinaci\'on lineal de bandas tienen la informaci\'on m\'as relevante.
-    \end{itemize}
-  \end{block}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{Componentes principales}
-  \begin{exampleblock}{Ejemplo}
-    Volviendo al ejemplo de antes
-    \[
-    \begin{bmatrix}
-        1       & 0.329127 \\
-        0.329127 & 1
-    \end{bmatrix} \]
-  \end{exampleblock}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{Componentes principales}
-  \begin{exampleblock}{Ejemplo}
-    Al diagonalizar me queda
-    \[
-    \begin{bmatrix}
-        1.343685       & 0 \\
-        0       & 0.656315
-    \end{bmatrix} \]
-    con autovectores $$0.707107\, NIR-0.707107 \, RED$$  y $$0.707107 \, NIR+0.707107\, RED$$ \pause
-    Ac\'a el primer vector explica el el 67\% de la variabilidad de la imagen y el segundo del 33\%.
-  \end{exampleblock}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{Componentes principales}
-  \begin{figure}
-  \centering
-  \includegraphics[width=0.6\textwidth]{imagenes/pca1.png}
-  \caption{Ejemplo con las bandas NIR-RED en la imagen.}
-  \end{figure}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{Componentes principales}
-  \begin{figure}
-  \centering
-  \includegraphics[width=0.8\textwidth]{imagenes/pca2.png}
-  \caption{Ejemplo con las bandas NIR-RED en el espacio vectorial.}
-  \end{figure}
-\end{frame}
-%--- Next Frame ---%
-
-
-\subsection{Transformada tasseled-cap}
-
-\begin{frame}{Transformada tasseled-cap}
-  \begin{block}{Utilidad}
-    La utilidad de esto no suele ser con dos bandas, si no con muchas m\'as.
-  \end{block}\pause
-  \begin{block}{Problema}
-    Ac\'a es mas f\'acil darse cuenta que brinda mas informaci\'on, el tema es interpretar esa informaci\'on.
-  \end{block}\pause
-  \begin{block}{Idea}
-    Encontrar alguna transformaci\'on que me permita descartar bandas pero que tengan relaci\'on con distintos comportamientos biof\'isicos.
-  \end{block}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{Transformada tasseled-cap}
-  \begin{figure}
-  \centering
-  \includegraphics[width=0.8\textwidth]{imagenes/tc.png}
-  \caption{Movimiento asociado al comportamiento fenol\'ogico de un p\'ixel de vegetaci\'on en el espacio vectorial.\footfullcite{richards2013remote}}
-  \end{figure}
-\end{frame}
-%--- Next Frame ---%
-
-
-\begin{frame}{Transformada tasseled-cap}
-    \begin{figure}
-      \begin{tabular}{l c c c c c c }
-        Combinaci\'on  & Azul & Verde & Rojo & NIR & SWIR 1 & SWIR 2\\
-        Brillo &  0.30  & 0.27  & 0.47  & 0.55  & 0.50  & 0.18\\
-        Verdor & -0.29  &-0.24  &-0.54  & 0.72 & 0.07  &-0.16\\
-        Humedad&  0.15  & 0.19  & 0.32  & 0.34  &-0.71  &-0.45
-      \end{tabular}
-      \caption{Transformada tasseled-cap para landsat 8 \footfullcite{baig2014derivation}}
-    \end{figure}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{Transformada tasseled-cap}
-  \begin{block}{Idea}
-    Todo esto logra hacer que el n\'umero de bandas que utilizo sea menor que el n\'umero de bandas inicial
+    Empecemos con la primera.
   \end{block}
 \end{frame}
 %--- Next Frame ---%
@@ -391,60 +87,227 @@ Actividades Espaciales}
     \end{figure}
 \end{frame}
 %--- Next Frame ---%
-
 \begin{frame}{\'Indices de Vegetaci\'on}
-  \begin{block}{Definici\'on}
-    Cociente simple $$\frac{NIR}{RED}$$
-    Es de lo mas sencillo que uno puede pensar.
-  \end{block}
-  \begin{exampleblock}{Ejemplos}
-    \begin{figure}
-      \begin{tabular}{l c }
-        Cobertura  & $NIR/RED$\\
-        Suelo & 1.57\\
-        Agua & 0.51\\
-        Vegetacion & 5.25
-      \end{tabular}
-      \caption{Valores t\'ipicos para el cociente simple}
-    \end{figure}
-  \end{exampleblock}
+  \begin{block}{NDVI}
+      \begin{equation}
+          NDVI = \frac{\rho_n-\rho_r}{\rho_n+\rho_r} 
+      \end{equation}
+  \end{block}\pause
+    \begin{block}{Observaci\'on}
+        \begin{itemize}[<+->]
+            \item Funciona bien cuando el canopeo es intermedio.
+            \item La reflectancia del suelo lo puede afectar.
+            \item Satura cuando el canopeo es muy denso.
+        \end{itemize}
+    \end{block}
 \end{frame}
 %--- Next Frame ---%
 
 \begin{frame}{\'Indices de Vegetaci\'on}
-  \begin{block}{Definici\'on}
-    Cociente simple $$\frac{NIR-RED}{NIR+RED}$$
-    La idea es normalizar la diferencia para simplificar la interpretaci\'on
+  \begin{block}{SR}
+     $$SR=\frac{\rho_n}{\rho_r}$$
+  \end{block}\pause
+  \begin{block}{Observaci\'on:}
+      \begin{itemize}[<+->]
+        \item Satura al igual que el NDVI
+        \item Puede mejorar el contraste con vegetaci\'on muy densa
+        \item Reduce su efectividad cuando varia la reflectancia del suelo.
+    \end{itemize}
   \end{block}
-  \begin{exampleblock}{Ejemplos}
-    \begin{figure}
-      \begin{tabular}{l c }
-        Cobertura  & $NDVI$\\
-        Suelo & 0.22 \\
-        Agua & -0.32 \\
-        Vegetacion & 0.68
-      \end{tabular}
-      \caption{Valores t\'ipicos para el cociente simple}
-    \end{figure}
-  \end{exampleblock}
 \end{frame}
 %--- Next Frame ---%
 
 \begin{frame}{\'Indices de Vegetaci\'on}
   \begin{block}{Observaci\'on}
-    Se relaciona con el anterior como $$\frac{NIR/RED-1}{NIR/RED+1}$$
+    Se relaciona con el anterior como $$\frac{\rho_n/\rho_r-1}{\rho_n/\rho_r+1}$$
   \end{block}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{\'Indices de Vegetaci\'on}
-  \begin{alertblock}{Observaci\'on}
-    Este \'indice esta relacionado con varias variables biof\'isicas.
-  \end{alertblock}
+\begin{frame}
+    \frametitle{\subsecname}
+    \begin{figure}
+    \begin{center}
+        \includegraphics[width=0.8\textwidth]{imagenes/scatter82.png}
+    \end{center}
+        \caption{Scatterplot nir-rojo en el espacio espectral. \footfullcite{liang2005quantitative}}
+    \end{figure}
 \end{frame}
-%--- Next Frame ---%
 
-\begin{frame}{\'Indices de Vegetaci\'on}
+\begin{frame}
+    \frametitle{\subsecname}
+     \begin{block}{Definici\'on}
+        Hablaremos de linea de suelo a la linea en un grafico rojo-nir que toca
+        por debajo al triangulo de vegetaci\'on. Sobre ella:
+         \begin{equation}
+             \rho_n = \gamma \times \rho_r +b
+         \end{equation}
+     \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{\subsecname}
+    \begin{figure}
+    \begin{center}
+        \includegraphics[width=0.8\textwidth]{imagenes/soiline.png}
+    \end{center}
+        \caption{Distintas pendientes para la linea de
+        suelo.\footfullcite{lian2005quantitative}}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{\subsecname}
+    \begin{block}{Linea de suelo}
+        Veamos tres indices que apuntan a eliminar los efectos de la linea del
+        suelo sobre el NDVI.
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{\subsecname}
+    \begin{block}{SAVI}
+        \begin{equation}
+            SAVI = \frac{\rho_n-\rho_r}{\rho_n+\rho_r+L}(1+L)
+        \end{equation}
+    \end{block}\pause
+    \begin{block}{Observaci\'on}
+        \begin{itemize}[<+->]
+            \item Suele ajustar mejor a las variaciones de reflectancia del
+                suelo.
+            \item Es dif\'icil conocer el valor de $L$ a priori.
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{\secname-\subsecname}
+    Existen distintas corrientes sobre como calcular el valor de L
+    \begin{equation}
+        L=0.5
+    \end{equation}\pause
+    \begin{equation}
+        L = 1-2 a NDVI \times WDVI
+    \end{equation}\pause
+    donde $a\sim 1.6$
+    \begin{equation}
+        WDVI = \rho_n -\gamma \rho_r
+    \end{equation}
+\end{frame}
+
+\begin{frame}
+    \frametitle{\secname-\subsecname}
+    \begin{block}{TSAVI}
+        \begin{equation}
+            TSAVI =
+            \frac{\gamma(\rho_n-\gamma\rho_r-b)}{\gamma\rho_n+rho_r+\gamma b
+            +X(1+\gamma^2)} 
+        \end{equation}
+        donde $X\sim0.08$.
+    \end{block}\pause
+    \begin{block}{Observaci\'on}
+        \begin{itemize}[<+->]
+            \item Compenza algunas variaciones en la reflectancia del suelo.
+            \item Compenza variaciones en la densidad del canopeo.
+            \item Compenza variaciones por el \'angulo solar.
+            \item Compenza variaciones por el cambio en la distribuci\'on
+                angular del canopeo.
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{\secname-\subsecname}
+    \begin{block}{PVI}
+        \begin{equation}
+            PVI = \frac{\rho_n-\gamma\rho_r-b}{\sqrt{\gamma^2+1}}
+        \end{equation}
+    \end{block}\pause
+    \begin{block}{Observaci\'on}
+        \begin{itemize}
+            \item Compenza mejor variaciones en la reflectancia del suelo cuando
+                el canopeo es poco denso.
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{\secname-\subsecname}
+    \begin{figure}
+    \begin{center}
+        \includegraphics[width=0.8\textwidth]{imagenes/int_graf.png}
+    \end{center}
+    \caption{Interpretaci\'on de los \'indices en el espacio espectral.\footfullcite{lian2005quantitative}}
+    \label{fig:}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{\secname-\subsecname}
+    \begin{block}{EVI}
+        \begin{equation}
+            EVI = G\frac{\rho_n - \rho_r}{\rho_n+C_1\rho_r-C_2\rho_b+L}(1+L) 
+        \end{equation}
+    \end{block}
+    donde
+    \begin{itemize}
+        \item $G  \sim 2.5$
+        \item $C1 \sim 6.0$
+        \item $C2 \sim 7.5$
+        \item $L  \sim 1.0$
+    \end{itemize}
+\end{frame}
+
+\subsection{Variables biof\'isicas}
+
+\begin{frame}
+    \frametitle{\secname-\subsecname}
+    En general hablaremos de \'Indices de Vegetaci\'on (VI).\pause
+    \begin{block}{Observaci\'on}
+        Si tengo una variable $y$\pause
+        \begin{equation}
+            y = \sum_i a_i VI^i
+        \end{equation}
+        \begin{equation}
+            y = a + b \times VI^c
+        \end{equation}
+        \begin{equation}
+            y = a \log(b-VI)+c
+        \end{equation}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{\secname-\subsecname}
+    Estudiemos dos variables biof\'isicas
+    \begin{itemize}[<+->]
+        \item $F_g$ $\sim$ fracci\'on del suelo cubierto por vegetaci\'on
+        \item Biomasa humeda
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{\secname-\subsecname}
+    \begin{block}{Observaci\'on}
+        La relaci\'on entre cada variable biof\'isica y el \'indice debe
+        calcularse a partir de mediciones en el terreno.
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{\secname-\subsecname}
+    \begin{figure}
+    \begin{center}
+        \includegraphics[width=0.8\textwidth]{imagenes/fg.png}
+    \end{center}
+    \caption{Fracci\'on de suelo cubierta entre 0 y 1 en un mapa de colores.
+        Cortes en $0.04$ y $0.52$}
+    \label{fig:}
+    \end{figure}
+
+\end{frame}
+
+\begin{frame}{\subsecname}
     \begin{figure}
     \centering
     \includegraphics[width=0.6\textwidth]{imagenes/avndvi.png}
@@ -453,26 +316,15 @@ Actividades Espaciales}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{\'Indices de Vegetaci\'on}
+
+
+\begin{frame}{\subsecname}
     \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{imagenes/ndvivst.png}
     \caption{Variaci\'on del NDVI en funci\'on de la epoca del año.\footfullcite{de2010spatio}}
     \end{figure}
 \end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{\'Indices de Vegetaci\'on}
-  \begin{block}{Problemas}
-    \begin{itemize}[<+>]
-      \item Este \'indice puede saturar.
-      \item En suelos con baja cobertura vegetal suele ser mas dif\'icil de interpretar.
-      \item Estoy sacrificando informaci\'on que puede ser relevante.
-    \end{itemize}
-    Por suerte hay otros \'indices que mejoran esta situaci\'on
-  \end{block}
-\end{frame}
-%--- Next Frame ---%
 
 
 \section{Pr\'actica}
