@@ -7,7 +7,7 @@
 
 \title{Herramientas de Teledetección Cuantitativa\\{\small Clase 7}}
 \author{Francisco Nemi\~na}
-\institute{Unidad de Educación y Formación Masiva \\ Comisi\'on Nacional de
+\institute{Unidad de Educación y Formación Masiva \\ ComisiÓn Nacional de
 Actividades Espaciales}
 %\institute[Inst.]{\includegraphics[height=1cm]{Figures/logosopi.png}\phantom{pepe} \includegraphics[height=1cm]{Figures/2mp.png}\phantom{pepe} \includegraphics[height=1cm]{Figures/conae.png}}
 \date{}
@@ -156,7 +156,7 @@ Actividades Espaciales}
 
 \begin{frame}{\subsecname}
   \begin{block}{Definición}
-    El \'indice kappa nos permite estimar si dos matrices de confusión son distintas una de la otra o no. \pause
+    El índice kappa nos permite estimar si dos matrices de confusión son distintas una de la otra o no. \pause
     \\
     Mide cuanto se acerca mi clasificación a una clasificación al azar.
   \end{block}
@@ -171,13 +171,13 @@ Actividades Espaciales}
 
 \begin{frame}{\subsecname}
   \begin{exampleblock}{Ejemplo}
-    En este caso, $p_0 = 0.77$ \pause y $p_c = 0.35$ entonces el \'indice kappa nos queda $$\hat{K} = \frac{0.77-0.35}{1-0.35} = 0.64$$\pause Ahora hay que interpretar esto.
+    En este caso, $p_0 = 0.77$ \pause y $p_c = 0.35$ entonces el índice kappa nos queda $$\hat{K} = \frac{0.77-0.35}{1-0.35} = 0.64$$\pause Ahora hay que interpretar esto.
   \end{exampleblock}
 \end{frame}
 
 \begin{frame}{\subsecname}
   \begin{block}{Interpretación}
-    Interpretaciones del \'indice kappa hay muchas. Lo mas básico es que cuanto m\'as cerca de cero este el valor, m\'as se parece la clasificacion una clasificación aleatoria.
+    Interpretaciones del índice kappa hay muchas. Lo mas básico es que cuanto m\'as cerca de cero este el valor, m\'as se parece la clasificacion una clasificación aleatoria.
   \end{block}
   \begin{block}{Cortes}
     \begin{figure}
@@ -185,7 +185,7 @@ Actividades Espaciales}
         0.0 - 0.4 & 0.4 - 0.8 & 0.8 - 1.0 \\
         Pobre     & Medio     & Bueno
       \end{tabular}
-      \caption{Rangos de acuerdo del \'indice kappa \footfullcite{landis1977measurement}}
+      \caption{Rangos de acuerdo del índice kappa \footfullcite{landis1977measurement}}
     \end{figure}
   \end{block}
 \end{frame}
@@ -195,7 +195,7 @@ Actividades Espaciales}
 \begin{frame}{\subsecname}
   \begin{block}{4 preguntas}
   \begin{enumerate}
-    \item ¿Qué categor\'ias tengo?
+    \item ¿Qué categorías tengo?
     \item ¿Qué unidad de muestreo usar?
     \item ¿Cuántas muestras tomar?
     \item ¿Cómo elegir las muestras?
@@ -204,13 +204,13 @@ Actividades Espaciales}
 \end{frame}
 
 \begin{frame}{\subsecname}
-  \begin{block}{¿Que categor\'ias tengo?}
+  \begin{block}{¿Que categorías tengo?}
     Las clases tienen que ser \pause
     \begin{itemize}[<+>]
       \item Mutualmente exclusivas
       \item Totalmente exaustivas
     \end{itemize}
-    Además de tener un tamaño m\'inimo para ser considerado de esa clase.
+    Además de tener un tamaño mínimo para ser considerado de esa clase.
   \end{block}
 \end{frame}
 
@@ -225,10 +225,10 @@ Actividades Espaciales}
 \begin{frame}{\subsecname}
   \begin{block}{¿Qué unidad de muestreo usar?}
     \begin{itemize}[<+>]
-      \item Un solo p\'ixel.
-      \item Un clúster de p\'ixeles
-      \item Un pol\'igono
-      \item Un clúster de pol\'igonos
+      \item Un solo píxel.
+      \item Un clúster de píxeles
+      \item Un polígono
+      \item Un clúster de polígonos
     \end{itemize}
   \end{block}
 \end{frame}
@@ -262,9 +262,9 @@ Actividades Espaciales}
   \begin{exampleblock}{Actividades prácticas de la sexta clase}
     \begin{enumerate}
       \item Abrir las imágenes clasificadas y fusionadas por el método de clasificación supervisada y no supervisada.
-      \item Cargar los pol\'igonos de validación correspondientes a cada clase.
+      \item Cargar los polígonos de validación correspondientes a cada clase.
       \item Calcular al matriz de confusión correspondiente a cada clasificación.
-      \item Obtener la presición global, del usuario, productor y el \'indice kappa.
+      \item Obtener la presición global, del usuario, productor y el índice kappa.
     \end{enumerate}
   \end{exampleblock}
 \end{frame}
@@ -276,9 +276,9 @@ Actividades Espaciales}
   \begin{exampleblock}{Actividades prácticas de la sexta clase}
     \begin{enumerate}
       \item Abrir las imágenes clasificadas y fusionadas por el método de clasificación supervisada y no supervisada.
-      \item Cargar los pol\'igonos de validación correspondientes a cada clase.
+      \item Cargar los polígonos de validación correspondientes a cada clase.
       \item Calcular al matriz de confusión correspondiente a cada clasificación.
-      \item Obtener la presición global, del usuario, productor y el \'indice kappa.
+      \item Obtener la presición global, del usuario, productor y el índice kappa.
     \end{enumerate}
   \end{exampleblock}
 \end{frame}

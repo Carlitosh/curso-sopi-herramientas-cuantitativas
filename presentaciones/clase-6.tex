@@ -7,7 +7,7 @@
 
 \title{Herramientas de Teledetección Cuantitativa\\{\small Clase 6}}
 \author{Francisco Nemi\~na}
-\institute{Unidad de Educación y Formación Masiva \\ Comisi\'on Nacional de
+\institute{Unidad de Educación y Formación Masiva \\ ComisiÓn Nacional de
 Actividades Espaciales}
 %\institute[Inst.]{\includegraphics[height=1cm]{Figures/logosopi.png}\phantom{pepe} \includegraphics[height=1cm]{Figures/2mp.png}\phantom{pepe} \includegraphics[height=1cm]{Figures/conae.png}}
 \date{}
@@ -33,10 +33,10 @@ Actividades Espaciales}
 \end{frame}
 
 \section{Matemática}
-\subsection{Estad\'istica}
+\subsection{Estadística}
 \begin{frame}{\subsecname}
   \begin{block}{Notación}
-    Notamos a la media para la clase $\omega_i$ como $$m_i = \frac{1}{q_i-1} \sum_j^{q_i} x_j$$ donde $q_i$ es la cantidad de p\'ixeles de la clase.
+    Notamos a la media para la clase $\omega_i$ como $$m_i = \frac{1}{q_i-1} \sum_j^{q_i} x_j$$ donde $q_i$ es la cantidad de píxeles de la clase.
   \end{block}\pause
   \begin{block}{Notación}
     La varianza como $$\sigma_i^2 = \frac{1}{q_i-1} \sum_j^{q_i} (x_j-m_i)^2$$ dónde los $x_j$ pertenecen a la clase $i$.
@@ -46,7 +46,7 @@ Actividades Espaciales}
 
 \begin{frame}{\subsecname}
   \begin{block}{Probabilidad condicional}
-    Recordamos a la probabilidad condicional como $$p(x|\omega_i)$$ como la probabilidad de encontrar a un p\'ixel en el punto $x$ del espacio espectral dado que sabemos que pertenece a la clase $\omega_i$.
+    Recordamos a la probabilidad condicional como $$p(x|\omega_i)$$ como la probabilidad de encontrar a un píxel en el punto $x$ del espacio espectral dado que sabemos que pertenece a la clase $\omega_i$.
   \end{block}
 \end{frame}
 %--- Next Frame ---%
@@ -54,7 +54,7 @@ Actividades Espaciales}
 \begin{frame}{\subsecname}
   \begin{block}{Teorema de Bayes}
     $$p(\omega_i|x) = \frac{p(x|\omega_i) p(\omega_i)}{p(x)}$$
-    Es decir, la probabilidad de que un p\'ixel pertenezca a la clase $\omega_i$ dado que se encuentra en el punto del espacio espectral $x$.
+    Es decir, la probabilidad de que un píxel pertenezca a la clase $\omega_i$ dado que se encuentra en el punto del espacio espectral $x$.
   \end{block}
 \end{frame}
 %--- Next Frame ---%
@@ -76,7 +76,7 @@ Actividades Espaciales}
           \node[block, below= of init]                (resp) {Reflectancia Espectral Efectiva};
           \path[line] (init) --          (resp);
           \pause
-          \node[block, below= of resp]             (ques) {Categor\'ias};
+          \node[block, below= of resp]             (ques) {Categorías};
           \path[line] (resp) --          (ques);\pause
         \end{tikzpicture}%
       }%
@@ -110,7 +110,7 @@ Actividades Espaciales}
   \begin{block}{Esquema general}
     \begin{enumerate}[<+>]
       \item Decidir cuales son las clases de intereés.
-      \item Elegir p\'ixeles conocidos y representativos para cada clase a utilizar como áreas de entrenamiento.
+      \item Elegir píxeles conocidos y representativos para cada clase a utilizar como áreas de entrenamiento.
       \item Estimar los parámetros del método de clasificación.
       \item Usar el clasificador para clasificar los pixeles.
       \item Producir mapas temáticos para extraer información.
@@ -125,10 +125,10 @@ Actividades Espaciales}
 \begin{frame}{\subsecname}
   \begin{block}{Generales}
     \begin{itemize}
-      \item<.> Paralelep\'ipedos
-      \item<.> Distancia m\'inima
+      \item<.> Paralelepípedos
+      \item<.> Distancia mínima
       \item<1> Máxima verosimilitud
-      \item<.> \'Angulo espectral
+      \item<.> Ángulo espectral
     \end{itemize}
   \end{block}
 \end{frame}
@@ -138,7 +138,7 @@ Actividades Espaciales}
 
 \begin{frame}{\subsecname}
   \begin{block}{Clasificador Bayesiano}
-    Si conocemos las probabilidades condicionales $p(\omega_i|x)$ entonces un p\'ixel $x$ pertenece a la clase $\omega_i$ si $$p(\omega_i|x)>p(\omega_j|x)$$ si $i \neq j$.
+    Si conocemos las probabilidades condicionales $p(\omega_i|x)$ entonces un píxel $x$ pertenece a la clase $\omega_i$ si $$p(\omega_i|x)>p(\omega_j|x)$$ si $i \neq j$.
   \end{block}
   \pause
   \begin{alertblock}{Problema}
@@ -149,7 +149,7 @@ Actividades Espaciales}
 
 \begin{frame}{\subsecname}
   \begin{block}{Solución}
-    Usamos el teorema de Bayes y podemos escribir que un p\'ixel $x$ pertenece a la clase $\omega_i$ si $$p(x|\omega_i)p(\omega_i)>p(x|\omega_j)p(\omega_j)$$ si $i \neq j$.
+    Usamos el teorema de Bayes y podemos escribir que un píxel $x$ pertenece a la clase $\omega_i$ si $$p(x|\omega_i)p(\omega_i)>p(x|\omega_j)p(\omega_j)$$ si $i \neq j$.
   \end{block}
   \pause
   \begin{block}{Función discriminante}
@@ -201,8 +201,8 @@ Actividades Espaciales}
 %--- Next Frame ---%
 
 \begin{frame}{\subsecname}
-  \begin{block}{Número de p\'ixeles necesarios}
-    Para estimar la matriz de covarianza se necesitan al menos $N(N+1)$ elementos. Es decir, al menos $N+1$ p\'ixeles.
+  \begin{block}{Número de píxeles necesarios}
+    Para estimar la matriz de covarianza se necesitan al menos $N(N+1)$ elementos. Es decir, al menos $N+1$ píxeles.
   \end{block}
 \end{frame}
 %--- Next Frame ---%
@@ -210,14 +210,14 @@ Actividades Espaciales}
 \begin{frame}{\subsecname}
   \begin{figure}
   \includegraphics[width=0.8\textwidth]{imagenes/train.png}
-  \caption{Clasificación supervisada incrementando el número de p\'ixeles de entrenamiento.\footfullcite{richards2013remote}}
+  \caption{Clasificación supervisada incrementando el número de píxeles de entrenamiento.\footfullcite{richards2013remote}}
   \end{figure}
 \end{frame}
 %--- Next Frame ---%
 
 \begin{frame}{\subsecname}
-  \begin{alertblock}{Número de p\'ixeles necesarios}
-    En la práctica, se necesitan entre $10N$ y $100N$ p\'ixeles.
+  \begin{alertblock}{Número de píxeles necesarios}
+    En la práctica, se necesitan entre $10N$ y $100N$ píxeles.
   \end{alertblock}
 \end{frame}
 %--- Next Frame ---%
@@ -256,20 +256,20 @@ Actividades Espaciales}
 
 \subsection{Otros métodos}
 \begin{frame}{\subsecname}
-  \begin{block}{Pocos p\'ixeles}
-    Si contamos con pocos p\'ixeles de entrenamiento, podemos caer en otros metodos.
+  \begin{block}{Pocos píxeles}
+    Si contamos con pocos píxeles de entrenamiento, podemos caer en otros metodos.
     \begin{itemize}
-      \item<.> Paralelep\'ipedos
-      \item<1> Distancia m\'inima
+      \item<.> Paralelepípedos
+      \item<1> Distancia mínima
       \item<.> Máxima verosimilitud
-      \item<1> \'Angulo espectral
+      \item<1> Ángulo espectral
     \end{itemize}
   \end{block}
 \end{frame}
 %--- Next Frame ---%
 
 \begin{frame}{\subsecname}
-  \begin{block}{Distancia m\'inima}
+  \begin{block}{Distancia mínima}
     Si buscamos la superficies de $g_i = g_j$ con $g_i = 2 m_i x - m_i m_i$
     y me divide a mi espacio por hiperplanos.
   \end{block}
@@ -286,7 +286,7 @@ Actividades Espaciales}
 
 \begin{frame}{\subsecname}
   \begin{block}{Angulo espectral}
-    Dividimos en este caso al espacio utilizando el ángulo correspondiente a los p\'ixeles de entrenamiento.
+    Dividimos en este caso al espacio utilizando el ángulo correspondiente a los píxeles de entrenamiento.
   \end{block}
 \end{frame}
 %--- Next Frame ---%
@@ -307,7 +307,7 @@ Actividades Espaciales}
       \item Abra las imágenes Landsat 8 y digitalice las coberturas de interés.
       \item Clasifique la imagen utilizando un vector de entrenamiento por clase.
       \item Clasifique la imagen utilizando varios vectores de entrenamiento por clase.
-      \item Utilizce la herramienta de estad\'isticas globales para estimar las áreas correspondientes a cada uso y cobertura.
+      \item Utilizce la herramienta de estadísticas globales para estimar las áreas correspondientes a cada uso y cobertura.
     \end{enumerate}
   \end{exampleblock}
 \end{frame}
