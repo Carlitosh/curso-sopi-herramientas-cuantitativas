@@ -7,7 +7,7 @@
 
 \title{Herramientas de Teledetección Cuantitativa\\{\small Clase 6}}
 \author{Francisco Nemi\~na}
-\institute{Unidad de Educaci\'on y Formaci\'on Masiva \\ Comisi\'on Nacional de
+\institute{Unidad de Educación y Formaci\'on Masiva \\ Comisi\'on Nacional de
 Actividades Espaciales}
 %\institute[Inst.]{\includegraphics[height=1cm]{Figures/logosopi.png}\phantom{pepe} \includegraphics[height=1cm]{Figures/2mp.png}\phantom{pepe} \includegraphics[height=1cm]{Figures/conae.png}}
 \date{}
@@ -21,7 +21,7 @@ Actividades Espaciales}
 \AtBeginSection[]
 {
 \begin{frame}
-\frametitle{Esquema de presentaci\'on}
+\frametitle{Esquema de presentación}
 \tableofcontents[currentsection]
 \end{frame}
 }
@@ -32,14 +32,14 @@ Actividades Espaciales}
     \maketitle
 \end{frame}
 
-\section{Matem\'atica}
+\section{Matemática}
 \subsection{Estad\'istica}
 \begin{frame}{\subsecname}
-  \begin{block}{Notaci\'on}
+  \begin{block}{Notación}
     Notamos a la media para la clase $\omega_i$ como $$m_i = \frac{1}{q_i-1} \sum_j^{q_i} x_j$$ donde $q_i$ es la cantidad de p\'ixeles de la clase.
   \end{block}\pause
-  \begin{block}{Notaci\'on}
-    La varianza como $$\sigma_i^2 = \frac{1}{q_i-1} \sum_j^{q_i} (x_j-m_i)^2$$ d\'onde los $x_j$ pertenecen a la clase $i$.
+  \begin{block}{Notación}
+    La varianza como $$\sigma_i^2 = \frac{1}{q_i-1} \sum_j^{q_i} (x_j-m_i)^2$$ dónde los $x_j$ pertenecen a la clase $i$.
   \end{block}
 \end{frame}
 %--- Next Frame ---%
@@ -60,15 +60,15 @@ Actividades Espaciales}
 %--- Next Frame ---%
 
 \begin{frame}{\subsecname}
-  \begin{block}{Distribuci\'on de Gauss multidimensional}
-    Si definimos a la matriz de covarianza como $$C_i = \frac{1}{q_i-1} \sum_j^{q_i} (x_j-m_i)(x_j-m_i)^T$$ podemos definir la distribuci\'on de Gauss en un espacio multidimensional como $$p(x|\omega_i) \sim \exp (\frac{-1}{2} (x-m_i)^T C_i^{-1} (x-m_i) )$$
+  \begin{block}{Distribución de Gauss multidimensional}
+    Si definimos a la matriz de covarianza como $$C_i = \frac{1}{q_i-1} \sum_j^{q_i} (x_j-m_i)(x_j-m_i)^T$$ podemos definir la distribución de Gauss en un espacio multidimensional como $$p(x|\omega_i) \sim \exp (\frac{-1}{2} (x-m_i)^T C_i^{-1} (x-m_i) )$$
   \end{block}
 \end{frame}
 %--- Next Frame ---%
 
-\section{Clasificaci\'on supervisada}
+\section{Clasificación supervisada}
 \subsection{Idea}
-\begin{frame}{Motivaci\'on}
+\begin{frame}{Motivación}
   \begin{center}
       \resizebox{0.4 \linewidth}{!}{%
         \begin{tikzpicture}[node distance = 2cm, auto]
@@ -102,39 +102,39 @@ Actividades Espaciales}
 \begin{frame}{\subsecname}
   \begin{figure}
   \includegraphics[width=0.6\textwidth]{imagenes/vector-2.png}
-  \caption{Clasificaci\'on del espacio vectorial a partir de clases de entrenamiento.\footfullcite{richards2013remote}}
+  \caption{Clasificación del espacio vectorial a partir de clases de entrenamiento.\footfullcite{richards2013remote}}
   \end{figure}
 \end{frame}
 
 \begin{frame}{\subsecname}
   \begin{block}{Esquema general}
     \begin{enumerate}[<+>]
-      \item Decidir cuales son las clases de intere\'es.
-      \item Elegir p\'ixeles conocidos y representativos para cada clase a utilizar como \'areas de entrenamiento.
-      \item Estimar los par\'ametros del m\'etodo de clasificaci\'on.
+      \item Decidir cuales son las clases de intereés.
+      \item Elegir p\'ixeles conocidos y representativos para cada clase a utilizar como áreas de entrenamiento.
+      \item Estimar los parámetros del método de clasificación.
       \item Usar el clasificador para clasificar los pixeles.
-      \item Producir mapas tem\'aticos para extraer informaci\'on.
-      \item Corroborar la precisi\'on de la clasificaci\'on con datos de campo
+      \item Producir mapas temáticos para extraer información.
+      \item Corroborar la precisión de la clasificaci\'on con datos de campo
     \end{enumerate}
   \end{block}
 \end{frame}
 %--- Next Frame ---%
 
 %--- Next Frame ---%
-\subsection{M\'etodos}
+\subsection{Métodos}
 \begin{frame}{\subsecname}
   \begin{block}{Generales}
     \begin{itemize}
       \item<.> Paralelep\'ipedos
       \item<.> Distancia m\'inima
-      \item<1> M\'axima verosimilitud
+      \item<1> Máxima verosimilitud
       \item<.> \'Angulo espectral
     \end{itemize}
   \end{block}
 \end{frame}
 %--- Next Frame ---%
 
-\subsection{M\'axima verosimilitud}
+\subsection{Máxima verosimilitud}
 
 \begin{frame}{\subsecname}
   \begin{block}{Clasificador Bayesiano}
@@ -148,11 +148,11 @@ Actividades Espaciales}
 %--- Next Frame ---%
 
 \begin{frame}{\subsecname}
-  \begin{block}{Soluci\'on}
+  \begin{block}{Solución}
     Usamos el teorema de Bayes y podemos escribir que un p\'ixel $x$ pertenece a la clase $\omega_i$ si $$p(x|\omega_i)p(\omega_i)>p(x|\omega_j)p(\omega_j)$$ si $i \neq j$.
   \end{block}
   \pause
-  \begin{block}{Funci\'on discriminante}
+  \begin{block}{Función discriminante}
     Si definimos $g_i(x) = \log (p(x|\omega_i)p(\omega_i))$ entonces lo anterior se convierte en $x$ pertenece a la clase $\omega_i$ si $$g_i(x)>g_j(x)$$ si $i \neq j$.
   \end{block}
 \end{frame}
@@ -160,12 +160,12 @@ Actividades Espaciales}
 
 \begin{frame}{\subsecname}
   \begin{block}{Caso Gaussiano}
-    Si suponemos que la distribuci\'on $p$ es normal y que, apriori la probabilidad de pertenecer a una clase es equiprobable, tenemos que
+    Si suponemos que la distribución $p$ es normal y que, apriori la probabilidad de pertenecer a una clase es equiprobable, tenemos que
     $$g_i(x) = -\log |C_i| - (x-m_i)^T C_i^{-1} (x-m_i)$$.
   \end{block}
   \pause
   \begin{alertblock}{Observaciones:}
-    Como la distribuci\'on de Gauss no se anula nunca, esto puede clasificar a lo largo de todo el espacio
+    Como la distribución de Gauss no se anula nunca, esto puede clasificar a lo largo de todo el espacio
   \end{alertblock}
 \end{frame}
 %--- Next Frame ---%
@@ -177,8 +177,8 @@ Actividades Espaciales}
     Son
     \begin{itemize}[<+>]
       \item Elipses
-      \item Par\'abolas
-      \item Hip\'erbolas
+      \item Parábolas
+      \item Hipérbolas
     \end{itemize}
   \end{block}
 \end{frame}
@@ -201,7 +201,7 @@ Actividades Espaciales}
 %--- Next Frame ---%
 
 \begin{frame}{\subsecname}
-  \begin{block}{N\'umero de p\'ixeles necesarios}
+  \begin{block}{Número de p\'ixeles necesarios}
     Para estimar la matriz de covarianza se necesitan al menos $N(N+1)$ elementos. Es decir, al menos $N+1$ p\'ixeles.
   \end{block}
 \end{frame}
@@ -210,14 +210,14 @@ Actividades Espaciales}
 \begin{frame}{\subsecname}
   \begin{figure}
   \includegraphics[width=0.8\textwidth]{imagenes/train.png}
-  \caption{Clasificaci\'on supervisada incrementando el n\'umero de p\'ixeles de entrenamiento.\footfullcite{richards2013remote}}
+  \caption{Clasificación supervisada incrementando el número de p\'ixeles de entrenamiento.\footfullcite{richards2013remote}}
   \end{figure}
 \end{frame}
 %--- Next Frame ---%
 
 \begin{frame}{\subsecname}
-  \begin{alertblock}{N\'umero de p\'ixeles necesarios}
-    En la pr\'actica, se necesitan entre $10N$ y $100N$ p\'ixeles.
+  \begin{alertblock}{Número de p\'ixeles necesarios}
+    En la práctica, se necesitan entre $10N$ y $100N$ p\'ixeles.
   \end{alertblock}
 \end{frame}
 %--- Next Frame ---%
@@ -225,7 +225,7 @@ Actividades Espaciales}
 \begin{frame}{\subsecname}
   \begin{figure}
   \includegraphics[width=0.6\textwidth]{imagenes/thresh.png}
-  \caption{Problemas de clasificaci\'on y umbral.\footfullcite{richards2013remote}}
+  \caption{Problemas de clasificación y umbral.\footfullcite{richards2013remote}}
   \end{figure}
 \end{frame}
 %--- Next Frame ---%
@@ -233,7 +233,7 @@ Actividades Espaciales}
 \begin{frame}{\subsecname}
   \begin{figure}
   \includegraphics[width=0.8\textwidth]{imagenes/hughes.png}
-  \caption{Otro problema, fen\'omeno de Hughes.\footfullcite{richards2013remote}}
+  \caption{Otro problema, fenómeno de Hughes.\footfullcite{richards2013remote}}
   \end{figure}
 \end{frame}
 %--- Next Frame ---%
@@ -241,7 +241,7 @@ Actividades Espaciales}
 \begin{frame}{\subsecname}
   \begin{figure}
   \includegraphics[width=0.6\textwidth]{imagenes/t_area.png}
-  \caption{Imagen con \'areas de entrenamineto.\footfullcite{richards2013remote}}
+  \caption{Imagen con áreas de entrenamineto.\footfullcite{richards2013remote}}
   \end{figure}
 \end{frame}
 %--- Next Frame ---%
@@ -254,14 +254,14 @@ Actividades Espaciales}
 \end{frame}
 %--- Next Frame ---%
 
-\subsection{Otros m\'etodos}
+\subsection{Otros métodos}
 \begin{frame}{\subsecname}
   \begin{block}{Pocos p\'ixeles}
     Si contamos con pocos p\'ixeles de entrenamiento, podemos caer en otros metodos.
     \begin{itemize}
       \item<.> Paralelep\'ipedos
       \item<1> Distancia m\'inima
-      \item<.> M\'axima verosimilitud
+      \item<.> Máxima verosimilitud
       \item<1> \'Angulo espectral
     \end{itemize}
   \end{block}
@@ -286,7 +286,7 @@ Actividades Espaciales}
 
 \begin{frame}{\subsecname}
   \begin{block}{Angulo espectral}
-    Dividimos en este caso al espacio utilizando el \'angulo correspondiente a los p\'ixeles de entrenamiento.
+    Dividimos en este caso al espacio utilizando el ángulo correspondiente a los p\'ixeles de entrenamiento.
   \end{block}
 \end{frame}
 %--- Next Frame ---%
@@ -299,15 +299,15 @@ Actividades Espaciales}
 \end{frame}
 %--- Next Frame ---%
 
-\section{Pr\'actica}
+\section{Práctica}
 
 \begin{frame}{\secname}
-  \begin{exampleblock}{Actividades pr\'acticas de la cuarta clase}
+  \begin{exampleblock}{Actividades prácticas de la cuarta clase}
     \begin{enumerate}[<+>]
-      \item Abra las im\'agenes Landsat 8 y digitalice las coberturas de inter\'es.
+      \item Abra las imágenes Landsat 8 y digitalice las coberturas de interés.
       \item Clasifique la imagen utilizando un vector de entrenamiento por clase.
       \item Clasifique la imagen utilizando varios vectores de entrenamiento por clase.
-      \item Utilizce la herramienta de estad\'isticas globales para estimar las \'areas correspondientes a cada uso y cobertura.
+      \item Utilizce la herramienta de estad\'isticas globales para estimar las áreas correspondientes a cada uso y cobertura.
     \end{enumerate}
   \end{exampleblock}
 \end{frame}

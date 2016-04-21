@@ -6,8 +6,8 @@
 \input{preamble.tex}
 
 \title{Herramientas de Teledetección Cuantitativa\\{\small Clase 2}}
-\author{Francisco Nemi\~na}
-\institute{Unidad de Educaci\'on y Formaci\'on Masiva \\ Comisi\'on Nacional de
+\author{Francisco Nemiña}
+\institute{Unidad de Educación y Formaci\'on Masiva \\ Comisi\'on Nacional de
 Actividades Espaciales}
 %\institute[Inst.]{\includegraphics[height=1cm]{Figures/logosopi.png}\phantom{pepe} \includegraphics[height=1cm]{Figures/2mp.png}\phantom{pepe} \includegraphics[height=1cm]{Figures/conae.png}}
 \date{}
@@ -21,7 +21,7 @@ Actividades Espaciales}
 \AtBeginSection[]
 {
 \begin{frame}
-\frametitle{Esquema de presentaci\'on}
+\frametitle{Esquema de presentación}
 \tableofcontents[currentsection]
 \end{frame}
 }
@@ -38,8 +38,8 @@ Actividades Espaciales}
 
 \begin{frame}{Planteo del problema}
   \begin{block}{Problema}
-    Queremos estudiar el problema de adquirir una imagen satelital cuando hay atm\'osfera presente.\pause
-    Para esto estudiaremos la variac\'on de la radiancia.
+    Queremos estudiar el problema de adquirir una imagen satelital cuando hay atmósfera presente.\pause
+    Para esto estudiaremos la variacón de la radiancia.
     $$L_\lambda$$
   \end{block}
 \end{frame}
@@ -49,7 +49,7 @@ Actividades Espaciales}
   \begin{figure}
   \centering
   \includegraphics[width=0.8\textwidth]{imagenes/iatmo.png}
-  \caption{Interacciones entre la atm\'osfera y la luz.\footfullcite{richards2013remote}}
+  \caption{Interacciones entre la atmósfera y la luz.\footfullcite{richards2013remote}}
   \end{figure}
 \end{frame}
 %--- Next Frame ---%
@@ -58,7 +58,7 @@ Actividades Espaciales}
   \begin{figure}
   \centering
   \includegraphics[width=0.8\textwidth]{imagenes/tatmo.png}
-  \caption{Diagrama esquem\'atico de la absorci\'on en la atm\'osfera.\footfullcite{richards2013remote}}
+  \caption{Diagrama esquemático de la absorción en la atm\'osfera.\footfullcite{richards2013remote}}
   \end{figure}
 \end{frame}
 %--- Next Frame ---%
@@ -67,13 +67,13 @@ Actividades Espaciales}
   \begin{figure}
   \centering
   \includegraphics[width=0.8\textwidth]{imagenes/patmo.png}
-  \caption{Diagrama esquem\'atico de las dispersi\'ones en la atm\'osfera.\footfullcite{richards2013remote}}
+  \caption{Diagrama esquemático de las dispersiónes en la atm\'osfera.\footfullcite{richards2013remote}}
   \end{figure}
 \end{frame}
 %--- Next Frame ---%
 
 \begin{frame}{Planteo del problema}
-  \begin{block}{Formulaci\'on matem\'atica}
+  \begin{block}{Formulación matemática}
     $$d L_\lambda = -k_\lambda \rho L_\lambda ds + j_\lambda \rho ds$$
     donde $-k_\lambda \rho L_\lambda ds$ representa absorciones y $j_\lambda \rho ds$ representa fuentes, \pause
     $$ \frac{dL_\lambda}{k_\lambda \rho ds} = -L_\lambda + J_\lambda$$
@@ -98,29 +98,29 @@ Actividades Espaciales}
 
 \section{Aproximaciones}
 
-\subsection{Absorci\'on constante y sin fuentes}
+\subsection{Absorción constante y sin fuentes}
 
-\begin{frame}{Absorci\'on constante y sin fuentes}
+\begin{frame}{Absorción constante y sin fuentes}
   \begin{exampleblock}{$k_\lambda = cte$, $j_\lambda = 0$}
-    En este caso nos queda la ecuaci\'on
+    En este caso nos queda la ecuación
     $$ dL_\lambda = -k_\lambda \rho L_\lambda ds$$
-    \pause cuya soluci\'on es
+    \pause cuya solución es
     $$ L_\lambda(s_1) = L_\lambda(0) \exp\left( -\int_0^{s_1} k_\lambda \rho ds \right)$$
   \end{exampleblock}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{Absorci\'on constante y sin fuentes}
+\begin{frame}{Absorción constante y sin fuentes}
   \begin{exampleblock}{$k_\lambda = cte$, $j_\lambda = 0$}
-    Notando $$u = \int_0^{s_1} \rho ds$$ nos queda la ecuaci\'on mas compacta
+    Notando $$u = \int_0^{s_1} \rho ds$$ nos queda la ecuación mas compacta
     $$ L_\lambda(s_1) = L_\lambda(0) e^{-k_\lambda u}$$
     conocida como ley de Beer-Bouguer-Lambert.
   \end{exampleblock}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{Absorci\'on constante y sin fuentes}
-  \begin{block}{Definici\'on}
+\begin{frame}{Absorción constante y sin fuentes}
+  \begin{block}{Definición}
     Llamamos transmitancia espectral al valor $$T_\lambda = \frac{L_\lambda}{L_\lambda(0)} = e^{-k_\lambda u}$$
   \end{block}\pause
   \begin{exampleblock}{Utilidad}
@@ -130,25 +130,25 @@ Actividades Espaciales}
 \end{frame}
 %--- Next Frame ---%
 
-\subsection{Atm\'osfera plana}
+\subsection{Atmósfera plana}
 
-\begin{frame}{Atm\'osfera plana}
-  \begin{exampleblock}{Atm\'osfera plana}
-    Suponemos que toda la dependencia espacial es en la direcci\'on z, entonces $$\mu \frac{dL_\lambda}{k_\lambda \rho dz} = -L_\lambda + J_\lambda$$\pause
-    definiendo a la profundidad \'optica como $$\tau_\lambda = \int_z^\infty k_\lambda \rho dz$$
+\begin{frame}{Atmósfera plana}
+  \begin{exampleblock}{Atmósfera plana}
+    Suponemos que toda la dependencia espacial es en la dirección z, entonces $$\mu \frac{dL_\lambda}{k_\lambda \rho dz} = -L_\lambda + J_\lambda$$\pause
+    definiendo a la profundidad óptica como $$\tau_\lambda = \int_z^\infty k_\lambda \rho dz$$
   \end{exampleblock}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{Atm\'osfera plana}
-  \begin{exampleblock}{Atm\'osfera plana}
+\begin{frame}{Atmósfera plana}
+  \begin{exampleblock}{Atmósfera plana}
     Nos queda entonces
     $$\mu \frac{dL_\lambda}{d\tau} = L_\lambda - J_\lambda$$\pause
-    resolver esto ya depende de la atm\'osfera y no suele haber formas cerradas.
+    resolver esto ya depende de la atmósfera y no suele haber formas cerradas.
   \end{exampleblock}
   \pause
   \begin{alertblock}{Observacion}
-    Necesito adem\'as conocer 2 condiciones de contorno.
+    Necesito además conocer 2 condiciones de contorno.
     \begin{itemize}
       \item La radiancia solar
       \item La reflectancia en el terreno
@@ -157,9 +157,9 @@ Actividades Espaciales}
 \end{frame}
 %--- Next Frame ---%
 
-\section{Atm\'osfera}
+\section{Atmósfera}
 
-\begin{frame}{atm\'osfera}
+\begin{frame}{atmósfera}
   \begin{block}{Efectos atmosfericos}
     \begin{itemize}
       \item<1-3> Absorciones
@@ -167,7 +167,7 @@ Actividades Espaciales}
         \item<2-3> Constantes
         \item<3> Variables
       \end{itemize}
-      \item<4-7> Dispersi\'on
+      \item<4-7> Dispersión
       \begin{itemize}
         \item<5-7> Rayleigh
         \item<6-7> Mie
@@ -184,7 +184,7 @@ Actividades Espaciales}
   \begin{figure}
   \centering
   \includegraphics[width=0.8\textwidth]{imagenes/composicion.png}
-  \caption{Composici\'on de la atm\'osfera.\footfullcite{liou2002introduction}}
+  \caption{Composición de la atm\'osfera.\footfullcite{liou2002introduction}}
   \end{figure}
 \end{frame}
 %--- Next Frame ---%
@@ -193,7 +193,7 @@ Actividades Espaciales}
   \begin{figure}
   \centering
   \includegraphics[width=0.7\textwidth]{imagenes/solar_spectrum.png}
-    \caption{Comparaci\'on entre la irradiancia solar a tope de la atm\'osfera y de la cobertura.\footfullcite{solar_spectrum}}
+    \caption{Comparación entre la irradiancia solar a tope de la atm\'osfera y de la cobertura.\footfullcite{solar_spectrum}}
   \end{figure}
 \end{frame}
 %--- Next Frame ---%
@@ -202,7 +202,7 @@ Actividades Espaciales}
   \begin{figure}
   \centering
   \includegraphics[width=0.8\textwidth]{imagenes/vapor.png}
-  \caption{Variaciones de la absorci\'on por contenido de vapor de agua.\footfullcite{liang2005quantitative}}
+  \caption{Variaciones de la absorción por contenido de vapor de agua.\footfullcite{liang2005quantitative}}
   \end{figure}
 \end{frame}
 %--- Next Frame ---%
@@ -231,7 +231,7 @@ Actividades Espaciales}
   \begin{figure}
   \centering
   \includegraphics[width=0.7\textwidth]{imagenes/abs_veg_esp.png}
-  \caption{Comparaci\'on entre la firma espectral y la respuesta espectral para vegetaci\'on con errores por absorci\'on de ozono y vapor de agua.\footfullcite{clark2007usgs}}
+  \caption{Comparación entre la firma espectral y la respuesta espectral para vegetaci\'on con errores por absorci\'on de ozono y vapor de agua.\footfullcite{clark2007usgs}}
   \end{figure}
 \end{frame}
 %--- Next Frame ---%
@@ -240,26 +240,26 @@ Actividades Espaciales}
 \begin{frame}{Absorciones}
   \begin{block}{Soluciones}
    \begin{itemize}
-     \item<1-> Resolver la ecuaci\'on de transferencia radiativa.
+     \item<1-> Resolver la ecuación de transferencia radiativa.
      \item<2>  Calibrar con datos en el terreno.
    \end{itemize}
   \end{block}
 \end{frame}
 %--- Next Frame ---%
 
-\subsection{Dispersi\'on}
+\subsection{Dispersión}
 
-\begin{frame}{Dispersi\'on}
+\begin{frame}{Dispersión}
   \begin{figure}
   \centering
   \includegraphics[width=0.8\textwidth]{imagenes/dispersion.png}
-  \caption{Distintos tipos de dispersi\'on en la atm\'osfera.\footfullcite{richards2013remote}}
+  \caption{Distintos tipos de dispersión en la atm\'osfera.\footfullcite{richards2013remote}}
   \end{figure}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{Dispersi\'on}
-  \begin{block}{Dispersi\'on de Rayleigh}
+\begin{frame}{Dispersión}
+  \begin{block}{Dispersión de Rayleigh}
     Se da por particulas pequeñas
     $$ d << \lambda$$
     \pause esta siempre presente
@@ -268,16 +268,16 @@ Actividades Espaciales}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{Dispersi\'on}
+\begin{frame}{Dispersión}
   \begin{figure}
   \centering
   \includegraphics[width=0.6\textwidth]{imagenes/rayleigh_sunlight_scattering.png}
-  \caption{$J$ vs. $\lambda$ en la zona \'optica.\footfullcite{rayleigh_sunlight_scattering}}
+  \caption{$J$ vs. $\lambda$ en la zona óptica.\footfullcite{rayleigh_sunlight_scattering}}
   \end{figure}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{Dispersi\'on}
+\begin{frame}{Dispersión}
   \begin{figure}
   \centering
   \includegraphics[width=0.8\textwidth]{imagenes/sunset.png}
@@ -286,8 +286,8 @@ Actividades Espaciales}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{Dispersi\'on}
-  \begin{block}{Dispersi\'on de Mie}
+\begin{frame}{Dispersión}
+  \begin{block}{Dispersión de Mie}
     Se da por particulas de tamaño similar a la longitud de onda
     $$ d \sim \lambda$$
     \pause puede o no estar presente.
@@ -295,8 +295,8 @@ Actividades Espaciales}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{Dispersi\'on}
-  \begin{block}{Dispersi\'on por aerosoles}
+\begin{frame}{Dispersión}
+  \begin{block}{Dispersión por aerosoles}
     Se da por particulas de mayor que la longitud de onda
     $$ d >> \lambda$$
     \pause puede estar presente en distintas zonas de la imagen.
@@ -306,7 +306,7 @@ Actividades Espaciales}
 
 
 \begin{frame}{Absorciones}
-  \begin{exampleblock}{Porcentaje de dispersi\'on tipica}
+  \begin{exampleblock}{Porcentaje de dispersión tipica}
     Para Landat 5 - TM
     \begin{figure}
       \begin{tabular}{l c c}
@@ -323,19 +323,19 @@ Actividades Espaciales}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{Dispersi\'on}
+\begin{frame}{Dispersión}
   \begin{figure}
   \centering
   \includegraphics[width=0.8\textwidth]{imagenes/rayleigh.png}
-  \caption{Variacion de la firma espectral por dispersi\'on de Rayleigh. \footfullcite{clark2007usgs}}
+  \caption{Variacion de la firma espectral por dispersión de Rayleigh. \footfullcite{clark2007usgs}}
   \end{figure}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{Dispersi\'on}
+\begin{frame}{Dispersión}
   \begin{block}{Soluciones}
    \begin{itemize}
-     \item<1-> Resolver ecuaci\'on de transferencia radiativa
+     \item<1-> Resolver ecuación de transferencia radiativa
      \item<2-> Calibrar con datos en el terreno.
      \item<3>  Modelar al comportamiento de forma estadistica.
    \end{itemize}
@@ -354,7 +354,7 @@ Actividades Espaciales}
     \verb| 3.14 * d^2 (g * DN + b) / E0 | \pause
     \end{center}
     \begin{itemize}
-      \item \verb+DN+ : n\'umero digital
+      \item \verb+DN+ : número digital
       \item \verb+g+ : ganancia
       \item \verb+b+ : bias
       \item \verb+d+ : distancia tierra-sol
@@ -372,7 +372,7 @@ Actividades Espaciales}
     \end{center}
     \begin{itemize}
       \item \verb+DN+ : reflectancia
-      \item \verb+a+ : \'angulo solar
+      \item \verb+a+ : ángulo solar
     \end{itemize}
   \end{block}
 \end{frame}
@@ -389,7 +389,7 @@ Actividades Espaciales}
     \begin{itemize}
       \item \verb+DN+ : reflectancia
       \item \verb+DNmin+ : reflectancia m\'inima de la banda
-      \item \verb+a+ : \'angulo solar
+      \item \verb+a+ : ángulo solar
     \end{itemize}
   \end{block}
 \end{frame}
@@ -405,12 +405,12 @@ Actividades Espaciales}
 %--- Next Frame ---%
 
 
-\section{Pr\'actica}
+\section{Práctica}
 
-\begin{frame}{Pr\'actica}
-  \begin{exampleblock}{Actividades pr\'acticas de la segunda clase}
+\begin{frame}{Práctica}
+  \begin{exampleblock}{Actividades prácticas de la segunda clase}
     \begin{enumerate}
-      \item Abrir im\'agenes Landsat 8 y digitalizar coberturas de interes.
+      \item Abrir imágenes Landsat 8 y digitalizar coberturas de interes.
       \item Convertir la imagen a reflectancia.
       \item Corregir la imagen por el coseno del angulo.
       \item Corregir la imagen por DOS 1\%.

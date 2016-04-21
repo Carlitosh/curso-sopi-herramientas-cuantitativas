@@ -7,7 +7,7 @@
 
 \title{Herramientas de Teledetección Cuantitativa\\{\small Clase 4}}
 \author{Francisco Nemi\~na}
-\institute{Unidad de Educaci\'on y Formaci\'on Masiva \\ Comisi\'on Nacional de
+\institute{Unidad de Educación y Formaci\'on Masiva \\ Comisi\'on Nacional de
 Actividades Espaciales}
 %\institute[Inst.]{\includegraphics[height=1cm]{Figures/logosopi.png}\phantom{pepe} \includegraphics[height=1cm]{Figures/2mp.png}\phantom{pepe} \includegraphics[height=1cm]{Figures/conae.png}}
 \date{}
@@ -21,7 +21,7 @@ Actividades Espaciales}
 \AtBeginSection[]
 {
 \begin{frame}
-\frametitle{Esquema de presentaci\'on}
+\frametitle{Esquema de presentación}
 \tableofcontents[currentsection]
 \end{frame}
 }
@@ -33,9 +33,9 @@ Actividades Espaciales}
 \end{frame}
 
 \section{Transformaciones}
-\subsection{Motivaci\'on}
+\subsection{Motivación}
 
-\begin{frame}{Motivaci\'on}
+\begin{frame}{Motivación}
   \begin{center}
       \resizebox{0.4 \linewidth}{!}{%
         \begin{tikzpicture}[node distance = 2cm, auto]
@@ -51,8 +51,8 @@ Actividades Espaciales}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{Motivaci\'on}
-  \begin{block}{T\'ecnicas de reducci\'on de la dimensionalidad}
+\begin{frame}{Motivación}
+  \begin{block}{Técnicas de reducción de la dimensionalidad}
     \begin{itemize}[<+>]
       \item Rotaciones
       \item \'Indices
@@ -64,11 +64,11 @@ Actividades Espaciales}
 \end{frame}
 %--- Next Frame ---%
 
-\subsection{Matem\'atica}
+\subsection{Matemática}
 
 
-\begin{frame}{Matem\'atica}
-  \begin{block}{Definici\'on:}
+\begin{frame}{Matemática}
+  \begin{block}{Definición:}
     Un vector es un objeto de la forma $$\left(
     \begin{array}{c}
           v_1 \\
@@ -86,26 +86,26 @@ Actividades Espaciales}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{Matem\'atica}
-  \begin{block}{Definici\'on:}
+\begin{frame}{Matemática}
+  \begin{block}{Definición:}
     Las matrices se pueden pensar como transformaciones que convierten a un vector en otro. \pause
     $$ Av = w$$
   \end{block}\pause
   \begin{alertblock}{Propiedad}
-    Como las transformaciones que utilizaremos son lineales, con s\'olo definirlas en unos pocos valores alcanza. \pause Elegir bien los vectores para definir la transformaci\'on es \'util.
+    Como las transformaciones que utilizaremos son lineales, con sólo definirlas en unos pocos valores alcanza. \pause Elegir bien los vectores para definir la transformaci\'on es útil.
   \end{alertblock}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{Matem\'atica}
+\begin{frame}{Matemática}
   \begin{figure}
     \includegraphics[width=0.6\textwidth]{imagenes/elandsat.png}
-    \caption{Comparaci\'on entre firma espectral y valores medidos para un p\'ixel\footfullcite{richards2013remote}}
+    \caption{Comparación entre firma espectral y valores medidos para un p\'ixel\footfullcite{richards2013remote}}
   \end{figure}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{Matem\'atica}
+\begin{frame}{Matemática}
   \begin{figure}
     \includegraphics[width=0.6\textwidth]{imagenes/vector.png}
     \caption{P\'ixeles en $R^2$.\footfullcite{richards2013remote}}
@@ -113,7 +113,7 @@ Actividades Espaciales}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{Matem\'atica}
+\begin{frame}{Matemática}
   \begin{alertblock}{Respuesta efectiva como vector}
     A la respuesta espectral efectiva la puedo pensar como un vector de reflectancias
     $$\left(
@@ -126,7 +126,7 @@ Actividades Espaciales}
   \end{alertblock}
   \pause
 \end{frame}
-\begin{frame}{Matem\'atica}
+\begin{frame}{Matemática}
   \begin{exampleblock}{Ejemplo:}
     $$v_{(x,y)}=\left(
     \begin{array}{c}
@@ -162,9 +162,9 @@ Actividades Espaciales}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{Matem\'atica}
-  \begin{alertblock}{Motivaci\'on}
-    Podemos pensar a una imagen como vectores en un espacio vectorial. El n\'umero de bandas es la dimensi\'on de ese espacio.
+\begin{frame}{Matemática}
+  \begin{alertblock}{Motivación}
+    Podemos pensar a una imagen como vectores en un espacio vectorial. El número de bandas es la dimensión de ese espacio.
   \end{alertblock}
 \end{frame}
 %--- Next Frame ---%
@@ -191,8 +191,8 @@ Actividades Espaciales}
 %--- Next Frame ---%
 
 \begin{frame}{Idea}
-  \begin{alertblock}{Transformaci\'on}
-    Una combinaci\'on obvia es $$ DIF = 0.5NIR-0.5RED$$
+  \begin{alertblock}{Transformación}
+    Una combinación obvia es $$ DIF = 0.5NIR-0.5RED$$
     y
     $$ SUM = 0.5NIR+0.5RED $$
   \end{alertblock}
@@ -202,7 +202,7 @@ Actividades Espaciales}
 
 \begin{frame}{Idea}
   \begin{alertblock}{Importante}
-    No siempre m\'as bandas significa mas informaci\'on.
+    No siempre más bandas significa mas información.
   \end{alertblock}
 \end{frame}
 %--- Next Frame ---%
@@ -211,7 +211,7 @@ Actividades Espaciales}
 
 \begin{frame}{Componentes principales}
   \begin{block}{Idea}
-    Queremos ver si un set bandas est\'a correlacionadas o no.
+    Queremos ver si un set bandas está correlacionadas o no.
   \end{block}
 \end{frame}
 %--- Next Frame ---%
@@ -228,8 +228,8 @@ Actividades Espaciales}
 
 
 \begin{frame}{Componentes principales}
-  \begin{block}{Matriz de correlaci\'on}
-    Tiene en sus componentes las funciones de correlaci\'on entre cada banda\pause
+  \begin{block}{Matriz de correlación}
+    Tiene en sus componentes las funciones de correlación entre cada banda\pause
     \[
     A = \begin{bmatrix}
         corr_{11}       & corr_{12} & corr_{13} & \dots & corr_{1n} \\
@@ -243,15 +243,15 @@ Actividades Espaciales}
 
 \begin{frame}{Componentes principales}
   \begin{block}{Observaciones}
-      Queremos que la correlaci\'on cruzada entre bandas sea cero. \pause Matem\'aticamente lo pedimos como
+      Queremos que la correlación cruzada entre bandas sea cero. \pause Matemáticamente lo pedimos como
         $$Av=\lambda v$$
-      Y nos quedamos como vectores \'utiles a los que cumplan esto.
+      Y nos quedamos como vectores útiles a los que cumplan esto.
   \end{block}
 \end{frame}
 %--- Next Frame ---%
 
 \begin{frame}{Componentes principales}
-  \begin{block}{Matriz de correlaci\'on}
+  \begin{block}{Matriz de correlación}
     La forma de la matriz va a depender de las combinaciones lineal que haga entre los vectores \pause
     \[
     \begin{bmatrix}
@@ -270,8 +270,8 @@ Actividades Espaciales}
   \begin{block}{Observaciones}
     \begin{itemize}[<+>]
       \item $\frac{\lambda_i}{\sum_i \lambda_i}$ me habla de cuanto me explica ese vector sobre la variabilidad de la imagen
-      \item $(v_1 , \dots , v_n)$ el autovector que me representa la combinaci\'on de bandas de un autovalor dado.
-      \item Estas combinaci\'on lineal de bandas tienen la informaci\'on m\'as relevante.
+      \item $(v_1 , \dots , v_n)$ el autovector que me representa la combinación de bandas de un autovalor dado.
+      \item Estas combinación lineal de bandas tienen la informaci\'on más relevante.
     \end{itemize}
   \end{block}
 \end{frame}
@@ -298,7 +298,7 @@ Actividades Espaciales}
         0       & 0.656315
     \end{bmatrix} \]
     con autovectores $$0.707107\, NIR-0.707107 \, RED$$  y $$0.707107 \, NIR+0.707107\, RED$$ \pause
-    Ac\'a el primer vector explica el el 67\% de la variabilidad de la imagen y el segundo del 33\%.
+    Acá el primer vector explica el el 67\% de la variabilidad de la imagen y el segundo del 33\%.
   \end{exampleblock}
 \end{frame}
 %--- Next Frame ---%
@@ -326,13 +326,13 @@ Actividades Espaciales}
 
 \begin{frame}{Transformada tasseled-cap}
   \begin{block}{Utilidad}
-    La utilidad de esto no suele ser con dos bandas, si no con muchas m\'as.
+    La utilidad de esto no suele ser con dos bandas, si no con muchas más.
   \end{block}\pause
   \begin{block}{Problema}
-    Ac\'a es mas f\'acil darse cuenta que brinda mas informaci\'on, el tema es interpretar esa informaci\'on.
+    Acá es mas f\'acil darse cuenta que brinda mas información, el tema es interpretar esa informaci\'on.
   \end{block}\pause
   \begin{block}{Idea}
-    Encontrar alguna transformaci\'on que me permita descartar bandas pero que tengan relaci\'on con distintos comportamientos biof\'isicos.
+    Encontrar alguna transformación que me permita descartar bandas pero que tengan relaci\'on con distintos comportamientos biof\'isicos.
   \end{block}
 \end{frame}
 %--- Next Frame ---%
@@ -341,7 +341,7 @@ Actividades Espaciales}
   \begin{figure}
   \centering
   \includegraphics[width=0.8\textwidth]{imagenes/tc.png}
-  \caption{Movimiento asociado al comportamiento fenol\'ogico de un p\'ixel de vegetaci\'on en el espacio vectorial.\footfullcite{richards2013remote}}
+  \caption{Movimiento asociado al comportamiento fenológico de un p\'ixel de vegetaci\'on en el espacio vectorial.\footfullcite{richards2013remote}}
   \end{figure}
 \end{frame}
 %--- Next Frame ---%
@@ -350,7 +350,7 @@ Actividades Espaciales}
 \begin{frame}{Transformada tasseled-cap}
     \begin{figure}
       \begin{tabular}{l c c c c c c }
-        Combinaci\'on  & Azul & Verde & Rojo & NIR & SWIR 1 & SWIR 2\\
+        Combinación  & Azul & Verde & Rojo & NIR & SWIR 1 & SWIR 2\\
         Brillo &  0.30  & 0.27  & 0.47  & 0.55  & 0.50  & 0.18\\
         Verdor & -0.29  &-0.24  &-0.54  & 0.72 & 0.07  &-0.16\\
         Humedad&  0.15  & 0.19  & 0.32  & 0.34  &-0.71  &-0.45
@@ -362,7 +362,7 @@ Actividades Espaciales}
 
 \begin{frame}{Transformada tasseled-cap}
   \begin{block}{Idea}
-    Todo esto logra hacer que el n\'umero de bandas que utilizo sea menor que el n\'umero de bandas inicial
+    Todo esto logra hacer que el número de bandas que utilizo sea menor que el n\'umero de bandas inicial
   \end{block}
 \end{frame}
 %--- Next Frame ---%
@@ -372,28 +372,28 @@ Actividades Espaciales}
 \begin{frame}{\'Indices}
   \begin{block}{\'Indices}
     \begin{itemize}[<+>]
-      \item Nos van a permitir reducir mas la dimensi\'onalidad.
-      \item Perdiendo informaci\'on.
-      \item Ganando y mucho en la interpretaci\'on de los resultados.
-      \item Adem\'as voy a encontrar correlaciones con variables biof\'isicas.
+      \item Nos van a permitir reducir mas la dimensiónalidad.
+      \item Perdiendo información.
+      \item Ganando y mucho en la interpretación de los resultados.
+      \item Además voy a encontrar correlaciones con variables biof\'isicas.
     \end{itemize}
   \end{block}
 \end{frame}
 %--- Next Frame ---%
 
-\subsection{\'Indices de Vegetaci\'on}
+\subsection{\'Indices de Vegetación}
 
-\begin{frame}{\'Indices de Vegetaci\'on}
+\begin{frame}{\'Indices de Vegetación}
     \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{imagenes/salto_nr.png}
-    \caption{Salto de reflectancia entre la regi\'on entre el rojo y el infrarrojo cercano.\footfullcite{clark2007usgs}}
+    \caption{Salto de reflectancia entre la región entre el rojo y el infrarrojo cercano.\footfullcite{clark2007usgs}}
     \end{figure}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{\'Indices de Vegetaci\'on}
-  \begin{block}{Definici\'on}
+\begin{frame}{\'Indices de Vegetación}
+  \begin{block}{Definición}
     Cociente simple $$\frac{NIR}{RED}$$
     Es de lo mas sencillo que uno puede pensar.
   \end{block}
@@ -411,10 +411,10 @@ Actividades Espaciales}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{\'Indices de Vegetaci\'on}
-  \begin{block}{Definici\'on}
+\begin{frame}{\'Indices de Vegetación}
+  \begin{block}{Definición}
     Cociente simple $$\frac{NIR-RED}{NIR+RED}$$
-    La idea es normalizar la diferencia para simplificar la interpretaci\'on
+    La idea es normalizar la diferencia para simplificar la interpretación
   \end{block}
   \begin{exampleblock}{Ejemplos}
     \begin{figure}
@@ -430,60 +430,60 @@ Actividades Espaciales}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{\'Indices de Vegetaci\'on}
-  \begin{block}{Observaci\'on}
+\begin{frame}{\'Indices de Vegetación}
+  \begin{block}{Observación}
     Se relaciona con el anterior como $$\frac{NIR/RED-1}{NIR/RED+1}$$
   \end{block}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{\'Indices de Vegetaci\'on}
-  \begin{alertblock}{Observaci\'on}
+\begin{frame}{\'Indices de Vegetación}
+  \begin{alertblock}{Observación}
     Este \'indice esta relacionado con varias variables biof\'isicas.
   \end{alertblock}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{\'Indices de Vegetaci\'on}
+\begin{frame}{\'Indices de Vegetación}
     \begin{figure}
     \centering
     \includegraphics[width=0.6\textwidth]{imagenes/avndvi.png}
-    \caption{NDVI vs cantidad de biomasa h\'umeda.\footfullcite{tucker1979red}}
+    \caption{NDVI vs cantidad de biomasa húmeda.\footfullcite{tucker1979red}}
     \end{figure}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{\'Indices de Vegetaci\'on}
+\begin{frame}{\'Indices de Vegetación}
     \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{imagenes/ndvivst.png}
-    \caption{Variaci\'on del NDVI en funci\'on de la epoca del año.\footfullcite{de2010spatio}}
+    \caption{Variación del NDVI en funci\'on de la epoca del año.\footfullcite{de2010spatio}}
     \end{figure}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{\'Indices de Vegetaci\'on}
+\begin{frame}{\'Indices de Vegetación}
   \begin{block}{Problemas}
     \begin{itemize}[<+>]
       \item Este \'indice puede saturar.
       \item En suelos con baja cobertura vegetal suele ser mas dif\'icil de interpretar.
-      \item Estoy sacrificando informaci\'on que puede ser relevante.
+      \item Estoy sacrificando información que puede ser relevante.
     \end{itemize}
-    Por suerte hay otros \'indices que mejoran esta situaci\'on
+    Por suerte hay otros \'indices que mejoran esta situación
   \end{block}
 \end{frame}
 %--- Next Frame ---%
 
 
-\section{Pr\'actica}
+\section{Práctica}
 
-\begin{frame}{Pr\'actica}
-  \begin{exampleblock}{Actividades pr\'acticas de la tercer clase}
+\begin{frame}{Práctica}
+  \begin{exampleblock}{Actividades prácticas de la tercer clase}
     \begin{enumerate}
-      \item Abrir im\'agenes Landsat 8 y digitalizar coberturas de inter\'es.
-      \item Calcular el \'indice de vegetaci\'on para las im\'agenes de febrero y agosto.
-      \item Realizar curvas fenol\'ogicas a partir del \'indice de vegetaci\'on en la imagen MODIS.
-      \item Utilizar la herramienta de componentes principales para reducir la dimensi\'onalidad de la imagen MODIS.
+      \item Abrir imágenes Landsat 8 y digitalizar coberturas de interés.
+      \item Calcular el \'indice de vegetación para las imágenes de febrero y agosto.
+      \item Realizar curvas fenológicas a partir del \'indice de vegetaci\'on en la imagen MODIS.
+      \item Utilizar la herramienta de componentes principales para reducir la dimensiónalidad de la imagen MODIS.
     \end{enumerate}
   \end{exampleblock}
 \end{frame}

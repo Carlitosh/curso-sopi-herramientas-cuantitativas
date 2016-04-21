@@ -7,7 +7,7 @@
 
 \title{Herramientas de Teledetección Cuantitativa\\{\small Clase 7}}
 \author{Francisco Nemi\~na}
-\institute{Unidad de Educaci\'on y Formaci\'on Masiva \\ Comisi\'on Nacional de
+\institute{Unidad de Educación y Formaci\'on Masiva \\ Comisi\'on Nacional de
 Actividades Espaciales}
 %\institute[Inst.]{\includegraphics[height=1cm]{Figures/logosopi.png}\phantom{pepe} \includegraphics[height=1cm]{Figures/2mp.png}\phantom{pepe} \includegraphics[height=1cm]{Figures/conae.png}}
 \date{}
@@ -21,7 +21,7 @@ Actividades Espaciales}
 \AtBeginSection[]
 {
 \begin{frame}
-\frametitle{Esquema de presentaci\'on}
+\frametitle{Esquema de presentación}
 \tableofcontents[currentsection]
 \end{frame}
 }
@@ -32,18 +32,18 @@ Actividades Espaciales}
     \maketitle
 \end{frame}
 
-\section{Introducci\'on}
-\subsection{Nociones b\'asicas}
+\section{Introducción}
+\subsection{Nociones básicas}
 \begin{frame}{\subsecname}
-\begin{block}{Objetivo de la validaci\'on}
-  Lo que esperamos es asignarle a nuestro mapa tem\'atico un cierto grado de confianza a partir de datos medidos en el terreno.
+\begin{block}{Objetivo de la validación}
+  Lo que esperamos es asignarle a nuestro mapa temático un cierto grado de confianza a partir de datos medidos en el terreno.
 \end{block}
 \end{frame}
 
 \begin{frame}{\subsecname}
   \begin{figure}
   \includegraphics[width=0.5\textwidth]{imagenes/valid.png}
-  \caption{Ejemplo de datos de referencia contra un mapa tem\'atico.\footfullcite{congalton2008assessing}}
+  \caption{Ejemplo de datos de referencia contra un mapa temático.\footfullcite{congalton2008assessing}}
   \end{figure}
 \end{frame}
 %--- Next Frame ---%
@@ -51,7 +51,7 @@ Actividades Espaciales}
 \begin{frame}{\subsecname}
   \begin{figure}
   \includegraphics[width=0.4\textwidth]{imagenes/area-v.png}
-  \caption{Comparaci\'on de area total.\footfullcite{congalton2008assessing}}
+  \caption{Comparación de area total.\footfullcite{congalton2008assessing}}
   \end{figure}
 \end{frame}
 %--- Next Frame ---%
@@ -64,15 +64,15 @@ Actividades Espaciales}
 \end{frame}
 %--- Next Frame ---%
 
-\subsection{Matriz de confusi\'on}
+\subsection{Matriz de confusión}
 \begin{frame}{\subsecname}
-\begin{block}{Definici\'on}
-  Lo que esperamos es asignarle a nuestro mapa tem\'atico un cierto grado de presici\'on a partir de datos medidos en el terreno.
+\begin{block}{Definición}
+  Lo que esperamos es asignarle a nuestro mapa temático un cierto grado de presición a partir de datos medidos en el terreno.
 \end{block}
 \end{frame}
 
 \begin{frame}{\subsecname}
-\begin{block}{Definici\'on}
+\begin{block}{Definición}
 \[
 \begin{bmatrix}
       & 1               & 2           &  \dots     & k      &  n_{i+}\\
@@ -86,17 +86,17 @@ Actividades Espaciales}
 \end{frame}
 
 \begin{frame}{\subsecname}
-\begin{block}{Definici\'on}
+\begin{block}{Definición}
   Donde
   $$n_{i+} = \sum_j n_{ij}$$
   $$n_{+j} = \sum_i n_{ij}$$
-  y donde $n$ es el n\'umero total de muestras.
+  y donde $n$ es el número total de muestras.
 \end{block}
 \end{frame}
 
 \begin{frame}{\subsecname}
   \begin{exampleblock}{Ejemplo}
-    Vamos a tomar s\'olo tres coberturas a modo de ejemplo
+    Vamos a tomar sólo tres coberturas a modo de ejemplo
     \[
     \begin{bmatrix}
           & A   & S    & V  & \\
@@ -109,26 +109,26 @@ Actividades Espaciales}
 \end{frame}
 
 \begin{frame}{\subsecname}
-  \begin{block}{Presici\'on total}
+  \begin{block}{Presición total}
     $$\frac{\sum_i n_{ii}}{n}$$
   \end{block}\pause
-  \begin{block}{Presici\'on usuario}
+  \begin{block}{Presición usuario}
     $$\frac{ n_{ii}}{n_{i+}}$$
   \end{block}\pause
-  \begin{block}{Presici\'on productor}
+  \begin{block}{Presición productor}
     $$\frac{n_{jj}}{n_{+j}}$$
   \end{block}  \pause
 \end{frame}
 
 \begin{frame}{\subsecname}
-  \begin{block}{Fracci\'on de la muestra}
+  \begin{block}{Fracción de la muestra}
     $$p_{ij} = \frac{n_{ij}}{n}$$
   \end{block}\pause
 
   \begin{block}{Probabilidad de j en los datos de campo}
     $$p_{+j} = \sum_i p_{ij}$$
   \end{block}
-  \begin{block}{Probabilidad de i en la clasificaci\'on}
+  \begin{block}{Probabilidad de i en la clasificación}
     $$p_{i+} = \sum_j p_{ij}$$
   \end{block}
 \end{frame}
@@ -147,23 +147,23 @@ Actividades Espaciales}
 \end{frame}
 
 \begin{frame}{\subsecname}
-  \begin{block}{Matriz de confusi\'on}
-    Cualquier an\'alisis sobre el error de una clasificaci\'on parte de la matriz de confusi\'on.
+  \begin{block}{Matriz de confusión}
+    Cualquier análisis sobre el error de una clasificación parte de la matriz de confusi\'on.
   \end{block}
 \end{frame}
 
 \subsection{\'Indice kappa}
 
 \begin{frame}{\subsecname}
-  \begin{block}{Definici\'on}
-    El \'indice kappa nos permite estimar si dos matrices de confusi\'on son distintas una de la otra o no. \pause
+  \begin{block}{Definición}
+    El \'indice kappa nos permite estimar si dos matrices de confusión son distintas una de la otra o no. \pause
     \\
-    Mide cuanto se acerca mi clasificaci\'on a una clasificaci\'on al azar.
+    Mide cuanto se acerca mi clasificación a una clasificaci\'on al azar.
   \end{block}
 \end{frame}
 
 \begin{frame}{\subsecname}
-  \begin{block}{Definici\'on}
+  \begin{block}{Definición}
     $$\hat{K} = \frac{p_0 - p_c}{1-p_c}$$ donde
     $$p_0 = \sum_i p_{ii}$$ y $$p_c = \sum_i p_{i+}p_{+i}$$
   \end{block}
@@ -176,8 +176,8 @@ Actividades Espaciales}
 \end{frame}
 
 \begin{frame}{\subsecname}
-  \begin{block}{Interpretaci\'on}
-    Interpretaciones del \'indice kappa hay muchas. Lo mas b\'asico es que cuanto m\'as cerca de cero este el valor, m\'as se parece la clasificacion una clasificaci\'on aleatoria.
+  \begin{block}{Interpretación}
+    Interpretaciones del \'indice kappa hay muchas. Lo mas básico es que cuanto m\'as cerca de cero este el valor, m\'as se parece la clasificacion una clasificación aleatoria.
   \end{block}
   \begin{block}{Cortes}
     \begin{figure}
@@ -195,10 +195,10 @@ Actividades Espaciales}
 \begin{frame}{\subsecname}
   \begin{block}{4 preguntas}
   \begin{enumerate}
-    \item ¿Qu\'e categor\'ias tengo?
-    \item ¿Qu\'e unidad de muestreo usar?
-    \item ¿Cu\'antas muestras tomar?
-    \item ¿C\'omo elegir las muestras?
+    \item ¿Qué categor\'ias tengo?
+    \item ¿Qué unidad de muestreo usar?
+    \item ¿Cuántas muestras tomar?
+    \item ¿Cómo elegir las muestras?
   \end{enumerate}
   \end{block}
 \end{frame}
@@ -210,7 +210,7 @@ Actividades Espaciales}
       \item Mutualmente exclusivas
       \item Totalmente exaustivas
     \end{itemize}
-    Adem\'as de tener un tamaño m\'inimo para ser considerado de esa clase.
+    Además de tener un tamaño m\'inimo para ser considerado de esa clase.
   \end{block}
 \end{frame}
 
@@ -223,19 +223,19 @@ Actividades Espaciales}
 %--- Next Frame ---%
 
 \begin{frame}{\subsecname}
-  \begin{block}{¿Qu\'e unidad de muestreo usar?}
+  \begin{block}{¿Qué unidad de muestreo usar?}
     \begin{itemize}[<+>]
       \item Un solo p\'ixel.
-      \item Un cl\'uster de p\'ixeles
+      \item Un clúster de p\'ixeles
       \item Un pol\'igono
-      \item Un cl\'uster de pol\'igonos
+      \item Un clúster de pol\'igonos
     \end{itemize}
   \end{block}
 \end{frame}
 
 \begin{frame}{Muestreo}
-  \begin{block}{¿Cu\'antas muestras tomar?}
-    $$N = \frac{B}{4b^2}$$ donde $B$ se obtiene a partir de la distribuci\'on $\chi^2$ con un grado de libertad y $b$ es la presici\'on que uno acepta.
+  \begin{block}{¿Cuántas muestras tomar?}
+    $$N = \frac{B}{4b^2}$$ donde $B$ se obtiene a partir de la distribución $\chi^2$ con un grado de libertad y $b$ es la presici\'on que uno acepta.
   \end{block}
 \end{frame}
 
@@ -244,7 +244,7 @@ Actividades Espaciales}
     \begin{itemize}[<+>]
       \item Al azar.
       \item Estratificado al azar.
-      \item Sistem\'atico.
+      \item Sistemático.
       \item Clusters
     \end{itemize}
   \end{block}
@@ -256,29 +256,29 @@ Actividades Espaciales}
   \end{alertblock}
 \end{frame}
 
-\section{Pr\'actica}
+\section{Práctica}
 
-\begin{frame}{Pr\'actica}
-  \begin{exampleblock}{Actividades pr\'acticas de la sexta clase}
+\begin{frame}{Práctica}
+  \begin{exampleblock}{Actividades prácticas de la sexta clase}
     \begin{enumerate}
-      \item Abrir las im\'agenes clasificadas y fusionadas por el m\'etodo de clasificaci\'on supervisada y no supervisada.
-      \item Cargar los pol\'igonos de validaci\'on correspondientes a cada clase.
-      \item Calcular al matriz de confusi\'on correspondiente a cada clasificaci\'on.
-      \item Obtener la presici\'on global, del usuario, productor y el \'indice kappa.
+      \item Abrir las imágenes clasificadas y fusionadas por el método de clasificación supervisada y no supervisada.
+      \item Cargar los pol\'igonos de validación correspondientes a cada clase.
+      \item Calcular al matriz de confusión correspondiente a cada clasificaci\'on.
+      \item Obtener la presición global, del usuario, productor y el \'indice kappa.
     \end{enumerate}
   \end{exampleblock}
 \end{frame}
 %--- Next Frame ---%
 
-\section{Pr\'actica}
+\section{Práctica}
 
-\begin{frame}{Pr\'actica}
-  \begin{exampleblock}{Actividades pr\'acticas de la sexta clase}
+\begin{frame}{Práctica}
+  \begin{exampleblock}{Actividades prácticas de la sexta clase}
     \begin{enumerate}
-      \item Abrir las im\'agenes clasificadas y fusionadas por el m\'etodo de clasificaci\'on supervisada y no supervisada.
-      \item Cargar los pol\'igonos de validaci\'on correspondientes a cada clase.
-      \item Calcular al matriz de confusi\'on correspondiente a cada clasificaci\'on.
-      \item Obtener la presici\'on global, del usuario, productor y el \'indice kappa.
+      \item Abrir las imágenes clasificadas y fusionadas por el método de clasificación supervisada y no supervisada.
+      \item Cargar los pol\'igonos de validación correspondientes a cada clase.
+      \item Calcular al matriz de confusión correspondiente a cada clasificaci\'on.
+      \item Obtener la presición global, del usuario, productor y el \'indice kappa.
     \end{enumerate}
   \end{exampleblock}
 \end{frame}

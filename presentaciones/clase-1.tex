@@ -6,8 +6,8 @@
 \input{preamble.tex}
 
 \title{Herramientas de Teledetección Cuantitativa\\{\small Clase 1}}
-\author{Francisco Nemi\~na \and Diego Schell \and Laura Rouco}
-\institute{Unidad de Educaci\'on y Formaci\'on Masiva \\ Comisi\'on Nacional de
+\author{Francisco Nemiña \and Diego Schell \and Laura Rouco}
+\institute{Unidad de Educación y Formaci\'on Masiva \\ Comisi\'on Nacional de
 Actividades Espaciales}
 %\institute[Inst.]{\includegraphics[height=1cm]{Figures/logosopi.png}\phantom{pepe} \includegraphics[height=1cm]{Figures/2mp.png}\phantom{pepe} \includegraphics[height=1cm]{Figures/conae.png}}
 \date{}
@@ -20,7 +20,7 @@ Actividades Espaciales}
 
 \AtBeginSection[]
 {\begin{frame}
-\frametitle{Esquema de presentaci\'on}
+\frametitle{Esquema de presentación}
 \tableofcontents[currentsection]
 \end{frame}
 }
@@ -45,17 +45,17 @@ Actividades Espaciales}
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Organizaci\'on del curso}
-  \begin{block}{Plataforma de Educaci\'on a Distancia}
+\begin{frame}[fragile]{Organización del curso}
+  \begin{block}{Plataforma de Educación a Distancia}
     \verb+https://sopi.conae.gov.ar/aulavirtual+\\
     \verb+Contraseña: benteveo2016+
   \end{block}\pause
-  \begin{block}{Aprobaci\'on}
+  \begin{block}{Aprobación}
     \begin{enumerate}
         \item \emph{75\% de asistencia.}
         \item sumar 60 puntos entre
             \begin{itemize}
-                \item 7 cuestionarios te\'orico-pr\'acticos sobre las clases
+                \item 7 cuestionarios teórico-prácticos sobre las clases
                 \item 1 trabajo final integrador
             \end{itemize}
     \end{enumerate}\pause
@@ -63,16 +63,16 @@ Actividades Espaciales}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}[fragile]{Organizaci\'on del curso}
+\begin{frame}[fragile]{Organización del curso}
   \begin{block}{Cronograma}
     \begin{itemize}[<+>]
-      \item 8/4 Conceptos b\'asicos y firmas espectrales.
-      \item 15/4 Correcciones radiom\'etricas.
+      \item 8/4 Conceptos básicos y firmas espectrales.
+      \item 15/4 Correcciones radiométricas.
       \item 22/4 Dimensionalidad 
       \item 29/4 \'Indices.
       \item 6/5 Clasificaciones no supervisadas.
       \item 13/5 Clasificaciones supervisadas.
-      \item 20/5 Validaci\'on de datos satelitales.
+      \item 20/5 Validación de datos satelitales.
       \item 27/5 Clase de consulta
       \item 3/6  Clase de consulta
       \item 10/5 Entrega del trabajo final.
@@ -80,14 +80,14 @@ Actividades Espaciales}
   \end{block}
 \end{frame}
 
-\begin{frame}{M\'etodos cuantitativos}
-  \begin{block}{Definici\'on:}
-    Hablamos de \emph{m\'etodos cuantitativos en teledetecci\'on \'optica} cuando queremos cuantificar los datos disponibles en una imagen para poder extraer informaci\'on de las mismas utilizando las longitudes de onda de $0.4\mu m$ a $14 \mu m$.
+\begin{frame}{Métodos cuantitativos}
+  \begin{block}{Definición:}
+    Hablamos de \emph{métodos cuantitativos en teledetección \'optica} cuando queremos cuantificar los datos disponibles en una imagen para poder extraer informaci\'on de las mismas utilizando las longitudes de onda de $0.4\mu m$ a $14 \mu m$.
   \end{block}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{M\'etodos cuantitativos}
+\begin{frame}{Métodos cuantitativos}
   \begin{enumerate}
     \item<1-3> Tipos de modelos
     \begin{enumerate}
@@ -97,23 +97,23 @@ Actividades Espaciales}
     \item<4-6> Tipos de variables
     \begin{enumerate}
       \item<5-6> continuas
-      \item<6> categ\'oricas
+      \item<6> categóricas
     \end{enumerate}
   \end{enumerate}
 \end{frame}
 %--- Next Frame ---%
 
-\section{Conceptos b\'asicos}
+\section{Conceptos básicos}
 \subsection{Radiancia}
 \begin{frame}{Radiancia}
-  \begin{block}{Definici\'on:}
+  \begin{block}{Definición:}
     $$dE = L_{\lambda}(\theta,\phi) \cos(\theta) d\Omega dA dt d\lambda$$
-    Potencia radiante por unidades de \'area y \'angulo s\'olido.
+    Potencia radiante por unidades de área y \'angulo sólido.
   \end{block}\pause
   \begin{alertblock}{Importante:}
     \begin{itemize}[<+>]
       \item $[L_{\lambda}] = \frac{W}{m^2 sr nm}$
-      \item Es una de las dos magnitudes m\'as relevantes.
+      \item Es una de las dos magnitudes más relevantes.
     \end{itemize}
   \end{alertblock}
 \end{frame}
@@ -123,16 +123,16 @@ Actividades Espaciales}
   \begin{figure}
   \centering
   \includegraphics[width=0.8\textwidth]{imagenes/solid_angle.png}
-  \caption{\'Angulo s\'olido $\Omega$ y los \'angulos asociados $\theta$ y $\phi$.\footfullcite{liang2005quantitative}}
+  \caption{\'Angulo sólido $\Omega$ y los ángulos asociados $\theta$ y $\phi$.\footfullcite{liang2005quantitative}}
   \end{figure}
 \end{frame}
 %--- Next Frame ---%
 
 \begin{frame}{Radiancia}
-  \begin{block}{Definici\'on}
+  \begin{block}{Definición}
     Definimos la irradiancia como
     $$E=\int L(\theta,\phi) \cos(\theta) d\Omega$$\pause
-    para el caso de que la luz se emita s\'olo en uno de los hemisferios
+    para el caso de que la luz se emita sólo en uno de los hemisferios
     $$E=\int_0^{2\pi}\int_0^{\pi/2} L(\theta,\phi) \cos(\theta) \sin(\theta) d\theta d\phi$$
   \end{block}
 \end{frame}
@@ -142,7 +142,7 @@ Actividades Espaciales}
   \begin{figure}
   \centering
   \includegraphics[width=0.8\textwidth]{imagenes/espectrum.png}
-  \caption{Espectro electromagn\'etico.\footfullcite{espectrum}}
+  \caption{Espectro electromagnético.\footfullcite{espectrum}}
   \end{figure}
 \end{frame}
 %--- Next Frame ---%
@@ -158,7 +158,7 @@ Actividades Espaciales}
 
 \begin{frame}{Radiancia}
   \begin{block}{Curva de irradiancia}
-    C\'alculo de la irradiancia de un cuerpo negro
+    Cálculo de la irradiancia de un cuerpo negro
     $$ E(\lambda,T) = \frac{2hc^2}{\lambda^5}\frac{1}{e^{\frac{hc}{\lambda k_B T}}-1}$$
   \end{block}
 \end{frame}
@@ -174,8 +174,8 @@ Actividades Espaciales}
 %--- Next Frame ---%
 
 \begin{frame}{Radiancia}
-  \begin{block}{C\'alculo de la irradiancia solar}
-    C\'alculo de la irradiancia solar
+  \begin{block}{Cálculo de la irradiancia solar}
+    Cálculo de la irradiancia solar
     $$S_0 = \int_0^\infty E_0(\lambda) d\lambda$$
     su valor aproximado es
     $$ S_0 = 1369 W/m^2$$
@@ -214,12 +214,12 @@ Actividades Espaciales}
 %--- Next Frame ---%
 
 \begin{frame}{Reflectancia}
-  \begin{block}{Definici\'on:}
+  \begin{block}{Definición:}
     Definimos la BRDF (espectral bidirectional reflectance distribution function) como:
     $$ f(\theta_i, \phi_i, \theta_r, \phi_r) = \frac{dL(\theta_i, \phi_i, \theta_r, \phi_r)}{dE(\theta_i, \phi_i)}$$
   \end{block}
   \pause
-  \begin{block}{Definici\'on:}
+  \begin{block}{Definición:}
     Defininimos la reflectancia direccional como:
     $$ R(\theta_i, \phi_i, \theta_r, \phi_r) = \frac{\pi L(\theta_i, \phi_i, \theta_r, \phi_r)}{\cos(\theta_i) E_0} = \pi f(\theta_i, \phi_i, \theta_r, \phi_r)$$
   \end{block}
@@ -236,8 +236,8 @@ Actividades Espaciales}
 %--- Next Frame ---%
 
 \begin{frame}{Reflectancia}
-  \begin{block}{Aproximaci\'on lambertiana}
-    Hablamos de la aproximaci\'on lambertiana cuando la reflectancia no depende del \'angulo reflejado
+  \begin{block}{Aproximación lambertiana}
+    Hablamos de la aproximación lambertiana cuando la reflectancia no depende del ángulo reflejado
     $$\rho = \frac{\pi L}{\mu_i E_0}$$
     donde tomamos $\mu=cos(\theta)$
   \end{block}
@@ -245,27 +245,27 @@ Actividades Espaciales}
 %--- Next Frame ---%
 
 \section{Firma espectral}
-\subsection{Medici\'on}
-\begin{frame}{Medici\'on}
-  \begin{block}{Definici\'on:}
-    La distribuci\'on de la reflectancia es funci\'on de la longitud de onda nos habla de la caracter\'isticas intr\'insecas de la cobertura. Es su firma espectral $\rho_\lambda$.
+\subsection{Medición}
+\begin{frame}{Medición}
+  \begin{block}{Definición:}
+    La distribución de la reflectancia es funci\'on de la longitud de onda nos habla de la caracter\'isticas intr\'insecas de la cobertura. Es su firma espectral $\rho_\lambda$.
   \end{block}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{Medici\'on}
+\begin{frame}{Medición}
   \begin{block}{Respuesta espectral}
     Podemos pensar a la respuesta de un sensor como una integral
       $$\rho_{j} =\frac{\int s_j(\lambda) \rho d\lambda}{\int s_j(\lambda) d\lambda}$$
-    donde si pensamos a la respuesta como una distribuci\'on podemos definir $\lambda_c$ y $\Delta \lambda$ el centro de la adquisici\'on y ancho de banda efectivo.
+    donde si pensamos a la respuesta como una distribución podemos definir $\lambda_c$ y $\Delta \lambda$ el centro de la adquisici\'on y ancho de banda efectivo.
   \end{block}\pause
   \begin{alertblock}{Importante}
-    Desde el punto de vista espectral, las resoluciones espectral y radiom\'etrica, nos permiten distinguir distintas cosas de la firma espectral.
+    Desde el punto de vista espectral, las resoluciones espectral y radiométrica, nos permiten distinguir distintas cosas de la firma espectral.
   \end{alertblock}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{Medici\'on}
+\begin{frame}{Medición}
   \begin{figure}\centering
     \includegraphics[width=0.4\textwidth]{imagenes/ebaja.png}\phantom{F}
     \includegraphics[width=0.4\textwidth]{imagenes/ealta.png}
@@ -274,16 +274,16 @@ Actividades Espaciales}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{Medici\'on}
+\begin{frame}{Medición}
   \begin{figure}\centering
     \includegraphics[width=0.4\textwidth]{imagenes/rbaja.png}\phantom{F}
     \includegraphics[width=0.4\textwidth]{imagenes/ralta.png}
-    \caption{Resoluci\'on radiom\'etrica.}
+    \caption{Resolución radiométrica.}
   \end{figure}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{Medici\'on}
+\begin{frame}{Medición}
   \begin{figure}
   \centering
   \includegraphics[width=0.8\textwidth]{imagenes/respacial.png}
@@ -292,14 +292,14 @@ Actividades Espaciales}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{Medici\'on}
+\begin{frame}{Medición}
   \begin{block}{Respuesta espacial}
     \begin{itemize}
-      \item La resoluci\'on espacial sale de esta funci\'on.
-      \item Es importante por que nos permite comprender la formaci\'on de un p\'ixel.
+      \item La resolución espacial sale de esta funci\'on.
+      \item Es importante por que nos permite comprender la formación de un p\'ixel.
     \end{itemize}
   \end{block}
-  \begin{block}{Formaci\'on de un p\'ixel}
+  \begin{block}{Formación de un p\'ixel}
     El valor de reflectancia para un p\'ixel vale
     $$\rho_{pix} = \sum_i w_i \rho_i$$
     donde $w_i$ corresponde a la distinta cobertura de cada p\'ixel.
@@ -312,7 +312,7 @@ Actividades Espaciales}
   \begin{figure}
   \centering
   \includegraphics[width=0.8\textwidth]{imagenes/puras.png}
-  \caption{Firmas espectrales de vegetaci\'on y suelo desnudo.\footfullcite{clark2007usgs}}
+  \caption{Firmas espectrales de vegetación y suelo desnudo.\footfullcite{clark2007usgs}}
   \end{figure}
 \end{frame}
 %--- Next Frame ---%
@@ -327,7 +327,7 @@ Actividades Espaciales}
 %--- Next Frame ---%
 
 \begin{frame}{Modelado}
-  La vegetaci\'on tiene 3 zonas del espectro principales que modelar
+  La vegetación tiene 3 zonas del espectro principales que modelar
   \begin{itemize}
     \item<1> Visible
     \item<2> Infrarrojo cercano
@@ -358,7 +358,7 @@ Actividades Espaciales}
     \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{imagenes/leafvar.png}
-    \caption{Variaciones de la firma espectral con el \'area foliar.\footfullcite{asner1998biophysical}}
+    \caption{Variaciones de la firma espectral con el área foliar.\footfullcite{asner1998biophysical}}
     \end{figure}
 \end{frame}
 %--- Next Frame ---%
@@ -390,15 +390,15 @@ Actividades Espaciales}
 \end{frame}
 %--- Next Frame ---%
 
-\section{Pr\'actica}
+\section{Práctica}
 
-\begin{frame}{Pr\'actica}
-  \begin{exampleblock}{Actividades pr\'acticas de la primera clase}
+\begin{frame}{Práctica}
+  \begin{exampleblock}{Actividades prácticas de la primera clase}
     \begin{enumerate}
-      \item Abrir im\'agenes Landsat 8 y familiarizarse con el SoPI.
+      \item Abrir imágenes Landsat 8 y familiarizarse con el SoPI.
       \item Digitalizar coberturas uniformes dentro de la imagen.
       \item Extraer la firma espectral de las coberturas digitalizadas.
-      \item Reescalar las firmas obtenidas y compararlas para dos im\'agenes distintas.
+      \item Reescalar las firmas obtenidas y compararlas para dos imágenes distintas.
     \end{enumerate}
   \end{exampleblock}
 \end{frame}
