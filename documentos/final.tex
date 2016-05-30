@@ -1,0 +1,99 @@
+\documentclass[hidelinks,12pt]{article}
+
+% Preambulo por defecto
+\input{preamble.tex}
+
+\definecolor{A11}{HTML}{1A9850}
+\definecolor{A12}{HTML}{91CF60}
+\definecolor{A23}{HTML}{D9EF8B}
+\definecolor{A24}{HTML}{FFFFBF}
+\definecolor{B15}{HTML}{FEE08B}
+\definecolor{B16}{HTML}{FC8D59}
+\definecolor{B27}{HTML}{D73027}
+
+
+\title{SoPI II \- Herramientas de Teledetecci\'on Cuantitativa \\ 
+\emph{Gu\'{\i}a de actividades: Estimación de la superficie incendiada en 
+la Provincia de Cordoba, Argentina.}}
+\author{Francisco
+Nemi\~na\thanks{\href{mailto:fnemina@conae.govar}{fnemina@conae.gov.ar}}}
+\affil{Unidad de Educaci\'on y Formaci\'on Masiva\\ 
+    Comisi\'on Nacional de Actividades Espaciales}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Introducci\'on}
+
+Una de las principales aplicaciones de la tecnología satelital esta asociada a generar respuesta ante emergencias. La detección y análisis de incendios es une ejemplo de ello ya que a partir del uso de la imágenes satelitales es posible estimar el área quemada y la velocidad de recuperación de las distintas zonas.
+
+Para este caso se cuenta con imágenes correspondientes al sur de Alta Gracia, Córdoba, una de las principales zonas afectadas por un incendio en el año 2013. Responda el siguiente cuestionario.
+\newpage
+\section{Preguntas}
+\begin{enumerate}
+\item Grafique y compare la firma espectral correspondientes a áreas de
+    vegetación y áreas incendiadas utilizando la imagen
+        \texttt{l8\_oli\_20131009.tif}. Justifique, desde el punto de vista espectral, que combinación de bandas es adecuada para separar áreas incendiadas de no incendiadas.
+\item Corrija radiometricamente la imagen \texttt{l8\_oli\_20130806.tif}. Seleccione una cobertura que le parezca representativa para ilustrar el efecto de dispersión de Rayleigh. Realice firmas espectrales comparativas para dicha cobertura con y sin las correspondientes correcciones.
+\item A partir de las imágenes \texttt{l8\_oli\_20131009.tif} y
+    \texttt{l8\_oli\_20130806.tif} calcule el índice de área quemada. Justifica desde el punto de vista de la firma espectral la elección de las bandas incluidas en el índice. A partir de la variación del índice de área quemada realiza una clasificación por umbrales utilizando los datos de la tabla tabla~\ref{tabla1} del ap\'endice~\ref{apcate}. ¿Que superficie se obtiene como incendiada?
+\item Para la imagen de \texttt{mod13q1\_ndvi\_20130728\_20131016.tif} utiliza la herramienta de análisis de componentes principales y encuentra visualmente la componente que mejor permita detectar el área quemada en la imagen. Analiza brevemente el autovector correspondiente a dicha componente.
+\item  Realiza una clasificación no supervisada de la imagen Landsat 8 del mes de octubre. ¿Cuantas categorías de uso y cobertura son necesarias para el estudio de este? Justifica la elección del número de clases para el algoritmo k-means. ¿Que superficie se obtiene como incendiada?
+\item Realiza una clasificación supervisada de la imagen
+    \texttt{l8\_oli\_20131009.tif}. Compara los resultados obtenidos al utilizar los métodos de máxima verosimilitud con los dos anteriores. ¿Cual de los tres deja mayores áreas como sin clasificar? ¿Cuantos polígonos deben crearse para obtener una buena clasificación en este caso? ¿Que superficie se obtiene como incendiada?
+\item Valida las áreas incendiadas y no incendiadas utilizando los polígonos de uso y cobertura provistos. ¿Cual de los 3 métodos utilizados brinda mejores resultados? ¿Cual de ellos detecta mejor las áreas quemadas en la imagen? Para el método propuesto muestra el mapa de área quemada y no quemada obtenida, su correspondiente matriz de confusión y la superficie del área quemada con su correspondiente error.
+\end{enumerate}
+\newpage
+\appendix
+
+\section{Clasificación por umbrales del $\Delta NBR$}\label{apcate}
+\begin{table}[hbt]
+    \centering
+    \begin{tabular}{p{11cm}cc}
+        \toprule
+        Severidad & Rango & Color \\
+        \midrule 
+        Recrecimiento, Alto& $-0.50$a$-0.25$ &
+        \textcolor{A11}{$\blacksquare$}\texttt{\#1A9850}\\
+        Recrecmiento, Bajo & $-0.26$a$-0.10$ &
+        \textcolor{A12}{$\blacksquare$}\texttt{\#91CF60}\\
+        No afectada & $-0.10$a$0.20$
+        &\textcolor{A23}{$\blacksquare$}\texttt{\#D9EF8B}\\
+        Quemada, bajo & $0.20$a$0.27$
+        &\textcolor{A24}{$\blacksquare$}\texttt{\#FFFFBF}\\
+        Quemada, baja-media & $0.27$a$0.44$
+        &\textcolor{B15}{$\blacksquare$}\texttt{\#FEE08B}\\
+        Quemada, media-alta & $0.44$a$0.66$
+        &\textcolor{B16}{$\blacksquare$}\texttt{\#FC8D59}\\
+        Quemada, alta& $0.66$a$1.30$
+        &\textcolor{B27}{$\blacksquare$}\texttt{\#D73027}\\
+        \bottomrule
+    \end{tabular}
+\caption{\label{tabla1}Clasificación por umbrales del $\Delta NBR$.}
+\end{table}
+
+\section{Ecuaciones}
+Ecuaciones utiles para el curso. Todas las magnitudes entre 0 y 1 estan
+escaladas entre 0 y 10,000. Las mismas estan pensadas para usar como tipo de
+dato entero de 16bits.
+
+\begin{table}[hbt]
+    \centering
+    \begin{tabular}{lcl}
+        \toprule
+        Nombre & Ecuaci\'on & Observaciones\\
+        \midrule
+        Índice de área quemada & $NBR = \frac{\rho_{nir} -
+    \rho_{swir2}}{\rho_{nir}+\rho_{swir2}}\times10000$ & \\
+        & &\\
+         Variación NBR& $\Delta NBR = NBR_{pre} - NBR_{pos}$ & \\
+        \bottomrule
+    \end{tabular}
+    \caption{Ecuaciones escaladas para utilizar con tipo de dato entero de 16
+    bits}
+\end{table}
+
+%\printbibliography\
+\end{document}
