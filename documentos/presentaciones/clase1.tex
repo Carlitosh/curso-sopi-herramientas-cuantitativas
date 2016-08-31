@@ -1,12 +1,12 @@
-\documentclass[]{beamer}
+%\documentclass[]{beamer}
 %\documentclass[handout]{beamer}
-%\documentclass[handout,draft]{beamer}
+\documentclass[handout,draft]{beamer}
 
 % Preambulo
 \input{preamble.tex}
 
 % Titulo
-\title{Herramientas de Teledetección Cuantitativa\\{\small Clase NNN}}
+\title{Herramientas de Teledetección Cuantitativa\\{\small Un viaje del sol a los píxeles}}
 \author{Francisco Nemiña}
 
 \institute{Unidad de Educación y Formación Masiva \\
@@ -145,7 +145,7 @@ Comisión Nacional de Actividades Espaciales}
 \begin{frame}{Energía}
   Es mas fácil hablar de las formas de propagación
   \begin{figure}
-    \includegraphics[0.8\textwidth]{imagenes/propagacion.png}
+    %\includegraphics[0.8\textwidth]{imagenes/propagacion.png}
     \caption{Conducción, convexión y radiación.}
   \end{figure}
 \end{frame}
@@ -153,7 +153,7 @@ Comisión Nacional de Actividades Espaciales}
 \begin{frame}{Energía electromagnética}
   De las 3, nos vas a interesar la radiación. En particular la radiación electromagnética.
   \begin{figure}
-    \includegraphics[0.8\textwidth]{ondaem.png}
+    %\includegraphics[0.8\textwidth]{ondaem.png}
   \end{figure}
 \end{frame}
 %--- Next Frame ---%
@@ -174,7 +174,7 @@ Comisión Nacional de Actividades Espaciales}
 \begin{frame}{Clasificación}
   Las ondas electromagnéticas se pueden clasificar en función de su longitud de onda en el espectro electromagnético
   \begin{figure}
-    \includegraphics[width=0.8\textwidth]{imagenes/espectro.png}
+    %\includegraphics[width=0.8\textwidth]{imagenes/espectro.png}
   \end{figure}
 \end{frame}
 %--- Next Frame ---%
@@ -188,7 +188,7 @@ Comisión Nacional de Actividades Espaciales}
   \begin{block}{Definición:}
     La potencia es la tasa de variación de energía. Es decir
     \begin{equation}
-      P = \frac{\Deta E}{\Delta t}
+      P = \frac{\Delta E}{\Delta t}
     \end{equation}
   \end{block}
 \end{frame}
@@ -207,7 +207,7 @@ Comisión Nacional de Actividades Espaciales}
 \begin{frame}{Densidad de potencia}
   Veamos ahora que pasa con la potencia a medida que nos alejamos de una fuente.
   \begin{figure}
-    \includegraphics[width=0.8\textwidth]{imagenes/potenciasol.png}
+    %\includegraphics[width=0.8\textwidth]{imagenes/potenciasol.png}
     \caption{La potencia total en cualquier esfera tiene que ser la misma}
   \end{figure}
 \end{frame}
@@ -229,8 +229,8 @@ Comisión Nacional de Actividades Espaciales}
 \begin{frame}{Irradiancia espectral}
   Por ahora venimos trabajando con la densidad de potencia total. Pero uno puede preguntarse cuanta energía llegar de cada longitud de onda en el sol.
   \begin{figure}
-    \includegraphics[0.8\textwidth]{imagenes/blackbody.png}
-    \includegracs{Cuerpo negro.}
+    %\includegraphics[0.8\textwidth]{imagenes/blackbody.png}
+    %\includegracs{Cuerpo negro.}
   \end{figure}
 \end{frame}
 %--- Next Frame ---%
@@ -238,8 +238,8 @@ Comisión Nacional de Actividades Espaciales}
 \begin{frame}{Irradiancia espectral}
   Si miramos ahora la distribución de irradiancia
   \begin{figure}
-    \includegraphics[0.8\textwidth]{imagenes/blackbodyesp.png}
-    \includegracs{Irradiancia de un cuerpo negro en función de la longitud de onda.}
+    %\includegraphics[0.8\textwidth]{imagenes/blackbodyesp.png}
+    %\includegracs{Irradiancia de un cuerpo negro en función de la longitud de onda.}
   \end{figure}
 \end{frame}
 %--- Next Frame ---%
@@ -257,8 +257,8 @@ Comisión Nacional de Actividades Espaciales}
 \begin{frame}{Irradiancia espectral}
   Si miramos ahora la distribución de irradiancia
   \begin{figure}
-    \includegraphics[0.8\textwidth]{imagenes/blackbodysol.png}
-    \includegracs{Irradiancia solar a tope de la atmósfera.}
+    %\includegraphics[0.8\textwidth]{imagenes/blackbodysol.png}
+    %\includegracs{Irradiancia solar a tope de la atmósfera.}
   \end{figure}
 \end{frame}
 %--- Next Frame ---%
@@ -291,7 +291,7 @@ Comisión Nacional de Actividades Espaciales}
 \begin{frame}{Radiancia}
   El último paso será ver como ver como se comporta la irradiancia en función del ángulo.
   \begin{figure}
-    \includegraphics[width=0.8\textwidth]{imagenes/angulos.png}
+    %\includegraphics[width=0.8\textwidth]{imagenes/angulos.png}
   \end{figure}
 \end{frame}
 %--- Next Frame ---%
@@ -328,7 +328,7 @@ Comisión Nacional de Actividades Espaciales}
   La radiancia no es una buena característica para definir a un cuerpo.
   \begin{exampleblock}{Ejemplo}
     \begin{figure}
-      \includegraphics[width=0.6\textwidth]{imagenes/hojas.png}
+      %\includegraphics[width=0.6\textwidth]{imagenes/hojas.png}
       \caption{Hojas bajo distintas iluminaciones}
     \end{figure}
     La radiancia que deja un píxel depende de la radiancia incidente.
@@ -362,7 +362,7 @@ Comisión Nacional de Actividades Espaciales}
 \begin{frame}{Reflectancia direccional}
   \begin{exampleblock}{Ejemplo:}
     \begin{figure}
-      \includegraphics[width=0.6\textwidth]{imagenes/pasto.png}
+      %\includegraphics[width=0.6\textwidth]{imagenes/pasto.png}
       \caption{Pasto bajo distintas iluminaciones}
     \end{figure}
   \end{exampleblock}
@@ -372,7 +372,7 @@ Comisión Nacional de Actividades Espaciales}
 \begin{frame}{Reflectancia direccional}
   \begin{exampleblock}{Ejemplo:}
     \begin{figure}
-      \includegraphics[width=0.6\textwidth]{imagenes/pasto.png}
+      %\includegraphics[width=0.6\textwidth]{imagenes/pasto.png}
       \caption{Reflectancia del pasto en función del ángulo.}
     \end{figure}
   \end{exampleblock}
@@ -382,7 +382,7 @@ Comisión Nacional de Actividades Espaciales}
 \begin{frame}{Reflectancia direccional}
   \begin{exampleblock}{Ejemplo:}
     \begin{figure}
-      \includegraphics[width=0.6\textwidth]{imagenes/agua.png}
+      %\includegraphics[width=0.6\textwidth]{imagenes/agua.png}
       \caption{Agua bajo distintas iluminaciones}
     \end{figure}
   \end{exampleblock}
@@ -393,7 +393,7 @@ Comisión Nacional de Actividades Espaciales}
 \begin{frame}{Reflectancia direccional}
   \begin{exampleblock}{Ejemplo:}
     \begin{figure}
-      \includegraphics[width=0.6\textwidth]{imagenes/pasto.png}
+      %\includegraphics[width=0.6\textwidth]{imagenes/pasto.png}
       \caption{Reflectancia del pasto en función del ángulo.}
     \end{figure}
   \end{exampleblock}
@@ -403,7 +403,7 @@ Comisión Nacional de Actividades Espaciales}
 %--- Next Frame ---%
 \begin{frame}{Reflectancia direccional}
   \begin{figure}
-    \includegraphics[width=0.6\textwidth]{imagenes/reflectancias.png}
+    %\includegraphics[width=0.6\textwidth]{imagenes/reflectancias.png}
     \caption{En general podemos clasificar la reflectancia en función de que tan fuertemente depende del ángulo.}
   \end{figure}
 \end{frame}
@@ -466,7 +466,7 @@ Comisión Nacional de Actividades Espaciales}
 \begin{frame}{Firma espectral - vegetación}
   \begin{figure}
   \centering
-  \includegraphics[width=0.8\textwidth]{imagenes/clorovar.png}
+  %\includegraphics[width=0.8\textwidth]{imagenes/clorovar.png}
   \caption{Variaciones de la firma espectral con el contenido de clorofila.\footfullcite{liang2005quantitative}}
   \end{figure}
 \end{frame}
@@ -475,7 +475,7 @@ Comisión Nacional de Actividades Espaciales}
 \begin{frame}{Firma espectral - vegetación}
   \begin{figure}
   \centering
-  \includegraphics[width=0.8\textwidth]{imagenes/vwvar.png}
+  %\includegraphics[width=0.8\textwidth]{imagenes/vwvar.png}
   \caption{Variaciones de la firma espectral con el contenido de agua.\footfullcite{liang2005quantitative}}
   \end{figure}
 \end{frame}
@@ -484,7 +484,7 @@ Comisión Nacional de Actividades Espaciales}
 \begin{frame}{Firma espectral - vegetación}
   \begin{figure}
   \centering
-  \includegraphics[width=0.8\textwidth]{imagenes/leafvar.png}
+  %\includegraphics[width=0.8\textwidth]{imagenes/leafvar.png}
   \caption{Variaciones de la firma espectral con el área foliar.\footfullcite{asner1998biophysical}}
   \end{figure}
 \end{frame}
@@ -493,7 +493,7 @@ Comisión Nacional de Actividades Espaciales}
 \begin{frame}{Firma espectral - vegetación}
     \begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{imagenes/vivomuerto.png}
+    %\includegraphics[width=0.8\textwidth]{imagenes/vivomuerto.png}
     \caption{Firma espectral de la vegetación en diferentes estados.\footfullcite{asner1998biophysical}}
     \end{figure}
 \end{frame}
@@ -502,7 +502,7 @@ Comisión Nacional de Actividades Espaciales}
 \begin{frame}{Firma espectral - suelo}
     \begin{figure}
     \centering
-    \includegraphics[width=0.6\textwidth]{imagenes/soilvar.png}
+    %\includegraphics[width=0.6\textwidth]{imagenes/soilvar.png}
     \caption{Firma espectral del suelo con distintos contenidos de humedad.\footfullcite{liang2005quantitative}}
     \end{figure}
 \end{frame}
@@ -511,7 +511,7 @@ Comisión Nacional de Actividades Espaciales}
 \begin{frame}{Firma espectral - agua}
     \begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{imagenes/waterm.png}
+    %\includegraphics[width=0.8\textwidth]{imagenes/waterm.png}
     \caption{Firma espectral de agua con distinto contenido de arcilla disuelta.\footfullcite{clark2007usgs}}
     \end{figure}
 \end{frame}
@@ -520,7 +520,7 @@ Comisión Nacional de Actividades Espaciales}
 \begin{frame}{Firma espectral - agua}
     \begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{imagenes/waterm.png}
+    %\includegraphics[width=0.8\textwidth]{imagenes/waterm.png}
     \caption{Firma espectral de agua en distintos estados de agregación.\footfullcite{clark2007usgs}}
     \end{figure}
 \end{frame}
@@ -541,7 +541,7 @@ Comisión Nacional de Actividades Espaciales}
 
 \begin{frame}{Filtros}
   \begin{figure}
-    \includegraphics[width=0.8\textwidth]{imagenes/filtro.png}
+    %\includegraphics[width=0.8\textwidth]{imagenes/filtro.png}
     \caption{Respuesta espectral de un sensor.}
   \end{figure}
 \end{frame}
@@ -564,7 +564,7 @@ Comisión Nacional de Actividades Espaciales}
     El centro y el semi-ancho de un filtro nos permiten definir el centro de la banda y la correspondiente resolución espectral de la misma
   \end{block}
   \begin{figure}
-    \includegraphics[width=0.8\textwidth]{imagenes/semiancho.png}
+    %\includegraphics[width=0.8\textwidth]{imagenes/semiancho.png}
   \end{figure}
 \end{frame}
 %--- Next Frame ---%
@@ -587,7 +587,7 @@ Comisión Nacional de Actividades Espaciales}
 \begin{frame}{Resolución espacial}
   \begin{figure}
   \centering
-  \includegraphics[width=0.8\textwidth]{imagenes/respacial.png}
+  %\includegraphics[width=0.8\textwidth]{imagenes/respacial.png}
   \caption{Respuesta espacial de un sensor en ambas direcciones.\footfullcite{liang2005quantitative}}
   \end{figure}
 \end{frame}
@@ -607,7 +607,7 @@ Comisión Nacional de Actividades Espaciales}
 \begin{frame}{Píxeles - vectores}
   \begin{exampleblock}{Ejemplo:}
     \begin{figure}
-      \includegraphics[width=0.8\textwidth]{imagenes/firmavector.png}
+      %\includegraphics[width=0.8\textwidth]{imagenes/firmavector.png}
     \end{figure}
   \end{exampleblock}
 \end{frame}
@@ -623,7 +623,7 @@ Comisión Nacional de Actividades Espaciales}
 \begin{frame}{Vectores}
   \begin{exampleblock}{Ejemplo:}
     \begin{figure}
-      \includegraphics[width=0.8\textwidth]{imagenes/vectores.png}
+      %\includegraphics[width=0.8\textwidth]{imagenes/vectores.png}
       \caption{Espacio espectral con 3 componentes y dos bandas.}
     \end{figure}
   \end{exampleblock}
