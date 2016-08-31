@@ -12,12 +12,12 @@
 \definecolor{B27}{HTML}{A6CEE3}
 \definecolor{B28}{HTML}{1F78B4}
 
-\title{SoPI II \- Herramientas de Teledetecci\'on Cuantitativa \\ 
+\title{SoPI II \- Herramientas de Teledetecci\'on Cuantitativa \\
 \emph{Gu\'{\i}a de actividades: Uso del suelo en el departamento de Iguaz\'u,
 provincia de Misiones}}
 \author{Francisco
 Nemi\~na\thanks{\href{mailto:fnemina@conae.govar}{fnemina@conae.gov.ar}}}
-\affil{Unidad de Educaci\'on y Formaci\'on Masiva\\ 
+\affil{Unidad de Educaci\'on y Formaci\'on Masiva\\
     Comisi\'on Nacional de Actividades Espaciales}
 \date{\today}
 
@@ -31,57 +31,60 @@ La utilización de imágenes satelitales permite analizar grandes extensiones de
 territorio, contando con un registro histórico con el cual realizar
 comparaciones.
 
-En la provincia de Misiones, el departamento de Iguaz\'u es lindante a Brasil y 
+En la provincia de Misiones, el departamento de Iguaz\'u es lindante a Brasil y
 Paraguay siendo parte de la zona conocida como triple frontera
-perteneciente a la ecorregi\'on conocida como \emph{selva paranaense}. Dentro del 
-mismo podemos encontrar la Represa de Urugua-\'{\i} y el parque nacional
+perteneciente a la ecorregi\'on conocida como \emph{selva paranaense}. Dentro
+del mismo podemos encontrar la Represa de Urugua-\'{\i} y el Parque Nacional
 Iguaz\'u.
 
 Tomaremos entonces al departamento como \'area de estudio durante este curso
 con el objetivo de obtener un mapa de uso y cobertura dentro del mismo que nos
-permita estimar y validar  las \'areas correspondients a los mismos. 
+permita estimar y validar  las \'areas correspondients a los mismos.
 
 Utilizaremos para esto imagenes satelitales de los satelites Landsat 8, SPOT-5 y
-el producto de MOD13Q1 obtenido de los satelites TERRA y AQUA obtenidas durante el
-periodo que va de agosto de 2013 a agosto de 2014. 
+el producto de MOD13Q1 obtenido de los satelites TERRA y AQUA obtenidas durante
+el periodo que va de agosto de 2013 a agosto de 2014.
 
 \newpage
 \section{Transformaciones en el dominio espectral}
 \subsection{Análisis de Firmas Espectrales}
-Es objetivo de esta pr\'actica es familiarizarse con la zona de inter\'es, estudiar
-y caracterizar el comportamiento espectral de distintas las categor\'{\i}as de uso y
-cobertura y comprender como se relacionan las mismas con los valores obtenidos 
-por a partir de im\'agenes  satelitales.
+Es objetivo de esta pr\'actica es familiarizarse con la zona de inter\'es,
+estudiar y caracterizar el comportamiento espectral de distintas las
+categor\'{\i}as de uso y cobertura y comprender como se relacionan las mismas
+con los valores obtenidos a partir de im\'agenes  satelitales.
 
 \begin{enumerate}
     \item Abra la imagen \texttt{l8\_oli\_20140211.tif}. Realice distintas
-        combinaciones de banda y seleccione aquella que le permita distinguir 
-        detalles mas de la vegetación.
-    \item Encuentre dentro de la escena parches de coberturas uniformes y 
+        combinaciones de banda y seleccione aquella que le permita distinguir
+        mas detalles de la vegetación.
+    \item Encuentre dentro de la escena parches de coberturas uniformes y
         digitalícelos utilizando la herramienta de edición vectorial. Tome
         ejemplos de distintas coberturas correspondientes a los casos A11, A12,
         B15, B27 y B28 de la tabla~\ref{tabla1} del ap\'endice~\ref{apcate}
     \item Utilizando la herramienta de extracción de estadísticas en \'area de
-        clasificaci\'on calcule la media correspondiente a cada cobertura analizada 
-        en el punto 2. 
+        clasificaci\'on calcule la media correspondiente a cada cobertura analizada
+        en el punto 2.
     \item Grafique la media obtenida en el punto 3
 \end{enumerate}
 \subsection{Corrección Radiométrica de Imágenes satelitales}
 Es objetivo de esta practica es conocer como afecta la interacción entre la luz
 y la atmósfera a la radiometr\'ia de una imagen satelital y la respuesta
-espectral de los distintos usos y coberturas  y estudiar distintos métodos empíricos 
+espectral de los distintos usos y coberturas  y estudiar distintos métodos empíricos
 y estadísticos para corregirla.
 \begin{enumerate}
-    \item Convierta la imagen  \texttt{l1\_l8\_oli\_20130819.tif} a reflectancia a 
-        tope de la atmósfera utilizando los parámetros de calibración que se 
-        encuentran dentro del metadato de la misma y la corrección por el ángulo solar.
-    \item Grafique el histograma para cada banda de la imagen anterior y utilícelos 
-        para corregirla por el método de substracción de cuerpo obscuro (DOS1).
-    \item Configure el script de python para ejecutar el 6S según los parámetros 
-        geométricos de la imagen y ejecute la simulación correspondiente. Utilice estos
-        resultado para corregir la imagen.
-    \item Utilice los vectores obtenidos en la clase anterior y realice las firmas 
-        espectrales de cada clase de uso y cobertura para las distintas correcciones.
+    \item Convierta la imagen  \texttt{l1\_l8\_oli\_20130819.tif} a
+    reflectancia a tope de la atmósfera utilizando los parámetros de
+    calibración que se encuentran dentro del metadato de la misma y la
+    corrección por el ángulo solar.
+    \item Grafique el histograma para cada banda de la imagen anterior y
+     utilícelos  para corregirla por el método de substracción de cuerpo
+     obscuro (DOS1).
+    \item Utilice la web de 6S\footnote{http://6s.ltdri.org/} para ejecutarlo
+    según los parámetros geométricos de la imagen. Utilice estos resultados para
+    corregir la imagen.
+    \item Utilice los vectores obtenidos en la clase anterior y realice las
+    firmas espectrales de cada clase de uso y cobertura para las distintas
+    correcciones.
 \end{enumerate}
 
 \subsection{Calculo de \'{\i}ndices espectrales}
@@ -90,50 +93,50 @@ a partir de  imágenes satelitales y sus distintos usos como un caso
 particular de reducci\'on de la dimensionalidad.
 
 \begin{enumerate}
-    \item Abra las imagenes \texttt{l8\_oli\_20130819.tif} y 
-        \texttt{l8\_oli\_20140211.tif} y calcule los indices NDVI y EVI en 
+    \item Abra las imagenes \texttt{l8\_oli\_20130819.tif} y
+        \texttt{l8\_oli\_20140211.tif} y calcule los indices NDVI y EVI
         para ambas.
     \item Estime la pendiente de la linea de suelo a partir de la
-        interpretaci\'on de un scatter-plot de las bandas del infrarrojo cercano
-        y rojo para ambas imágenes y utilicelas para calcular el \'{\i}ndice TSAVI\@.
-    \item Apile cada par de  índices y visualice la imagen en la combinación que 
-        muestre ambos en simultáneo.
-    \item Para cada uno de los índices ajuste su valor a los datos medidos a campo y 
-        estime el fPAR y el LAI a partir de ellos.
+    interpretaci\'on de un scatter-plot de las bandas del infrarrojo cercano
+    y rojo para ambas imágenes y utilicelas para calcular el \'{\i}ndice
+    TSAVI\@.
+    \item Apile cada par de  índices y visualice la imagen en la combinación
+    que muestre ambos en simultáneo.
+    \item Para cada uno de los índices ajuste su valor a los datos medidos a
+    campo y estime el el LAI a partir de ellos.
 \end{enumerate}
 
-\subsection{Rotaciones y transformaciones}
+\subsection{Rotaciones y transformaciones \label{rot:pra}}
 El objetivo de esta práctica es  profundizar los conceptos de reducción
 de dimensionalidad en el trabajo con imágenes satelitales a través de la
 utilizacion de rotaciones y transformaciones espectrales.
 
 \begin{enumerate}
-    \item Con la imagen \texttt{l8\_oli\_2014\-02\-11.tif} calcule la 
+    \item Con la imagen \texttt{l8\_oli\_2014\-02\-11.tif} calcule la
         transformada por componentes principales y la transformada tasseled-cap.
     \item \label{pca} Apile las imagenes
         \texttt{l8\_oli\_2013\-08\-19.tif}
         y \texttt{l8\_oli\_2014\-02\-11.tif}.
         Aplique la transformaci\'on por componentes principales.
         Analice las distintas compotentes.
-    \item Abra la imagen \texttt{mod13q1\_ndvi\_2013\-07\-27\_2014\-08\-28.tif} 
+    \item Abra la imagen \texttt{mod13q1\_ndvi\_2013\-07\-27\_2014\-08\-28.tif}
         y grafique su variación temporal para distintas coberturas.
-    \item Utilizando la herramienta Análisis por componentes principales
+    \item Utilizando la herramienta análisis por componentes principales
         encuentre la rotación que diagonaliza la matriz de correlación para la
-        imagen \texttt{mod13q1\_ndvi\_2013\-07\-27\_2014\-08\-28.tif}. Análise 
-        por componentes principales y diga que información puede distinguir en la 
-        misma. 
+        imagen \texttt{mod13q1\_ndvi\_2013\-07\-27\_2014\-08\-28.tif}. Analice
+        por componentes principales y diga que información puede distinguir en
+        la misma.
 \end{enumerate}
-\newpage 
-\section{Clasificaci'on de imágenes en la práctica}
+\newpage
+\section{Clasificación de imágenes en la práctica}
 \subsection{Métodos supervisados de clasificación}
-El objetivo de esta práctica es continuar estudiado el concepto de reducción de 
-dimensionalidad, utilizando métodos de clasificación supervisada para obtener 
-mapas de uso y cobertura con sus respectivas áreas. 
+El objetivo de esta práctica es comenzar a realizar clasificaciones sobre las imágenes, utilizando métodos de clasificación supervisada para obtener
+mapas de uso y cobertura con sus respectivas áreas.
 
 \begin{enumerate}
-    \item Digitalice un parche homogeneo  para las categorias A11, A12, B15, B27, B28 de la 
-    tabla~\ref{tabla1} del ap\'endice~\ref{apcate} creando una capa vectorial para 
-    cada tipo de cobertura. Grafique la firma espectral y el desvío de cada una. 
+    \item Digitalice un parche homogeneo  para las categorias A11, A12, B15, B27, B28 de la
+    tabla~\ref{tabla1} del ap\'endice~\ref{apcate} creando una capa vectorial para
+    cada tipo de cobertura. Grafique la firma espectral y el desvío de cada una.
     \item Clasifique la imagen \texttt{l8\_oli\_2014\-02\-11.tif} utilizando las
     áreas de entrenamiento creadas en el punto anterior. Con la herramienta
     de estadísticas globales, encuentre el área correspondiente a cada tipo de uso y
@@ -142,24 +145,23 @@ mapas de uso y cobertura con sus respectivas áreas.
         vuelva a clasificar la imagen \texttt{l8\_oli\_2014\-02\-11.tif}.
     \item Fusione la imagen en las clases de uso y cobertura deseada, y utilice la
     imagen obtenida para calcular nuevamente el área correspondiente a cada uso y
-    cobertura del suelo. 
+    cobertura del suelo.
 \end{enumerate}
 
 \subsection{Métodos no supervisados de clasificación}
-El objetivo de esta práctica es continuar estudiado el concepto de reducción de
-dimensionalidad, utilizando métodos de clasificación no supervisada para obtener
+El objetivo de esta práctica es continuar estudiando la clasificacion de imágenes, utilizando métodos de clasificación no supervisada para obtener
 mapas de uso y cobertura con sus respectivas áreas.
 
 \begin{enumerate}
-    \item Clasifique la imagen \texttt{l8\_oli\_2014\-02\-11.tif} por el método 
+    \item Clasifique la imagen \texttt{l8\_oli\_2014\-02\-11.tif} por el método
         k-means, asignando un número total
         de 5 clases. Analice y asigne a estas clases las categorias A11, A12,
         B15, B27, B28 de la tabla~\ref{tabla1} del ap\'endice~\ref{apcate}.
-    \item Clasifique la imagen \texttt{l8\_oli\_2014\-02\-11.tif} por el método de 
+    \item Clasifique la imagen \texttt{l8\_oli\_2014\-02\-11.tif} por el método de
         k-means, pero ahora utilice 50
         clases. Analice y asigne a estas clases las categorias A11, A12,
         B15, B27, B28 de la tabla~\ref{tabla1} del ap\'endic~\ref{apcate}.
-    \item Clasifique las primeras 6 la bandas de imagen obtenida en el punto~\ref{pca} 
+    \item Clasifique las primeras 6 la bandas de imagen obtenida en el punto~\ref{pca}
         de la secci\'on~\ref{rot:pra} utilizando el m\'etodo k-means
         asignando un total de 50 clases. Analice y asigne a estas clases las categorias A11, A12,
         B15, B27, B28 de la tabla~\ref{tabla1} del ap\'endice~\ref{apcate}.
@@ -171,13 +173,13 @@ mapas de uso y cobertura con sus respectivas áreas.
 \subsection{Validación de clasificaciones}
 El objetivo de esta práctica es analizar la precisión de las clasificaciones
 realizadas en clases anteriores haciendo hincapié en la importancia del muestreo
-y los problemas que pueden presentarse. 
+y los problemas que pueden presentarse.
 
 \begin{enumerate}
     \item Aplique un filtro por mayoría a las clasificaciones obtenidas en las
         clases anteriores
-    \item Cargue los polígonos de la carpeta \texttt{validacion} correspondientes a 
-        cada clase de uso y cobertura del suelo. 
+    \item Cargue los polígonos de la carpeta \texttt{validacion} correspondientes a
+        cada clase de uso y cobertura del suelo.
     \item Realice la matriz de confusión para cada una de las clasificaciones.
     \item A partir de las matrices obtenidas calcule la precisión global,
         precisiones del usuario el productor y el índice kappa para cada una de
@@ -195,63 +197,25 @@ sugerencias por categoria.
     \begin{tabular}{p{11cm}cc}
         \toprule
         Nombre & Codigo & Color \\
-        \midrule 
-        Áreas Terrestres Cultivadas y Manejada & A11 & \textcolor{A11}{$\blacksquare$}\texttt{\#b2df8a}
+        \midrule
+        Áreas terrestres cultivadas y manejada & A11 & \textcolor{A11}{$\blacksquare$}\texttt{\#b2df8a}
         \\
         Vegetación natural y semi-natural & A12 & \textcolor{A12}{$\blacksquare$}\texttt{\#33a02c}\\
-        Áreas Acuáticas o Regularmente Inundadas Cultivadas & A23  &
+        Áreas acuáticas o regularmente inundadas cultivadas & A23  &
         \textcolor{A23}{$\blacksquare$}\texttt{\#fdbf6f}\\
-        Vegetación Natural y Semi-Natural Acuática o
-	Regularmente Inundadas & A24 & \textcolor{A24}{$\blacksquare$}\texttt{\#ff7f00}\\
-        Superficies Artificiales y Áreas Asociadas & B15  &
+        Vegetación natural y semi-natural acuática o
+	regularmente inundadas & A24 & \textcolor{A24}{$\blacksquare$}\texttt{\#ff7f00}\\
+        Superficies artificiales y áreas asociadas & B15  &
         \textcolor{B15}{$\blacksquare$}\texttt{\#fb9a99}\\
         Áreas descubiertas o desnudas & B16 & \textcolor{B16}{$\blacksquare$}\texttt{\#e31a1c}\\
-        Cuerpos Artificiales de Agua, Nieve y Hielo & B27 &
+        Cuerpos artificiales de agua, nieve y hielo & B27 &
         \textcolor{B27}{$\blacksquare$}\texttt{\#a6cee3}\\
-        Cuerpos Naturales de Agua, Nieve y Hielo & B28&
+        Cuerpos naturales de agua, nieve y hielo & B28&
         \textcolor{B28}{$\blacksquare$}\texttt{\#1f78b4}\\
         \bottomrule
     \end{tabular}
 \caption{\label{tabla1}Categorias usos del suelo segun el esquema LCCS2 de la
 FAO.}
-\end{table}
-
-\section{Ecuaciones}
-Ecuaciones utiles para el curso. Todas las magnitudes entre 0 y 1 estan
-escaladas entre 0 y 10,000. Las mismas estan pensadas para usar como tipo de
-dato entero de 16bits.
-
-\begin{table}[hbt]
-    \centering
-    \begin{tabular}{lcl}
-        \toprule
-        Nombre & Ecuaci\'on & Observaciones\\
-        \midrule
-        Reflectancia TOA & $\rho'_\lambda =
-        (G_\lambda*DN+B_\lambda)\times10000$ &
-        $G_\lambda$ : ganancia\\
-        & & $B_\lambda$ : desvio\\
-        Correccion por COS & $\rho_\lambda = \rho'_\lambda /
-        \sin(\theta_e)$ & $\theta_e$ : angulo de elevaci\'on \\
-        Correccion por DOS1 & $\rho^*_\lambda = \rho_\lambda -
-        \rho_{\lambda,min}$ & \\
-        NDVI & $\frac{\rho_{nir} -
-    \rho_{rojo}}{\rho_{nir}+\rho_{rojo}}\times10000$ & \\
-        EVI & $G\frac{\rho_{nir} -
-    \rho_{rojo}}{\rho_{nir}+C_1\rho_{rojo}-C_2\rho_{azul}+L}\times10000$ &
-        $G=2.5$, $L=1.0$ \\
-        & & $C_1=6.0$, $C_2 = 7.5$\\
-        SAVI & $(1+L)\frac{\rho_{nir} -
-    \rho_{rojo}}{\rho_{nir}+\rho_{rojo}+L}\times10000$ & $L = 0.5$\\
-        TSAVI & $m\frac{\rho_{nir} -
-        m\rho_{rojo}-b}{m\rho_{nir}+\rho_{rojo}-mb}\times10000$ & $m$ :
-        Pendiente \\
-        & & $b$ : Ordenada al origen\\
-        & & de la linea de suelo.\\
-        \bottomrule
-    \end{tabular}
-    \caption{Ecuaciones escaladas para utilizar con tipo de dato entero de 16
-    bits}
 \end{table}
 
 \section{Transformada tasseled-cap}
@@ -263,7 +227,7 @@ Transformada tasseled cap para Landsat 8-OLI.
         \toprule
                    & \multicolumn{2}{c}{(Azul)}  & \multicolumn{2}{c}{(Verde)} &
         \multicolumn{2}{c}{(Rojo)}  & \multicolumn{2}{c}{(NIR)}   &
-        \multicolumn{2}{c}{(SWIR1)} & \multicolumn{2}{c}{(SWIR2)} \\ 
+        \multicolumn{2}{c}{(SWIR1)} & \multicolumn{2}{c}{(SWIR2)} \\
                    & \multicolumn{2}{c}{Banda 2} & \multicolumn{2}{c}{Banda 3} &
         \multicolumn{2}{c}{Banda 4} & \multicolumn{2}{c}{Banda 5} &
         \multicolumn{2}{c}{Banda 6} & \multicolumn{2}{c}{Banda 7} \\
@@ -289,7 +253,55 @@ Transformada tasseled cap para Landsat 8-OLI.
     \end{tabular}
     \caption{Transformada tasseled-cap para landsat 8.}
 \end{table}
+\pagebreak
+\section{Ecuaciones}
+Ecuaciones utiles para el curso. Todas las magnitudes entre 0 y 1.
 
+\begin{table}[hbt]
+    \centering
+    \begin{tabular}{lcl}
+        \toprule
+        Nombre & Ecuaci\'on & Observaciones\\
+        \midrule
+        Reflectancia TOA & $\rho'_\lambda =
+        (G_\lambda*DN+B_\lambda)/\sin(\theta_e)$ &
+        $G_\lambda$ : ganancia\\
+        & & $B_\lambda$ : desvio\\
+        & & $\theta_e$ : angulo de elevaci\'on\\
+        & & \\
+        Corrección por DOS1 & $\rho^*_\lambda = \rho_\lambda -
+        \rho_{\lambda,min}$ & \\
+        & & \\
+        Corrección por 6S & $\rho_\lambda^* = [A\rho+B] / [1+\gamma (A\rho+B)]$& $A = 1/\alpha\beta$\\
+        & & $B = -\rho_I/\beta$\\
+        & & $\alpha$: global gas transmitance\\
+        & & $\beta$: total scattering transmittance\\
+        & & $\gamma$: spherical albedo\\
+        & & $\rho_I$: reflectance I\\
+        & & \\
+        NDVI & $\frac{\rho_{nir} -
+    \rho_{rojo}}{\rho_{nir}+\rho_{rojo}}$ & \\
+            & & \\
+        EVI & $G\frac{\rho_{nir} -
+    \rho_{rojo}}{\rho_{nir}+C_1\rho_{rojo}-C_2\rho_{azul}+L}$ &
+        $G=2.5$, $L=1.0$ \\
+        & & $C_1=6.0$, $C_2 = 7.5$\\
+                & & \\
+        SAVI & $(1+L)\frac{\rho_{nir} -
+    \rho_{rojo}}{\rho_{nir}+\rho_{rojo}+L}$ & $L = 0.5$\\
+                    & & \\
+        TSAVI & $m\frac{\rho_{nir} -
+        m\rho_{rojo}-b}{m\rho_{nir}+\rho_{rojo}-mb}\times10000$ & $m$ :
+        Pendiente \\
+        & & $b$ : Ordenada al origen\\
+        & & de la linea de suelo.\\
+                & & \\
+        \bottomrule
+    \end{tabular}
+    \caption{Ecuaciones escaladas para utilizar con tipo de dato entero de 16
+    bits}
+\end{table}
+\pagebreak
 \section{Datos sobre las im\'agenes}
 Datos espectrales sobre las im\'agenes utilizadas.
 \begin{table}[htb]
