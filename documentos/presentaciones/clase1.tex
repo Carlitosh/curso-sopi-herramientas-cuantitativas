@@ -68,35 +68,6 @@ Comisión Nacional de Actividades Espaciales}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{Cronograma - Parte 1}
-    \begin{itemize}[<+->]
-    \item 2/9 - Firmas espectrales
-    \item 8/9 - Entrega cuestionario 1
-    \item 9/9 - Correcciones radiométricas
-    \item 15/9 - Entrega cuestionario 2
-    \item 16/9 - Índices
-    \item 22/9 - Entrega cuestionario 3
-    \item 23/9 - Rotaciones
-    \item 29/9 - Entrega cuestionario 4
-    \item 30/9 - Clase de consulta
-    \item 6/10 - Entrega primer trabajo práctico
-  \end{itemize}
-\end{frame}
-%--- Next Frame ---%
-\begin{frame}{Cronograma - Parte 2}
-    \begin{itemize}[<+->]
-    \item 7/10 - Clasificaciones supervisadas
-    \item 13/10 - Entrega cuestionario 5
-    \item 14/10 - Clasificaciones no supervisadas
-    \item 20/10 - Entrega cuestionario 6
-    \item 21/10 - Técnicas de pos-clasificación
-    \item 27/10 - Entrega cuestionario 7
-    \item 28/10 - Clase de consulta
-    \item 3/11 - Entrega segundo trabajo práctico
-  \end{itemize}
-\end{frame}
-%--- Next Frame ---%
-
 \subsection{Aprobación del curso}
 \begin{frame}{Plataforma virtual}
   \begin{block}{Urgente}
@@ -112,6 +83,14 @@ Comisión Nacional de Actividades Espaciales}
   \begin{alertblock}{Importante}
     Acá se completan los cuestionarios y los trabajos prácticos.
   \end{alertblock}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Notas}
+  \begin{figure}
+    \includegraphics[width=0.6\textwidth]{imagenes/exercise.png}
+    \caption{I haven't had the patience for RPGs in a long time.\footfullcite{munroe2006xkcd}}
+  \end{figure}
 \end{frame}
 %--- Next Frame ---%
 
@@ -142,6 +121,34 @@ Comisión Nacional de Actividades Espaciales}
       \item Compartir datos de campo.
       \item Encontrar la respuesta a la última pregunta sobre la vida, el universo y todo lo demás.
     \end{itemize}
+  \end{itemize}
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}{Cronograma - Parte 1}
+    \begin{itemize}[<+->]
+    \item 2/9 - Firmas espectrales
+    \item 8/9 - Entrega cuestionario 1
+    \item 9/9 - Correcciones radiométricas
+    \item 15/9 - Entrega cuestionario 2
+    \item 16/9 - Índices
+    \item 22/9 - Entrega cuestionario 3
+    \item 23/9 - Rotaciones
+    \item 29/9 - Entrega cuestionario 4
+    \item 30/9 - Clase de consulta
+    \item 6/10 - Entrega primer trabajo práctico
+  \end{itemize}
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}{Cronograma - Parte 2}
+    \begin{itemize}[<+->]
+    \item 7/10 - Clasificaciones supervisadas
+    \item 13/10 - Entrega cuestionario 5
+    \item 14/10 - Clasificaciones no supervisadas
+    \item 20/10 - Entrega cuestionario 6
+    \item 21/10 - Técnicas de pos-clasificación
+    \item 27/10 - Entrega cuestionario 7
+    \item 28/10 - Clase de consulta
+    \item 3/11 - Entrega segundo trabajo práctico
   \end{itemize}
 \end{frame}
 %--- Next Frame ---%
@@ -182,7 +189,7 @@ Comisión Nacional de Actividades Espaciales}
 \begin{frame}{Onda electromagnética}
   \begin{block}{Definición}
     La longitud de onda es la distancia entre dos máximos.
-  \end{block}
+  \end{block}\pause
   \begin{block}{Definición}
     La frecuencia es la cantidad de oscilaciones que realiza la onda por unidad de tiempo.
   \end{block}\pause
@@ -350,7 +357,9 @@ Comisión Nacional de Actividades Espaciales}
   Queremos calcular el cociente de la radiancia saliente de una cobertura sobre la radiancia incidente. \pause
   \begin{block}{Definición}
     Definimos la \emph{BRDF} (espectral bidirectional reflectance distribution function) como:
-    $$ f(\theta_i, \phi_i, \theta_r, \phi_r) = \frac{dL(\theta_i, \phi_i, \theta_r, \phi_r)}{dE(\theta_i, \phi_i)}$$
+    \begin{equation}
+          f(\theta_i, \phi_i, \theta_r, \phi_r) = \frac{dL(\theta_i, \phi_i, \theta_r, \phi_r)}{dE(\theta_i, \phi_i)}
+    \end{equation}
   \end{block}
 \end{frame}
 %--- Next Frame ---%
