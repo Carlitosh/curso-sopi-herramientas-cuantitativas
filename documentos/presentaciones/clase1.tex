@@ -1,5 +1,5 @@
-%\documentclass[]{beamer}
-\documentclass[handout]{beamer}
+\documentclass[]{beamer}
+%\documentclass[handout]{beamer}
 %\documentclass[handout,draft]{beamer}
 
 % Preambulo
@@ -32,8 +32,8 @@ Comisión Nacional de Actividades Espaciales}
 \label{sec:organizacion}
 \subsection{Objetivos, programa y cronograma}
 \begin{frame}{Objetivos del curso}
-  El curso tiene como objetivo
-  \begin{itemize}[<+>]
+  El curso tiene como objetivo\pause
+  \begin{itemize}[<+->]
     \item Manejar el concepto de firma espectral.
     \item Conocer las aproximaciones realizadas al trabajar en teledetección.
     \item Corregir imágenes radiometricamente.
@@ -56,7 +56,7 @@ Comisión Nacional de Actividades Espaciales}
 %--- Next Frame ---%
 
 \begin{frame}{Cronograma - Parte 1}
-  \begin{itemize}
+    \begin{itemize}[<+->]
     \item 2/9 - Firmas espectrales
     \item 8/9 - Entrega cuestionario 1
     \item 9/9 - Correcciones radiométricas
@@ -71,7 +71,7 @@ Comisión Nacional de Actividades Espaciales}
 \end{frame}
 %--- Next Frame ---%
 \begin{frame}{Cronograma - Parte 2}
-  \begin{itemize}
+    \begin{itemize}[<+->]
     \item 7/10 - Clasificaciones supervisadas
     \item 13/10 - Entrega cuestionario 5
     \item 14/10 - Clasificaciones no supervisadas
@@ -100,7 +100,7 @@ Comisión Nacional de Actividades Espaciales}
 
 \begin{frame}{Distribución de notas}
     \begin{block}{Notas:}
-      \begin{itemize}
+        \begin{itemize}[<+->]
         \item 0 - 99 - No aprobó
         \item 100-109 - Seis
         \item 110-129 - Siete
@@ -113,7 +113,7 @@ Comisión Nacional de Actividades Espaciales}
 %--- Next Frame ---%
 
 \begin{frame}{Como sumar puntos}
-  \begin{itemize}[<+>]
+  \begin{itemize}[<+->]
     \item Cada cuestionario: 0 a 10 puntos. Máximo 70.
     \item Cada tarea: 0 a 50 puntos. Máximo 100.
     \item Participar en la plataforma: 0 a 10 puntos. Sin máximo.
@@ -139,7 +139,7 @@ Comisión Nacional de Actividades Espaciales}
 \label{sec:radiacion}
 \begin{frame}{Energía}
   \begin{block}{Definicíon}
-    Energía es la capacidad de hacer trabajo...\pause ponele.
+    Energía es la capacidad de hacer trabajo... \pause ponele.
   \end{block}
 \end{frame}
 %--- Next Frame ---%
@@ -171,7 +171,7 @@ Comisión Nacional de Actividades Espaciales}
 \begin{frame}{Energía electromagnética}
   \begin{figure}
     \includegraphics[width=0.6\textwidth]{imagenes/Onde_electromagnetique.png}
-    \caption{ De las 3, nos vas a interesar la radiación. En particular la radiación electromagnética.\footfullcite{wiki:onda}}
+    \caption{De las 3, nos vas a interesar la radiación. En particular la radiación electromagnética.\footfullcite{wiki:onda}}
   \end{figure}
 \end{frame}
 %--- Next Frame ---%
@@ -230,7 +230,7 @@ Comisión Nacional de Actividades Espaciales}
     \end{equation}
   \end{block}\pause
   \begin{block}{Observación}
-  \begin{itemize}[<.+>]
+  \begin{itemize}[<+->]
     \item A esta magnitud se la suele llamar \emph{irradiancia} en teledetección.
     \item $[E_\lambda] = W m^{-2} \mu m^{-1}$
   \end{itemize}
@@ -300,7 +300,7 @@ Comisión Nacional de Actividades Espaciales}
 %--- Next Frame ---%
 
 \begin{frame}{Radiancia}
-  \begin{block}{Definición}:
+  \begin{block}{Definición:}
     La radiancia será la irradiancia por unidad de ángulo solido
     \begin{equation}
       L = \frac{p}{\Delta \Omega \cos\theta_z}
@@ -561,7 +561,7 @@ Comisión Nacional de Actividades Espaciales}
   \begin{block}{Definición:}
     Hablamos de un vector píxel al vector construido como
     \begin{equation}
-      p = (\rho_1, ... ,\rho_N)
+      p = (\rho_1, \ldots ,\rho_N)
     \end{equation}
   \end{block}
 \end{frame}
@@ -587,7 +587,7 @@ Comisión Nacional de Actividades Espaciales}
   \begin{exampleblock}{Ejemplo:}
     \begin{figure}
       \includegraphics[width=0.5\textwidth]{imagenes/vector-3.png}
-      \caption{Espacio espectral con 3 componentes y dos bandas. \footfullcite{ richards2013remote}}
+      \caption{Espacio espectral con 3 componentes y dos bandas. \footfullcite{richards2013remote}}
     \end{figure}
   \end{exampleblock}
 \end{frame}
