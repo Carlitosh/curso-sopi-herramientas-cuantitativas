@@ -1,0 +1,13 @@
+# Audio
+1. Noise Removal
+2. Equalization - choose Bass Boost curve
+3. Normalize
+4. Compressor
+5. Normalize
+6. Guardar como mp3
+
+# Video
+# Convertir a mp4
+1. ffmpeg -i input.mkv -codec copy output.mp4
+
+2. guardar para youtube en 720p
