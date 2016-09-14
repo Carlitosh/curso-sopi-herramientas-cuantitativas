@@ -1,0 +1,370 @@
+%documentclass[]{beamer}
+\documentclass[handout]{beamer}
+%\documentclass[handout,draft]{beamer}
+%\documentclass[]{article}
+
+
+% Preambulo
+\input{preamble.tex}
+%\usepackage{beamerarticle}
+
+% Titulo
+\title{Herramientas de Teledetección Cuantitativa\\{\small Un ábaco espectral}}
+\author{Francisco Nemiña}
+
+\institute{Unidad de Educación y Formación Masiva \\
+Comisión Nacional de Actividades Espaciales}
+
+\logo{\includegraphics[height=0.7cm]{imagenes/sopi.png}}
+
+\AtBeginSection[]
+{
+\begin{frame}
+\frametitle{Esquema de presentación}
+\tableofcontents[currentsection]
+\end{frame}
+}
+
+
+\begin{document}
+\begin{frame}
+    \maketitle
+\end{frame}
+
+\section{Escenas del capítulo anterior}
+\begin{frame}{La vez pasada vimos}
+  \begin{itemize}[<+->]
+    \item Que a partir de esto podiamos definir la $\rho_\lambda$ la firma espectral como una característica de cada cuerpo.
+    \item Definimos 3 tipos de firmas espectrales \emph{patrón} y como se comportaba cada una.
+    \item Que es importante corregir a las imágenes atmosfericamente para obtener el valor de reflectancia del píxel.
+    \item Que hay distintos métodos para hacer está corrección.
+  \end{itemize}
+\end{frame}
+%--- Next Frame ---%
+
+\section{Espacio espectral}
+\begin{frame}{Pixeles}
+  Cada píxel va a tener asociado distintos valores de brillo, uno por banda de adquisición. \pause
+  \begin{block}{Definición}
+    Hablamos de un vector píxel al vector construido como
+    \begin{equation}
+      p = (\rho_1, \ldots ,\rho_N)
+    \end{equation}
+  \end{block}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Píxeles - vectores}
+  \begin{exampleblock}{Ejemplo}
+    \begin{figure}
+      \includegraphics[width=0.6\textwidth]{imagenes/elandsat.png}
+    \end{figure}
+  \end{exampleblock}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Espacio espectral}
+  Veamos mas en detalle como se ubican los píxeles en el espacio espectral. \pause
+  \begin{figure}
+    \includegraphics[width=0.5\textwidth]{imagenes/firmas-3.png}
+    \caption{Tres firmas espectrales. \footfullcite{richards2013remote}}
+  \end{figure}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Espacio espectral}
+  \begin{figure}
+    \includegraphics[width=0.5\textwidth]{imagenes/espacio-3.png}
+    \caption{Espacio espectral con 3 componentes y dos bandas. \footfullcite{richards2013remote}}
+  \end{figure}
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}{Operaciones}
+  \begin{block}{Operaciones como vectores}
+    Podemos:
+    \begin{itemize}[<+->]
+      \item Sumar
+      \item Restar
+      \item Multiplicar por un número.
+      \item \emph{Multiplicar}
+    \end{itemize}
+  \end{block}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Operaciones}
+  \begin{block}{Operaciones como escalaremos}
+    Hoy vamos a pensar a las componentes como escalares. Podemos:
+    \begin{itemize}[<+->]
+      \item Sumar
+      \item Restar
+      \item Dividir
+      \item Otros
+    \end{itemize}
+  \end{block}
+\end{frame}
+%--- Next Frame ---%
+\section{Índices}
+\begin{frame}{NDVI}
+    \begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{imagenes/salto_nr.png}
+    \caption{Salto de reflectancia entre la región entre el rojo y el infrarrojo cercano.\footfullcite{clark2007usgs}}
+    \end{figure}
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}{Normalized Diference Vegetation Index}
+  \begin{block}{Definición}
+      \begin{equation}
+          NDVI = \frac{\rho_n-\rho_r}{\rho_n+\rho_r}
+      \end{equation}
+  \end{block}\pause\
+    \begin{block}{Observación}
+        \begin{itemize}[<+->]
+            \item La reflectancia del suelo lo puede afectarlo.
+            \item Satura cuando el canopeo es muy denso.
+        \end{itemize}
+    \end{block}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Simple Ratio}
+  \begin{block}{Definición}
+    \begin{equation}
+    SR=\frac{\rho_n}{\rho_r}
+    \end{equation}
+  \end{block}\pause\
+  \begin{block}{Observación:}
+      \begin{itemize}[<+->]
+        \item Satura al igual que el NDVI\@.
+        \item Puede mejorar el contraste con vegetación muy densa
+        \item Reduce su efectividad cuando varia la reflectancia del suelo.
+    \end{itemize}
+  \end{block}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{NDVI - SR}
+  \begin{block}{Observación}
+    Se relaciona con el anterior como $$NDVI = \frac{\rho_n/\rho_r-1}{\rho_n/\rho_r+1}$$
+  \end{block}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}
+    \frametitle{Linea de suelo}
+    \begin{figure}
+    \begin{center}
+        \includegraphics[width=0.8\textwidth]{imagenes/scatter82.png}
+    \end{center}
+        \caption{Scatterplot nir-rojo en el espacio espectral. \footfullcite{liang2005quantitative}}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Linea de suelo}
+     \begin{block}{Definición}
+        Hablaremos de linea de suelo a la linea en un gráfico rojo-nir que toca
+        por debajo al triangulo de vegetación. Sobre ella:
+         \begin{equation}
+             \rho_n = \gamma \times \rho_r +b
+         \end{equation}
+     \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Linea de suelo}
+    \begin{figure}
+    \begin{center}
+        \includegraphics[width=0.8\textwidth]{imagenes/soiline.png}
+    \end{center}
+        \caption{Distintas pendientes para la linea de
+        suelo.\footfullcite{liang2005quantitative}}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Linea de suelo}
+    \begin{block}{Observación}
+        Veamos tres índices que apuntan a reducir los efectos de la linea del
+        suelo sobre el índice de vegetación.
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{SAVI}
+    \begin{block}{Definición:}
+        \begin{equation}
+            SAVI = \frac{\rho_n-\rho_r}{\rho_n+\rho_r+L}(1+L)
+        \end{equation}
+    \end{block}\pause\
+    \begin{block}{Observación}
+        \begin{itemize}[<+->]
+            \item Suele ajustar mejor a las variaciones de reflectancia del
+                suelo.
+            \item Es difícil conocer el valor de $L$ a priori.
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{SAVI}
+    Existen distintas corrientes sobre como calcular el valor de L
+    \begin{equation}
+        L=0.5
+    \end{equation}\pause\
+    \begin{equation}
+        L = 1-2 a NDVI \times WDVI
+    \end{equation}\pause\
+    donde $a\sim 1.6$
+    \begin{equation}
+        WDVI = \rho_n -\gamma \rho_r
+    \end{equation}
+\end{frame}
+
+\begin{frame}
+    \frametitle{tSAVI}
+    \begin{block}{Definición}
+        \begin{equation}
+            TSAVI =
+            \frac{\gamma(\rho_n-\gamma\rho_r-b)}{\gamma\rho_n+\rho_r+\gamma b
+            +X(1+\gamma^2)}
+        \end{equation}
+        donde $X\sim0.08$.
+    \end{block}\pause\
+    \begin{block}{Observsubsectionación}
+        \begin{itemize}[<+->]
+            \item Compensa algunas variaciones en la reflectancia del suelo.
+            \item Comienza variaciones en la densidad del canopeo.
+            \item Comienza variaciones por el ángulo solar.
+            \item Comienza variaciones por el cambio en la distribución
+                angular del canopeo.
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{PVI}
+    \begin{block}{Definición}
+        \begin{equation}
+            PVI = \frac{\rho_n-\gamma\rho_r-b}{\sqrt{\gamma^2+1}}
+        \end{equation}
+    \end{block}\pause\
+    \begin{block}{Observación}
+        \begin{itemize}
+            \item Compensa mejor variaciones en la reflectancia del suelo cuando
+                el canopeo es poco denso.
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Volviendo al espacio espectral}
+    \begin{figure}
+    \begin{center}
+        \includegraphics[width=0.8\textwidth]{imagenes/int_graf.png}
+    \end{center}
+    \caption{Interpretación de los índices en el espacio
+        espectral.\footfullcite{liang2005quantitative}}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{EVI}
+    \begin{block}{Definición}
+        \begin{equation}
+            EVI = G\frac{\rho_n - \rho_r}{\rho_n+C_1\rho_r-C_2\rho_b+L}(1+L)
+        \end{equation}
+    \end{block}
+    donde
+    \begin{itemize}
+        \item $G  \sim 2.5$
+        \item $C1 \sim 6.0$
+        \item $C2 \sim 7.5$
+        \item $L  \sim 1.0$
+    \end{itemize}
+\end{frame}
+
+\section{Variables biofísicas}
+
+\begin{frame}
+    \frametitle{\subsecname}
+    En general hablaremos de índices de Vegetación (VI).\pause\
+    \begin{block}{Observación}
+        Si tengo una variable $y$\pause\
+        \begin{equation}
+            y = \sum_i a_i VI^i
+        \end{equation}
+        \begin{equation}
+            y = a + b \times VI^c
+        \end{equation}
+        \begin{equation}
+            y = a \log(b-VI)+c
+        \end{equation}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{\subsecname}
+    Estudiemos dos variables biofísicas
+    \begin{itemize}[<+->]
+        \item $F_g$ $\sim$ fracción del suelo cubierto por vegetación
+        \item Biomasa húmeda
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{\subsecname}
+    \begin{block}{Observación}
+        La relación entre cada variable biofísica y el índice debe
+        calcularse a partir de mediciones en el terreno.
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{\subsecname}
+    \begin{figure}
+    \begin{center}
+        \includegraphics[width=0.8\textwidth]{imagenes/fg.png}
+    \end{center}
+    \caption{Fracción de suelo cubierta entre 0 y 1 en un mapa de colores.
+        Cortes en $0.04$ y $0.52$}
+    \end{figure}
+
+\end{frame}
+
+\begin{frame}{\subsecname}
+    \begin{figure}
+    \centering
+    \includegraphics[width=0.6\textwidth]{imagenes/avndvi.png}
+    \caption{NDVI vs cantidad de biomasa húmeda.\footfullcite{tucker1979red}}
+    \end{figure}
+\end{frame}
+%--- Next Frame ---%
+
+
+
+\begin{frame}{\subsecname}
+    \begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{imagenes/ndvivst.png}
+    \caption{Variación del NDVI en función de la época del año.\footfullcite{de2010spatio}}
+    \end{figure}
+\end{frame}
+
+
+\section{Práctica}
+
+\begin{frame}{Práctica}
+  \begin{exampleblock}{Actividades prácticas de la tercer clase}
+    \begin{enumerate}
+      \item Calcular el índice de vegetación para las imágenes de febrero y agosto.
+      \item Visualizar las imágenes en distintas combinaciones de bandas.
+      \item Estimar el valor de LAI a partir de los datos de campo.
+    \end{enumerate}
+  \end{exampleblock}
+\end{frame}
+%--- Next Frame ---%
+
+\end{document}
