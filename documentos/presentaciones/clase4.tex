@@ -1,25 +1,25 @@
 \documentclass[]{beamer}
 %\documentclass[handout]{beamer}
 %\documentclass[handout,draft]{beamer}
+%\documentclass[]{article}
+
 
 % Preambulo
 \input{preamble.tex}
+%\usepackage{beamerarticle}
 
-\title{Herramientas de Teledetección Cuantitativa\\{\small Clase 4}}
-\author{Francisco Nemi\~na}
-\institute{Unidad de Educación y Formación Masiva \\ Comisión Nacional de
-Actividades Espaciales}
-%\institute[Inst.]{\includegraphics[height=1cm]{Figures/logosopi.png}\phantom{pepe} \includegraphics[height=1cm]{Figures/2mp.png}\phantom{pepe} \includegraphics[height=1cm]{Figures/conae.png}}
-\date{}
-%\titlegraphic{
-%\includegraphics[height=1cm]{IMAGENES/minplan.png}\phantom{1}
-%\includegraphics[height=1cm]{IMAGENES/conae.png}\phantom{1}
-%\includegraphics[height=1cm]{IMAGENES/sopi.png}}
+% Titulo
+\title{Herramientas de Teledetección Cuantitativa\\{\small Geometría para rotar las imágenes}}
+\author{Francisco Nemiña}
+
+\institute{Unidad de Educación y Formación Masiva \\
+Comisión Nacional de Actividades Espaciales}
 
 \logo{\includegraphics[height=0.7cm]{imagenes/sopi.png}}
 
 \AtBeginSection[]
-{\begin{frame}
+{
+\begin{frame}
 \frametitle{Esquema de presentación}
 \tableofcontents[currentsection]
 \end{frame}
@@ -31,63 +31,95 @@ Actividades Espaciales}
     \maketitle
 \end{frame}
 
-\section{Transformaciones}
-\subsection{Motivación}
-
-\begin{frame}{Motivación}
-  \begin{center}
-      \resizebox{0.4 \linewidth}{!}{%
-        \begin{tikzpicture}[node distance = 2cm, auto]
-          \node[block]                                (init) {Firma Espectral};\pause
-          \node[block, below= of init]                (resp) {Reflectancia Espectral Efectiva};
-          \path[line] (init) --          (resp);
-          \pause
-          \node[decision, below= of resp]             (ques) {????};
-          \path[line] (resp) --          (ques);\pause
-        \end{tikzpicture}%
-      }%
-    \end{center}
+\section{Escenas del capítulo anterior}
+\begin{frame}{La vez pasada vimos}
+  \begin{itemize}[<+->]
+    \item Que a partir de esto podiamos definir la $\rho_\lambda$ la firma espectral como una característica de cada cuerpo.
+    \item Definimos 3 tipos de firmas espectrales \emph{patrón} y como se comportaba cada una.
+    \item Que es importante corregir a las imágenes atmosfericamente para obtener el valor de reflectancia del píxel.
+    \item Que podemos definir índices a partir de hacer operaciones entre los valores de los píxeles como si fueran números.
+    \item Que los índices pueden relacionarse con variables en el terreno.
+    \item Que podemos entender los índices como mediciones en el espacio espectral.
+  \end{itemize}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{Motivación}
-  \begin{block}{Técnicas de reducción de la dimensionalidad}
+\section{Espacio espectral}
+\subsection{Operaciones}
+\begin{frame}{Pixeles}
+  Cada píxel va a tener asociado distintos valores de brillo, uno por banda de adquisición. \pause
+  \begin{block}{Definición}
+    Hablamos de un vector píxel al vector construido como
+    \begin{equation}
+      p = (\rho_1, \ldots ,\rho_N)
+    \end{equation}
+  \end{block}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Operaciones}
+  \begin{block}{Operaciones como vectores}
+    Podemos:
     \begin{itemize}[<+->]
-      \item Índices
-      \item Rotaciones
-      \item Clasificaciones
+      \item Sumar
+      \item Multiplicar por un número.
+      \item \emph{Multiplicar}
     \end{itemize}
-    Sigamos con la segunda.
   \end{block}
 \end{frame}
 %--- Next Frame ---%
 
-\subsection{Matemática}
-
-
-\begin{frame}{Matemática}
-  \begin{block}{Definición:}
-    Un vector es un objeto de la forma $$\left(
-    \begin{array}{c}
-          v_1 \\
-          \vdots \\
-          v_n
-        \end{array}
-        \right) $$
-  \end{block}\pause
-  \begin{block}{Propiedades}
-    Con dos operaciones
-    $$ \begin{array}{c} v+w \\ \alpha v \end{array}  $$
-    \pause
-    y viven en un lugar que se llama espacio vectorial
+\begin{frame}{Vectores}
+  \begin{block}{Definición}
+    Para sumar vectores y multiplicar por un número
+    \begin{equation}
+      p + \lambda q = (\rho_1+ \lambda \nu_1, \ldots ,\rho_N+\lambda \nu_N)
+    \end{equation}
   \end{block}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{Matemática}
+\begin{frame}{Base de un espacio}
+  \begin{block}{Definición}
+    Podemos escribir a un vector
+    \begin{equation}
+      p = \rho_1 (1,\ldots,0) + \ldots + \rho_N (0,\ldots,1) = \rho_1 e_1 + \ldots + \rho_N e_N
+    \end{equation}
+    donde los vectores $B = \{e_i, i \in 0, \ldots, N \}$ son la base del espacio espectral
+  \end{block}
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}{Base de un espacio}
+  \begin{block}{Observación}
+    Cambiando la base cambia la representación escrita del vector pero no el vector.
+  \end{block}:
+  \begin{exampleblock}{Ejemplo}
+    Tomemos
+    \begin{equation}
+      p = (0.4, 0,03)
+    \end{equation} en la base $B = \{ (1,0), (0,1)\}$. \pause
+    Si ahora tomamos la base $B = \{ (1,1), (1,-1)\}$ lo reescribiremos como
+    \begin{equation}
+      p = (0.215, 0.185)
+    \end{equation}
+  \end{exampleblock}
+\end{frame}
+%--- Next Frame ---%
+
+\subsection{Rotaciones}
+\begin{frame}{Rotaciones}
+  \begin{block}{Observación}
+    Las rotaciones y cambios de escala los podemos pensar como operaciones entre vectores.
+  \end{block}:
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Matrices}
   \begin{block}{Definición:}
     Las matrices se pueden pensar como transformaciones que convierten a un vector en otro. \pause
-    $$ Av = w$$
+    \begin{equation}
+      w = Av
+    \end{equation}
   \end{block}\pause
   \begin{alertblock}{Propiedad}
     Como las transformaciones que utilizaremos son lineales, con sólo definirlas en unos pocos valores alcanza. \pause Elegir bien los vectores para definir la transformación es útil.
@@ -95,77 +127,7 @@ Actividades Espaciales}
 \end{frame}
 %--- Next Frame ---%
 
-\begin{frame}{Matemática}
-  \begin{figure}
-    \includegraphics[width=0.6\textwidth]{imagenes/elandsat.png}
-    \caption{Comparación entre firma espectral y valores medidos para un píxel\footfullcite{richards2013remote}}
-  \end{figure}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{Matemática}
-  \begin{figure}
-    \includegraphics[width=0.6\textwidth]{imagenes/vector.png}
-    \caption{Píxeles en $R^2$.\footfullcite{richards2013remote}}
-  \end{figure}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{Matemática}
-  \begin{alertblock}{Respuesta efectiva como vector}
-    A la respuesta espectral efectiva la puedo pensar como un vector de reflectancias
-      $$\left(\begin{array}{c}
-          \rho_1 \\
-          \vdots \\
-          \rho_n
-        \end{array}
-    \right) $$
-  \end{alertblock}
-  \pause
-\end{frame}
-\begin{frame}{Matemática}
-  \begin{exampleblock}{Ejemplo:}
-    $$v_{(x,y)}=\left(\begin{array}{c}
-      0.03 \\
-      0.08 \\
-      0.04 \\
-      0.40 \\
-      0.20 \\
-      0.15
-    \end{array}
-    \right),
-    a_{(x,y)}=\left(\begin{array}{c}
-      0.05 \\
-      0.03 \\
-      0.01 \\
-      0.01 \\
-      0.00 \\
-      0.00
-    \end{array}
-    \right),
-    s_{(x,y)}=\left(\begin{array}{c}
-      0.08 \\
-      0.10 \\
-      0.15 \\
-      0.20 \\
-      0.25 \\
-      0.30
-    \end{array}
-    \right) $$
-  \end{exampleblock}
-\end{frame}
-%--- Next Frame ---%
-
-\begin{frame}{Matemática}
-  \begin{alertblock}{Motivación}
-    Podemos pensar a una imagen como vectores en un espacio vectorial. El número de bandas es la dimensión de ese espacio.
-  \end{alertblock}
-\end{frame}
-%--- Next Frame ---%
-
-\section{Rotaciones}
-\subsection{Idea}
-\begin{frame}{Idea}
+\begin{frame}{Ejemplo}
   Empecemos con un ejemplo para una imagen de dos bandas
   \begin{figure}
   \centering
@@ -194,14 +156,7 @@ Actividades Espaciales}
 %--- Next Frame ---%
 
 
-\begin{frame}{Idea}
-  \begin{alertblock}{Importante}
-    No siempre más bandas significa mas información.
-  \end{alertblock}
-\end{frame}
-%--- Next Frame ---%
-
-\subsection{Componentes principales}
+\section{Componentes principales}
 \begin{frame}{Componentes principales}
   \begin{block}{Idea}
     Queremos ver si un set bandas está correlacionadas o no.
@@ -314,7 +269,7 @@ Actividades Espaciales}
 \end{frame}
 %--- Next Frame ---%
 
-\subsection{Transformada tasseled-cap}
+\section{Transformada tasseled-cap}
 
 \begin{frame}{Transformada tasseled-cap}
   \begin{block}{Utilidad}
@@ -359,18 +314,16 @@ Actividades Espaciales}
   \end{block}
 \end{frame}
 %--- Next Frame ---%
+
 \section{Práctica}
 
 \begin{frame}{Práctica}
-  \begin{exampleblock}{Actividades prácticas de la tercer clase}
+  \begin{exampleblock}{Actividades prácticas de la cuarta clase}
     \begin{enumerate}
-        \item Realice la transformada por componentes principales sobre la
-            imagen de NDVI de modis.
-        \item Realice la transformada por componentes principales sobre la
-            serie de imágenes Landsat 8.
-        \item Realice la transformada tasseled-cap sobre la imagen Landsat 8.
-        \item Realice la transformada por componentes principales sobre la
-            imagen Landsat 8.
+      \item Calcular la transformada por componentes principales y tasseled-cap sobre la imagen Landsat 8.
+      \item Calcular la transformada por componentes principales sobre un apilado de imágenes Landsat 8.
+      \item Graficar la variación del EVI a lo largo del año.
+      \item Calcular la transforamda por componentes principales al apilado de imágenes EVI.
     \end{enumerate}
   \end{exampleblock}
 \end{frame}
