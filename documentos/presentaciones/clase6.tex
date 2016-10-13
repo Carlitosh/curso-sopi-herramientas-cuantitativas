@@ -4,6 +4,7 @@
 %\documentclass[]{article}
 
 
+
 % Preambulo
 \input{preamble.tex}
 %\usepackage{beamerarticle}
@@ -78,22 +79,6 @@ Comisión Nacional de Actividades Espaciales}
 
 \section{Clasificación supervisada}
 \subsection{Idea}
-\begin{frame}{Motivación}
-  \begin{center}
-      \resizebox{0.4 \linewidth}{!}{%
-        \begin{tikzpicture}[node distance = 2cm, auto]
-          \node[block]                                (init) {Firma Espectral};\pause
-          \node[block, below= of init]                (resp) {Reflectancia Espectral Efectiva};
-          \path[line] (init) --          (resp);
-          \pause
-          \node[block, below= of resp]             (ques) {Categorías};
-          \path[line] (resp) --          (ques);\pause
-        \end{tikzpicture}%
-      }%
-    \end{center}
-\end{frame}
-%--- Next Frame ---%
-
 \begin{frame}{\subsecname}
   \begin{alertblock}{Importante}
     Ahora tenemos que definir apriori cuales son las clases que queremos y como encontrarlas.
