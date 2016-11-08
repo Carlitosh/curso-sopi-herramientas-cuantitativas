@@ -1,0 +1,15 @@
+# Audio
+1. Noise Removal
+2. Equalization - choose Bass Boost curve
+3. Normalize
+4. Compressor
+5. Normalize
+6. Guardar como mp3
+
+# Video
+# Convertir a mp4
+1. ffmpeg -i input.mkv -codec copy output.mp4
+2. ffmpeg -i input.wmv -ss 00:00:30.0 -c copy -to 00:01:10.0 output.wmv
+
+
+2. guardar para youtube en 720p
