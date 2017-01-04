@@ -1,0 +1,112 @@
+## Manejo raster
+
+# Cargamos la libreria para manejo de rasters
+library(raster)
+library(RStoolbox)
+library(ggplot2)
+
+# Apertura de una banda
+landsat5_b3 <- raster("raster_data/LT52280791988079CUB00/LT52280791988079CUB00_B4.TIF")
+landsat5_b4 <- raster("raster_data/LT52280792011078CUB00/LT52280792011078CUB00_B4.TIF")
+
+# Apertura de un raster multibanda
+landsat5_brick <- brick("raster_data/LT52280792011078CUB00/LT52280792011078CUB00.vrt")
+
+# Apertura de varios raster como stack, no stackeamos la banda 6
+landsat5_bands <- list.files("raster_data/LT52280792011078CUB00/", pattern = "*[^6].TIF$", full.names = TRUE)
+landsat5_stack <- stack(landsat5_bands)
+
+# Inspeccionar elemento
+landsat5_stack
+
+# Cambiar nombres
+nombres <- c("blue","green","red","nir","swir1","swir2")
+names(landsat5_stack) <- nombres
+landsat5_stack
+
+# Mas informacion sobre el elemento
+landsat5_stack
+summary(landsat5_stack)
+extent(landsat5_stack)
+
+# Grafico de una banda
+ggR(landsat5_stack,layer = "nir", geom_raster = TRUE)+scale_fill_gradientn(colours=rainbow(100))
+
+# Grafico combinacion de bandas
+ggRGB(landsat5_stack,r="nir", g="red", b="blue", geom_raster = TRUE, stretch = "lin")
+
+# Grafico el histograma de una banda
+hist(landsat5_stack$green)
+
+# Histograma de todas las bandasa
+hist(landsat5_stack)
+
+# Si se queda en 3*2
+par( mfrow = c( 1, 1 ) )
+# Scatterplot de dos bandas
+plot(landsat5_stack$red, landsat5_stack$nir)
+
+
+# Todos los scatterplots e histogramas (toma su tiempo)
+pairs(landsat5_stack)
+
+## Manejo vectorial
+library(rgdal)
+
+# Apertura de shapefile
+vector <- readOGR(dsn="vector_data/", layer="extract")
+
+# inspeccionar elemento
+vector
+
+# Graficar raster y vector
+poligono <- fortify(vector)
+ggRGB(landsat5_stack,r="nir", g="red", b="blue", geom_raster = TRUE, stretch = "lin")+
+  geom_path(data=poligono, aes(x=long,y=lat,group=id),col="green")+
+  coord_equal()
+
+
+# Extraer informacion de un vector
+datos <- extract(landsat5_stack,vector)
+
+# Plotear los datos en un scatterplot
+plot(landsat5_stack$red, landsat5_stack$nir)
+points(as.data.frame(datos[1])$red,as.data.frame(datos[1])$nir, col="green")
+points(as.data.frame(datos[2])$red,as.data.frame(datos[2])$nir, col="red")
+
+# Extraer datos
+promedio <- extract(landsat5_stack,vector, fun=mean)
+colnames(promedio) <- paste("mean", colnames(promedio), sep = "_")
+
+desvio <- extract(landsat5_stack,vector, fun=sd)
+colnames(desvio) <- paste("sd", colnames(desvio), sep = "_")
+
+# Guardar datos en el vector
+vector@data <- cbind(vector@data, promedio, desvio)
+writeOGR(vector, dsn="vector_data/processed/", "datos", driver="ESRI Shapefile")
+
+# Graficar las firmas espectrales con su desvio standar
+
+#Convertir en data frame
+df <- t(promedio)
+colnames(df) <- vector@data$descripcio
+df <- as.data.frame(df)
+df$wl <- as.matrix(c(485,560,660,830,1650,2215))
+df <- melt(df ,  id.vars = 'wl', variable.name = 'Cobertura')
+names(df) <- c("wl","Cobertura","Reflectancia")
+
+dfd <- t(desvio)
+colnames(dfd) <- vector@data$descripcio
+dfd <- as.data.frame(dfd)
+dfd$wl <- as.matrix(c(485,560,660,830,1650,2215))
+dfd <- melt(dfd ,  id.vars = 'wl', variable.name = 'Cobertura')
+names(dfd) <- c("wl","Cobertura","Desvio")
+
+# Agregar el desvio
+df$desvio <- dfd$Desvio
+
+# Graficar
+ggplot(df, aes(wl,Reflectancia))+
+  geom_line(aes(colour = Cobertura))+
+  geom_point(aes(colour = Cobertura))+
+  geom_errorbar(aes(ymin=Reflectancia-2*desvio, ymax=Reflectancia+2*desvio), width=.1)

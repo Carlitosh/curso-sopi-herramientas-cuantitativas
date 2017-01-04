@@ -1,0 +1,58 @@
+<VRTDataset rasterXSize="2364" rasterYSize="2904">
+  <SRS>PROJCS["WGS 84 / UTM zone 20S",GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",-63],PARAMETER["scale_factor",0.9996],PARAMETER["false_easting",500000],PARAMETER["false_northing",10000000],UNIT["metre",1,AUTHORITY["EPSG","9001"]],AXIS["Easting",EAST],AXIS["Northing",NORTH],AUTHORITY["EPSG","32720"]]</SRS>
+  <GeoTransform>  6.2705053583075316e+05,  3.0005624654566876e+01,  0.0000000000000000e+00,  7.0204630436842069e+06,  0.0000000000000000e+00, -2.9994997403250888e+01</GeoTransform>
+  <VRTRasterBand dataType="Byte" band="1">
+    <SimpleSource>
+      <SourceFilename relativeToVRT="1">LT52280792011078CUB00_B1.TIF</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="2364" RasterYSize="2904" DataType="Byte" BlockXSize="2364" BlockYSize="3" />
+      <SrcRect xOff="0" yOff="0" xSize="2364" ySize="2904" />
+      <DstRect xOff="0" yOff="0" xSize="2364" ySize="2904" />
+    </SimpleSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="2">
+    <SimpleSource>
+      <SourceFilename relativeToVRT="1">LT52280792011078CUB00_B2.TIF</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="2364" RasterYSize="2904" DataType="Byte" BlockXSize="2364" BlockYSize="3" />
+      <SrcRect xOff="0" yOff="0" xSize="2364" ySize="2904" />
+      <DstRect xOff="0" yOff="0" xSize="2364" ySize="2904" />
+    </SimpleSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="3">
+    <SimpleSource>
+      <SourceFilename relativeToVRT="1">LT52280792011078CUB00_B3.TIF</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="2364" RasterYSize="2904" DataType="Byte" BlockXSize="2364" BlockYSize="3" />
+      <SrcRect xOff="0" yOff="0" xSize="2364" ySize="2904" />
+      <DstRect xOff="0" yOff="0" xSize="2364" ySize="2904" />
+    </SimpleSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="4">
+    <SimpleSource>
+      <SourceFilename relativeToVRT="1">LT52280792011078CUB00_B4.TIF</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="2364" RasterYSize="2904" DataType="Byte" BlockXSize="2364" BlockYSize="3" />
+      <SrcRect xOff="0" yOff="0" xSize="2364" ySize="2904" />
+      <DstRect xOff="0" yOff="0" xSize="2364" ySize="2904" />
+    </SimpleSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="5">
+    <SimpleSource>
+      <SourceFilename relativeToVRT="1">LT52280792011078CUB00_B5.TIF</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="2364" RasterYSize="2904" DataType="Byte" BlockXSize="2364" BlockYSize="3" />
+      <SrcRect xOff="0" yOff="0" xSize="2364" ySize="2904" />
+      <DstRect xOff="0" yOff="0" xSize="2364" ySize="2904" />
+    </SimpleSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="6">
+    <SimpleSource>
+      <SourceFilename relativeToVRT="1">LT52280792011078CUB00_B7.TIF</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="2364" RasterYSize="2904" DataType="Byte" BlockXSize="2364" BlockYSize="3" />
+      <SrcRect xOff="0" yOff="0" xSize="2364" ySize="2904" />
+      <DstRect xOff="0" yOff="0" xSize="2364" ySize="2904" />
+    </SimpleSource>
+  </VRTRasterBand>
+</VRTDataset>

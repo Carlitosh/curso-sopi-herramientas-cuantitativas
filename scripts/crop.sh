@@ -7,4 +7,6 @@ do
     mv "crop$i" "$i"
 done
 
+gdalbuildvrt -separate pepe.vrt *.TIF
+
 
