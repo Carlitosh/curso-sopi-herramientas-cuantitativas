@@ -1,0 +1,250 @@
+\documentclass[a4paper]{article}
+
+% Preambulo por defecto
+\input{preamble.tex}
+
+\input{commands.tex}
+
+\begin{document}
+
+\section{Introducción}
+\label{sec:intro}
+ 
+\section{Firmas especrales}
+\label{sec:fep}
+ En esta primera práctica nos familiarizaremos con las interfaces gráficas del
+ qgis y de R-studio. Para esto comenzaremos a analizar la imagen correspondiente
+ a la zona de estudio del año 2015 desde el punto de vista espectral. Son
+ nuestros objetivos
+
+ \begin{itemize}
+     \item Poder cargar una imagen en qgis.
+     \item Digitalizar coberturas en qgis.
+     \item Poder cargar un archivo raster y uno vectorial en R.
+     \item Realizar un análisis estadistico de la imagen como un todo y de las
+         distintan coberturas digitalizar en R.
+ \end{itemize}
+\subsection{Exploración con el qgis}
+\label{sub:fep:qgis}
+
+ Comenzamos abriendo la imagen \file{l8} correspondiente a la zona de interés
+ durante el mes de mayo de 2015. Para esto vamos al menú \menu{Capa, Añadir
+ capa, Añadir capa ráster}. Navegamos hasta la carpeta
+ \file{raster\_data/LC82300772015071} y abrimos el archivo
+ \file{LC82300772015071.brk}. Una vez abierto el mismo podrémos encontarrlo en
+ el \menu{Panel de capas} de q-gis donde podremos manejar la visualización del
+ mismo y estudiar las propiedades de dicha capa.
+
+ Usando la barra de herramientas del qgis podremos movernos en la imagen,
+ realizar zoom en la misma entontre otros.
+
+ \begin{act} 
+     Cambie la combinación de bandas de la imagen L8 y muevase  dentro de la
+     misma.
+ \end{act}
+
+ \begin{act}
+     Encuentre el sistema de coordenadas en el cual se encuentra la imagen.
+ \end{act}
+ 
+ \begin{act}
+    Utilizando la herramienta identificar objetos espaciles encuentre los
+    valores de reflectancia de distintas coberturas. Grafique estos  valores en
+    una firma espectral y en el espacio de fases nirrojo.
+ \end{act}
+
+ Con la herramienta nueva capa de archivo shape es posible digitalizar zonas de
+ la imagen para su posterior analisis. Para esto puede hacer click en el boton
+ del panel lateral y agregar una capa nueva para lo cual el qgis pedira un
+ nombre de la misma. Guardela en la carpeta \file{vector\_data/} con el nombre
+ \file{firmas.shp}. Recuerde elegir el sistema de coordenadas correspondiente a
+ la imagen anterior.
+
+ Una vez creada la nueva capa podemos utilizar la barra de herramientas de qgis
+ para agregar nuevas geometrias a la misma. Para esto hacemos click en el boton
+ de agregar geometrica y digitalizamos una zona uniforme dentro de la imagen. Al
+ terminar de acerlo qgis pedira un numero de ID para la capa que debe ser
+ correlativo.
+ 
+ \begin{act}
+    Digitalize coberturas uniformes dentro de la imagen. Recuerde obtener al
+    menos una por cada categoria de uso y cobertura presente dentro de la misma.
+ \end{act}
+
+ \begin{act}
+    Utilizando la herramienta de tabla de datos de la imagen modifique la tabla
+    de datos para incluir la categoria de la cobertura, la subcategoria y una 
+    pequeña descripcion.
+ \end{act}
+
+
+\subsection{Exploracion en R}
+\label{sub:fep:r}
+ Para trabajar en R deberemos primero cargar las librerias necesarias con el
+ comando
+
+ \begin{lstlisting}
+    library(raster)
+ \end{lstlisting}
+
+ además, deberemos situar nuestra carpeta de trabajo donde se encuentran las
+ carpetas que descargamos. Para esto nos movemos en el explorar de archivos
+ hasta la misma y hacemos click en usar la carpeta como carpeta de trabajo.
+
+ Una vez en dicha carpeta, existen varias maneras de abrir una imagen segun
+ queramos hacerlo solo para una banda, varias bandas en archivos separados o un
+ solo archivo multibanda.
+
+ Los comandos para esto son \texttt{raster}, para abrir una unica banda,
+ \texttt{brick}, para abrir un archivo multibanda, y \texttt{stack} para abrir
+ distinas bandas por separado. Veamos algunos ejemplo de esto:
+
+ \begin{exa}
+    Abrimos la imagen completa del archivo de landsat 8 y consultamos sus 
+    propiedades.
+ \begin{lstlisting}
+    l8 <- brick(filename)
+    l8
+ \end{lstlisting}
+ \end{exa}
+
+
+ Una vez abierta la imagen en el R podemos empezar a trabajar con la misma
+ utilizando distintos comandos. 
+
+ Veamos primero como cambiar los nombres de las bandas por defecto, cambiar la
+ imagen a numeros en reflectancia entre 0 y 1 y luego guardarla nuevamente. Para
+ eso ejecutamos el siguiente codigo.
+
+ \begin{lstlisting}
+     l8 <- brick(filename)
+     names(l8) <- c("blue","gree","red","nir","swir1","swir2")
+     l8 <- l8/1e4
+     rasterOptions(addheader = "ENVI")
+     writeRaster(l8\_ref,"raster\_data/processed/")
+ \end{lstlisting}
+
+ Analicemos el codigo linea por linea. La primera de ellas abre la imagen como
+ un raster de multiples bandas. La segunda, cambia los nombres de cada banda a
+ los que figuran en la lista entre parentesis. Es importante resaltar que el
+ numero de nombres debe ser el mismo que el de bandas. En tercer lugar
+ convertimos el archivo de numeros enteros entre 0 y 10000 a numeros entre 0 y
+ 1. En la cuarta linea incluimos el archivo header que nos permitira levantar
+ nuestra imagen con qgis. Por ulitmo, guardamos el archivo en el formato nativo
+ de R.
+ 
+ \begin{act} 
+    Abra el archivo vrt en qgis y vuelva a mirar la firma espectral para 
+    distintas coberturas. Entre que valores se encuentra ahora las mismas.
+ \end{act}
+
+ Hagamos un poco de analisis ahora sobre la imagen. Para comenzar podemos
+ calcular los histogramas de todas las bandas con el comando
+
+ \begin{lstlisting}
+    hist(l8) 
+ \end{lstlisting}
+
+ y el scatter plot entre dos bandas como
+
+ \begin{lstlisting}
+    plot(l8$red, l8$blue)    
+ \end{lstlisting}
+
+ en caso de querer todos los scatterplots e histogramas en un solo grafico
+ podemos hacerlo con el comando
+
+ \begin{lstlisting}
+     pairs(l8)
+ \end{lstlisting}
+
+ Hasta ahora estamos analizando la imagen completa. Podemos sin embargo analizar
+ solo sectores concretos de la imagen muestreandola en funcion de un shapefile.
+ Para esto debemos primero abrir el shapefile de interes cargando primero la
+ libreria
+
+ \begin{lstlisting}
+     library(rgal)
+ \end{lstlisting}
+
+ y luego leyendo el vector como
+
+ \begin{lstlisting}
+     vector <- readOGR(dsn="vector\_data/", layer="extract")
+ \end{lstlisting}
+
+ Podemos mostrar las propiedades del vector ejecutando el comando
+
+ \begin{lstlisting}
+     vector
+ \end{lstlisting}
+
+ \begin{act} 
+    Muestre las propiedades de la capa raster y el vector abiertos y verifique
+    que los mismos se encuentren en el mismo sistema de coordenadas.
+ \end{act}
+
+ Podemos mostrar las imagenes dentro de R si así nos interesa. Para esto
+ utilizaremos la libreria \texttt{ggplot} como se muestra a continuacion
+
+ \begin{lstlisting}
+    ggRGB(l8, r="nir",g="red",b="blue", geom_raster=TRUE) 
+ \end{lstlisting}
+
+ Por ultimo mostremos como extraer datos de un archivo raster y veamos un par de
+ ejemplo concretos. La funcion que nos permite extrar datos de un raster segun
+ un vector es \texttt{extract} que toma dos argumentos
+ \begin{lstlisting}
+     raster(l8,vector)
+ \end{lstlisting}
+
+ Veamos algunos ejemplos que pueden ser utiles de aplicacion de todo lo anterior
+
+ \begin{exa}
+    Graficar en un scatterplot de dos bandas mostrando la zona del espacio 
+    ocupada por una cobertura.
+ \begin{lstlisting}
+    plot(l8$red, l8$nir)
+    points(as.data.frame(datos[1])$red, as.data.frame(datos[1])$nir,
+    col="green")
+ \end{lstlisting}
+ \end{exa}
+
+ \begin{exa}
+     Extraer los promedios y desvios standar de un raster y agregarlos a un
+     vector.
+     \begin{lstlisting}
+         promedio <- extract(l8,vector,fun=mean)
+         desvio <- extract(l8,vector,fun=sd)
+         colnames(promedio) <- paster("mean",colnames("promedio"),sep="_")
+         colnames(desvio) <- paster("sd",colnames("desvio"),sep="_")
+         vector@data <- cbind(vector@data,promedio,desvio)
+         writeOGR(vector, sdn="vector_data/processed/,"datos",driver="ESRI
+         Shapefile")
+     \end{lstlisting}
+ \end{exa}
+
+ \begin{exa}
+     Graficar las firmas espectrales en funcion de la longitud de onda para cada
+     geometria de un vector.
+     \begin{lstlisting}
+         df <- t(promedio)
+         colnames(df) <- vector@data$descripcion
+         df$wl <- as.matrix(c(485,560,660,830,1650,2215))
+         df <- melt(df,id.vars="wl", variable.name="cobertura")
+         names(df) <- c("wl","Cobertura","Reflectancia")
+         dfd <- t(desvio)
+         colnames(dfd) <- vector@data$descripcion
+         dfd$wl <- as.matrix(c(485,560,660,830,1650,2215))
+         dfd <- melt("wl","Cobertura","Desvio")
+
+         df$desvio <- dfd$desvio
+
+         ggplot(df,aes(wl,Reflectancia)+
+            geom_line(aes(colour=Cobertura))+
+            geom_poinr(aes(colour=Cobertura))+
+            geom_errorbar(aes(ymin=Reflectancia-2*desvio,
+                              ymax=Reflectancia+2*desvio))
+     \end{lstlisting}
+ \end{exa}
+\end{document}

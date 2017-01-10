@@ -3,19 +3,15 @@
 % Posibilidad de mover la pagina
 \usepackage[a4paper]{geometry}
 % Saco la indentacion en todos los parrafos.
-\usepackage{parskip}
+%\usepackage{parskip}
 % Codificacion UTF-8
 \usepackage[utf8]{inputenc}
 % Tablas e imagenes en espaniol
 \usepackage[spanish,es-tabla]{babel}
 % Mejores graficos
 \usepackage{graphicx}
-% pdf horizontal
-\usepackage{pdflscape}
 % tablas mas lindas
 \usepackage{booktabs}
-% Graficos rotados
-\usepackage{rotating}
 % Posibilidad de tocar los encabezados
 \usepackage{fancyhdr}
 %\pagestyle{fancy}
@@ -40,8 +36,11 @@
 \renewcommand\Authand{y }
 \renewcommand\Authands{, y }
 
+% Codigo
+\usepackage{listings}
+
 % Coloreo los links
-\usepackage{xcolor}
+\usepackage[dvipsnames]{xcolor}
 \hypersetup{colorlinks,
      linkcolor={red!50!black},
      citecolor={blue!50!black},
@@ -49,4 +48,37 @@
 % Graficos con tikz
 \usepackage{tikz}
 
+% Configuracion de listings para R
+\lstset{%
+  language=R,                     % the language of the code
+  basicstyle=\footnotesize,       % the size of the fonts that are used for the code
+  numbers=left,                   % where to put the line-numbers
+  numberstyle=\tiny\color{gray},  % the style that is used for the line-numbers
+  stepnumber=1,                   % the step between two line-numbers. If it's 1, each line
+                                  % will be numbered
+  numbersep=5pt,                  % how far the line-numbers are from the code
+  backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+  showspaces=false,               % show spaces adding particular underscores
+  showstringspaces=false,         % underline spaces within strings
+  showtabs=false,                 % show tabs within strings adding particular underscores
+  %frame=single,                   % adds a frame around the code
+  rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))
+  tabsize=2,                      % sets default tabsize to 2 spaces
+  captionpos=b,                   % sets the caption-position to bottom
+  breaklines=true,                % sets automatic line breaking
+  breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+  title=\lstname,                 % show the filename of files included with \lstinputlisting;
+                                  % also try caption instead of title
+  keywordstyle=\color{blue},      % keyword style
+  commentstyle=\color{dkgreen},   % comment style
+  stringstyle=\color{Plum}       % string literal style
+} 
 
+\definecolor{A11}{HTML}{B2DF8A}
+\definecolor{A12}{HTML}{33A02C}
+\definecolor{A23}{HTML}{FDBF6F}
+\definecolor{A24}{HTML}{FF7F00}
+\definecolor{B15}{HTML}{FB9A99}
+\definecolor{B16}{HTML}{E31A1C}
+\definecolor{B27}{HTML}{A6CEE3}
+\definecolor{B28}{HTML}{1F78B4}
