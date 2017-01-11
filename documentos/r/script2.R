@@ -13,14 +13,14 @@ l5_2011_cdr <- stackMeta(xml_meta2011, quantity = "sre")
 scaleF <- getMeta(l5_2011_cdr, xml_meta2011, what = "SCALE_FACTOR")
 l5_2011_cdr <- l5_2011_cdr * scaleF
 
-# Guardamos la imagen en reflectancia
+# Guardamos la imagen en reflectanciage
 writeRaster(l5_2011_cdr,"raster_data/processed/l5_2011_cdr")
 
 # Cargamos la imagen desde el metadato
 meta2011 <- readMeta("raster_data/LT52280792011078CUB00/LT52280792011078CUB00_MTL.txt")
 l5_2011 <- stackMeta(meta2011)
 # Guardamos solo las bandas reflectivas
-l5_2011 <- l5_2011[[c((1:5),7)]]
+l5_2011 <- l5_2011[[-6]]
 # Calibramos a radiancias
 # A mano
 dn2rad <- meta2011$CALRAD
