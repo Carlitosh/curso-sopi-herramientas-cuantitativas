@@ -7,10 +7,10 @@
 
 \begin{document}
 
-\section{Introducción}
+\section*{Introducción}
 \label{sec:intro}
  
-\section{Firmas especrales}
+\section{Un viaje del sol a los pixeles.}
 \label{sec:fep}
  En esta primera práctica nos familiarizaremos con las interfaces gráficas del
  qgis y de R-studio. Para esto comenzaremos a analizar la imagen correspondiente
@@ -247,4 +247,197 @@
                               ymax=Reflectancia+2*desvio))
      \end{lstlisting}
  \end{exa}
+
+ \begin{act}
+    Grafique la media y el desvio standar para las distintas coberturas que pudo
+     identificar en el punto uno. 
+ \end{act}
+\section{Rebotando por la atmosfera}
+\label{sec:corr}
+En esta segunda actividad practica nos centraremos en la correccion radiometrica
+de imagenes satelitales. Son objetivos de la misma
+
+\begin{itemize}
+    \item Poder abrir una imagen satelital desde el metadato.
+    \item Convertir los valores de la imagen a reflectancia tope de la
+        atmosfera.
+    \item Corregir la imagen satelital utilizando los metodos de \emph{dos} y
+        \emph{cost}
+    \item Corregir la imagen satelital utilizando el \emph{6S web}
+\end{itemize}
+
+\subsection{Correccion de imagenes en R}
+\label{sub:corr:r}
+Para abrir una imagen satelital desde el metadato utilizaremos las funciones
+disponibles en \texttt{RStoolbox}. Dicho paquete incluye diversar herramientas
+para trabajar con sensores remotos y ya lo utilizamos antes para graficar
+imagenes satelitales.
+
+\begin{exa}
+   Comencemos analizando un ejemplo sencillo, abriremos una imagen landsat 5
+    desde el metadato y la mostraremos en combinacion de bandas de falso color
+    compuesto, ademas de analizar las propiedades basicas de la misma.
+    \begin{lstlisting}
+        library(raster)
+        library(RStoolbox)
+        meta.1992 <- readMeta("raster_data/LT52300771992104CUB00/LT52300771992104CUB00_MTL.txt")
+        dn.1992 <- stackMeta(meta.1992)
+        dn.1992 <- dn.1992[[-6,]]
+        ggRGB(dn.1992, 
+              r=4, g=3, b=2, 
+              geom_raster = TRUE, 
+              stretch = "lin")
+    \end{lstlisting}
+    
+    Cargaremos de esta forma el metadato de la imagen landat 5 del año 1992,
+    abriremos las bandas de la misma y la mostraremos en combinacion de falso
+    color compuesto. Analicemos punto por punto que esta pasando.
+    \begin{enumerate}
+        \item Las lineas 1 y 2 del script leen las librerias que necesitamos
+            para trabajar con la imagen.
+        \item La linea 3 crea la variable \texttt{meta.1992} con los metadatos
+            correspondientes a la imagen de interes.
+        \item La linea 4 crea la variable \texttt{dn.1992} con las bandas
+            estaqueadas para poder utilizarlas en R. Podemos inspeccionar el
+            elemento poniendo su nombre en la consola.
+        \item La linea 5 elimina la banda termica de nuestra imagen.
+        \item Las lineas 6 a 9 nos permiten mostrar la imagen en combinacion
+            falso color compuesto. De ella la linea 6 se refiere a la imagen a
+            mostrar, la linea 7 a la combinacion de colores elegida y la 9 al
+            tipo de realce aplicado.
+    \end{enumerate}
+\end{exa}
+
+De esta forma podemos tener el archivo cargado en DN con todos sus metadatos
+para convertirlo a reflectancia. Para pasar nuestra imagen a reflectancia a tope
+de la atmosfera tenemos dos maneras de hacerlo. Podemos hacerlo a mano
+utilizando las herramientas algebraicas de R o podemos hacerlo con la funcion
+especifica de \texttt{RStoolbox}.
+
+Veamos ambas. A mano
+
+\begin{lstlisting}
+    calref.1992 <- meta.1992$calref
+    elev.1992 <- pi*meta.1992$SOLAR_PARAMETERS['elevation']/180
+    dn2ref.1992 <- meta.1992$CALREF
+    toa.1992 <- (dn.1992*dn2ref.1992$gain+dn2ref.1992$offset)/sin(elev.1992)
+    names(toa.1992) <- c("B1_toa","B2_toa","B3_toa","B4_toa","B5_toa","B7_toa")
+\end{lstlisting}
+
+de forma automaica
+
+\begin{lstlisting}
+    toa.1992b <- radCor(dn.1992, metaData = meta.1992, method = "apref")
+\end{lstlisting}
+
+podemos comparar los resultados de ambos metodos inspeccionando los objetos.
+
+\begin{act}
+    Inspeccione la reflectancia a tope de la atmosfera para todas las bandas.
+    Para esto realice los histogramas, graficos de dispersion, calcule la media,
+    el desvio standar y cualquier otra medida estadistica que le guste.
+\end{act}
+
+La funcion \texttt{radCor} dispone distintos parametros para hacer distintos
+tipos de correcciones atmosfericas. Ya vimos \emph{apref} que nos permitio
+calcular la reflectancia a tope de la atmosfera. Veamos como aplicar el metodo
+de substraccion de cuerpo obscuro.
+
+\begin{lstlisting}
+    haze.1992 <- estimateHaze(dn.1992,darkProp = 0.01, hazeBands = 1:4, plot=TRUE)
+    sdos.1992 <- radCor(dn.1992, metaData = meta.1992, 
+                 hazeValues = haze.1992,
+                 hazeBands = c("B1_dn","B2_dn","B3_dn","B4_dn"), 
+                 method="sdos")
+\end{lstlisting}
+
+\begin{act}
+    Analice los valores de haze obtenidos por la funcion stimate hace y en caso
+    de que sea necesario, corrijalos para la banda indicada.
+\end{act}
+
+\begin{act}
+    Utilice el metodo \emph{costz} para corregir la imagen a reflectancia a tope
+    de la superficie.
+\end{act}
+
+\begin{act}
+    Guarde los archivos raser generado por cada uno de los metodos de
+    correccion. Abralos en qgis y comparelos visualmente.    
+\end{act}
+
+
+\subsection{6S}
+\label{sub:corr:6S}
+
+Veamos ahora como operar con el 6S para obtener una estimacion de los parametros
+atmosfericos. Para esto utilizaremos la version web del 6S que se encuentra
+disponible en http://6s.ltdri.org/pages/run6SV.html.
+
+Para utilizarla ingresaremos a la pagina y haremos click en el boton
+\menu{Submit query}. Iremos luego configurando paso a paso nuestro modelo de la
+atmosfera haciendo siempre luego click en el boton \menu{submit query} para
+pasar al paso siguiente.
+
+Los parametros para nuestro modelo son
+
+\begin{enumerate}
+    \item Geometrical conditions
+        \begin{itemize}
+            \item TM (Landsat)
+            \item Month: 4, Day:13, GTM decimal hour: 13.60, Longitude:
+                -63.8606, Latitude: -24.9937.
+        \end{itemize}
+    \item Atmospheric Model
+        \begin{itemize}
+            \item Select Atmospheric Profile: Mid latitude summer
+            \item Select aerosol model: Continental Model
+            \item Visibility: 60
+        \end{itemize}
+    \item Target \& sensor altitude
+        \begin{itemize}
+            \item Select targe altitude: sea level
+            \item Select sensor altitude: satellite level
+        \end{itemize}
+    \item Spectral conditions
+        \begin{itemize}
+            \item Select spectral conditions: choose band
+            \item Select band: 1st band of tm (landat 5)
+        \end{itemize}
+    \item Ground reflectance
+        \begin{itemize}
+            \item Ground reflectance type: homogeneous surface
+            \item Directional effect: no directional effect
+            \item Specify surface reflectance: input constant value of ro
+            \item input constant value for ro: 0
+        \end{itemize}
+    \item Signal
+        \begin{itemize}
+            \item Atmospheric correction mode: no atmospheric correction
+        \end{itemize}
+\end{enumerate}
+
+En \menu{7.Results} podemos ver el resultado haciendo click en \emph{Output
+file}
+
+Una vez ejecutado el proceso puede usarse el siguiente codigo para corregir
+todas las bandas utilizando R.
+
+\begin{lstlisting}
+    a <- c(0.98,0.90,...)
+    b <- c(0.81,0.90,...)
+    g <- c(0.15,0.10,...)
+    r <- c(0.08,0.05,...)
+    sss.1992 <- (toa.1992/(a*b)-r/b)/(1+g*(toa.1992/(a*b)-r/b))
+\end{lstlisting}
+
+
+
+\begin{act}
+    Realice una extraccion de firmas espectrales para distintass coberturass de
+    cada uno de los archivos raster obtenidos y grafiquelos en el mismo grafico.
+    Comparela con la firma espectral obtenida a partir de la imagen corregida
+    por el usgs.
+\end{act}
+
 \end{document}
