@@ -28,3 +28,7 @@ delta <- stack(ref.2015, ref.1992)
 names(delta) <- c("blue.2015","green.2015","red.2015","nir.2015","swir1.2015","swir2.2015",
                   "blue.1992","green.1992","red.1992","nir.1992","swir1.1992","swir2.1992")
 plot(pca.delta$map,1:4)
+
+# Transformacion por TSC
+tsa.2015 <- tasseledCap(ref.2015,sat="Landsat8OLI")
+names(tsa.2015) <- c("Brigthness","Greenness","Wetness")
