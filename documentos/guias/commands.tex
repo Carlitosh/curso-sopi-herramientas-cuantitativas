@@ -10,8 +10,8 @@
 \newcommand*{\menu}[1]{%
 \toggletrue{FirstOne}%
 \foreach \x in {#1} {%
-\iftoggle{FirstOne}{}{${}\rightarrow{}$}%
-\emph{\x}%
+\iftoggle{FirstOne}{}{${}\rightarrow{}$}
+%\emph{\x}%
 \global\togglefalse{FirstOne}%
 }%
 }%
