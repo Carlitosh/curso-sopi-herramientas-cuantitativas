@@ -1,0 +1,70 @@
+<VRTDataset rasterXSize="1834" rasterYSize="2412">
+  <SRS>PROJCS["WGS 84 / UTM zone 21S",GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",-57],PARAMETER["scale_factor",0.9996],PARAMETER["false_easting",500000],PARAMETER["false_northing",10000000],UNIT["metre",1,AUTHORITY["EPSG","9001"]],AXIS["Easting",EAST],AXIS["Northing",NORTH],AUTHORITY["EPSG","32721"]]</SRS>
+  <GeoTransform>  7.3111862716026627e+05,  3.0004024954486173e+01,  0.0000000000000000e+00,  7.1738974380489942e+06,  0.0000000000000000e+00, -3.0002653721835035e+01</GeoTransform>
+  <VRTRasterBand dataType="Int16" band="1">
+    <NoDataValue>-9999</NoDataValue>
+    <ComplexSource>
+      <SourceFilename relativeToVRT="1">LC82240782016304LGN00_sr_band2.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="1834" RasterYSize="2412" DataType="Int16" BlockXSize="1834" BlockYSize="2" />
+      <SrcRect xOff="0" yOff="0" xSize="1834" ySize="2412" />
+      <DstRect xOff="0" yOff="0" xSize="1834" ySize="2412" />
+      <NODATA>-9999</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Int16" band="2">
+    <NoDataValue>-9999</NoDataValue>
+    <ComplexSource>
+      <SourceFilename relativeToVRT="1">LC82240782016304LGN00_sr_band3.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="1834" RasterYSize="2412" DataType="Int16" BlockXSize="1834" BlockYSize="2" />
+      <SrcRect xOff="0" yOff="0" xSize="1834" ySize="2412" />
+      <DstRect xOff="0" yOff="0" xSize="1834" ySize="2412" />
+      <NODATA>-9999</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Int16" band="3">
+    <NoDataValue>-9999</NoDataValue>
+    <ComplexSource>
+      <SourceFilename relativeToVRT="1">LC82240782016304LGN00_sr_band4.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="1834" RasterYSize="2412" DataType="Int16" BlockXSize="1834" BlockYSize="2" />
+      <SrcRect xOff="0" yOff="0" xSize="1834" ySize="2412" />
+      <DstRect xOff="0" yOff="0" xSize="1834" ySize="2412" />
+      <NODATA>-9999</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Int16" band="4">
+    <NoDataValue>-9999</NoDataValue>
+    <ComplexSource>
+      <SourceFilename relativeToVRT="1">LC82240782016304LGN00_sr_band5.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="1834" RasterYSize="2412" DataType="Int16" BlockXSize="1834" BlockYSize="2" />
+      <SrcRect xOff="0" yOff="0" xSize="1834" ySize="2412" />
+      <DstRect xOff="0" yOff="0" xSize="1834" ySize="2412" />
+      <NODATA>-9999</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Int16" band="5">
+    <NoDataValue>-9999</NoDataValue>
+    <ComplexSource>
+      <SourceFilename relativeToVRT="1">LC82240782016304LGN00_sr_band6.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="1834" RasterYSize="2412" DataType="Int16" BlockXSize="1834" BlockYSize="2" />
+      <SrcRect xOff="0" yOff="0" xSize="1834" ySize="2412" />
+      <DstRect xOff="0" yOff="0" xSize="1834" ySize="2412" />
+      <NODATA>-9999</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Int16" band="6">
+    <NoDataValue>-9999</NoDataValue>
+    <ComplexSource>
+      <SourceFilename relativeToVRT="1">LC82240782016304LGN00_sr_band7.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="1834" RasterYSize="2412" DataType="Int16" BlockXSize="1834" BlockYSize="2" />
+      <SrcRect xOff="0" yOff="0" xSize="1834" ySize="2412" />
+      <DstRect xOff="0" yOff="0" xSize="1834" ySize="2412" />
+      <NODATA>-9999</NODATA>
+    </ComplexSource>
+  </VRTRasterBand>
+</VRTDataset>
