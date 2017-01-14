@@ -1,4 +1,4 @@
-i\## Manejo raster
+## Manejo raster
 
 # Cargamos la libreria para manejo de rasters
 library(raster)
