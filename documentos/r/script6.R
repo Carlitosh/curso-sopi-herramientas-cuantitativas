@@ -5,8 +5,6 @@ library(RStoolbox)
 library(rgdal)
 library(raster)
 
-
-
 # Abrimos la imagen landsat 8
 xml.2015 <- readMeta("raster_data/LC82300772015071/LC82300772015071LGN00.xml")
 ref.2015 <- stackMeta(xml.2015, quantity = "sre")
@@ -18,7 +16,7 @@ names(ref.2015) <- c("blue","green","red","nir","swir1","swir2")
 # Clasificacion no supervisada
 rasterOptions(addheader = "ENVI")
 set.seed(6)
-uc.2016 <- unsuperClass(ref.2015, nClasses = 6, nStarts = 100, nSamples = 10000)
+uc.2016 <- unsuperClass(ref.2015, nClasses = 100, nStarts = 100, nSamples = 10000)
 writeRaster(uc.2016$map,"raster_data/processed/uc2016", datatype = "INT1U")
 
 
