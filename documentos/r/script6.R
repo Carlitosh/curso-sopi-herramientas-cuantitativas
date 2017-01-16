@@ -6,7 +6,7 @@ library(rgdal)
 library(raster)
 
 # Abrimos la imagen landsat 8
-xml.2015 <- readMeta("raster_data/LC82300772015071/LC82300772015071LGN00.xml")
+xml.2015 <- readMeta("raster_data/LC82240782016304/LC82240782016304LGN00.xml")
 ref.2015 <- stackMeta(xml.2015, quantity = "sre")
 scaleF <- getMeta(ref.2015, xml.2015, what = "SCALE_FACTOR")
 ref.2015 <- ref.2015 * scaleF
@@ -40,9 +40,8 @@ valid <- readOGR(dsn="vector_data/", layer="validacion")
 vector
 
 # qqplot contra normal
-extract(ref.2015,vector, fun=qqnorm)
+#extract(ref.2015,vector, fun=qqnorm)
 
-sup.2016 <- superClass(ref.2015, vector, responseCol = "MC_ID", model = "mlc")
-sup.2016b <- superClass(ref.2015, vector, responseCol = "MC_ID", model = "rf")
+sup.2016 <- superClass(ref.2015, vector, responseCol = "MC_ID", model = "rf")
 validation <- validateMap(sup.2016$map,valData = valid, responseCol = "MC_ID")
-validationb <- validateMap(sup.2016b$map,valData = valid, responseCol = "MC_ID")
+plot(sup.2016$map, col = rainbow(8))
