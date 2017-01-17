@@ -6,48 +6,49 @@ library(RStoolbox)
 library(ggplot2)
 
 # Cargar imagen desde el metadato en reflectancia
-xml_meta2011 <- readMeta("raster_data/LT52280792011078/LT52280792011078CUB00.xml")
-l5_2011_cdr <- stackMeta(xml_meta2011, quantity = "sre")
+xml.2000 <- readMeta("raster_data/LE72240782000188/LE72240782000188EDC00.xml")
+ref.2000 <- stackMeta(xml.2000, quantity = "sre")
 
 # Convertimos la imagens a reflecntacia
-scaleF <- getMeta(l5_2011_cdr, xml_meta2011, what = "SCALE_FACTOR")
-l5_2011_cdr <- l5_2011_cdr * scaleF
+scaleF <- getMeta(ref.200, xml.2000, what = "SCALE_FACTOR")
+ref.2000 <- ref.2000 * scaleF
 
 # Guardamos la imagen en reflectanciage
-writeRaster(l5_2011_cdr,"raster_data/processed/l5_2011_cdr")
+writeRaster(ref.2000,"raster_data/processed/ref2000")
 
 # Cargamos la imagen desde el metadato
-meta2011 <- readMeta("raster_data/LT52280792011078CUB00/LT52280792011078CUB00_MTL.txt")
-l5_2011 <- stackMeta(meta2011)
+meta.2000 <- readMeta("raster_data/LE72240782000188EDC00/LE72240782000188EDC00_MTL.txt")
+dn.2000 <- stackMeta(meta.2000)
 # Guardamos solo las bandas reflectivas
-l5_2011 <- l5_2011[[-6]]
+dn.2000 <- dn.2000[[c(1:5,8)]]
 # Calibramos a radiancias
 # A mano
-dn2rad <- meta2011$CALRAD
-dn2rad <- dn2rad[-6,]
-l5_2011_rad <- l5_2011*dn2rad$gain+dn2rad$offset
+dn2rad <- meta.2000$CALRAD
+dn2rad <- dn2rad[c(1:5,8),]
+toa.2000 <- dn.2000*dn2rad$gain+dn2rad$offset
 
 ## Automatico
-l5_2011_rad <- radCor(l5_2011, metaData = meta2011, method="rad")
+rad.2000 <- radCor(dn.2000, metaData = meta.2000, method="rad")
 # Calibramos a reflectancia
-l5_2011_toa <- radCor(l5_2011, metaData = meta2011, method="apref")
+toa.2000 <- radCor(dn.2000, metaData = meta.2000, method="apref")
 # Correcciones por DOS
-hist(l5_2011)
+hist(toa.2000)
 # Simple
-haze <- estimateHaze(l5_2011,darkProp = 0.01, hazeBands = 1:4, plot=TRUE)
-l5_2011_sdos <- radCor(l5_2011, metaData = meta2011, hazeValues = haze, hazeBands = c("B1_dn","B2_dn","B3_dn","B4_dn"), method="sdos")
+haze.2000 <- estimateHaze(dn.2000,darkProp = 0.01, hazeBands = 1:4, plot=TRUE)
+sdos.2000 <- radCor(dn.2000, metaData = meta.2000, hazeValues = haze.2000, hazeBands = c("B1_dn","B2_dn","B3_dn","B4_dn"), method="sdos")
 # DOS
-l5_2011_dos <- radCor(l5_2011, metaData = meta2011, method="dos")
+dos.2000 <- radCor(dn.2000, metaData = meta.2000, method="dos")
 # COSTZ
-l5_2011_costz <- radCor(l5_2011, metaData = meta2011, method="costz")
+cost.2000 <- radCor(dn.2000, metaData = meta.2000, method="costz")
 
 
 ## Guardar imagenes
 # Agregamos el header de ENVI
 rasterOptions(addheader = "ENVI")
-writeRaster(l5_2011_rad,"raster_data/processed/l5_2011_rad")
-writeRaster(l5_2011_toa,"raster_data/processed/l5_2011_toa")
-writeRaster(l5_2011_sdos,"raster_data/processed/l5_2011_sdos")
-writeRaster(l5_2011_dos,"raster_data/processed/l5_2011_dos")
-writeRaster(l5_2011_costz,"raster_data/processed/l5_2011_costz")
+
+writeRaster(l5_2011_rad,"raster_data/processed/rad2000")
+writeRaster(l5_2011_toa,"raster_data/processed/toa2000")
+writeRaster(l5_2011_sdos,"raster_data/processed/sdos2000")
+writeRaster(l5_2011_dos,"raster_data/processed/dos2000")
+writeRaster(l5_2011_costz,"raster_data/processed/cost2000")
 
