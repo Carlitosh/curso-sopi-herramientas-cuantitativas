@@ -25,9 +25,9 @@ plot(ndvi.2016, col=cols, zlim=c(0,1))
 ndvi.2016 <- spectralIndices(ref.2016, red="red", nir="nir", indices="NDVI")
 
 # Calculemos ahora el evi y el ndvi
-ndvi_evi.2016 <- spectralIndices(ref.2016, blue="blue",red="red", nir="nir", indices=c("NDVI","EVI"))
+indices.2016 <- spectralIndices(ref.2016, blue="blue",red="red", nir="nir", indices=c("NDVI","EVI"))
 par( mfrow = c( 1, 1 ) )
-plot(ndvi_evi.2016,col=cols, zlim=c(0,1))
+plot(indices.2016,col=cols, zlim=c(0,1))
 
 # Y calculamos todos los posibles
 indices.2016 <- spectralIndices(ref.2016, red="red", nir="nir")
@@ -51,24 +51,20 @@ tSAVI.2016 <- m*(ref.2016$nir-m*ref.2016$red-b)/(m*ref.2016$nir+ref.2016$red-m*b
 plot(tSAVI.2016,col=cols)
 
 
-### MIRAR!!!!
 # Ajuste de indice vs datos de campo
 # Analisis de los datos
-vector <- readOGR(dsn="vector_data/", layer="sampled")
-datos <- extract(ndvi_evi.2015,vector)
+vector <- readOGR(dsn="vector_data/", layer="muestreo")
+datos <- extract(indices.2016,vector)
 DF <- data.frame(vector@data,datos)
-ggpairs(DF[,-1],diag=list(continuous="barDiag"))
+ggpairs(DF[c("fcover","NDVI","EVI")],diag=list(continuous="barDiag"))
 
 # Ajuste segun un modelo y lo grafico plot.
-lmf.2015 <- lm(SR ~ I(1/(NDVI-1)),DF)
-DF$newSR <- predict.lm(lmf.2015)
+lmf.2016 <- lm(fcover ~ I(sqrt(NDVI)),DF)
+DF$newSR <- predict.lm(lmf.2016)
 
 # Grafico el modelo
-ggplot(data=DF, aes(x=NDVI,y=SR))+geom_point()+geom_smooth(aes(x=NDVI,y=newSR))
+ggplot(data=DF, aes(x=NDVI,y=fcover))+geom_point()+geom_smooth(aes(x=NDVI,y=newSR))
 
 # Aplico el modelo a una imagen y lo grafico
-newSR.2015 <- predict(ndvi.2015,lmf.2015)
-ggR(newSR.2015, geom_raster = TRUE)+
-  geom_point(data=vector.df,aes(x=coords.x1,y=coords.x2,colour=SR),size=5)+
-  scale_fill_gradientn(colours=cols)+
-  scale_colour_gradientn(colours=cols,guide = "none")+coord_equal()
+newSR.2016 <- predict(indices.2016,lmf.2016)
+plot(newSR.2016, col=cols, zlim = c(0,1))
