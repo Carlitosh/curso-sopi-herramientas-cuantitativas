@@ -4,34 +4,37 @@ library(e1071)
 library(RStoolbox)
 library(rgdal)
 library(raster)
+library(rasterVis)
+
 
 # Abrimos la imagen landsat 8
-xml.2015 <- readMeta("raster_data/LC82240782016304/LC82240782016304LGN00.xml")
-ref.2015 <- stackMeta(xml.2015, quantity = "sre")
-scaleF <- getMeta(ref.2015, xml.2015, what = "SCALE_FACTOR")
-ref.2015 <- ref.2015 * scaleF
-ref.2015 <- ref.2015[[-1,]]
-names(ref.2015) <- c("blue","green","red","nir","swir1","swir2")
+xml.2016 <- readMeta("raster_data/LC82240782016304/LC82240782016304LGN00.xml")
+ref.2016 <- stackMeta(xml.2016, quantity = "sre")
+scaleF <- getMeta(ref.2016, xml.2016, what = "SCALE_FACTOR")
+ref.2016 <- ref.2016 * scaleF
+ref.2016 <- ref.2016[[-1,]]
+names(ref.2016) <- c("blue","green","red","nir","swir1","swir2")
 
 # Clasificacion no supervisada
 rasterOptions(addheader = "ENVI")
 set.seed(6)
-uc.2016 <- unsuperClass(ref.2015, nClasses = 100, nStarts = 100, nSamples = 10000)
-writeRaster(uc.2016$map,"raster_data/processed/uc2016", datatype = "INT1U")
+kmeans.2016 <- unsuperClass(ref.2016, nClasses = 5, nStarts = 100, nSamples = 10000)
+writeRaster(kmeans.2016$map,"raster_data/processed/kmeans2016", datatype = "INT1U", overwrite=TRUE)
 
 
 # Grafico las clases por separado
-classes <- layerize(uc.2016$map)
+classes <- layerize(kmeans.2016$map)
 plot(classes)
 
 # substituyo valores
-df <- data.frame(id=1:5,v=c(1,1,1,2,2))
-x <- subs(uc.2016$map, df)
+clases.2016 <- read.delim("class")
+reclas.2016 <- subs(kmeans.2016$map, clases.2016)
 
 # filtro 3x3
 # Definimos el nucleo de 3x3 unitario
-window <- matrix(1,nrow=15, ncol=15)
-filter.2016<-focal(uc.2016$map,w=window,fun=modal)
+window <- matrix(1,nrow=5, ncol=5)
+filter.2016<-focal(reclas.2016,w=window,fun=modal)
+
 
 # Clasificacion supervisada
 vector <- readOGR(dsn="vector_data/", layer="entrenamiento")
@@ -40,8 +43,8 @@ valid <- readOGR(dsn="vector_data/", layer="validacion")
 vector
 
 # qqplot contra normal
-#extract(ref.2015,vector, fun=qqnorm)
+#extract(ref.2016,vector, fun=qqnorm)
 
-sup.2016 <- superClass(ref.2015, vector, responseCol = "MC_ID", model = "rf")
+sup.2016 <- superClass(ref.2016, vector, responseCol = "MC_ID", model = "rf")
 validation <- validateMap(sup.2016$map,valData = valid, responseCol = "MC_ID")
 plot(sup.2016$map, col = rainbow(8))
