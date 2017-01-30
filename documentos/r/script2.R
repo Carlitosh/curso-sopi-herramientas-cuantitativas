@@ -10,7 +10,7 @@ xml.2000 <- readMeta("raster_data/LE72240782000188/LE72240782000188EDC00.xml")
 ref.2000 <- stackMeta(xml.2000, quantity = "sre")
 
 # Convertimos la imagens a reflecntacia
-scaleF <- getMeta(ref.200, xml.2000, what = "SCALE_FACTOR")
+scaleF <- getMeta(ref.2000, xml.2000, what = "SCALE_FACTOR")
 ref.2000 <- ref.2000 * scaleF
 
 # Guardamos la imagen en reflectanciage
