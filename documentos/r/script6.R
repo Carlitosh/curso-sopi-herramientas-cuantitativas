@@ -1,6 +1,3 @@
-library(caret)
-library(randomForest)
-library(e1071)
 library(RStoolbox)
 library(rgdal)
 library(raster)
@@ -35,16 +32,6 @@ reclas.2016 <- subs(kmeans.2016$map, clases.2016)
 window <- matrix(1,nrow=5, ncol=5)
 filter.2016<-focal(reclas.2016,w=window,fun=modal)
 
-
-# Clasificacion supervisada
-vector <- readOGR(dsn="vector_data/", layer="entrenamiento")
-valid <- readOGR(dsn="vector_data/", layer="validacion")
-# inspeccionar elemento
-vector
-
-# qqplot contra normal
-#extract(ref.2016,vector, fun=qqnorm)
-
-sup.2016 <- superClass(ref.2016, vector, responseCol = "MC_ID", model = "rf")
-validation <- validateMap(sup.2016$map,valData = valid, responseCol = "MC_ID")
-plot(sup.2016$map, col = rainbow(8))
+# Ploteo un scatterplot clasificado
+apilado <- stack(ref.2016,kmeans.2016$map)
+xyplot(nir~red, groups=layer, data=apilado)
