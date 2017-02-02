@@ -35,3 +35,4 @@ filter.2016<-focal(reclas.2016,w=window,fun=modal)
 # Ploteo un scatterplot clasificado
 apilado <- stack(ref.2016,kmeans.2016$map)
 xyplot(nir~red, groups=layer, data=apilado)
+

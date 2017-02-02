@@ -1,11 +1,12 @@
 library(caret)
 library(randomForest)
 library(e1071)
+library(kernlab)
 library(RStoolbox)
 library(rgdal)
 library(raster)
 library(rasterVis)
-library(kernlab)
+
 
 
 # Abrimos la imagen landsat 8
@@ -25,7 +26,36 @@ vector
 # qqplot contra normal
 #extract(ref.2016,vector, fun=qqnorm)
 
-sup.2016 <- superClass(ref.2016, vector, responseCol = "MC_ID", model = "rf")
+sup.2016b <- superClass(ref.2016, vector, responseCol = "MC_ID", model = "mlc")
 validation <- validateMap(sup.2016$map,valData = valid, responseCol = "MC_ID")
 validation
 plot(sup.2016$map, col = rainbow(8))
+
+sup.2016 <- superClass(ref.2016, vector, responseCol = "C_ID", model = "mlc")
+sup.2016$map <- subs(sup.2016$map , vector@data[c(3,1)])
+sup.2016$map <- subs(sup.2016$map , sup.2016b$classMapping)
+validation <- validateMap(sup.2016$map,valData = valid, responseCol = "MC_ID")
+validation
+plot(sup.2016$map, col = rainbow(8))
+
+sup.2016 <- superClass(ref.2016, vector, responseCol = "C_ID", model = "rf")
+sup.2016$map <- subs(sup.2016$map , vector@data[c(3,1)])
+sup.2016$map <- subs(sup.2016$map , sup.2016b$classMapping)
+validation <- validateMap(sup.2016$map,valData = valid, responseCol = "MC_ID")
+validation
+plot(sup.2016$map, col = rainbow(8))
+
+# Calculo de entropia
+modelos <- c("rf","mlc","svmRadial","svmLinear")
+  
+ensemble <- lapply(modelos, function(mod){
+  set.seed(5)
+  sc <- superClass(ref.2016, trainData = vector,
+                   responseCol = "MC_ID", model=mod)
+  return(sc$map)
+})  
+
+prediction_stack <- stack(ensemble)
+names(prediction_stack) <- modelos
+
+model_entropy <- rasterEntropy(prediction_stack)

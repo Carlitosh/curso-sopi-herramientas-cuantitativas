@@ -686,7 +686,7 @@ satelitales. Vamos a usar los paquetes
 \end{lstlisting}
 
 Cargaremos primero la imagen landsat 8 y habilitaremos la opcion para escribir
-el header de ENVI.
+el header de ENVI\@.
 
 \begin{lstlisting}
     rasterOptions(addheader = "ENVI")
@@ -736,13 +736,102 @@ clase espectral podemos combinarlas
     reclas.2016 <- subs(kmeans.2016$map, clases.2016)
 \end{lstlisting}
 
-podemos ahora utilizar la clasificacion para separar zonas de la imagen en el
+\begin{act}
+    Clasifique por el metodo de kmeans la imagen en reflectancia con una
+    cantidad de clases espectrales lo suficientemente altas para separar todas
+    las clases espectrales.
+\end{act}
+
+\begin{act}
+    Vuelva a repetir la clasificacion utilizando la imagen obtenida de la
+    transformada por componentes principales descartando las bandas que aporten
+    menos informacion.
+\end{act}
+
+Podemos ahora utilizar la clasificacion para separar zonas de la imagen en el
 espacio espectral
 
 \begin{lstlisting}
-    
+    ref.2016$kmeans <- reclas.2016
+    xyplot(nir~red, groups=kmeans, data=ref.2016)
 \end{lstlisting}
 
+\begin{act}
+    Grafique en los cortes del espacio espectral la imagen sin fusionar. Compare
+    la diferencia entre clases espectrales y clases de informacion.
+\end{act}
+
+\section{Clasificacion supervisada de imagenes}
+
+En esta practica seguiremos trabajando con la clasificacion supervisada de
+imagenes satelitales.
+
+Utilizaremos mas paquetes en este caso.
+
+\begin{lstlisting}
+    library(RStoolbox)
+    library(rgdal)
+    library(raster)
+    library(rasterVis)
+\end{lstlisting}
+
+ademas de los paquetes que incorporan los distintos metodos de clasificacion
+
+\begin{lstlisting}
+    library(caret)
+    library(randomForest)
+    library(e1071)
+    library(kernlab)
+\end{lstlisting}
+
+comenzamos abriendo la imagen del año 2016 para las bandas reflectivas como en
+la clase anterior. Abrimos tambien el vector de entrenamiento.
+
+Empecemos con la clasificacion por el metodo de maxima verosimilitud
+
+\begin{lstlisting}
+    sup.2016 <- superClass(ref.2016, vector, responseCol = "MC_ID", 
+                           model = "mlc")
+\end{lstlisting}
+
+y realizar el scatterplot de dichas variables como.
+
+\begin{lstlisting}
+    ref.2016 <- sup.2016
+    xyplot(nir~red, groups=mlc, data=ref.mlc)
+\end{lstlisting}
+
+Cambiando el algoritmo de clasificacion en el parametro \texttt{model} podemos
+calcular distintas clasificaciones supervisadas. Algunas de las vistas en clase
+son \texttt{rf}, \texttt{svmRadial}, \texttt{kNN}. Cada una de ellas usa alguna
+libreria adicional de las cargadas antes.
+
+\begin{act}
+    Realice clasificaciones por los distintos metodos y comparelas visualmente. 
+\end{act}
+
+Para poder comparar en que zonas los clasificadores presentan mas o menos
+dispersion podemos calcular la entropia de las distintas clasificaciones en cada
+pixel. Para esto utilizaremos la funcion \texttt{rasterEntropy}. Para esto
+comenzamos corriendo la clasificacion para distintos modelos, los apilados y
+despues calculamos la entropia de los mismos
+
+\begin{lstlisting}
+    modelos <- c("rf","mlc","svmRadial","svmLinear", "kNN")
+      
+    ensemble <- lapply(modelos, function(mod){
+    set.seed(5)
+    sc <- superClass(ref.2016, trainData = vector,
+                     responseCol = "MC_ID", model=mod)
+    return(sc$map)
+    })
+    prediction_stack <- stack(ensemble)
+    names(ensemble) <- modelos
+    
+    model_entropy <- rasterEntropy(prediction_stack)
+
+    plot(model_entropy
+\end{lstlisting}
 
 
 \end{document}
