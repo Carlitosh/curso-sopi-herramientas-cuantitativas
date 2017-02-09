@@ -31,15 +31,15 @@
  durante el mes de mayo de 2015. Para esto vamos al menú \menu{Capa, Añadir
  capa, Añadir capa ráster}. Navegamos hasta la carpeta
  \file{raster\_data/LC82300772015071} y abrimos el archivo
- \file{LC82300772015071.brk}. Una vez abierto el mismo podrémos encontarrlo en
+ \file{LC82300772015071.brk}. Una vez abierto el mismo podremos encontrarlo en
  el \menu{Panel de capas} de q-gis donde podremos manejar la visualización del
  mismo y estudiar las propiedades de dicha capa.
 
  Usando la barra de herramientas del qgis podremos movernos en la imagen,
- realizar zoom en la misma entontre otros.
+ realizar zoom en la misma entontré otros.
 
  \begin{act} 
-     Cambie la combinación de bandas de la imagen L8 y muevase  dentro de la
+     Cambie la combinación de bandas de la imagen L8 y muévase  dentro de la
      misma.
  \end{act}
 
@@ -48,7 +48,7 @@
  \end{act}
  
  \begin{act}
-    Utilizando la herramienta identificar objetos espaciles encuentre los
+    Utilizando la herramienta identificar objetos espaciales encuentre los
     valores de reflectancia de distintas coberturas. Grafique estos  valores en
     una firma espectral y en el espacio de fases nirrojo.
  \end{act}
@@ -716,14 +716,14 @@ pertenece dicha clase espectral.
 
 Construiremos con ella una tabla como la siguiente
 
-\begin{verbatin}
+\begin{verbatim}
     id  class
     1   1
     2   1
     3   2
     4   5
     5   7
-\end{verbatin}
+\end{verbatim}
 
 que guardaremos en un archivo de texto. El mismo lo utilizaremos para realizar
 la fusion de clases.
@@ -833,5 +833,96 @@ despues calculamos la entropia de los mismos
     plot(model_entropy
 \end{lstlisting}
 
+\section{Tecnicas pos-clasificacion}
+
+Veamos ahora algunas tecnicas de que permiten mejorar las clasificaciones y nos
+ayudaran a validar y extraer datos de las imagenes clasificadas.
+
+Comenzamos viendo como aplicar un filtro a una imagen. Comenzamos cargando las
+librerias utilizar.
+
+\begin{lstlisting}
+    library(RStoolbox)
+    library(rgdal)
+    library(raster)
+    library(rasterVis)
+\end{lstlisting}
+
+Para aplicar un filtro a una imagen monobanda, debemos primero definir cual es
+la ventana en la que trabajaremos y luego cual es la operacion que desamos
+realizr en dicha ventana.
+
+\begin{lstlisting}
+    window <- matrix(1,nrow=3, ncol=3)
+    clasification.3x3<-focal(clasification.2016,w=window,fun=modal)
+\end{lstlisting}
+
+En el caso de un filtro por moda, estaremos dejando el mayor que mas veces
+aparezca entre los que rodean al pixel.
+
+\begin{act}
+    Aplique filtros de 5x5 y 7x7 para filtrar la imagen. Que problemas
+    desaparecen? que dificultad introducen.
+\end{act}
+
+\begin{act}
+    Aplique el filtro de 3x3 a la imagen correspondiente al año 2000.
+\end{act}
+
+\begin{act}
+    Utilice la funcion raster sieve de qgis para realizar un filtrado espacial.
+    Que diferencias encuentra.
+\end{act}
+
+Una vez filtrada la imagen podemos obtener de la misma la matriz de confusion.
+Para esto debemos cargar el poligono de validacion y la calculamos con la
+funcion \texttt{validateMap}.
+
+\begin{lstlisting}
+    valid.2016 <- readOGR(dsn="vector_data/", layer="validacion")
+    val.unsup.2016 <- validateMap(sup.2016$map,valData = valid, 
+                              responseCol = "MC_ID")
+\end{lstlisting}
+
+\begin{act}
+    Construya la matriz de confusion y obtenga la presicion global para todas
+    las clasificaciones. Que algoritmo funciona mejor con la imagen?
+\end{act}
+
+Otra forma de construir incorporar contexto espacial a las clasificaciones es
+contruir una capa de textura. Veamos como construir una banda de textura
+utilizando la banda pancromatica de Landsat degradada a 30m.
+
+\begin{exa}
+    Comenzamos cargando la imagen pancromatica
+    \begin{lstlisting}
+        pan.2016 <- raster("raster_data/LE72240782000188EDC00/LE72240782000188EDC00_B8.TIF")
+    \end{lstlisting}
+    Una vez cargada podemos visualizarla como 
+    \begin{lstlisting}
+        plot(pan.2016)
+    \end{lstlisting}
+    calculamos ahora el estimador mas sencillo de la textura mediante el calculo
+    del desvio standar en una ventana de 3x3
+    \begin{lstlisting}
+        windows <- matrix(1,nrow=3,ncol=3)
+        sd.2016 <- focal(pan.2016,window,fun=sd)
+    \end{lstlisting}
+    desvio que pondemos graficar como
+    \begin{lstlisting}
+        plot(sd.2016)
+    \end{lstlisting}
+    finalmente, degradamos el mapa obtenido a 30m para poder utilizarlo con la
+    imagen multiespectral.
+    \begin{lstlisting}
+        sd.agregate.2016 <- aggregate(sd.2016,fact=2,fun=mean)
+    \end{lstlisting}
+    finalmente usamos la funcion \texttt{stact} para juntar todas las bandas y
+    proceder a la clasificacion.
+    \begin{lstlisting}
+        context.2016 <- stack{ref.2016,sd.agregate.2016}
+        class.2016 <- supClas{}
+    \end{lstlisting}
+\end{exa}
 
 \end{document}

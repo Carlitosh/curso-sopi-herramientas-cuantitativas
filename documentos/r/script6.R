@@ -36,3 +36,4 @@ filter.2016<-focal(reclas.2016,w=window,fun=modal)
 apilado <- stack(ref.2016,kmeans.2016$map)
 xyplot(nir~red, groups=layer, data=apilado)
 
+
