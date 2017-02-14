@@ -1,0 +1,84 @@
+En esta clase vamos a trabajar con clasificaciones no supervisadas de imagenes
+satelitales. Vamos a usar los paquetes
+
+\begin{lstlisting}
+    library(raster)
+    library(RStoolbox)
+\end{lstlisting}
+
+Cargaremos primero la imagen landsat 8 y habilitaremos la opcion para escribir
+el header de ENVI\@.
+
+\begin{lstlisting}
+    rasterOptions(addheader = "ENVI")
+    set.seed(6)
+    kmeans.2016 <- unsuperClass(ref.2016, nClasses = 5, nStarts = 100,
+                                nSamples = 100)
+    writeRaster(kmeans.2016, "raster_data/processed/kmeans2016",
+                datatype="INT1U")
+\end{lstlisting}
+
+Podemos ahora graficar por separado cada una de las clases
+
+\begin{lstlisting}
+    classes.2016 <- layerize(kmeans.2016)
+    plot(classes.2016)
+\end{lstlisting}
+
+Abriremos la imagen ahora en el qgis e identificaremos cada una de las clases
+realiando interpretacion visual de la imagen. 
+
+Para realizar la identificacion primero vamos al menu \menu{propiedades de la
+imagen, Estilo, Tipo de renderizacion, Unibanda pseudocolor}. Elegimos de modo
+Intervalo Igual y en numero de clases ponemos con el minimo en 1 y el maximo en
+100. En estilo de color elegimos colores aleatorios. Iremos luego cambiando los
+colores uno a uno por un color brillante e identificado a que cobertura
+pertenece dicha clase espectral.
+
+Construiremos con ella una tabla como la siguiente
+
+\begin{verbatim}
+    id  class
+    1   1
+    2   1
+    3   2
+    4   5
+    5   7
+\end{verbatim}
+
+que guardaremos en un archivo de texto. El mismo lo utilizaremos para realizar
+la fusion de clases.
+
+Una vez conocidas las categorias de uso y cobertura correspondientes a cada
+clase espectral podemos combinarlas
+
+\begin{lstlisting}
+    clases.2016 <- read.delim("class")
+    reclas.2016 <- subs(kmeans.2016$map, clases.2016)
+\end{lstlisting}
+
+\begin{act}
+    Clasifique por el metodo de kmeans la imagen en reflectancia con una
+    cantidad de clases espectrales lo suficientemente altas para separar todas
+    las clases espectrales.
+\end{act}
+
+\begin{act}
+    Vuelva a repetir la clasificacion utilizando la imagen obtenida de la
+    transformada por componentes principales descartando las bandas que aporten
+    menos informacion.
+\end{act}
+
+Podemos ahora utilizar la clasificacion para separar zonas de la imagen en el
+espacio espectral
+
+\begin{lstlisting}
+    ref.2016$kmeans <- reclas.2016
+    xyplot(nir~red, groups=kmeans, data=ref.2016)
+\end{lstlisting}
+
+\begin{act}
+    Grafique en los cortes del espacio espectral la imagen sin fusionar. Compare
+    la diferencia entre clases espectrales y clases de informacion.
+\end{act}
+

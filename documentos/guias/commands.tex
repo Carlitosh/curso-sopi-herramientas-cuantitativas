@@ -11,7 +11,7 @@
 \toggletrue{FirstOne}%
 \foreach \x in {#1} {%
 \iftoggle{FirstOne}{}{${}\rightarrow{}$}
-%\emph{\x}%
+\emph{\x}%
 \global\togglefalse{FirstOne}%
 }%
 }%

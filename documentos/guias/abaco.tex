@@ -1,0 +1,150 @@
+Veamos ahora como realizar operaciones sencillas entre las bandas de una imagen.
+Usaremos en esta practica los siguientes paquetes
+
+\begin{lstlisting}
+    library(raster)
+    library(RStoolbox)
+    library(RColorBrewer)
+    library(rgdal)
+    library(ggplot2)
+    libyrary(GGally)
+\end{lstlisting}
+
+Comenzamos primer cargando la imagen desde el metadato y convirtiendola a
+reflectancia como hicimos en la clase anterior
+
+\begin{lstlisting}
+    xml.2016 <- readMeta("raster_data/LC.../LC....xml")
+    ref.2016 <- stackMeta(xml.2016, quantity = "sre")
+    scaleF <- getMeta(ref.2015,xml.2016, what = "SCALE_FACTOR")
+    ref.2016 <- ref.2016 * scaleF
+    ref.2016 <- ref.2016[[-1,]]
+    names(ref.2016) <- c("blue","green","red","nir","swir1","swir2")
+\end{lstlisting}
+
+una vez cargada la imagen podemos realizar operaciones entre las bandas llamando
+a cada una por separado. Veamos como ejemplo el calculo de NDVI\@.
+
+\begin{exa}
+    Calculo de NDVI a mano y grafico del mismo
+    \begin{lstlisting}
+        ndvi.2016 <- (ref.2016$nir-ref.2016$red)/(nir.2016$nir+ref.2016$ref)
+        cols = colorRampPalette(brewer.pal(9,"YlGn"))(16)
+        plot(ndvi.2016, col=cols, zlim = c(0,1))
+    \end{lstlisting}
+    obteniendo una imagen como la que se ve debajo.
+\end{exa}
+
+El paquete \texttt{RStoolbox} tiene varias herramientas que nos ayudan a
+calcular los indices espectrales. Veamos por ejemplo como calcular el NDVI y el
+EVI utilizando dicho paquete
+
+\begin{exa}
+    Para calcular los indices mediante la funcion spectralIndices debemos
+    especificar con que raster trabajamos y que bandas corresponden a cada
+    longitud de onda
+    \begin{lstlisting}
+    indices.2016 <- spectralIndices(ref.2016, 
+                                    blues="blue", red="red", nir="nir", 
+                                    indices=c("NDVI","EVI"))
+    plot(indices.2016,col=cols, zlim=c(0,1))
+    \end{lstlisting}
+    obtenemos una imagen como se muestra debajo.
+\end{exa}
+
+\begin{act}
+    Calcule el NDVI para el año 2000 utilizando la imagen landsat 7.
+\end{act}
+
+\begin{act}
+    Calcule y grafique todos los indices posibles que involucren a las bandas
+    roja y nir de landsat 8. 
+\end{act}
+
+
+\begin{exa}
+    Veamos ahora como calcular el tSAVI utilizando la linea de suelo obtenida a
+    partir de la imagen. Para esto necesitaremos enmascarar las zonas con
+    cobertura de agua y nubes. Veamos primer como hacer esto.
+    \begin{lstlisting}
+        mask.2016 <- raster("raster/.../...cfmask.tif")
+        masked.2016 <- mask(ref.2016, mask=mask.2016, inverse=TRUE,
+                            maskvalue=0, updatevalue=255)
+        masked.2016[masked.2016<=0] <- 255
+    \end{lstlisting}
+    de esta forma enmascaramos todos los valores con nubes, agua y donde la
+    reflectancia obtenida es cero.
+    Calculamos ahora la linea de suelo y la mostramos en un scatterplot
+    \begin{lstlisting}
+        bsl.2016 <- BSL(as.matrix(masked.2016$red), as.matrix(masked.2016$nir),
+                        method="quantile", ulimimt=0.99, llimit=0.001)
+        plot(ref.2016$red, ref.2016$nir)
+        abline(bsl.2016$BSL,col="red")
+    \end{lstlisting}
+\end{exa}
+
+\begin{act}
+    Calcule el tSAVI utilizando la linea de suelo obtenida arriba.
+\end{act}
+
+\begin{act}
+    Vuelva a obtener la linea de suelo sin enmascarar la imagen y dibujo el
+    scatterplot con la misma y la anterior. Que problema encuentra.
+\end{act}
+
+Finalmente, veamos como se puede obtener datos biofisicos a partir de los
+indices de vegetacion calculados. De esta forma podremos generar mapas de
+porcentaje de cobertura, productividad, etc.
+
+\begin{act}
+    Cargue la capa vectorial del muestreo de variables biofisicas
+    \texttt{muestreo.shp} y haga una extraccion de los valores de NDVI
+    correspondientes a dichos puntos. Guarde estos valores en un dataframe
+    llamado \texttt{muestreo}.
+\end{act}
+
+\begin{exa}
+    Veamos como ajustar con R un modelo lineal a nuestro modelo. Para esto
+    comencemos haciendo un analisis visual con la funcion \texttt{ggpairs}.
+    \begin{lstlisting}
+        ggpairs(muestreo,diag=list(continuous="barDiag"))
+    \end{lstlisting}
+    Obtendremos un grafico que presenta los scatterplots entre las bandas, su
+    correlacion e histogramas.
+    Veamos en el mismo que la superficie cubierta por vegetacion varia
+    linealmente con el NDVI\@. Por lo tanto utilizaremos estos para hacer un
+    ajuste de nuestro modelo.
+    \begin{lstlisting}
+        lm.2016 <- lm(fcover~ndvi, data=muestreo)
+        plot(muestreo$ndvi, mustreo$fcover)
+        abline(lm.2016, col="red")
+        summary(lm.2016)
+    \end{lstlisting}
+    de esta forma veremos los parametros de nuestro ajuste, y graficaremos al
+    mismo en un scatterplot.
+
+    Para aplicar el modelo a nuestro raster hacemos
+    \begin{lstlisting}
+        fcover.2016 <- predict(ndvi.2016,lm.2016)
+        plot(fcover.2016)
+    \end{lstlisting}
+    Obteniendo el mapa de abajo.
+\end{exa}
+
+\begin{act}
+    Genere los modelos de lai, fapar y fcover para el año 2016 y con los mismos
+    realice mapas de dichas variables.
+\end{act}
+
+\begin{act}
+    Utilizando los modelos obtenidos para 2016 aplique los mismos para obtener
+    los mapas de lai, fapar y fcover del año 2000. Que suposicion esta
+    haciendo?
+\end{act}
+
+\begin{act}
+    * Utilizando la funcion spectralIndices y ggpairs, analice si hay otro indice
+    que ajuste que correlacione mejor con las alguna de las varibles biofisicas
+    medidas a campo.
+\end{act}
+

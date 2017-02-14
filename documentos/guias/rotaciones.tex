@@ -1,0 +1,81 @@
+Durante la clase de hoy trabajaremos con rotaciones en el espacio espectral. A
+diferencia del trabajo con indices las rotaciones pueden interpretarse no como
+algebra entre las bandas sino como distintas formas de mirar al mismo espacio
+espectral.
+
+En este caso usaremos las librerias \texttt{raster} y \texttt{RStoolbox}.
+
+\begin{lstlisting}
+    library(raster)
+    library(RStoolbox)
+    library(bfastSpatial)
+\end{lstlisting}
+
+
+\begin{exa}
+    Comencemos analizando la transformada por componentes principales de la
+    imagen de 2016. Que podemos predecir?
+    \begin{lstlisting}
+        pairs(ref.2016)
+    \end{lstlisting}
+
+    Mirando el resumen de la imagen vemos que hay varias bandas muy
+    correlacionadas entre si. Por ejemplo las del visible, mientras que otras lo
+    estan poco, por el ejeplo el nir y el swir. Por lo tanto esperamos que no
+    todas las bandas sean necesarias para explicar el comportamiento de la
+    imagen
+
+
+    \begin{lstlisting}
+        pca.2016 <- rasterPCA(ref.2016)
+        summary(pca.2016$model)
+        loadings(pcs.2016$model)
+        plot(pca.2016$map)
+    \end{lstlisting}
+
+\end{exa}
+
+\begin{act}
+    Calcule y analice la transformada por PCA de la imagen Landsat 7 del año
+    2000.
+\end{act}
+
+\begin{exa}
+    Otra aplicacion de la transformada por componentes principales por
+    componentes principales. Veamos como realizarlo.
+    \begin{lstlisting}
+        ndvi.list <- list.files("raster_data/MOD13Q1/EVI/", pattern = "*.tif$",
+                                 full.names = TRUE)
+        ndvi.stack <- stack(ndvi.list)
+    \end{lstlisting}
+    una vez abierta la imagen la convertimos a valores entre -1 y 1 e
+    interpolamos los valores que falten.
+    \begin{lstlisting}
+        ndvi.stack <- ndvi.stak/1e4
+        ndvi.stack <- approxNA(ndvi.stack)
+    \end{lstlisting}
+    Una vez llenados los espacios donde no habia datos podemos aplicar la
+    transformada por componentes principales y mostrarla
+    \begin{lstlisting}
+        ndvi.pca <- rasterPCA(ndvi.stack)
+    \end{lstlisting}
+\end{exa}
+
+\begin{act}
+    Grafique las primeras 4 componentes por de la transformada por componentes
+    princiales de la imagen del stack de NDVI\@. Que zonas puede identificar en la
+    primera? que zonas se distinguen en la segunda? que comportamiento encuentra
+    en la tercera y cuarta.
+\end{act}
+
+\begin{act}
+    Investigue la funcion \texttt{tasseledCap} y calcule la transformada
+    tasseled cap para las imagenes landsat 7 y 8.
+\end{act}
+
+\begin{act}
+    Grafique en el scatter-plot la imagen completa y marque en el mismo zonas
+    con vegetacion, agua y suelo sin cobertura vegetal. Vea como cambian estas
+    zonas frente a las transformadas por componentes principales y tasseled cap.
+\end{act}
+
