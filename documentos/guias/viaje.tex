@@ -164,7 +164,7 @@ ubicado en la carpeta \file{aux\_data}}. Ademas podemos acceder a la tabla de
 datos de la capa vectorial haciendo click derecho sobre la misma y eligiendo la
 opcion \menu{Abrir tabla de atributos}.
 
-\subsection{Exploracion en R}
+\subsection{Exploracion raster en R}
 Busquemos ahora como abrir y trabajar con las imagenes satelitales en R. Para
 esto comenzamos cargando las librerias que vamos a utilizar con el comando
 \texttt{library(raster)}. 
@@ -301,52 +301,72 @@ utilizando distintos comandos.
     hist(ref.2016) 
     \end{lstlisting}
 
-y el scatter plot entre dos bandas como
+    y el scatter plot entre dos bandas como
 
-\begin{lstlisting}
-   plot(l8$red, l8$blue)    
-\end{lstlisting}
+    \begin{lstlisting}
+    plot(l8$red, l8$blue)    
+    \end{lstlisting}
 
-en caso de querer todos los scatterplots e histogramas en un solo grafico
-podemos hacerlo con el comando
-
-\begin{lstlisting}
+    en caso de querer todos los scatterplots e histogramas en un solo grafico
+    podemos hacerlo con el comando
+    \begin{lstlisting}
     pairs(l8)
-\end{lstlisting}
+    \end{lstlisting}
+    \end{exa}
+
+
+\subsection{Manejo vectorial en R}
 
 Hasta ahora estamos analizando la imagen completa. Podemos sin embargo analizar
-solo sectores concretos de la imagen muestreandola en funcion de un shapefile.
-Para esto debemos primero abrir el shapefile de interes cargando primero la
-libreria
+solo sectores concretos de la imagen muestreandola en funcion de un archivo
+vectorial. Tambien sera posible muestrar la imagen pos zonas definidas por otro
+raster pero veremos esto mas adelante.
+
+Para poder trabajar con vectores en R utilizaremos la libreria
+\texttt{library(rgal)}.
+
+\begin{exa}
+    Podemos leer un vector como
+    \begin{lstlisting}
+    firmas <- readOGR(dsn="vector\_data/", layer="firmas")
+    \end{lstlisting}
+    Notamos en este caso que debemos indicar por separado la carpeta que
+    contiene al shapefilee en \emph{dsn} y el nombre de la capa que queremos
+    abrir como \emph{layer}.
+
+    Podemos mostrar las propiedades del vector ejecutando el comando
+
+    \begin{lstlisting}
+    vector
+    \end{lstlisting}
+
+    obteniendo como resultado
+    \begin{Verbatim}[fontsize=\small]
+    class       : SpatialPolygonsDataFrame 
+    features    : 8 
+    extent      : 738692.8, 767774.6, 7133396, 7165265  (xmin, xmax, ymin, ymax)
+    coord. ref. : +proj=utm +zone=21 +south +datum=WGS84 +units=m +no_defs
+                  +ellps=WGS84 +towgs84=0,0,0 
+    variables   : 3
+    names       : id, MC_ID,       Comment 
+    min values  :  0,     1,          Alto 
+    max values  :  9,     8, Suelo desnudo 
+    \end{Verbatim}  
+
+    Podemos graficar los vectores obtenidos en R junto aa la imagen de base como
+
+    \begin{lstlisting}
+    plotRGB(ref.2016, stretch="lin")
+    plot(firmas,add=TRUE,col='red')
+    \end{lstlisting}
+    donde la primera linea grafica la imagen de fondo y la segunda agrega el
+    el shapefile sobre la misma.
 \end{exa}
-
-\begin{lstlisting}
-     library(rgal)
-\end{lstlisting}
-
-y luego leyendo el vector como
-
-\begin{lstlisting}
-     vector <- readOGR(dsn="vector\_data/", layer="extract")
-\end{lstlisting}
-
-Podemos mostrar las propiedades del vector ejecutando el comando
-
-\begin{lstlisting}
-     vector
-\end{lstlisting}
 
 \begin{act} 
     Muestre las propiedades de la capa raster y el vector abiertos y verifique
     que los mismos se encuentren en el mismo sistema de coordenadas.
 \end{act}
-
-Podemos mostrar las imagenes dentro de R si así nos interesa. Para esto
-utilizaremos la libreria \texttt{ggplot} como se muestra a continuacion
-
- \begin{lstlisting}
-    ggRGB(l8, r="nir",g="red",b="blue", geom_raster=TRUE) 
- \end{lstlisting}
 
 Por ultimo mostremos como extraer datos de un archivo raster y veamos un par de
 ejemplo concretos. La funcion que nos permite extrar datos de un raster segun
