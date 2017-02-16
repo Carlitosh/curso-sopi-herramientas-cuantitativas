@@ -25,7 +25,7 @@ mismo y estudiar las propiedades de dicha capa.
 
 \begin{figure}[htb]
 \begin{center}
-    \includegraphics[scale=0.2]{move.png}
+    \includegraphics[scale=0.5]{move.png}
 \end{center}
 \caption{Herramientas para moverse dentro de la imagen. De izquierda a derecha:
     1. Desplazar mapa, 2. Desplazar mapa a la seleccion, 3. Acercar zum, 4.
@@ -45,7 +45,7 @@ entro otros.
 
 \begin{figure}[htb]
 \begin{center}
-    \includegraphics[scale=0.2]{general.png}
+    \includegraphics[scale=0.3]{general.png}
 \end{center}
 \caption{Pestaña general de propiedades de una capa. En la misma se pueden ver
     los datos mas importantes sobre la misma como la cantidad de filas y
@@ -62,7 +62,7 @@ bandas para el realcec.
 
 \begin{figure}[htb]
 \begin{center}
-    \includegraphics[scale=0.2]{estilo.png}
+    \includegraphics[scale=0.3]{estilo.png}
 \end{center}
 \caption{Estilos de visualizacion de una capa raster. Los estilos posibles son:
     1. Color de multibanda, 2. En paleta, 3. Unibanda gris, 4. Unibanda
@@ -90,7 +90,7 @@ pueden mostrarse como Arbol, Tabla o Grafo segun como sea mass comodo.
 
 \begin{figure}[htb]
 \begin{center}
-    \includegraphics[scale=0.2]{grafo.png}
+    \includegraphics[scale=0.3]{grafo.png}
 \end{center}
 \caption{Identificacion de un pixel correspondiente a la selva paranaense
     mostrada como grafo. }
@@ -118,7 +118,7 @@ de coordenadas correspondiente a la imagen anterior.
 
 \begin{figure}
 \begin{center}
-    \includegraphics[scale=0.2]{new_shape.png}
+    \includegraphics[scale=0.3]{new_shape.png}
 \end{center}
 \caption{Creacion de una nueva capa vectorial. Se agregan campos que seran de
     interes para comparar las firmas espectrales. }
@@ -131,7 +131,7 @@ para agregar nuevas geometrias a la misma. Para esto hacemos click en el boton
 de agregar geometrica y digitalizamos una zona uniforme dentro de la imagen. 
 \begin{figure}
 \begin{center}
-    \includegraphics[scale=0.2]{shapetool.png}
+    \includegraphics[scale=0.5]{shapetool.png}
 \end{center}
 \caption{Herramientas de edición vectorial. De izquierda a derecha: 1. Conmutar
     edicion, 2. Guardar cambios a la capa, 3. Añadir objeto espacial, 4. Añadir
@@ -147,7 +147,7 @@ los campos de nuestro objeto espacial.
 
 \begin{figure}
 \begin{center}
-    \includegraphics[scale=0.2]{new_poli.png}
+    \includegraphics[scale=0.3]{new_poli.png}
 \end{center}
     \caption{Valores de los campos del nuevo poligono creado.}
     \label{fig:newpoli}
@@ -175,7 +175,7 @@ hasta la misma y hacemos click en usar la carpeta como carpeta de trabajo.
 
 \begin{figure}
 \begin{center}
-    \includegraphics[scale=0.2]{setwd.png}
+    \includegraphics[scale=0.3]{setwd.png}
 \end{center}
 \caption{Configuracion del directorio de trabajo desde la interfaz grafica.}
 \label{fig:setwd}
@@ -253,7 +253,7 @@ utilizando distintos comandos.
     Obtenemos como resultado
     \begin{figure}
     \begin{center}
-        \includegraphics[scale=0.2]{plot453.png}
+        \includegraphics[scale=0.3]{plot453.png}
     \end{center}
     \caption{Combinacion de bandas nir-swir1-red en R.}
     \label{fig:}
@@ -265,7 +265,7 @@ utilizando distintos comandos.
     obtenemos como resultado
     \begin{figure}
     \begin{center}
-        \includegraphics[scale=0.2]{plotband.png}
+        \includegraphics[scale=0.3]{plotband.png}
     \end{center}
     \caption{Grafico de bandas con realce automatico para cada una.}
     \label{fig:plotband}
@@ -370,60 +370,153 @@ Para poder trabajar con vectores en R utilizaremos la libreria
 
 Por ultimo mostremos como extraer datos de un archivo raster y veamos un par de
 ejemplo concretos. La funcion que nos permite extrar datos de un raster segun
-un vector es \texttt{extract} que toma dos argumentos
- \begin{lstlisting}
-     raster(l8,vector)
- \end{lstlisting}
+un vector es \texttt{extract} que toma dos argumentos, el vector que queremos
+utilizar y la capa raster sobre la cual hacer la consulta.
 
-Veamos algunos ejemplos que pueden ser utiles de aplicacion de todo lo anterior
+Veamos algunos ejemplos
 
 \begin{exa}
     Graficar en un scatterplot de dos bandas mostrando la zona del espacio 
     ocupada por una cobertura.
- \begin{lstlisting}
-    plot(l8$red, l8$nir)
-    points(as.data.frame(datos[1])$red, as.data.frame(datos[1])$nir,
-    col="green")
- \end{lstlisting}
+    \begin{lstlisting}
+    datos <- extract(ref.2016,firmas)
+    \end{lstlisting}
+    de esta forma realizamos la extraccion de todos los datos de la imagen a una
+    lista
+    \begin{lstlisting}
+    plot(ref.2016$red, ref.2016$nir)
+    points(as.data.frame(datos[1])$red, as.data.frame(datos[1])$nir,col="green",
+           pch = ".")
+    \end{lstlisting}
+    obteniendo como resultado
+    \begin{figure}
+    \begin{center}
+        \includegraphics[scale=0.3]{plot-red-nir-zone.png}
+    \end{center}
+    \caption{Resultado del scatterplot para las bandas roja y nir. Se muestra en
+        verde datos correspondientes a la selva paranaense.}
+    \label{fig:}
+    \end{figure}
+    
 \end{exa}
+
+La funcion \texttt{extract} nos permite tambien aplicar una funcion a los datos
+extraidos antes de entregarlos al usuario. Veamos como usarla para calcular
+datos de interes sobre las coberturas.
 
 \begin{exa}
      Extraer los promedios y desvios standar de un raster y agregarlos a un
-     vector.
+     vector. Primero extraemos los valores de promedio y desvio
      \begin{lstlisting}
-         promedio <- extract(l8,vector,fun=mean)
-         desvio <- extract(l8,vector,fun=sd)
-         colnames(promedio) <- paster("mean",colnames("promedio"),sep="_")
-         colnames(desvio) <- paster("sd",colnames("desvio"),sep="_")
-         vector@data <- cbind(vector@data,promedio,desvio)
-         writeOGR(vector, sdn="vector_data/processed/,"datos",driver="ESRI
-         Shapefile")
+     promedio <- extract(ref.2016,firmas,fun=mean)
+     desvio <- extract(ref,firmas,fun=sd)
+     \end{lstlisting}
+     renombramos luego las columnas como promedio y devio seguido de la banda a
+     la que pertenecen,
+     \begin{lstlisting}
+     colnames(promedio) <- paster("mean",colnames("promedio"),sep="_")
+     colnames(desvio) <- paster("sd",colnames("desvio"),sep="_")
+     \end{lstlisting}
+     finalmente agregamos los archivos a un nuevo shapefile
+     \begin{lstlisting}
+     firmas@data <- cbind(firmas@data,promedio,desvio)
+     writeOGR(firmas, sdn="vector_data/processed/,"firmas_datos",
+              driver="ESRI Shapefile")
      \end{lstlisting}
 \end{exa}
+
+Por ultimo, veamos como usar una capa vectorial para graficar para extraer las
+firmas espectrales y graficarlas para distintas coberturas
 
 \begin{exa}
      Graficar las firmas espectrales en funcion de la longitud de onda para cada
-     geometria de un vector.
+     geometria de un vector. Utilizaremos en este caso una nueva libreria,
+     \texttt{reshape2}
+
+     Comenzamos convirtiendo en dataframe a nuestros promedios donde cada
+     columna corresponde a una firma espectral
      \begin{lstlisting}
-         df <- t(promedio)
-         colnames(df) <- vector@data$descripcion
-         df$wl <- as.matrix(c(485,560,660,830,1650,2215))
-         df <- melt(df,id.vars="wl", variable.name="cobertura")
-         names(df) <- c("wl","Cobertura","Reflectancia")
-         dfd <- t(desvio)
-         colnames(dfd) <- vector@data$descripcion
-         dfd$wl <- as.matrix(c(485,560,660,830,1650,2215))
-         dfd <- melt("wl","Cobertura","Desvio")
-
-         df$desvio <- dfd$desvio
-
-         ggplot(df,aes(wl,Reflectancia)+
-            geom_line(aes(colour=Cobertura))+
-            geom_poinr(aes(colour=Cobertura))+
-            geom_errorbar(aes(ymin=Reflectancia-2*desvio,
-                              ymax=Reflectancia+2*desvio))
+     df <- t(promedio)
+     colnames(df) <- vector@data$Comment
      \end{lstlisting}
-\end{exa}
+     Agregamos luego una columna con las longitudes de onda en nanometros. Luego
+     reformamos el dataframe para que podamos subsetearlo, poniendo finalmente
+     los nombres a cada columna
+     \begin{lstlisting}
+     df$wl <- as.matrix(c(485,560,660,830,1650,2215))
+     df <- melt(df,id.vars="wl", variable.name="cobertura")
+     names(df) <- c("wl","Cobertura","Reflectancia")
+     \end{lstlisting}
+     si mostramos el dataframe, el resutado debería ser similar al siguiente
+     \begin{Verbatim}[fontsize=\small]
+          wl     Cobertura Reflectancia
+     1   485          Alto  0.012926561
+     2   560          Alto  0.034730646
+     3   660          Alto  0.018491884
+     4   830          Alto  0.354564681
+     5  1650          Alto  0.133750642
+     ...
+     \end{Verbatim}
+     repetimos el proceso para los desvios standar
+     \begin{lstlisting}
+     dfd <- t(desvio)
+     colnames(dfd) <- vector@data$Comment
+     dfd$wl <- as.matrix(c(485,560,660,830,1650,2215))
+     dfd <- melt("wl","Cobertura","Desvio")
+     df$desvio <- dfd$desvio
+     df$MC_ID <- as.character(vector@data$MC_ID[match(df$Cobertura,
+                              vector@data$Comment)])
+     \end{lstlisting}
+     el resultado sera ahora
+     \begin{Verbatim}[fontsize=\small]
+         wl     Cobertura Reflectancia       Desvio
+     1   485          Alto  0.012926561 0.0007772473
+     2   560          Alto  0.034730646 0.0018113004
+     3   660          Alto  0.018491884 0.0011561294
+     4   830          Alto  0.354564681 0.0166801398
+     5  1650          Alto  0.133750642 0.0075157929
+     ...
+     \end{Verbatim}
+     Veamos algunas opciones para generar ahora los graficos. En primer lugar
+     pondremos todas las firmas juntas, separadas por color
+     \begin{lstlisting}
+     xyplot(Reflectancia~wl, data=df, groups = Cobertura,
+            auto.key=list(space="top", columns=4), 
+            ty=c("l", "p"))
+     \end{lstlisting}
+     Aqui la primer linea dice que grafiquemos la reflectancia como funcion de
+     la longitud de onda, obteniendo los datos del dataframe df y agrupandolos
+     segun la columna cobertura. La siguiente linea agrega la leyenda en la
+     parte superior de la figura y con 4 columnas. Por ultimo en la tercer linea
+     pedimos que el grafico tenga lineas y puntos.
+     \begin{figure}
+     \begin{center}
+         \includegraphics[scale=0.3]{spectra-1.png}
+     \end{center}
+     \caption{Firmas espectrales}
+     \label{fig:spectra-1}
+     \end{figure}
+     Si queremos agruparlo por categoria de uso y cobertura cambiamos la formula
+     \texttt{Reflectancia ~ wl} por \texttt{Reflectancia ~ wl | MC\_ID}
+     \begin{lstlisting}
+     xyplot(Reflectancia~wl | MC_ID, data=df, groups = Cobertura,
+            auto.key=list(space="top", columns=4), 
+            ty=c("l", "p"))
+     \end{lstlisting}
+     y finalmente si queremos graficar solo un subset de los daatos
+     \begin{lstlisting}
+     xyplot(Reflectancia~wl | MC_ID, data=df, groups = Cobertura,
+            auto.key=list(space="top", columns=4), ty=c("l", "p"),
+            subset = Cobertura %in% c("Alto","Bajo"))
+     \end{lstlisting}
+     \begin{figure}
+     \begin{center}
+         \includegraphics[scale=0.3]{spectra-2.png}
+     \end{center}
+     \caption{Firmas espectrales}
+     \label{fig:spectra-1}
+     \end{figure}
+ \end{exa}
 
 \begin{act}
     Grafique la media y el desvio standar para las distintas coberturas que pudo
