@@ -4,13 +4,14 @@
 library(raster)
 library(RStoolbox)
 library(ggplot2)
-
+library(rasterVis)
+library(reshape2)
 # Apertura de una banda
 red.2016 <- raster("raster_data/LC82240782016304/LC82240782016304LGN00_sr_band4.tif")
 nir.2016 <- raster("raster_data/LC82240782016304/LC82240782016304LGN00_sr_band5.tif")
 
 # Apertura de un raster multibanda
-refa.2016 <- brick("raster_data/LC82240782016304/LC82240782016304LGN00.vrt")
+ref.2016 <- brick("raster_data/LC82240782016304/LC82240782016304LGN00.vrt")
 
 # Apertura de varios raster como stack, no stackeamos la banda 6
 bandas.2016 <- list.files("raster_data/LC82240782016304/", pattern = "*[2-7]+.tif$", full.names = TRUE)
@@ -54,7 +55,7 @@ pairs(ref.2016)
 library(rgdal)
 
 # Apertura de shapefile
-vector <- readOGR(dsn="vector_data/", layer="entrenamiento")
+vector <- readOGR(dsn="vector_data/", layer="firmas")
 
 # inspeccionar elemento
 vector
@@ -89,7 +90,7 @@ writeOGR(vector, dsn="vector_data/processed/", "datos", driver="ESRI Shapefile")
 
 #Convertir en data frame
 df <- t(promedio)
-colnames(df) <- vector@data$descripcio
+colnames(df) <- vector@data$Comment
 df <- as.data.frame(df)
 df$wl <- as.matrix(c(485,560,660,830,1650,2215))
 df <- melt(df ,  id.vars = 'wl', variable.name = 'Cobertura')
@@ -102,11 +103,11 @@ dfd$wl <- as.matrix(c(485,560,660,830,1650,2215))
 dfd <- melt(dfd ,  id.vars = 'wl', variable.name = 'Cobertura')
 names(dfd) <- c("wl","Cobertura","Desvio")
 
-# Agregar el desvio
-df$desvio <- dfd$Desvio
 
-# Graficar
-ggplot(df, aes(wl,Reflectancia))+
-  geom_line(aes(colour = Cobertura))+
-  geom_point(aes(colour = Cobertura))+
-  geom_errorbar(aes(ymin=Reflectancia-2*desvio, ymax=Reflectancia+2*desvio), width=.1)
+# Agregar el desvio
+df$Desvio <- dfd$Desvio
+df$MC_ID <- as.character(vector@data$MC_ID[match(df$Cobertura, vector@data$Comment)])
+
+require(lattice)
+
+xyplot(Reflectancia + (Reflectancia+Desvio) + (Reflectancia-Desvio) ~ wl, data = df, subset = Cobertura %in% c("Alto","Bajo"), type="")

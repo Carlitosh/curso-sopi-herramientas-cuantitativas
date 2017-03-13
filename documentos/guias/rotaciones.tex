@@ -1,4 +1,4 @@
-En nuestra cuarta actividad trabajemos con rotaciones en el espacio espectral. A
+En nuestra cuarta practica trabajemos con rotaciones en el espacio espectral. A
 puntamos con las mismas a poder incorporar conceptos como dimensionalidad y
 correlacion entre bandas que nos ayuden a utilizar mejor la informacion
 satelital.
@@ -11,9 +11,9 @@ Son objetivos de la misma
     \item Poder aplicar la transformada por componentes principales a una imagen
         multiespectral e interpretar el resultado.
     \item Poder aplicar la transformada por componentes principales a un stack
-        de bandas multiespectrales e interpretar los resultados.
+        de bandas multiespectrales de distitnas fechas e interpretar los resultados.
     \item Utilizar la transformada por componentes principales para extraer
-        informacion de series temporales.
+        informacion de series temporales de indices.
 \end{itemize}
 
 \subsection{Calculo de la transformada tasseled cap para una imagen landsat}
@@ -36,24 +36,24 @@ interpretacion es bastante sencilla. Para ello usaremos el paquete
     names(ref.2016) <- c("blue","green","red","nir","swir1","swir2")
     \end{lstlisting}
     calculamos analizamos ahora el espacio red-nir y green-nir para la imagen
-    
+
     \begin{lstlisting}
     B1 <- xyplot(nir~red,data=ref.2016)
     B2 <- xyplot(red~green,data=ref.2016)
     print(B1,split=c(1,1,2,1),more=TRUE)
     print(B2,split=c(2,1,2,1),more=FALSE)
     \end{lstlisting}
-    
+
     obteniendo como scatterplots
 
-    \begin{figure}
+    \begin{figure}[h!]
     \begin{center}
         \includegraphics[scale=0.6]{red-nir-green.png}
     \end{center}
     \caption{Scatterplot verde-rojo y nir-red.}
     \label{fig:green-red}
     \end{figure}
-    
+
     Calculemos ahora la transformada tasseled cap. Para eso usamos la funcion
     \texttt{tasseledCap} del paquete \texttt{RStoolbox}.
     \begin{lstlisting}
@@ -62,7 +62,7 @@ interpretacion es bastante sencilla. Para ello usaremos el paquete
     Obtenemos una imagen de tres bandas, \emph{brillo}, \emph{verdor} y
     \emph{humedad}.
 
-    podemos graficar cada una de las bandas por separado con el comando 
+    podemos graficar cada una de las bandas por separado con el comando
 
     \begin{lstlisting}
     plot(tsc.2016)
@@ -74,7 +74,7 @@ interpretacion es bastante sencilla. Para ello usaremos el paquete
     plotRGB(tsc.2016,r=1,g=2,b=3, stretch="lin")
     \end{lstlisting}
 
-    \begin{figure}
+    \begin{figure}[h!]
     \begin{center}
         \includegraphics[scale=0.6]{tsc.png}
     \end{center}
@@ -100,24 +100,21 @@ ayudar a comprender como funciona dicha transformada.
 
 \begin{exa}
     Comencemos analizando la transformada por componentes principales de la
-    imagen de 2016. Que podemos predecir?
-    \begin{lstlisting}
-    pairs(ref.2016)
-    \end{lstlisting}
-    
-    \begin{figure}
+    imagen de 2016. ¿Que podemos predecir? Miremos primero los
+    scatterplots \texttt{pairs(ref.2016)}
+    \begin{figure}[h!]
     \begin{center}
         \includegraphics[scale=0.6]{pairs.png}
     \end{center}
     \caption{}
     \label{fig:pairs}
     \end{figure}
-    
+
     Mirando el resumen de la imagen vemos que hay varias bandas muy
     correlacionadas entre si. Por ejemplo las del visible, mientras que otras lo
     estan poco, por el ejeplo el nir y el swir. Por lo tanto esperamos que no
     todas las bandas sean necesarias para explicar el comportamiento de la
-    imagen. Al menos en el nivel de detalle mas baje. 
+    imagen. Al menos en el nivel de detalle mas baje.
 
     Apliquemos entonces la transformada por componentes principales y veamos que
     sucede
@@ -130,10 +127,10 @@ ayudar a comprender como funciona dicha transformada.
     Veamos el sumario del modelo obtenido,
     \begin{Verbatim}[fontsize=\small]
     Importance of components:
-                               Comp.1     Comp.2     Comp.3      Comp.4      Comp.5       Comp.6
-    Standard deviation     0.08079854 0.07808556 0.01242745 0.006488765 0.0034580849 0.0020586828
-    Proportion of Variance 0.50850204 0.47492732 0.01202957 0.003279516 0.0009314445 0.0003301145
-    Cumulative Proportion  0.50850204 0.98342936 0.99545892 0.998738441 0.9996698855 1.0000000000
+                               Comp.1     Comp.2     Comp.3      Comp.4 ...
+    Standard deviation     0.08079854 0.07808556 0.01242745 0.006488765 ...
+    Proportion of Variance 0.50850204 0.47492732 0.01202957 0.003279516 ...
+    Cumulative Proportion  0.50850204 0.98342936 0.99545892 0.998738441 ...
     \end{Verbatim}
 
     Al analizar las varianzas, vemos que las 3 primeras explican mas que el
@@ -144,13 +141,13 @@ ayudar a comprender como funciona dicha transformada.
 
     \begin{Verbatim}[fontsize=\small]
     oadings:
-          Comp.1 
-    blue         
-    green        
-    red   -0.128 
-    nir   -0.575             
-    swir1 -0.663        
-    swir2 -0.451        
+          Comp.1  ...
+    blue
+    green
+    red   -0.128  ...
+    nir   -0.575  ...
+    swir1 -0.663  ...
+    swir2 -0.451  ...
     \end{Verbatim}
 
     la primer componente pesa, segun la banda pero siempre con el mismo signo, a
@@ -179,16 +176,27 @@ ayudar a comprender como funciona dicha transformada.
     2000.
 \end{act}
 
+\subsection{Algunas ideas sobre series temporales}
+
+Empecemos esta seccion con una actividad para que realicen
+
+\begin{act}
+    Aplique la transformada por componentes principales al stack de bandas del
+    año 2000 y 2016.
+\end{act}
+
+Veamos que pasa al trabajar con series temporales de indices.
+
 \begin{exa}
     Otra aplicacion de la transformada por componentes principales por
-    componentes principales. Veamos como realizarlo.
+    componentes principales es el analisis de series temporales.
     \begin{lstlisting}
     ndvi.list <- list.files("raster_data/MOD13Q1/NDVI/", pattern = "*.tif$",
                              full.names = TRUE)
     ndvi.stack <- stack(ndvi.list)
     \end{lstlisting}
     una vez abierta la imagen la convertimos a valores entre -1 y 1 e
-    interpolamos los valores que falten.
+    interpolamos los valores faltantes.
     \begin{lstlisting}
     ndvi.stack <- ndvi.stack/1e4
     ndvi.stack <- approxNA(ndvi.stack)
@@ -199,7 +207,7 @@ ayudar a comprender como funciona dicha transformada.
 
     Utilizando la herramienta de identificar objetos espaciales podemos
     consultar como es el comportamiento de la serie temporal para cada pixel.
-    \begin{figure}
+    \begin{figure}[h!]
     \begin{center}
         \includegraphics[scale=0.3]{series.png}
     \end{center}
@@ -219,36 +227,6 @@ ayudar a comprender como funciona dicha transformada.
     \end{lstlisting}
 \end{exa}
 
-\begin{exa}
-    Veamos un poco mas de analisis de series temporales con R. Este ejemplo es
-    mas complicado que los anteriores pero puede serles de utilidad.
-    Utilizaremos para el la libreria \texttt{rts}
-
-    Sobre la serie de NDVI anterior, comenzamos calculando los intervalos de las
-    fechas y construyendo el objeto rts.
-
-    \begin{lstlisting}
-    fechas <- strptime(as.numeric(gsub(".NDVI","",gsub("MOD13Q1.A",replacement =
-                       "",names(ndvi.stack))))/1e3,"%Y.%j")
-    fechas <- as.POSIXct(fechas)
-    ndvi.time <- rts(ndvi.stack, fechas)
-    \end{lstlisting}
-
-    Podemos hacer ahora procesos mas complicados como calcular la media anual,
-    en lugar de la media general
-    \begin{lstlisting}
-    ndvi.mean <- apply.yearly(ndvi.time, FUN=mean)
-    plot(ndvi.mean)
-    \end{lstlisting}
-    podemos ver ademas la variacion demporal de un pixel como
-    \begin{lstlisting}
-    p5000 <-extract(ndvi.time,y=5000)
-    plot(p5000)
-    \end{lstlisting}
-    Puede explorar los paquetes \texttt{greenbrown} y \texttt{bfastspatial} para
-    extraer mas informacion.
-\end{exa}
-
 \begin{act}
     Grafique las primeras 4 componentes por de la transformada por componentes
     princiales de la imagen del stack de NDVI\@. Que zonas puede identificar en la
@@ -261,4 +239,3 @@ ayudar a comprender como funciona dicha transformada.
     con vegetacion, agua y suelo sin cobertura vegetal. Vea como cambian estas
     zonas frente a las transformadas por componentes principales y tasseled cap.
 \end{act}
-

@@ -38,7 +38,7 @@ una vez cargada la imagen podemos realizar operaciones entre las bandas llamando
 a cada una por separado. Veamos como ejemplo el calculo de NDVI\@.
 
 \begin{exa}
-    Calculo de NDVI a mano y grafico del mismo. 
+    Calculo de NDVI a mano y grafico del mismo.
     \begin{lstlisting}
     ndvi.2016 <- (ref.2016$nir-ref.2016$red)/(ref.2016$nir+ref.2016$red)
     cols = colorRampPalette(brewer.pal(9,"YlGn"))(256)
@@ -54,14 +54,14 @@ a cada una por separado. Veamos como ejemplo el calculo de NDVI\@.
             mostraran todos del mismo color.
     \end{itemize}
     Obtenemos entonces
-    \begin{figure}
+    \begin{figure}[h!]
     \begin{center}
         \includegraphics[scale=0.6]{ndvi_fig.png}
     \end{center}
     \caption{Mapa del NDVI en escala de verdes.}
     \label{fig:ndvifig}
     \end{figure}
-    
+
 \end{exa}
 
 El paquete \texttt{RStoolbox} tiene varias herramientas que nos ayudan a
@@ -73,8 +73,8 @@ EVI utilizando dicho paquete
     especificar con que raster trabajamos y que bandas corresponden a cada
     longitud de onda
     \begin{lstlisting}
-    indices.2016 <- spectralIndices(ref.2016, 
-                                    blue="blue", red="red", nir="nir", 
+    indices.2016 <- spectralIndices(ref.2016,
+                                    blue="blue", red="red", nir="nir",
                                     indices=c("NDVI","EVI"))
     plot(indices.2016,col=cols, zlim=c(0,1))
     \end{lstlisting}
@@ -85,14 +85,14 @@ EVI utilizando dicho paquete
         \item A que zona del espectro corresponde cada banda.
         \item Los indices que queremos calcular
     \end{itemize}
-     \begin{figure}
+     \begin{figure}[h!]
      \begin{center}
          \includegraphics[scale=0.6]{evi-ndvi.png}
      \end{center}
      \caption{Graficos del EVI y el NDVI para la imagen seleccionada.}
      \label{fig:evi-ndvi}
      \end{figure}
-     
+
 \end{exa}
 
 \begin{act}
@@ -101,19 +101,20 @@ EVI utilizando dicho paquete
 
 \begin{act}
     Calcule y grafique todos los indices posibles que involucren a las bandas
-    roja y nir de landsat 8. 
+    roja y nir de landsat 8. Puede ayudarse con el comando
+    \texttt{?spectralIndices}
 \end{act}
 
 \subsection{Calculo de la linea de suelo}
 
-Algunos indices de vegetacion y una forma de extraer informacion util sobre las
-imagenes satelitales es calcular la linea de suelo de la misma. Para hacerlo
-debemos extraer la linea de los pixeles correspondientes a las zonas sin
-cobertura vegetal en la imagen. Veamos como hacerlo utilizando la libreria
+La linea de suelo es una cantidad que definimos en teledeteccion que aporta
+informacion sobre las imagen que estamos analizando. Ademas sirva para incorporar
+los efectos de la reflectancia del suelo en el calculo de indices.
+Veamos como hacerlo utilizando la libreria
 \texttt{landsat}
 
 \begin{exa}
-    Veamos ahora como calcular el tSAVI utilizando la linea de suelo obtenida a
+    Calculemos el tSAVI utilizando la linea de suelo obtenida a
     partir de la imagen. Para esto necesitaremos enmascarar las zonas con
     cobertura de agua y nubes. Veamos primer como hacer esto.
     \begin{lstlisting}
@@ -133,14 +134,14 @@ cobertura vegetal en la imagen. Veamos como hacerlo utilizando la libreria
     \end{lstlisting}
     Obtenemos como resultado el grafico de la linea de suelo. Podemos consultar
     los demas parametros imprimiendo la variable \texttt{bsl.2016}.
-    \begin{figure}
+    \begin{figure}[h!]
     \begin{center}
         \includegraphics[scale=0.6]{soil.png}
     \end{center}
     \caption{Linea de suelo sobre el scatterplot nir-red}
     \label{fig:soil}
     \end{figure}
-    
+
 \end{exa}
 
 \begin{act}
@@ -163,13 +164,6 @@ Finalmente, veamos como se puede obtener datos biofisicos a partir de los
 indices de vegetacion calculados. De esta forma podremos generar mapas de
 porcentaje de cobertura, productividad, etc.
 
-\begin{act}
-    Cargue la capa vectorial del muestreo de variables biofisicas
-    \texttt{muestreo.shp} y haga una extraccion de los valores de NDVI
-    correspondientes a dichos puntos. Guarde estos valores en un dataframe
-    llamado \texttt{muestreo}.
-\end{act}
-
 \begin{exa}
     Comenzamos calculando el ndvi para el año 2016, y utilizando la capa
     muestreo hacemos una extraccion estadistica sobre la misma.
@@ -177,12 +171,9 @@ porcentaje de cobertura, productividad, etc.
     tor <- readOGR(dsn="vector_data/", layer="muestreo")
     datos <- extract(ndvi.2016,vector)
     DF <- data.frame(vector@data,datos)
-    end{lstlisting}
-    Veamos como ajustar con R un modelo lineal a nuestro modelo. Para esto
-    comencemos haciendo un analisis visual con la funcion \texttt{ggpairs}.
-    \begin{lstlisting}
-    ggpairs(muestreo,diag=list(continuous="barDiag"))
+    pairs(DF)
     \end{lstlisting}
+
     Obtendremos un grafico que presenta los scatterplots entre las bandas, su
     correlacion e histogramas.
     Veamos en el mismo que la superficie cubierta por vegetacion varia
@@ -212,13 +203,6 @@ porcentaje de cobertura, productividad, etc.
 
 \begin{act}
     Utilizando los modelos obtenidos para 2016 aplique los mismos para obtener
-    los mapas de lai, fapar y fcover del año 2000. Que suposicion esta
-    haciendo?
+    los mapas de lai, fapar y fcover del año 2000. ¿Que suposicion esta
+    haciendo? Compare distintas zonas de los modelos en el qgis.
 \end{act}
-
-\begin{act}
-    * Utilizando la funcion spectralIndices y ggpairs, analice si hay otro indice
-    que ajuste que correlacione mejor con las alguna de las varibles biofisicas
-    medidas a campo.
-\end{act}
-

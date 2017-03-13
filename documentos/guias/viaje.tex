@@ -1,29 +1,28 @@
 En esta primera práctica nos familiarizaremos con las interfaces gráficas del
-qgis y de R-studio. Para esto comenzaremos a analizar la imagen correspondiente
-a la zona de estudio del año 2015 desde el punto de vista espectral. Son
-nuestros objetivos
+qgis y de R-studio. Para esto analizaremos la imagen Landsat 8 de noviembre de
+2016desde el punto de vista espectral. Son nuestros objetivos
 
 \begin{itemize}
-    \item Poder cargar una imagen en qgis.
-    \item Digitalizar coberturas en qgis.
-    \item Poder cargar un archivo raster y uno vectorial en R.
-    \item Realizar un análisis estadistico de la imagen como un todo y de las
-        distintan coberturas digitalizar en R.
+    \item Abrir una imagen en qgis.
+    \item Crear archivos vectoriales y digitalizar coberturas en qgis.
+    \item Abrir un archivos raster y vectoriales en R.
+    \item Realizar un análisis estadistico de la imagen y de las
+        distintan coberturas digitaliza en R.
 \end{itemize}
 \subsection{Exploración de imagenes con el qgis}
 
 Comenzamos abriendo la imagen \file{LC82240782016304LGN00.vrt} que se encuentra
-en la carpeta \file{raster\_data,LC82240782016304}. Esta image  corresponde al 
-departamento de Iguazu en la provincia de corriente. La misma fue obtenida por 
+en la carpeta \file{raster\_data,LC82240782016304}. Esta image  corresponde al
+departamento de Iguazu en la provincia de Misiones. Esta fue obtenida por
 el satelite Landsat 8 durante el mes de noviembre de 2016.
- 
-Para esto vamos al menú \menu{Capa, Añadir capa, Añadir capa ráster}. Navegamos 
+
+Para esto vamos al menú \menu{Capa, Añadir capa, Añadir capa ráster}. Navegamos
 hasta la carpeta \file{raster\_data/LC8224078201630} y abrimos el archivo
 \file{LC82240782016304LGN00.vrt}. Una vez abierto el mismo podremos encontrarlo
-en el \menu{Panel de capas} de q-gis donde podremos manejar la visualización del
-mismo y estudiar las propiedades de dicha capa.
+en el \menu{Panel de capas} de q-gis desde donde podremos cambiar las opciones
+de visualizacion y estudiar sus propiedades.
 
-\begin{figure}[htb]
+\begin{figure}[h!]
 \begin{center}
     \includegraphics[scale=0.5]{move.png}
 \end{center}
@@ -35,15 +34,15 @@ mismo y estudiar las propiedades de dicha capa.
 \label{fig:move}
 \end{figure}
 
-Para realizar cambiar la visualizacion y explorar los datos de una capa, hacemos
-click derecho sobre la misma y luego seleccionamos la opciopn
-\menu{Propiedades}. Dentro de las propiedades de la capa podemos ir a la pestaña
+Para realizar cambios en la visualizacion y explorar las propiedades de una
+capa, hacemos click derecho sobre ella y luego seleccionamos la opcion
+\menu{Propiedades}. Dentro de las propiedades podemos ir a la pestaña
 \menu{General} para ver datos como el nombre de la capta\footnote{Es un buen
 momento para ponerle uno mas sencillo}, la cantidad de filas y columnas del
-archivo, el valro digital no valido, el sistema de referencias de coordenadas
-entro otros. 
+archivo, el valor digital no valido, el sistema de referencias de coordenadas
+entro otros.
 
-\begin{figure}[htb]
+\begin{figure}[h!]
 \begin{center}
     \includegraphics[scale=0.3]{general.png}
 \end{center}
@@ -53,14 +52,13 @@ entro otros.
 \label{fig:general}
 \end{figure}
 
-Podemos ir luego a la pestaña de estilo para cambiar la visualizacion de la
-imagen. En la misma podemos elegir de que color mostraremos cada una de las
-capas ademas de elegir el tipo de realce que deseamos aplicar. Es importante
-remarcar en este caso que una vez elegidas las badnas debemos hacer click en el
-boton \menu{Cargar} para seleccionar los valores maximos y minimos de las
-bandas para el realcec.
+Podemos ir luego a la pestaña de \menu{Estilo} para cambiar la visualizacion de
+la capa. All\'i podemos elegir de que color mostraremos cada una de las
+bandas adem\'as de cambiar el realce. Una vez elegidas las bandas debemos hacer
+click en el boton \menu{Cargar} para seleccionar los valores maximos y minimos
+de las bandas para el realce.
 
-\begin{figure}[htb]
+\begin{figure}[h!]
 \begin{center}
     \includegraphics[scale=0.3]{estilo.png}
 \end{center}
@@ -71,24 +69,13 @@ bandas para el realcec.
 \label{fig:estilo}
 \end{figure}
 
-\begin{act} 
-    Cambie la combinación de bandas de la imagen L8 y muévase  dentro de la
-    misma. Identifique zonas de coberturas uniformes. Pruebe cambiar de
-    combinacion de bandas y decida si dichas zonas siguen siendo uniformes luego
-    del cambio.
-\end{act}
-
-\begin{act}
-    Encuentre el sistema de coordenadas en el cual se encuentra la imagen.
-\end{act}
-
-Para identificar la informacion correspondiente a un punto en el espacio podemos
-utilizar la herramienta \menu{Identificar un objeto espacial}. Al habilitarla y
+La herramienta \menu{Identificar un objeto espacial} nos permite extraer valores
+de una coordenada espacial de nuestra imagen. Al habilitarla y
 hacer click sobre un punto de la imagen veremos datos de la misma como por
 ejemplo los valores de reflectancia del pixel seleccionado. Dichos valores
-pueden mostrarse como Arbol, Tabla o Grafo segun como sea mass comodo.
+pueden mostrarse como Arbol, Tabla o Grafo segun como sea mas util.
 
-\begin{figure}[htb]
+\begin{figure}[h!]
 \begin{center}
     \includegraphics[scale=0.3]{grafo.png}
 \end{center}
@@ -98,6 +85,18 @@ pueden mostrarse como Arbol, Tabla o Grafo segun como sea mass comodo.
 \end{figure}
 
 \begin{act}
+    Cambie la combinación de bandas de la imagen L8 a color real y explorela.
+    Identifique zonas de coberturas uniformes. Pruebe cambiar la
+    combinacion de bandas y decida si dichas zonas siguen siendo uniformes
+    despues de cada cambio.
+\end{act}
+
+\begin{act}
+    Encuentre el sistema de coordenadas en el cual se encuentra la imagen.
+    ¿Cuantas filas y columns tiene la imagen?
+\end{act}
+
+\begin{act}
    Utilizando la herramienta identificar objetos espaciales encuentre los
    valores de reflectancia de distintas coberturas. Grafique estos  valores en
    una firma espectral y en el espacio de fases nirrojo.
@@ -105,18 +104,18 @@ pueden mostrarse como Arbol, Tabla o Grafo segun como sea mass comodo.
 
 \subsection{Creacion de capas vectoriales}
 
-Veamos ahora como crear capas vectoriales con las cuales podamos extraer
-informacion sobre nuestra zona.
+Veamos ahora como crear capas vectoriales. Nos van a ser principalmente de
+de utilidad para extrar datos cuantitativos de las capas raster.
 
-Con la herramienta nueva capa de archivo shape es posible digitalizar zonas de
-la imagen para su posterior analisis. Para esto puede hacer click en el boton
-del panel lateral. Podemos agregar los campos que sean necesarios para nuestra
-capa vectorial en este momento. Crearemos al menos los campos MC\_ID como entero
-de longitud 1 y Comment como texto de 80 caracteres. Guardela en la carpeta 
-\file{vector\_data/} con el nombre \file{firmas.shp}. Recuerde elegir el sistema 
-de coordenadas correspondiente a la imagen anterior. 
+Con la herramienta \menu{nueva capa de archivo shape} es posible crear una nueva
+capa vectorial. Para esto hacemos click en el boton del mismo nombre que se
+encuentra en el panel lateral. Podemos agregar los campos que sean necesarios
+para nuestra capa vectorial. En este caso crearemos lso campos MC\_ID como
+entero de longitud 1 y Comment como texto de 80 caracteres. Elegimos el sistema
+de coordenadas correspondiente a la imagen anterior. La guardamos en la carpeta
+\file{vector\_data/} con el nombre \file{firmas.shp}.
 
-\begin{figure}
+\begin{figure}[h!]
 \begin{center}
     \includegraphics[scale=0.3]{new_shape.png}
 \end{center}
@@ -128,8 +127,8 @@ de coordenadas correspondiente a la imagen anterior.
 
 Una vez creada la nueva capa podemos utilizar la barra de herramientas de qgis
 para agregar nuevas geometrias a la misma. Para esto hacemos click en el boton
-de agregar geometrica y digitalizamos una zona uniforme dentro de la imagen. 
-\begin{figure}
+de agregar geometrica y digitalizamos una zona uniforme dentro de la imagen.
+\begin{figure}[h!]
 \begin{center}
     \includegraphics[scale=0.5]{shapetool.png}
 \end{center}
@@ -145,7 +144,10 @@ Al terminar de acerlo qgis pedira un numero de ID para la capa que debe ser
 correlativo. Además podremos ingresar en este momento los valores del resto de
 los campos de nuestro objeto espacial.
 
-\begin{figure}
+Es importante recordar que debemos estar en el modo de edicion para poder hacer
+esto y salir de al terminarla.
+
+\begin{figure}[h!]
 \begin{center}
     \includegraphics[scale=0.3]{new_poli.png}
 \end{center}
@@ -165,15 +167,18 @@ datos de la capa vectorial haciendo click derecho sobre la misma y eligiendo la
 opcion \menu{Abrir tabla de atributos}.
 
 \subsection{Exploracion raster en R}
-Busquemos ahora como abrir y trabajar con las imagenes satelitales en R. Para
-esto comenzamos cargando las librerias que vamos a utilizar con el comando
-\texttt{library(raster)}. 
+Veamos como abrir y trabajar con las imagenes satelitales en R. La forma de
+realizar operaciones es escribir comandos en la consola de R-studio y
+ejecutarlos de a uno. Para trabajar con imagenes satelitales debemos utilizar
+algunas librerias adicionales. Para cargarlas usamos el comando
+\texttt{library(raster)}. De esta forma agregamos funciones a las basicas de
+R que nos facilitaran el trabajo raster.
 
 Además, deberemos situar nuestra carpeta de trabajo donde se encuentran las
 carpetas que descargamos. Para esto nos movemos en el explorar de archivos
 hasta la misma y hacemos click en usar la carpeta como carpeta de trabajo.
 
-\begin{figure}
+\begin{figure}[h!]
 \begin{center}
     \includegraphics[scale=0.3]{setwd.png}
 \end{center}
@@ -181,7 +186,7 @@ hasta la misma y hacemos click en usar la carpeta como carpeta de trabajo.
 \label{fig:setwd}
 \end{figure}
 
-Tambien podemos utilizar el comando \texttt{setwd()} para configurar el
+Tambien podemos utilizar el comando \texttt{setwd(.)} para configurar el
 directorio de trabajo.
 
 Una vez en dicha carpeta, existen varias maneras de abrir una imagen segun
@@ -193,38 +198,33 @@ Los comandos para esto son \texttt{raster}, para abrir una unica banda,
 distinas bandas por separado. Veamos algunos ejemplo de esto:
 
 \begin{exa}
-    Abrimos la imagen completa del archivo de Landsat 8 y consultamos sus 
-    propiedades. 
+    Abrimos la imagen completa del archivo de Landsat 8 y consultamos sus
+    propiedades.
     \begin{lstlisting}
     ref.2016 <- brick("raster_data/LC82240782016304/LC82240782016304LGN00.vrt")
     ref.2016
     \end{lstlisting}
     obtenemos de resultado el siguiente text
     \begin{Verbatim}[fontsize=\small]
-    class       : RasterBrick 
+    class       : RasterBrick
     dimensions  : 2412, 1834, 4423608, 6  (nrow, ncol, ncell, nlayers)
     resolution  : 30.00402, 30.00265  (x, y)
     extent      : 731118.6, 786146, 7101531, 7173897  (xmin, xmax, ymin, ymax)
-    coord. ref. : +proj=utm +zone=21 +south +datum=WGS84 +units=m +no_defs 
-                  +ellps=WGS84 +towgs84=0,0,0 
-    data source : ./material/raster_data/LC82240782016304/LC82240782016304LGN00.vrt 
-    names       : LC82240782016304LGN00.1, LC82240782016304LGN00.2, ... 
-    min values  :                     -33,                     192, ... 
-    max values  :                    2774,                    3265, ... 
+    coord. ref. : +proj=utm +zone=21 +south +datum=WGS84 +units=m +no_defs
+                  +ellps=WGS84 +towgs84=0,0,0
+    data source : ./material/raster_data/LC82240782016304/LC82240782016304LGN00.vrt
+    names       : LC82240782016304LGN00.1, LC82240782016304LGN00.2, ...
+    min values  :                     -33,                     192, ...
+    max values  :                    2774,                    3265, ...
     \end{Verbatim}
     En el podemos ver la clase a la que corresponde el archivo abierto, en este
     caso un \emph{RasterBrick}, las dimensiones, el tamaño de pixel, extension
     de la capa, proyeccion, cual es la ruta al archivo que abrimos, las bandas y
     sus valores maximos y minimos.
-\end{exa}
 
-Una vez abierta la imagen en el R podemos empezar a trabajar con la misma
-utilizando distintos comandos. 
+    Trabajemos ahora con este raster. Vamos a cambiarle el nombre a las bandas
+    y convertirla a reflectancia entre 0 y 1.
 
-\begin{exa}
-    Veamos primero como cambiar los nombres de las bandas por defecto, cambiar la
-    imagen a numeros en reflectancia entre 0 y 1 y luego guardarla nuevamente. Para
-    eso ejecutamos el siguiente codigo.
     \begin{lstlisting}
     ref.2016 <- brick(filename)
     names(ref.2016) <- c("blue","gree","red","nir","swir1","swir2")
@@ -233,25 +233,26 @@ utilizando distintos comandos.
     writeRaster(ref.2016,"raster\_data/processed/ref2016")
     \end{lstlisting}
 
-    Analicemos el codigo linea por linea. 
+    Analicemos el codigo linea por linea.
     \begin{itemize}
-    \item La primera de ellas abre la imagen como  un raster de multiples bandas. 
-    \item La segunda, cambia los nombres de cada banda a los que figuran en la 
-          lista entre parentesis. Es importante resaltar que el numero de nombres 
-          debe ser el mismo que el de bandas. 
-    \item En tercer lugar convertimos el archivo de numeros enteros entre 0 y 
+    \item La primera de ellas abre la imagen como  un raster de multiples bandas.
+    \item La segunda, cambia los nombres de cada banda a los que figuran en la
+          lista entre parentesis. Es importante resaltar que el numero de nombres
+          debe ser el mismo que el de bandas.
+    \item En tercer lugar convertimos el archivo de numeros enteros entre 0 y
           10000 a numeros entre 0 y 1.
     \item La cuenta linea es necesaria correrla una sola vez por sesion. La misma
           agrega el header de ENVI a nuestro output para poder abrir el archivo
           desde qgis
-      \item La sexta linea guarda el archivo raster con el nombre \file{ref2016} 
+      \item La sexta linea guarda el archivo raster con el nombre \file{ref2016}
+          . En este caso estamos usando el formato nativo de R.
     \end{itemize}
     podemos ademas graficar tanto una combinacion de bandas en qgis
     \begin{lstlisting}
-    plotRGB(ref.2016,r=4,g=5,b=3, stretch='lin')   
+    plotRGB(ref.2016,r=4,g=5,b=3, stretch='lin')
     \end{lstlisting}
     Obtenemos como resultado
-    \begin{figure}
+    \begin{figure}[h!]
     \begin{center}
         \includegraphics[scale=0.3]{plot453.png}
     \end{center}
@@ -260,31 +261,29 @@ utilizando distintos comandos.
     \end{figure}
     como tambien todas las bandas por separado
     \begin{lstlisting}
-    plotRGB(ref.2016) 
+    plotRGB(ref.2016)
     \end{lstlisting}
     obtenemos como resultado
-    \begin{figure}
+    \begin{figure}[h!]
     \begin{center}
         \includegraphics[scale=0.3]{plotband.png}
     \end{center}
     \caption{Grafico de bandas con realce automatico para cada una.}
     \label{fig:plotband}
     \end{figure}
-    
+
 \end{exa}
- 
-\begin{act} 
-   Abra el archivo vrt en qgis y vuelva a mirar la firma espectral para 
-   distintas coberturas. Entre que valores se encuentra ahora las mismas.
+
+\begin{act}
+   Abra el archivo vrt en qgis y vuelva a mirar la firma espectral para
+   distintas coberturas. ¿Entre que valores se encuentra ahora las mismas?
 \end{act}
 
 \begin{exa}
 
     Hagamos un poco de analisis ahora sobre la imagen. En primer lugar podemos
-    calcular un sumario de la estadistica de nuestra imagen
-    \begin{lstlisting}
-    summary(ref.2016)   
-    \end{lstlisting}
+    calcular la estadistica basica sobre la imagen. Para ello ejecutamos el
+    comando \texttt{summary(ref.2016)}
     obtenemos como resultado
     \begin{Verbatim}[fontsize=\small]
                blue   gree    red     nir   swir1   swir2
@@ -295,23 +294,12 @@ utilizando distintos comandos.
     Max.     0.5548 0.8257 0.8034  0.7542  0.9181  0.9446
     NA's     0.0000 0.0000 0.0000  0.0000  0.0000  0.0000
     \end{Verbatim}
-    Para comenzar podemos calcular los histogramas de todas las bandas con el 
-    comando
-    \begin{lstlisting}
-    hist(ref.2016) 
-    \end{lstlisting}
+    Para comenzar podemos calcular los histogramas de todas las bandas con el
+    comando \texttt{hist(ref.2016)} y el scatter plot entre dos bandas como
+    \texttt{plot(l8$red, l8$blue)}
 
-    y el scatter plot entre dos bandas como
-
-    \begin{lstlisting}
-    plot(l8$red, l8$blue)    
-    \end{lstlisting}
-
-    en caso de querer todos los scatterplots e histogramas en un solo grafico
-    podemos hacerlo con el comando
-    \begin{lstlisting}
-    pairs(l8)
-    \end{lstlisting}
+    En caso de querer todos los scatterplots e histogramas en un solo grafico
+    podemos hacerlo con el comando \texttt{pairs(l8)}.
     \end{exa}
 
 
@@ -326,32 +314,30 @@ Para poder trabajar con vectores en R utilizaremos la libreria
 \texttt{library(rgal)}.
 
 \begin{exa}
-    Podemos leer un vector como
+    Veamos como realizar el an\'alisis b\'asico de un vector en R. Comenzamos
+    leyendolo
+
     \begin{lstlisting}
     firmas <- readOGR(dsn="vector\_data/", layer="firmas")
     \end{lstlisting}
+
     Notamos en este caso que debemos indicar por separado la carpeta que
     contiene al shapefilee en \emph{dsn} y el nombre de la capa que queremos
     abrir como \emph{layer}.
 
-    Podemos mostrar las propiedades del vector ejecutando el comando
-
-    \begin{lstlisting}
-    vector
-    \end{lstlisting}
-
-    obteniendo como resultado
+    Podemos mostrar las propiedades del vector llamando a la variable
+    \texttt{firmas} obteniendo como resultado
     \begin{Verbatim}[fontsize=\small]
-    class       : SpatialPolygonsDataFrame 
-    features    : 8 
+    class       : SpatialPolygonsDataFrame
+    features    : 8
     extent      : 738692.8, 767774.6, 7133396, 7165265  (xmin, xmax, ymin, ymax)
     coord. ref. : +proj=utm +zone=21 +south +datum=WGS84 +units=m +no_defs
-                  +ellps=WGS84 +towgs84=0,0,0 
+                  +ellps=WGS84 +towgs84=0,0,0
     variables   : 3
-    names       : id, MC_ID,       Comment 
-    min values  :  0,     1,          Alto 
-    max values  :  9,     8, Suelo desnudo 
-    \end{Verbatim}  
+    names       : id, MC_ID,       Comment
+    min values  :  0,     1,          Alto
+    max values  :  9,     8, Suelo desnudo
+    \end{Verbatim}
 
     Podemos graficar los vectores obtenidos en R junto aa la imagen de base como
 
@@ -363,7 +349,7 @@ Para poder trabajar con vectores en R utilizaremos la libreria
     el shapefile sobre la misma.
 \end{exa}
 
-\begin{act} 
+\begin{act}
     Muestre las propiedades de la capa raster y el vector abiertos y verifique
     que los mismos se encuentren en el mismo sistema de coordenadas.
 \end{act}
@@ -376,7 +362,7 @@ utilizar y la capa raster sobre la cual hacer la consulta.
 Veamos algunos ejemplos
 
 \begin{exa}
-    Graficar en un scatterplot de dos bandas mostrando la zona del espacio 
+    Graficar en un scatterplot de dos bandas mostrando la zona del espacio
     ocupada por una cobertura.
     \begin{lstlisting}
     datos <- extract(ref.2016,firmas)
@@ -389,7 +375,7 @@ Veamos algunos ejemplos
            pch = ".")
     \end{lstlisting}
     obteniendo como resultado
-    \begin{figure}
+    \begin{figure}[h!]
     \begin{center}
         \includegraphics[scale=0.3]{plot-red-nir-zone.png}
     \end{center}
@@ -397,12 +383,12 @@ Veamos algunos ejemplos
         verde datos correspondientes a la selva paranaense.}
     \label{fig:}
     \end{figure}
-    
+
 \end{exa}
 
 La funcion \texttt{extract} nos permite tambien aplicar una funcion a los datos
 extraidos antes de entregarlos al usuario. Veamos como usarla para calcular
-datos de interes sobre las coberturas.
+datos de interes sobre las coberturas y guardarlo en un archivo vectorial.
 
 \begin{exa}
      Extraer los promedios y desvios standar de un raster y agregarlos a un
@@ -430,8 +416,8 @@ firmas espectrales y graficarlas para distintas coberturas
 
 \begin{exa}
      Graficar las firmas espectrales en funcion de la longitud de onda para cada
-     geometria de un vector. Utilizaremos en este caso una nueva libreria,
-     \texttt{reshape2}
+     geometria de un vector. Utilizaremos en este caso dos nueva libreria,
+     \texttt{reshape2} y \texttt{lattice}
 
      Comenzamos convirtiendo en dataframe a nuestros promedios donde cada
      columna corresponde a una firma espectral
@@ -478,10 +464,11 @@ firmas espectrales y graficarlas para distintas coberturas
      ...
      \end{Verbatim}
      Veamos algunas opciones para generar ahora los graficos. En primer lugar
-     pondremos todas las firmas juntas, separadas por color
+     pondremos todas las firmas juntas, separadas por color, usando la libreria
+     \texttt{lattice}
      \begin{lstlisting}
      xyplot(Reflectancia~wl, data=df, groups = Cobertura,
-            auto.key=list(space="top", columns=4), 
+            auto.key=list(space="top", columns=4),
             ty=c("l", "p"))
      \end{lstlisting}
      Aqui la primer linea dice que grafiquemos la reflectancia como funcion de
@@ -489,7 +476,7 @@ firmas espectrales y graficarlas para distintas coberturas
      segun la columna cobertura. La siguiente linea agrega la leyenda en la
      parte superior de la figura y con 4 columnas. Por ultimo en la tercer linea
      pedimos que el grafico tenga lineas y puntos.
-     \begin{figure}
+     \begin{figure}[h!]
      \begin{center}
          \includegraphics[scale=0.3]{spectra-1.png}
      \end{center}
@@ -500,7 +487,7 @@ firmas espectrales y graficarlas para distintas coberturas
      \texttt{Reflectancia ~ wl} por \texttt{Reflectancia ~ wl | MC\_ID}
      \begin{lstlisting}
      xyplot(Reflectancia~wl | MC_ID, data=df, groups = Cobertura,
-            auto.key=list(space="top", columns=4), 
+            auto.key=list(space="top", columns=4),
             ty=c("l", "p"))
      \end{lstlisting}
      y finalmente si queremos graficar solo un subset de los daatos
@@ -509,7 +496,7 @@ firmas espectrales y graficarlas para distintas coberturas
             auto.key=list(space="top", columns=4), ty=c("l", "p"),
             subset = Cobertura %in% c("Alto","Bajo"))
      \end{lstlisting}
-     \begin{figure}
+     \begin{figure}[h!]
      \begin{center}
          \includegraphics[scale=0.3]{spectra-2.png}
      \end{center}
@@ -520,5 +507,5 @@ firmas espectrales y graficarlas para distintas coberturas
 
 \begin{act}
     Grafique la media y el desvio standar para las distintas coberturas que pudo
-     identificar en el punto uno. 
+     identificar en el punto uno.
 \end{act}
