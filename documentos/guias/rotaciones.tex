@@ -1,32 +1,31 @@
-En nuestra cuarta practica trabajemos con rotaciones en el espacio espectral. A
-puntamos con las mismas a poder incorporar conceptos como dimensionalidad y
-correlacion entre bandas que nos ayuden a utilizar mejor la informacion
+En nuestra cuarta pr\'actica trabajemos con rotaciones en el espacio espectral.
+Apuntamos a poder incorporar conceptos como dimensionalidad y
+correlaci\'on entre bandas que nos ayuden a utilizar mejor la informaci\'on
 satelital.
 
-Son objetivos de la misma
+Son nuestros objeticos:
 
 \begin{itemize}
     \item Aplicar la transformada tasseled cap a una imagen multiespectral e
         interpretar el significado de cada banda.
-    \item Poder aplicar la transformada por componentes principales a una imagen
+    \item Aplicar la transformada por componentes principales a una imagen
         multiespectral e interpretar el resultado.
-    \item Poder aplicar la transformada por componentes principales a un stack
-        de bandas multiespectrales de distitnas fechas e interpretar los resultados.
-    \item Utilizar la transformada por componentes principales para extraer
-        informacion de series temporales de indices.
+    \item Aplicar la transformada por componentes principales a un stack
+        de bandas multiespectrales de distintas fechas e interpretar los resultados.
+    \item Extraer informaci\'on de series temporales de \'indices espectrales.
 \end{itemize}
 
-\subsection{Calculo de la transformada tasseled cap para una imagen landsat}
+\subsection{C\'alculo de la transformada tasseled cap para una imagen landsat}
 
-Comencemos calculados la transformada tasseled cap para una imagen landsat. La
-misma sera la primer rotacion que utilizaremos en el curso y en ella la
+Comencemos calculados la transformada tasseled cap para una imagen Landsat 8. Esta
+ser\'a la primer rotaci\'on que utilizaremos en el curso y en ella la
 interpretacion es bastante sencilla. Para ello usaremos el paquete
 \texttt{RStoolbox}.
 
 \begin{exa}
     Para cualcular la transformada por componentes principales comenzamos
-    abriendo la imagen landsat desde el metadado y convirtiendola a reflectancia
-    a tope de la atmosfera como vimos en las clases anteriores.
+    abriendo la imagen Landsat 8 desde el metadado y convirtiendola a reflectancia
+    a tope de la atm\'osfera como vimos en las clases anteriores.
     \begin{lstlisting}
     xml.2016 <- readMeta("raster_data/LC82240782016304/LC82240782016304LGN00.xml")
     ref.2016 <- stackMeta(xml.2016, quantity = "sre")
@@ -35,7 +34,8 @@ interpretacion es bastante sencilla. Para ello usaremos el paquete
     ref.2016 <- ref.2016[[-1,]]
     names(ref.2016) <- c("blue","green","red","nir","swir1","swir2")
     \end{lstlisting}
-    calculamos analizamos ahora el espacio red-nir y green-nir para la imagen
+
+    Analizamos ahora el espacio rojo-infrarrojo cercano y rojo-verde para la imagen
 
     \begin{lstlisting}
     B1 <- xyplot(nir~red,data=ref.2016)
@@ -44,7 +44,7 @@ interpretacion es bastante sencilla. Para ello usaremos el paquete
     print(B2,split=c(2,1,2,1),more=FALSE)
     \end{lstlisting}
 
-    obteniendo como scatterplots
+    obteniendo como scatterplots de la figura \ref{fig:green-red}
 
     \begin{figure}[h!]
     \begin{center}
@@ -60,61 +60,38 @@ interpretacion es bastante sencilla. Para ello usaremos el paquete
     tsc.2016 <- tasseledCap(ref.2016,sat="Landsat8OLI")
     \end{lstlisting}
     Obtenemos una imagen de tres bandas, \emph{brillo}, \emph{verdor} y
-    \emph{humedad}.
-
-    podemos graficar cada una de las bandas por separado con el comando
-
-    \begin{lstlisting}
-    plot(tsc.2016)
-    \end{lstlisting}
-
-    o todas juntas con
-
-    \begin{lstlisting}
-    plotRGB(tsc.2016,r=1,g=2,b=3, stretch="lin")
-    \end{lstlisting}
-
-    \begin{figure}[h!]
-    \begin{center}
-        \includegraphics[scale=0.6]{tsc.png}
-    \end{center}
-    \caption{Imagen de la transformada tasseled cap.}
-    \label{fig:tsc}
-    \end{figure}
-    Vemos en este caso que distintas zonas de la selva presentan distinto color
-    en cyan debito al cambio en contenido de humedad, que las zonas sin
-    vegetacion se ven en gradientes de rojo igual que las ciudades y las zonas
-    cubiertas de agua se ven en azul inenso.
+    \emph{humedad}. Podemos graficar cada una de las bandas por separado con el
+    comando \texttt{plot(tsc.2016)} o todas juntas con \texttt{plotRGB(tsc.2016,r=1,g=2,b=3, stretch="lin")}
 \end{exa}
 
 \begin{act}
-    Calcule la transformada tasseled cap para la imagen landsat 7 del año 2000.
+    Calcule la transformada tasseled cap para la imagen Landsat 7 del año 2000.
 \end{act}
 
-\subsection{Calculo de la transformada por componentes principales}
+\subsection{C\'alculo de la transformada por componentes principales}
 
 Veamos ahora como calcular la transformada por componentes principales. Para
 esto utilizaremos la herramienta \texttt{rasterPCA} del paquete
-\texttt{RStoolbox}. Realizaremos ademas un analisis previo sobre las mismas para
-ayudar a comprender como funciona dicha transformada.
+\texttt{RStoolbox}. Realizaremos adem\'as un an\'alisis previo sobre para comprender
+como funciona dicha transformada.
 
 \begin{exa}
     Comencemos analizando la transformada por componentes principales de la
-    imagen de 2016. ¿Que podemos predecir? Miremos primero los
-    scatterplots \texttt{pairs(ref.2016)}
+    imagen de 2016. Miremos primero los scatterplots con el comando \texttt{pairs(ref.2016)}
+    obteniendo como resultado la figura \ref{fig:pairs2}
     \begin{figure}[h!]
     \begin{center}
         \includegraphics[scale=0.6]{pairs.png}
     \end{center}
-    \caption{}
-    \label{fig:pairs}
+    \caption{Scaterplots y coeficientes de correlaci\'on para la imagen Landsat 8.}
+    \label{fig:pairs2}
     \end{figure}
 
     Mirando el resumen de la imagen vemos que hay varias bandas muy
-    correlacionadas entre si. Por ejemplo las del visible, mientras que otras lo
-    estan poco, por el ejeplo el nir y el swir. Por lo tanto esperamos que no
+    correlacionadas entre s\'i, como las del visible, mientras que otras lo
+    estan poco, como el infrarrojo cercano y el infrarrojo de onda corta. Por lo tanto esperamos que no
     todas las bandas sean necesarias para explicar el comportamiento de la
-    imagen. Al menos en el nivel de detalle mas baje.
+    imagen. Al menos en el nivel de detalle mas bajo.
 
     Apliquemos entonces la transformada por componentes principales y veamos que
     sucede
@@ -135,7 +112,7 @@ ayudar a comprender como funciona dicha transformada.
 
     Al analizar las varianzas, vemos que las 3 primeras explican mas que el
     99.5\% de la variabilidad de la imagen. Es decir, que de las 6 bandas de
-    landsat 8, en esta imagen, 3 nos alcanzan para explicar casi todo el
+    Landsat 8, en esta imagen, 3 nos alcanza para explicar casi todo el
     comportamiento. Analisemos la primera, usamos el comando
     \texttt{loadings(pca.2016\$model)} para ver como son las componentes.
 
@@ -152,24 +129,13 @@ ayudar a comprender como funciona dicha transformada.
 
     la primer componente pesa, segun la banda pero siempre con el mismo signo, a
     todas las demas componentes. Podemos interpretarla por lo tanto como un
-    brillo y esperar que sea mas alta cuando miramos  zonas de la imagen que
-    tengan mas reflectancia en promedio
-
-    Si mostramos las tres primeras componentes en combinacion RGB vemos que
-    distintos tipos de coberturas se distinguen de distinta manera,
-
-    \begin{lstlisting}
-    plotRGB(pca.2016$map,r=1,g=2,b=3, stretch="lin")
-    \end{lstlisting}
-
-    Vale la pena aclarar en este caso que debemos referenciar el mapa dentro del
-    objeto pca y no directamente el objeto para graficarlo.
+    brillo negativo y esperar que sea mas alta cuando miramos zonas de la imagen que
+    tengan menos reflectancia en promedio. La segunda componente presenta diferencia
+    los valores del infrarrojo cercano y el resto de la bandas. Esta ser\'a alta
+    en presencia de vegetaci\'on y baja en su ausencia. La componente tres hace
+    algo similar pero con las bandas del infrarrojo medio, por lo tanto podemos
+    interpretarla como una componente que varia seg\'un el contenido de humedad.
 \end{exa}
-
-\begin{act}
-    Analice la segunda componente de la transformada por componentes principales
-    para la imagen Landsat 8.
-\end{act}
 
 \begin{act}
     Calcule y analice la transformada por PCA de la imagen Landsat 7 del año
@@ -185,11 +151,11 @@ Empecemos esta seccion con una actividad para que realicen
     año 2000 y 2016.
 \end{act}
 
-Veamos que pasa al trabajar con series temporales de indices.
+Veamos que pasa al trabajar con series temporales de \'indices.
 
 \begin{exa}
-    Otra aplicacion de la transformada por componentes principales por
-    componentes principales es el analisis de series temporales.
+    Otra aplicaci\'on de la transformada por componentes principales por
+    componentes principales es el an\'alisis de series temporales.
     \begin{lstlisting}
     ndvi.list <- list.files("raster_data/MOD13Q1/NDVI/", pattern = "*.tif$",
                              full.names = TRUE)
@@ -202,8 +168,8 @@ Veamos que pasa al trabajar con series temporales de indices.
     ndvi.stack <- approxNA(ndvi.stack)
     writeRaster(ndvi.stack,"ndvi-series.tif")
     \end{lstlisting}
-    Una vez llenados los espacios donde no habia datos podemos abrir la imagen
-    en qgis y realizar consultas de pixel en distintas zonas de la misma.
+    Una vez llenados los espacios donde no habia datos, podemos abrir la imagen
+    en QGIS y realizar consultas de pixel en distintas zonas.
 
     Utilizando la herramienta de identificar objetos espaciales podemos
     consultar como es el comportamiento de la serie temporal para cada pixel.
@@ -211,7 +177,7 @@ Veamos que pasa al trabajar con series temporales de indices.
     \begin{center}
         \includegraphics[scale=0.3]{series.png}
     \end{center}
-    \caption{}
+    \caption{Serie temporal de valores de NDVI.}
     \label{fig:series}
     \end{figure}
     vemos que distintas zonas tienen distintos comportamiento intra e
@@ -232,10 +198,4 @@ Veamos que pasa al trabajar con series temporales de indices.
     princiales de la imagen del stack de NDVI\@. Que zonas puede identificar en la
     primera? que zonas se distinguen en la segunda? que comportamiento encuentra
     en la tercera y cuarta.
-\end{act}
-
-\begin{act}
-    Grafique en el scatter-plot la imagen completa y marque en el mismo zonas
-    con vegetacion, agua y suelo sin cobertura vegetal. Vea como cambian estas
-    zonas frente a las transformadas por componentes principales y tasseled cap.
 \end{act}
