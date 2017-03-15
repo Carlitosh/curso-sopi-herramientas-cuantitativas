@@ -1,6 +1,6 @@
 En nuestra cuarta pr\'actica trabajemos con rotaciones en el espacio espectral.
 Apuntamos a poder incorporar conceptos como dimensionalidad y
-correlaci\'on entre bandas que nos ayuden a utilizar mejor la informaci\'on
+correlaci\'on entre bandas, que nos ayuden a utilizar mejor la informaci\'on
 satelital.
 
 Son nuestros objeticos:
@@ -17,15 +17,15 @@ Son nuestros objeticos:
 
 \subsection{C\'alculo de la transformada tasseled cap para una imagen landsat}
 
-Comencemos calculados la transformada tasseled cap para una imagen Landsat 8. Esta
-ser\'a la primer rotaci\'on que utilizaremos en el curso y en ella la
-interpretacion es bastante sencilla. Para ello usaremos el paquete
+Comencemos calculados la transformada tasseled cap para una imagen Landsat 8. \'Esta
+ser\'a la primer rotaci\'on que utilizaremos en el curso cuya la
+interpretaci\'on es bastante sencilla. Usaremos el paquete
 \texttt{RStoolbox}.
 
 \begin{exa}
     Para cualcular la transformada por componentes principales comenzamos
     abriendo la imagen Landsat 8 desde el metadado y convirtiendola a reflectancia
-    a tope de la atm\'osfera como vimos en las clases anteriores.
+    a tope de la cobertura, como vimos en las clases anteriores.
     \begin{lstlisting}
     xml.2016 <- readMeta("raster_data/LC82240782016304/LC82240782016304LGN00.xml")
     ref.2016 <- stackMeta(xml.2016, quantity = "sre")
@@ -44,7 +44,7 @@ interpretacion es bastante sencilla. Para ello usaremos el paquete
     print(B2,split=c(2,1,2,1),more=FALSE)
     \end{lstlisting}
 
-    obteniendo como scatterplots de la figura \ref{fig:green-red}
+    obteniendo como scatterplots (Figura \ref{fig:green-red}).
 
     \begin{figure}[h!]
     \begin{center}
@@ -59,7 +59,7 @@ interpretacion es bastante sencilla. Para ello usaremos el paquete
     \begin{lstlisting}
     tsc.2016 <- tasseledCap(ref.2016,sat="Landsat8OLI")
     \end{lstlisting}
-    Obtenemos una imagen de tres bandas, \emph{brillo}, \emph{verdor} y
+    Tendremos una imagen de tres bandas, \emph{brillo}, \emph{verdor} y
     \emph{humedad}. Podemos graficar cada una de las bandas por separado con el
     comando \texttt{plot(tsc.2016)} o todas juntas con \texttt{plotRGB(tsc.2016,r=1,g=2,b=3, stretch="lin")}
 \end{exa}
@@ -70,15 +70,13 @@ interpretacion es bastante sencilla. Para ello usaremos el paquete
 
 \subsection{C\'alculo de la transformada por componentes principales}
 
-Veamos ahora como calcular la transformada por componentes principales. Para
-esto utilizaremos la herramienta \texttt{rasterPCA} del paquete
-\texttt{RStoolbox}. Realizaremos adem\'as un an\'alisis previo sobre para comprender
-como funciona dicha transformada.
+Veamos ahora como calcular la transformada por componentes principales. Utilizaremos la
+herramienta \texttt{rasterPCA} del paquete \texttt{RStoolbox}.
 
 \begin{exa}
     Comencemos analizando la transformada por componentes principales de la
     imagen de 2016. Miremos primero los scatterplots con el comando \texttt{pairs(ref.2016)}
-    obteniendo como resultado la figura \ref{fig:pairs2}
+    obteniendo (Figura \ref{fig:pairs2})
     \begin{figure}[h!]
     \begin{center}
         \includegraphics[scale=0.6]{pairs.png}
@@ -89,9 +87,9 @@ como funciona dicha transformada.
 
     Mirando el resumen de la imagen vemos que hay varias bandas muy
     correlacionadas entre s\'i, como las del visible, mientras que otras lo
-    estan poco, como el infrarrojo cercano y el infrarrojo de onda corta. Por lo tanto esperamos que no
+    estan poco, como el infrarrojo cercano y el infrarrojo de onda corta. Por lo tanto, esperamos que no
     todas las bandas sean necesarias para explicar el comportamiento de la
-    imagen. Al menos en el nivel de detalle mas bajo.
+    imagen, al menos en el nivel de detalle mas bajo.
 
     Apliquemos entonces la transformada por componentes principales y veamos que
     sucede
@@ -101,7 +99,7 @@ como funciona dicha transformada.
         summary(pca.2016$model)
     \end{lstlisting}
 
-    Veamos el sumario del modelo obtenido,
+    El sumario del modelo obtenidos,
     \begin{Verbatim}[fontsize=\small]
     Importance of components:
                                Comp.1     Comp.2     Comp.3      Comp.4 ...
@@ -110,10 +108,10 @@ como funciona dicha transformada.
     Cumulative Proportion  0.50850204 0.98342936 0.99545892 0.998738441 ...
     \end{Verbatim}
 
-    Al analizar las varianzas, vemos que las 3 primeras explican mas que el
-    99.5\% de la variabilidad de la imagen. Es decir, que de las 6 bandas de
-    Landsat 8, en esta imagen, 3 nos alcanza para explicar casi todo el
-    comportamiento. Analisemos la primera, usamos el comando
+    Al observar las varianzas, vemos que las 3 primeras explican mas que el
+    99.5\% de la variabilidad de la imagen. Es decir que, de las 6 bandas de
+    Landsat 8 en esta imagen, 3 nos alcanza para explicar casi todo el
+    comportamiento. Analisemos la primera, usando el comando
     \texttt{loadings(pca.2016\$model)} para ver como son las componentes.
 
     \begin{Verbatim}[fontsize=\small]
@@ -127,13 +125,13 @@ como funciona dicha transformada.
     swir2 -0.451  ...
     \end{Verbatim}
 
-    la primer componente pesa, segun la banda pero siempre con el mismo signo, a
-    todas las demas componentes. Podemos interpretarla por lo tanto como un
+    La primer componente pesa siempre con el mismo signo, a
+    todas las bandas. Podemos interpretarla como un
     brillo negativo y esperar que sea mas alta cuando miramos zonas de la imagen que
-    tengan menos reflectancia en promedio. La segunda componente presenta diferencia
-    los valores del infrarrojo cercano y el resto de la bandas. Esta ser\'a alta
-    en presencia de vegetaci\'on y baja en su ausencia. La componente tres hace
-    algo similar pero con las bandas del infrarrojo medio, por lo tanto podemos
+    tengan menos reflectancia en promedio. La segunda componente, presenta diferencia
+    entre los valores del infrarrojo cercano y el resto de la bandas. Esta ser\'a alta
+    en presencia de vegetaci\'on y baja en su ausencia. La componente tres se comporta
+    de forma similar pero con las bandas del infrarrojo medio, por lo tanto podemos
     interpretarla como una componente que varia seg\'un el contenido de humedad.
 \end{exa}
 
@@ -144,7 +142,7 @@ como funciona dicha transformada.
 
 \subsection{Algunas ideas sobre series temporales}
 
-Empecemos esta seccion con una actividad para que realicen
+Empecemos esta seccion con una actividad
 
 \begin{act}
     Aplique la transformada por componentes principales al stack de bandas del
@@ -154,8 +152,8 @@ Empecemos esta seccion con una actividad para que realicen
 Veamos que pasa al trabajar con series temporales de \'indices.
 
 \begin{exa}
-    Otra aplicaci\'on de la transformada por componentes principales por
-    componentes principales es el an\'alisis de series temporales.
+    Otra aplicaci\'on de la transformada por componentes principales
+    es el an\'alisis de series temporales.
     \begin{lstlisting}
     ndvi.list <- list.files("raster_data/MOD13Q1/NDVI/", pattern = "*.tif$",
                              full.names = TRUE)
@@ -168,11 +166,12 @@ Veamos que pasa al trabajar con series temporales de \'indices.
     ndvi.stack <- approxNA(ndvi.stack)
     writeRaster(ndvi.stack,"ndvi-series.tif")
     \end{lstlisting}
-    Una vez llenados los espacios donde no habia datos, podemos abrir la imagen
-    en QGIS y realizar consultas de pixel en distintas zonas.
+    Una vez interpoladas las fechas donde no hab\'ia datos de NDVI, podemos
+    abrirla en el QGIS y analizar distintas zonas de la imagen.
 
     Utilizando la herramienta de identificar objetos espaciales podemos
     consultar como es el comportamiento de la serie temporal para cada pixel.
+
     \begin{figure}[h!]
     \begin{center}
         \includegraphics[scale=0.3]{series.png}
@@ -180,7 +179,8 @@ Veamos que pasa al trabajar con series temporales de \'indices.
     \caption{Serie temporal de valores de NDVI.}
     \label{fig:series}
     \end{figure}
-    vemos que distintas zonas tienen distintos comportamiento intra e
+
+    Vemos que distintas zonas tienen distintos comportamiento intra e
     interanual.
 
     Podemos analizar el promedio y el desvio standar para cada pixel de la
@@ -194,8 +194,8 @@ Veamos que pasa al trabajar con series temporales de \'indices.
 \end{exa}
 
 \begin{act}
-    Grafique las primeras 4 componentes por de la transformada por componentes
-    princiales de la imagen del stack de NDVI\@. Que zonas puede identificar en la
-    primera? que zonas se distinguen en la segunda? que comportamiento encuentra
-    en la tercera y cuarta.
+    Grafique las primeras 4 componentes de la transformada por componentes
+    princiales de la imagen del stack de NDVI\@. ¿Qu\'e zonas puede identificar en la
+    primera? ¿Qu\'e zonas se distinguen en la segunda? ¿Qu\'e comportamiento encuentra
+    en la tercera y cuarta?
 \end{act}

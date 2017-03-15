@@ -1,10 +1,10 @@
 
 En esta segunda actividad pr\'actica nos centraremos en la correcci\'on radiom\'etrica
-de imagenes satelitales. Son nuestros objetivos:
+de im\'agenes satelitales. Son nuestros objetivos:
 
 \begin{itemize}
     \item Abrir una imagen satelital desde el metadato.
-    \item Convertir los valores de la imagen a reflectancia tope de la
+    \item Convertir los valores de la imagen a reflectancia a tope de la
         atm\'osfera.
     \item Corregir la imagen satelital utilizando los m\'etodos de \emph{dos} y
         \emph{cost}
@@ -14,36 +14,33 @@ de imagenes satelitales. Son nuestros objetivos:
 \subsection{C\'alculo de reflectancia a tope de la atmosfera}
 
 Para poder convertir una imagen a reflectancia a tope de la atm\'osfera vamos a
-necesitar no solo la imagen sino tambi\'en la informaci\'on adicional que hallaremos
-en su metadato.
-
-Para abrir una imagen satelital desde el metadato utilizaremos las funciones
-disponibles en la libreria \texttt{RStoolbox}. Esta incluye diversas herramientas
-para trabajar con im\'agenes satelitales.
+necesitar la informaci\'on adicional que hallaremos en su metadato.
+Para abrirla desde el metadato utilizaremos las funciones
+disponibles en la libreria \texttt{RStoolbox}.
 
 \begin{exa}
     Abramos  la imagen Landsat 7
-    del año 2000 desde el metadato y la mostraremos en combinacion color real.
-    Adem\'as analicemos sus propiedades.
+    del año 2000 desde el metadato y la mostraremos en combinaci\'on color real
+    y analicemos sus propiedades.
     \begin{lstlisting}
     meta.2000 <- readMeta("raster_data/LE72240782000188EDC00/LE72240782000188EDC00_MTL.txt")
     \end{lstlisting}
     Podemos mostrar las distintas variables incluidas en el objeto usando el
-    signo \$ y su nombre. Por ejemplo \verb|meta.2000$SOLAR_PARAMETERS|
+    signo \$ y su nombre. Por ejemplo, \verb|meta.2000$SOLAR_PARAMETERS|
     da como resultado
     \begin{Verbatim}[fontsize=\small]
      azimuth elevation  distance
     37.38251  31.14409   1.01670
     \end{Verbatim}
     Usando el metadato podemos cargar la imagen completa con el comando
-    \texttt{stackMeta}. Ademas eliminaremos en este caso las bandas 6 y 7 por
+    \texttt{stackMeta}. Eliminamos, en este caso, las bandas 6 y 7 por
     ser termicas.
     \begin{lstlisting}
     dn.2000 <- stackMeta(meta.2000)
     dn.2000 <- dn.2000[[-6:-7,]]
     dn.2000
     \end{lstlisting}
-    obtenemos como resultado un objeto \emph{raster stack} como el que sigue
+    El resultado es un objeto \emph{raster stack} como el que sigue
     \begin{Verbatim}[fontsize=\small]
     class       : RasterStack
     dimensions  : 2412, 1834, 4423608, 6  (nrow, ncol, ncell, nlayers)
@@ -55,8 +52,8 @@ para trabajar con im\'agenes satelitales.
     min values  :     0,     0,     0,     0,     0,     0
     max values  :   255,   255,   255,   255,   255,   255
     \end{Verbatim}
-    Mostramos la imagen en cobinaci\'on de color real con \texttt{plotRGB(dn.2000, r=3, g=2, b=1, stretch="lin")}
-    obteniendo la figura \ref{fig:dn-l7-rgb}.
+    Mostramos la imagen en cobinaci\'on color real con \texttt{plotRGB(dn.2000, r=3, g=2, b=1, stretch="lin")}
+    (Figura \ref{fig:dn-l7-rgb}).
      \begin{figure}[h!]
      \begin{center}
          \includegraphics[scale=0.6]{dn-l7-rgb}
@@ -66,23 +63,22 @@ para trabajar con im\'agenes satelitales.
      \end{figure}
 \end{exa}
 
-De esta forma tenemos el archivo cargado en n\'umero digital con todos sus metadatos
-para convertirlo a reflectancia y realizar distintas correcciones.
+De esta forma tenemos el archivo en n\'umero digital con todos sus metadatos
+para convertirlo a reflectancia y realizar las distintas correcciones.
 
-Para pasar nuestra imagen a reflectancia a tope
-de la atmosfera tenemos dos maneras de hacerlo. Podemos hacerlo a mano
-utilizando las herramientas algebraicas de R o podemos hacerlo con la funcion
+Existen dos formass de convertirla a reflectancia a tope de la atm\'osfera: a mano,
+utilizando las herramientas algebraicas de R o con la funci\'on
 especifica de \texttt{RStoolbox}.
 
 \begin{exa}
-    Calculo de reflectancia a tope de la atm\'osfera
+    C\'alculo de reflectancia a tope de la atm\'osfera
     utilizando el metadato paso por paso
 
     \begin{lstlisting}
     dn2ref.2000 <- meta.2000$CALREF[1:6,]
     elev.2000 <- pi*meta.2000$SOLAR_PARAMETERS['elevation']/180
     \end{lstlisting}
-    extraemos primero del metadatos los par\'ametros de calibraci\'on en
+    extraemos primero del metadato los par\'ametros de calibraci\'on en
     reflectancia y el \'angulo de elevaci\'on solar. Convertimos luego la imagen
     a reflectancia y la dividimos por el seno del \'angulo solar.
     Luego cambiamos los nombres de las bandas
@@ -92,8 +88,8 @@ especifica de \texttt{RStoolbox}.
     names(toam.2000) <- c("blue","green","red","nir","swir1","swir2")
     \end{lstlisting}
 
-    Otra forma de realizar este proceso es utilizando la funci\'on
-    \texttt{radCor}. En este caso debemos dar la imagen en DN, el metadato y
+    Otra forma de realizarlo es utilizando la funci\'on
+    \texttt{radCor}. En este caso, debemos tener la imagen en DN, el metadato y
     cual es la cantidad que queremos calcular.
 
     \begin{lstlisting}
@@ -134,14 +130,14 @@ especifica de \texttt{RStoolbox}.
 \begin{act}
     Inspeccione la reflectancia a tope de la atmosfera para todas las bandas.
     Para esto realice los histogramas, graficos de dispersi\'on, calcule la media,
-    el desvio standar y cualquier otra medida estad\'istica que le guste.
+    el desvio standar y cualquier otra medida estad\'istica que desee.
 \end{act}
-\subsection{C\'alculo de reflectancia corregida atmosfericamente por m\'etodos
+\subsection{C\'alculo de reflectancia corregida atmosf\'ericamente por m\'etodos
             estad\'isticos}
 
 La funci\'on \texttt{radCor} dispone de un par\'ametro para hacer distintos
-tipos de correcciones atmosf\'ericas. Ya vimos \emph{apref} que nos permiti\'o
-calcular la reflectancia a tope de la atm\'osfera. Veamos como aplicar el m\'etodo
+tipos de correcciones atmosf\'ericas. Ya utilizamos \emph{apref}, que nos permiti\'o
+calcular la reflectancia a tope de la atm\'osfera, veamos ahora como aplicar el m\'etodo
 de substracci\'on de cuerpo obscuro.
 
 \begin{exa}
@@ -149,7 +145,7 @@ de substracci\'on de cuerpo obscuro.
     solamente restaremos el m\'inimo en cada banda a la imagen para las bandas
     donde existe haze, es decir en la zona del visible y del infrarrojo cercano.
 
-    Estimamos el haze primero y corregimos la imagen luego haciendo
+    Estimamos el haze primero y luego corregimos la imagen haciendo
     \begin{lstlisting}
     haze.2000 <- estimateHaze(dn.2000,darkProp = 0.01, hazeBands = 1:4, plot=TRUE)
     sdos.2000 <- radCor(dn.2000, metaData = meta.2000,
@@ -162,9 +158,9 @@ de substracci\'on de cuerpo obscuro.
     B1_dn B2_dn B3_dn B4_dn
        41    27    20    15
     \end{Verbatim}
-    Para hacer un an\'alisis de lo que pasa en la situacion, vamos a graficar los
+    Para hacer un an\'alisis de lo que pasa, vamos a graficar los
     histogramas de cada banda para la imagen en reflectancia TOA y corregida por
-    el m\'etodo \emph{simple dos}. Para esto usaremos el paquete \texttt{rasterVis}
+    el m\'etodo \emph{simple dos}. Usaremos el paquete \texttt{rasterVis}
     \begin{lstlisting}
     B1 <- densityplot(~B1_tre+B1_sre, data=toa.boa, xlab="Reflectancia",
                       ylab="", main="Banda azul", plot.points=FALSE, xlim=c(0,0.3),
@@ -191,9 +187,8 @@ de substracci\'on de cuerpo obscuro.
      print(B3,split = c(1, 2, 2, 2),more=TRUE)
      print(B4,split = c(2, 2, 2, 2),more=FALSE)
     \end{lstlisting}
-    En este caso las primeras 4 funciones crean los histogramas para cada banda
-    corregida mientras que las \'ultimas 4 lineas los imprimen en una grilla como
-    se ve en la figura \ref{fig:simpledos}.
+    las primeras 4 funciones crean los histogramas para cada banda
+    corregida, mientras que las \'ultimas 4 lineas los imprimen en una grilla (Figura \ref{fig:simpledos}).
     \begin{figure}[h!]
     \begin{center}
         \includegraphics[scale=0.4]{simpledos.png}
@@ -202,14 +197,14 @@ de substracci\'on de cuerpo obscuro.
         muestra el nivel de correcci\'on en cada una.}
     \label{fig:simpledos}
     \end{figure}
-Notamos en este caso que la correccion se vuelve menos importante a medida
-que crece la longitud de onda. adem\'as, la corecci\'on solo cambia la
+Notamos en este caso que la correcci\'on se vuelve menos importante a medida
+que crece la longitud de onda. Adem\'as, la corecci\'on solo cambia la
 posici\'on de la distribuci\'on y no su forma.
 
 \end{exa}
 \begin{act}
-    Analice los valores de haze obtenidos por la funcion stimate haze y grafiquelos
-    como funci\'on de la longitud de onda en escala logaritmica. ¿Que observa?
+    Analice los valores de haze obtenidos por la funci\'on stimate haze y grafiquelos
+    como funci\'on de la longitud de onda en escala logaritmica. ¿Qu\'e observa?
 \end{act}
 
 \begin{act}
@@ -218,9 +213,9 @@ posici\'on de la distribuci\'on y no su forma.
 \end{act}
 
 \begin{act}
-    Guarde el archivos raster generado por cada uno de los m\'etodos de
-    correcci\'on. Abralos en QGIS y comparelos visualmente. Obtenga firmas
-    espectrales con los distintos m\'etodos de correccion.
+    Guarde el archivo raster generado por cada uno de los m\'etodos de
+    correcci\'on. Abralos en QGIS y comp\'arelos visualmente. Obtenga firmas
+    espectrales con los distintos m\'etodos de correcci\'on.
 \end{act}
 
 
@@ -228,13 +223,13 @@ posici\'on de la distribuci\'on y no su forma.
 \label{sub:corr:6S}
 
 Veamos ahora como operar con el 6S para obtener una estimaci\'on de los par\'ametros
-atmosf\'ericos. Para esto utilizaremos la versi\'on web del 6S que se encuentra
+atmosf\'ericos. Para ello utilizaremos la versi\'on web del 6S que se encuentra
 disponible en \url{http://6s.ltdri.org/pages/run6SV.html}.
 
-Para utilizarla ingresaremos a la pagina y haremos click en el boton
+Ingresaremos a la pagina y haremos click en el bot\'on
 \menu{Submit query}. Iremos luego configurando paso a paso nuestro modelo de la
-atm\'osfera haciendo siempre luego click en el bot\'on \menu{submit query} para
-pasar al paso siguiente.
+atm\'osfera, haciendo siempre click en el bot\'on \menu{submit query} para
+ir al paso siguiente.
 
 Los parametros para nuestro modelo son
 
@@ -277,7 +272,7 @@ Los parametros para nuestro modelo son
 Todos estos valores los encontramos en el metadato de la imagen.
 
 En \menu{7.Results} podemos ver el resultado haciendo click en \emph{Output
-file}. Del mismo debemos extraer los valores de
+file}. Extraemos los valores de
  \begin{itemize}
      \item \texttt{global gas. trans. - total}
      \item \texttt{total sca. trans. - total}
@@ -298,10 +293,10 @@ todas las bandas utilizando R.
 
 
 \begin{act}
-    Realice una extracci\'on de firmas espectrales para distintass coberturass de
-    cada uno de los archivos raster obtenidos y grafiquelos juntas.
-    Comparela con la firma espectral obtenida a partir de la imagen corregida
-    por el usgs.
+    Realice una extracci\'on de firmas espectrales para distintas coberturas de
+    cada uno de los archivos raster obtenidos y graf\'iquelos juntos.
+    Compare los resultados con la firma espectral realizada a partir de la imagen corregida
+    por el usgsUSGS
 \end{act}
 
 \begin{act}
@@ -310,7 +305,7 @@ todas las bandas utilizando R.
 \end{act}
 
 \begin{act}
-    Calcule la diferencia promedio para cada banda entre las imagenes en
-    reflectancia a tope de la atmosfera y las distintas correcciones
+    Para cada banda calcule la diferencia promedio entre las imagenes en
+    reflectancia a tope de la atmosfera, las distintas correcciones
     y la imagen en reflectancia entregada por el USGS.
 \end{act}

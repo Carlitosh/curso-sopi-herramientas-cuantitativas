@@ -1,12 +1,11 @@
 En esta tercer pra\'ctica comenzaremos a trabajar con operaciones matem\'aticas
-entre las bandas del sat\'elite y en el uso de los resultados para obtener
-relaciones emp\'iricas con las variables biof\'isicas medibles en el terreno. Son
+entre las bandas y relacionaremos los resultados con variables biof\'isicas medibles en el terreno. Son
 nuestros objetivos:
 
 \begin{itemize}
     \item Calcular los \'indices de vegetaci\'on a partir de las im\'agenes en
         reflectancia.
-    \item Calcular la linea de suelo como par\'ametro para calcular \'indices
+    \item Calcular la l\'inea de suelo como par\'ametro para obtener \'indices
         de vegetaci\'on.
     \item Realizar modelos emp\'iricos que relacionen variables biof\'isicas
         medidas a campo con los \'indices espectrales.
@@ -15,12 +14,10 @@ nuestros objetivos:
 
 
 \subsection{C\'alculo de \'indices entre bandas}
-Comenzamos trabajando con el c\'alculo de \'indices entre bandas. Para ello
-utilizaremos lass librerias \texttt{raster} y \texttt{RStoolbox}. Adem\'as para
+Utilizaremos lass librerias \texttt{raster} y \texttt{RStoolbox}. Para
 poder usar mejores paletas de colores utilizaremos la libreria
-\texttt{RColorBrewer}, sin embargo el uso de la misma es optativo. Por \'ultimo
-puede ayudar cargar la libreria \texttt{rasterVis} para realizar algunos de los
-graficos.
+\texttt{RColorBrewer}. Por \'ultimo, puede ayudar cargar la libreria \texttt{rasterVis}
+para realizar algunos de los gr\'aficos.
 
 Comenzamos primer cargando la imagen desde el metadato y convirtiendola a
 reflectancia entre cero y uno.
@@ -34,7 +31,7 @@ reflectancia entre cero y uno.
     names(ref.2016) <- c("blue","green","red","nir","swir1","swir2")
 \end{lstlisting}
 
-una vez cargada la imagen podemos realizar operaciones entre las bandas llamando
+Luego podemos realizar operaciones entre las bandas llamando
 a cada una por separado. Veamos como ejemplo el calculo de NDVI\@.
 
 \begin{exa}
@@ -65,7 +62,7 @@ a cada una por separado. Veamos como ejemplo el calculo de NDVI\@.
 
 El paquete \texttt{RStoolbox} tiene varias herramientas que nos ayudan a
 calcular los \'indices espectrales. Veamos por ejemplo como calcular el NDVI y el
-EVI utilizando dicho paquete
+EVI.
 
 \begin{exa}
     Para calcular los \'indices mediante la funci\'on \texttt{spectralIndices} debemos
@@ -77,10 +74,10 @@ EVI utilizando dicho paquete
                                     indices=c("NDVI","EVI"))
     plot(indices.2016,col=cols, zlim=c(0,1))
     \end{lstlisting}
-    En este caso, vemos que la funcion \texttt{espectralIndices} necesita al
-    menos 3 parametros
+    En este caso, vemos que la funci\'on \texttt{espectralIndices} necesita al
+    menos 3 par\'ametros
     \begin{itemize}
-        \item La imagen con la cual vamos a trabajar.
+        \item Una imagen.
         \item A que zona del espectro corresponde cada banda.
         \item Los \'indices que queremos calcular
     \end{itemize}
@@ -100,22 +97,21 @@ EVI utilizando dicho paquete
 
 \begin{act}
     Calcule y grafique todos los \'indices posibles que involucren a las bandas
-    roja y infrarrojo cercano de Landsat 8. Puede ayudarse con el comando
+    roja e infrarrojo cercano de Landsat 8. Puede ayudarse con el comando
     \texttt{?spectralIndices}.
 \end{act}
 
-\subsection{C\'alculo de la linea de suelo}
+\subsection{C\'alculo de la l\'inea de suelo}
 
-La linea de suelo es una cantidad que definimos en teledetecci\'on que aporta
-informaci\'on sobre las imagen que estamos analizando. Adem\'as sirva para incorporar
+La l\'inea de suelo es una cantidad que definimos en teledetecci\'on que aporta
+informaci\'on sobre las imagen que estamos analizando y sirve para incorporar
 los efectos de la reflectancia del suelo en el c\'alculo de \'indices.
-Veamos como hacerlo utilizando la libreria
-\texttt{landsat}
+Veamos como hacerlo con la libreria \texttt{landsat}
 
 \begin{exa}
-    Calculemos la linea de suelo obtenida a partir de la imagen Landsat 8.
+    Calculemos la l\'inea de suelo a partir de la imagen Landsat 8.
     Para esto necesitamos enmascarar las zonas con
-    cobertura de agua y nubes. Veamos primero como hacer esto.
+    cobertura de agua y nubes.
     \begin{lstlisting}
     mask.2016 <- raster("raster_data/LC82240782016304/LC82240782016304LGN00_cfmask.tif")
     masked.2016 <- mask(ref.2016, mask=mask.2016, inverse=TRUE,
@@ -124,15 +120,14 @@ Veamos como hacerlo utilizando la libreria
     \end{lstlisting}
     de esta forma enmascaramos todos los valores con nubes, agua y donde la
     reflectancia obtenida es cero con el valor 255.
-    Calculamos ahora la linea de suelo y la mostramos en un scatterplot
+    Calculamos ahora la l\'inea de suelo y la mostramos en un scatterplot
     \begin{lstlisting}
     bsl.2016 <- BSL(as.matrix(masked.2016$red), as.matrix(masked.2016$nir),
                     method="quantile")
     plot(ref.2016$red, ref.2016$nir)
     abline(bsl.2016$BSL,col="red")
     \end{lstlisting}
-    Obtenemos como resultado el gr\'afico de la linea de suelo como se ve en la
-    figura \ref{fig:soil}. Podemos consultar
+    Obtenemos como resultado el gr\'afico de (Figura \ref{fig:soil}). Podemos consultar
     los demas parametros imprimiendo la variable \texttt{bsl.2016}.
     \begin{figure}[h!]
     \begin{center}
@@ -145,12 +140,12 @@ Veamos como hacerlo utilizando la libreria
 \end{exa}
 
 \begin{act}
-    Calcule el tSAVI utilizando la linea de suelo obtenida arriba.
+    Calcule el tSAVI utilizando la l\'inea de suelo.
 \end{act}
 
 \begin{act}
-    Vuelva a obtener la linea de suelo sin enmascarar la imagen y dibujo el
-    scatterplot con la misma y la anterior.
+    Calcule la l\'inea de suelo sin enmascarar la imagen y dibuje el
+    scatterplot conto con ella.
 \end{act}
 
 \begin{act}
@@ -158,15 +153,15 @@ Veamos como hacerlo utilizando la libreria
     2000.
 \end{act}
 
-\subsection{Estimacion de parametros biof\'isicos}
+\subsection{Estimaci\'on de par\'ametros biof\'isicos}
 
 Finalmente, veamos como se puede obtener datos biof\'isicos a partir de los
-\'indices de vegetaci\'on calculados. De esta forma podremos generar mapas de
+\'indices de vegetaci\'on para realizar mapas de
 porcentaje de cobertura, productividad, etc.
 
 \begin{exa}
     Comenzamos calculando el ndvi para el año 2016, y utilizando la capa
-    muestreo hacemos una extraccion estadi\'stica sobre la misma.
+    muestreo, hacemos una extracci\'on estadi\'stica sobre la misma.
     \begin{lstlisting}
     vector <- readOGR(dsn="vector_data/", layer="muestreo")
     datos <- extract(ndvi.2016,vector)
@@ -175,10 +170,9 @@ porcentaje de cobertura, productividad, etc.
     \end{lstlisting}
 
     Obtendremos un gr\'afico que presenta los scatterplots entre las bandas, su
-    correlacion e histogramas.
-    Veamos en el mismo que la superficie cubierta por vegetacion varia
-    linealmente con el NDVI\@. Por lo tanto utilizaremos estos para hacer un
-    ajuste de nuestro modelo.
+    correlaci\'on e histogramas.
+    Vemos que la superficie cubierta por vegetaci\'on var\'ia
+    linealmente con el NDVI\@. Por lo tanto, los utilizaremos para hacer un ajuste de nuestro modelo.
     \begin{lstlisting}
         lm.2016 <- lm(fcover~ndvi, data=muestreo)
         plot(muestreo$ndvi, mustreo$fcover)
@@ -195,12 +189,12 @@ porcentaje de cobertura, productividad, etc.
 \end{exa}
 
 \begin{act}
-    Genere los modelos de lai, fapar y fcover para el año 2016 y con los mismos
+    Genere los modelos de lai, fapar y fcover para el año 2016 y
     realice mapas de dichas variables.
 \end{act}
 
 \begin{act}
-    Utilizando los modelos obtenidos para 2016 aplique los mismos para obtener
+    Utilizando los modelos obtenidos para 2016 realice
     los mapas de lai, fapar y fcover del año 2000. ¿Que suposici\'on est\'a
     haciendo? Compare distintas zonas de los modelos en el qgis.
 \end{act}
