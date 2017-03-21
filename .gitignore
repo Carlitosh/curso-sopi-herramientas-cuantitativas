@@ -160,3 +160,4 @@ pythontex-files-*/
 
 # Latexian
 TSWLatexianTemp*
+.Rproj.user
