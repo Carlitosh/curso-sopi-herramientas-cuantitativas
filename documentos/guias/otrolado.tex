@@ -1,41 +1,65 @@
-En esta clase vamos a trabajar con clasificaciones no supervisadas de imagenes
-satelitales. Vamos a usar los paquetes
+En la quinta clase del curso, trabajaremos con clasificaci\'on no supervisada
+de im\'agenes satelitales. Son nuestros objetivos:
 
-\begin{lstlisting}
-    library(raster)
-    library(RStoolbox)
-\end{lstlisting}
+\begin{itemize}
+  \item Usar la herramienta de clasificaci\'on no supervisada.
+  \item Aprender a indentificar clases espectrales en catego\'ias de uso y cobertura.
+  \item Incorporar informaci\'on no espectral a las clasificaciones como
+  pueden ser datos temporales o informaci\'on espacial.
+  \item Aplicar la transformada por componentes principales para reducir la dimensionalidad
+  y seleccionar los datos mas relevantes previos a las clasificaciones.
+\end{itemize}
+
+\subsection{Clasificaci\'on mediante el m\'etodo k-means}
 
 Cargaremos primero la imagen landsat 8 y habilitaremos la opcion para escribir
 el header de ENVI\@.
 
 \begin{lstlisting}
     rasterOptions(addheader = "ENVI")
-    set.seed(6)
+    xml.2016 <- readMeta("raster_data/LC82240782016304/LC82240782016304LGN00.xml")
+    ref.2016 <- stackMeta(xml.2016, quantity = "sre")
+    scaleF <- getMeta(ref.2016,xml.2016, what = "SCALE_FACTOR")
+    ref.2016 <- ref.2016 * scaleF
+    ref.2016 <- ref.2016[[-1,]]
+    names(ref.2016) <- c("blue","green","red","nir","swir1","swir2")
+\end{lstlisting}
+
+Veamos como clasificar una imagen usando el m\'etodo k-means en R. Vamos a usar
+los paquetes \texttt{raster} y \texttt{RStoolbox}
+
+\begin{exa}
+    Comenzamos seteando la semilla para el geneador de n\'umeros aleatorios con el
+    comando \texttt{set.seed(42)}. De esta forma la serie de n\'umeros aleatorios
+    es la misma para todos.
+
+    Luego clasificamos la imagen y la guardamos como vimos en las clases anteriores.
+    \begin{lstlisting}
     kmeans.2016 <- unsuperClass(ref.2016, nClasses = 5, nStarts = 100,
                                 nSamples = 100)
     writeRaster(kmeans.2016, "raster_data/processed/kmeans2016",
                 datatype="INT1U")
-\end{lstlisting}
+    \end{lstlisting}
 
-Podemos ahora graficar por separado cada una de las clases
+    En este caso estamos solamente usando 5 clases espectrales.
 
-\begin{lstlisting}
-    classes.2016 <- layerize(kmeans.2016)
-    plot(classes.2016)
-\end{lstlisting}
+    Podemos ahora graficar por separado cada una de las clases
+    \begin{lstlisting}
+        clases.2016 <- layerize(kmeans.2016)
+        plot(clases.2016)
+    \end{lstlisting}
 
-Abriremos la imagen ahora en el qgis e identificaremos cada una de las clases
-realiando interpretacion visual de la imagen. 
+    Abriremos la imagen ahora en el qgis e identificaremos cada una de las clases
+    realiando interpretacion visual de la imagen.
 
-Para realizar la identificacion primero vamos al menu \menu{propiedades de la
-imagen, Estilo, Tipo de renderizacion, Unibanda pseudocolor}. Elegimos de modo
-Intervalo Igual y en numero de clases ponemos con el minimo en 1 y el maximo en
-100. En estilo de color elegimos colores aleatorios. Iremos luego cambiando los
-colores uno a uno por un color brillante e identificado a que cobertura
-pertenece dicha clase espectral.
+    Para realizar la identificacion primero vamos al menu \menu{propiedades de la
+    imagen, Estilo, Tipo de renderizacion, Unibanda pseudocolor}. Elegimos de modo
+    Intervalo Igual y en numero de clases ponemos con el minimo en 1 y el maximo en
+    100. En estilo de color elegimos colores aleatorios. Iremos luego cambiando los
+    colores uno a uno por un color brillante e identificado a que cobertura
+    pertenece dicha clase espectral.
 
-Construiremos con ella una tabla como la siguiente
+    Construiremos con ella una tabla como la siguiente
 
 \begin{verbatim}
     id  class
@@ -57,6 +81,7 @@ clase espectral podemos combinarlas
     reclas.2016 <- subs(kmeans.2016$map, clases.2016)
 \end{lstlisting}
 
+\end{exa}
 \begin{act}
     Clasifique por el metodo de kmeans la imagen en reflectancia con una
     cantidad de clases espectrales lo suficientemente altas para separar todas
@@ -81,4 +106,3 @@ espacio espectral
     Grafique en los cortes del espacio espectral la imagen sin fusionar. Compare
     la diferencia entre clases espectrales y clases de informacion.
 \end{act}
-

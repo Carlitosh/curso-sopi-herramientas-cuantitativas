@@ -14,12 +14,12 @@ nuestros objetivos:
 
 
 \subsection{C\'alculo de \'indices entre bandas}
-Utilizaremos lass librerias \texttt{raster} y \texttt{RStoolbox}. Para
+Utilizaremos las librerias \texttt{raster} y \texttt{RStoolbox}. Para
 poder usar mejores paletas de colores utilizaremos la libreria
 \texttt{RColorBrewer}. Por \'ultimo, puede ayudar cargar la libreria \texttt{rasterVis}
 para realizar algunos de los gr\'aficos.
 
-Comenzamos primer cargando la imagen desde el metadato y convirtiendola a
+Comenzamos primero cargando la imagen desde el metadato y convirti\'endola a
 reflectancia entre cero y uno.
 
 \begin{lstlisting}
@@ -43,11 +43,11 @@ a cada una por separado. Veamos como ejemplo el calculo de NDVI\@.
     \end{lstlisting}
     En este caso estamos
     \begin{itemize}
-        \item Calculando el ndvi a mano usando la formula $(\rho_n-\rho_r)/(\rho_n+\rho_r)$.
+        \item Calculando el NDVI a mano usando la formula $(\rho_n-\rho_r)/(\rho_n+\rho_r)$.
         \item Obteniendo una rampa de color entre amarillo y verde.
         \item Graficando el NDVI, usamos como colores la rampa anterior
             y ajustandolo entre 0 y 1, es decir, los valores menores a 0 se
-            mostraran todos del mismo color.
+            mostrar\'an todos del mismo color.
     \end{itemize}
     Obtenemos entonces el resultado de la figura \ref{fig:ndvifig}
     \begin{figure}[h!]
@@ -128,12 +128,12 @@ Veamos como hacerlo con la libreria \texttt{landsat}
     abline(bsl.2016$BSL,col="red")
     \end{lstlisting}
     Obtenemos como resultado el gr\'afico de (Figura \ref{fig:soil}). Podemos consultar
-    los demas parametros imprimiendo la variable \texttt{bsl.2016}.
+    los demas par\'ametros imprimiendo la variable \texttt{bsl.2016}.
     \begin{figure}[h!]
     \begin{center}
         \includegraphics[scale=0.6]{soil.png}
     \end{center}
-    \caption{Linea de suelo sobre el scatterplot nir-red}
+    \caption{L\'inea de suelo sobre el scatterplot nir-red}
     \label{fig:soil}
     \end{figure}
 
@@ -149,7 +149,7 @@ Veamos como hacerlo con la libreria \texttt{landsat}
 \end{act}
 
 \begin{act}
-    Obtenga la linea de suelo y calcule el \'indice tSAVI para la imagen del año
+    Obtenga la l\'inea de suelo y calcule el \'indice tSAVI para la imagen del año
     2000.
 \end{act}
 
@@ -160,7 +160,7 @@ Finalmente, veamos como se puede obtener datos biof\'isicos a partir de los
 porcentaje de cobertura, productividad, etc.
 
 \begin{exa}
-    Comenzamos calculando el ndvi para el año 2016, y utilizando la capa
+    Comenzamos calculando el NDVI para el año 2016, y utilizando la capa
     muestreo, hacemos una extracci\'on estadi\'stica sobre la misma.
     \begin{lstlisting}
     vector <- readOGR(dsn="vector_data/", layer="muestreo")
@@ -172,13 +172,15 @@ porcentaje de cobertura, productividad, etc.
     Obtendremos un gr\'afico que presenta los scatterplots entre las bandas, su
     correlaci\'on e histogramas.
     Vemos que la superficie cubierta por vegetaci\'on var\'ia
-    linealmente con el NDVI\@. Por lo tanto, los utilizaremos para hacer un ajuste de nuestro modelo.
+    linealmente con el NDVI\@. Por lo tanto, los utilizaremos para hacer un ajuste de nuestro modelo
+
     \begin{lstlisting}
         lm.2016 <- lm(fcover~ndvi, data=muestreo)
         plot(muestreo$ndvi, mustreo$fcover)
         abline(lm.2016, col="red")
         summary(lm.2016)
     \end{lstlisting}
+
     de esta forma obtenemos los par\'ametros de nuestro ajuste.
 
     Para aplicar el modelo a nuestro raster hacemos

@@ -11,7 +11,7 @@ de im\'agenes satelitales. Son nuestros objetivos:
     \item Corregir la imagen satelital utilizando el \emph{6S} en su versi\'on web.
 \end{itemize}
 
-\subsection{C\'alculo de reflectancia a tope de la atmosfera}
+\subsection{C\'alculo de reflectancia a tope de la atm\'osfera}
 
 Para poder convertir una imagen a reflectancia a tope de la atm\'osfera vamos a
 necesitar la informaci\'on adicional que hallaremos en su metadato.
@@ -34,7 +34,7 @@ disponibles en la libreria \texttt{RStoolbox}.
     \end{Verbatim}
     Usando el metadato podemos cargar la imagen completa con el comando
     \texttt{stackMeta}. Eliminamos, en este caso, las bandas 6 y 7 por
-    ser termicas.
+    ser t\'ermicas.
     \begin{lstlisting}
     dn.2000 <- stackMeta(meta.2000)
     dn.2000 <- dn.2000[[-6:-7,]]
@@ -58,7 +58,7 @@ disponibles en la libreria \texttt{RStoolbox}.
      \begin{center}
          \includegraphics[scale=0.6]{dn-l7-rgb}
      \end{center}
-     \caption{Imagen en combinaci\'on de bandas color real de la zona de interes.}
+     \caption{Imagen en combinaci\'on de bandas color real de la zona de inter\'es.}
      \label{fig:dn-l7-rgb}
      \end{figure}
 \end{exa}
@@ -66,7 +66,7 @@ disponibles en la libreria \texttt{RStoolbox}.
 De esta forma tenemos el archivo en n\'umero digital con todos sus metadatos
 para convertirlo a reflectancia y realizar las distintas correcciones.
 
-Existen dos formass de convertirla a reflectancia a tope de la atm\'osfera: a mano,
+Existen dos formas de convertirla a reflectancia a tope de la atm\'osfera: a mano,
 utilizando las herramientas algebraicas de R o con la funci\'on
 especifica de \texttt{RStoolbox}.
 
@@ -96,7 +96,7 @@ especifica de \texttt{RStoolbox}.
     toa.2000 <- radCor(dn.2000, metaData = meta.2000, method = "apref")
     \end{lstlisting}
 
-    Podemos comparar los resultados de ambos metodos inspeccionando los objetos
+    Podemos comparar los resultados de ambos m\'etodos inspeccionando los objetos
     \texttt{toam.2000} y \texttt{toa.2000}.
     \begin{Verbatim}[fontsize=\small]
     class       : RasterBrick
@@ -128,9 +128,9 @@ especifica de \texttt{RStoolbox}.
     \end{exa}
 
 \begin{act}
-    Inspeccione la reflectancia a tope de la atmosfera para todas las bandas.
+    Inspeccione la reflectancia a tope de la atm\'osfera para todas las bandas.
     Para esto realice los histogramas, graficos de dispersi\'on, calcule la media,
-    el desvio standar y cualquier otra medida estad\'istica que desee.
+    el desv\'io standar y cualquier otra medida estad\'istica que desee.
 \end{act}
 \subsection{C\'alculo de reflectancia corregida atmosf\'ericamente por m\'etodos
             estad\'isticos}
@@ -188,7 +188,7 @@ de substracci\'on de cuerpo obscuro.
      print(B4,split = c(2, 2, 2, 2),more=FALSE)
     \end{lstlisting}
     las primeras 4 funciones crean los histogramas para cada banda
-    corregida, mientras que las \'ultimas 4 lineas los imprimen en una grilla (Figura \ref{fig:simpledos}).
+    corregida, mientras que las \'ultimas 4 l\'ineas los imprimen en una grilla (Figura \ref{fig:simpledos}).
     \begin{figure}[h!]
     \begin{center}
         \includegraphics[scale=0.4]{simpledos.png}
@@ -198,13 +198,13 @@ de substracci\'on de cuerpo obscuro.
     \label{fig:simpledos}
     \end{figure}
 Notamos en este caso que la correcci\'on se vuelve menos importante a medida
-que crece la longitud de onda. Adem\'as, la corecci\'on solo cambia la
+que crece la longitud de onda. Adem\'as, la correcci\'on solo cambia la
 posici\'on de la distribuci\'on y no su forma.
 
 \end{exa}
 \begin{act}
-    Analice los valores de haze obtenidos por la funci\'on stimate haze y grafiquelos
-    como funci\'on de la longitud de onda en escala logaritmica. ¿Qu\'e observa?
+    Analice los valores de haze obtenidos por la funci\'on stimate haze y graf\'iquelos
+    como funci\'on de la longitud de onda en escala logar\'itmica. ¿Qu\'e observa?
 \end{act}
 
 \begin{act}
@@ -226,7 +226,7 @@ Veamos ahora como operar con el 6S para obtener una estimaci\'on de los par\'ame
 atmosf\'ericos. Para ello utilizaremos la versi\'on web del 6S que se encuentra
 disponible en \url{http://6s.ltdri.org/pages/run6SV.html}.
 
-Ingresaremos a la pagina y haremos click en el bot\'on
+Ingresaremos a la p\'agina y haremos click en el bot\'on
 \menu{Submit query}. Iremos luego configurando paso a paso nuestro modelo de la
 atm\'osfera, haciendo siempre click en el bot\'on \menu{submit query} para
 ir al paso siguiente.
@@ -296,7 +296,7 @@ todas las bandas utilizando R.
     Realice una extracci\'on de firmas espectrales para distintas coberturas de
     cada uno de los archivos raster obtenidos y graf\'iquelos juntos.
     Compare los resultados con la firma espectral realizada a partir de la imagen corregida
-    por el usgsUSGS
+    por el USGS.
 \end{act}
 
 \begin{act}
@@ -306,6 +306,6 @@ todas las bandas utilizando R.
 
 \begin{act}
     Para cada banda calcule la diferencia promedio entre las imagenes en
-    reflectancia a tope de la atmosfera, las distintas correcciones
+    reflectancia a tope de la atm\'osfera, las distintas correcciones
     y la imagen en reflectancia entregada por el USGS.
 \end{act}

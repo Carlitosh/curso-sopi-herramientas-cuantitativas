@@ -3,7 +3,7 @@ Apuntamos a poder incorporar conceptos como dimensionalidad y
 correlaci\'on entre bandas, que nos ayuden a utilizar mejor la informaci\'on
 satelital.
 
-Son nuestros objeticos:
+Son nuestros objetivos:
 
 \begin{itemize}
     \item Aplicar la transformada tasseled cap a una imagen multiespectral e
@@ -17,14 +17,14 @@ Son nuestros objeticos:
 
 \subsection{C\'alculo de la transformada tasseled cap para una imagen landsat}
 
-Comencemos calculados la transformada tasseled cap para una imagen Landsat 8. \'Esta
+Comencemos calculando la transformada tasseled cap para una imagen Landsat 8. \'Esta
 ser\'a la primer rotaci\'on que utilizaremos en el curso cuya la
 interpretaci\'on es bastante sencilla. Usaremos el paquete
 \texttt{RStoolbox}.
 
 \begin{exa}
     Para cualcular la transformada por componentes principales comenzamos
-    abriendo la imagen Landsat 8 desde el metadado y convirtiendola a reflectancia
+    abriendo la imagen Landsat 8 desde el metadado y convirti\'endola a reflectancia
     a tope de la cobertura, como vimos en las clases anteriores.
     \begin{lstlisting}
     xml.2016 <- readMeta("raster_data/LC82240782016304/LC82240782016304LGN00.xml")
@@ -54,7 +54,7 @@ interpretaci\'on es bastante sencilla. Usaremos el paquete
     \label{fig:green-red}
     \end{figure}
 
-    Calculemos ahora la transformada tasseled cap. Para eso usamos la funcion
+    Calculemos ahora la transformada tasseled cap. Para eso usamos la funci\'on
     \texttt{tasseledCap} del paquete \texttt{RStoolbox}.
     \begin{lstlisting}
     tsc.2016 <- tasseledCap(ref.2016,sat="Landsat8OLI")
@@ -76,10 +76,10 @@ herramienta \texttt{rasterPCA} del paquete \texttt{RStoolbox}.
 \begin{exa}
     Comencemos analizando la transformada por componentes principales de la
     imagen de 2016. Miremos primero los scatterplots con el comando \texttt{pairs(ref.2016)}
-    obteniendo (Figura \ref{fig:pairs2})
+    obteniendolos (Figura \ref{fig:pairs2})
     \begin{figure}[h!]
     \begin{center}
-        \includegraphics[scale=0.6]{pairs.png}
+        \includegraphics[scale=0.4]{pairs.png}
     \end{center}
     \caption{Scaterplots y coeficientes de correlaci\'on para la imagen Landsat 8.}
     \label{fig:pairs2}
@@ -89,7 +89,7 @@ herramienta \texttt{rasterPCA} del paquete \texttt{RStoolbox}.
     correlacionadas entre s\'i, como las del visible, mientras que otras lo
     estan poco, como el infrarrojo cercano y el infrarrojo de onda corta. Por lo tanto, esperamos que no
     todas las bandas sean necesarias para explicar el comportamiento de la
-    imagen, al menos en el nivel de detalle mas bajo.
+    imagen, al menos en el nivel de detalle m\'as bajo.
 
     Apliquemos entonces la transformada por componentes principales y veamos que
     sucede
@@ -108,7 +108,7 @@ herramienta \texttt{rasterPCA} del paquete \texttt{RStoolbox}.
     Cumulative Proportion  0.50850204 0.98342936 0.99545892 0.998738441 ...
     \end{Verbatim}
 
-    Al observar las varianzas, vemos que las 3 primeras explican mas que el
+    Al observar las varianzas, vemos que las 3 primeras explican m\'as que el
     99.5\% de la variabilidad de la imagen. Es decir que, de las 6 bandas de
     Landsat 8 en esta imagen, 3 nos alcanza para explicar casi todo el
     comportamiento. Analisemos la primera, usando el comando
@@ -127,7 +127,7 @@ herramienta \texttt{rasterPCA} del paquete \texttt{RStoolbox}.
 
     La primer componente pesa siempre con el mismo signo, a
     todas las bandas. Podemos interpretarla como un
-    brillo negativo y esperar que sea mas alta cuando miramos zonas de la imagen que
+    brillo negativo y esperar que sea m\'as alta cuando miramos zonas de la imagen que
     tengan menos reflectancia en promedio. La segunda componente, presenta diferencia
     entre los valores del infrarrojo cercano y el resto de la bandas. Esta ser\'a alta
     en presencia de vegetaci\'on y baja en su ausencia. La componente tres se comporta
@@ -170,7 +170,7 @@ Veamos que pasa al trabajar con series temporales de \'indices.
     abrirla en el QGIS y analizar distintas zonas de la imagen.
 
     Utilizando la herramienta de identificar objetos espaciales podemos
-    consultar como es el comportamiento de la serie temporal para cada pixel.
+    consultar como es el comportamiento de la serie temporal para cada p\'ixel.
 
     \begin{figure}[h!]
     \begin{center}
@@ -180,10 +180,10 @@ Veamos que pasa al trabajar con series temporales de \'indices.
     \label{fig:series}
     \end{figure}
 
-    Vemos que distintas zonas tienen distintos comportamiento intra e
+    Vemos que distintas zonas tienen distintos comportamientos intra e
     interanual.
 
-    Podemos analizar el promedio y el desvio standar para cada pixel de la
+    Podemos analizar el promedio y el desv\'io standar para cada p\'ixel de la
     imagen
     \begin{lstlisting}
     ndvi.mean <- mean(ndvi.stack)

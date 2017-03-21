@@ -27,9 +27,9 @@ movernos en la imagen (Figura \ref{fig:move}).
     \includegraphics[scale=0.5]{move.png}
 \end{center}
 \caption{Herramientas para moverse dentro de la imagen. De izquierda a derecha:
-    1. Desplazar mapa, 2. Desplazar mapa a la seleccion, 3. Acercar zum, 4.
-    Alejar zum, 5. Zum a la resolucion nativa, 6. Zum general, 7. Zum a la
-    seleccion, 8. Zum a la capa, 9. Zum anterior, 10. Zum siguiente, 11.
+    1. Desplazar mapa, 2. Desplazar mapa a la selecci\'on, 3. Acercar zoom, 4.
+    Alejar zoom, 5. zoom a la resolucion nativa, 6. zoom general, 7. zoom a la
+    selecci\'on, 8. zoom a la capa, 9. zoom anterior, 10. zoom siguiente, 11.
     Actualizar.}
 \label{fig:move}
 \end{figure}
@@ -37,7 +37,7 @@ movernos en la imagen (Figura \ref{fig:move}).
 Para realizar cambios en la visualizaci\'on y explorar las propiedades de una
 capa, hacemos click derecho sobre ella y luego seleccionamos la opci\'on
 \menu{Propiedades}. All\'i podemos ir a la pestaña
-\menu{General} para ver datos como el nombre de la cata\footnote{Es un buen
+\menu{General} para ver datos como el nombre de la capa\footnote{Es un buen
 momento para ponerle uno mas sencillo}, la cantidad de filas y columnas del
 archivo, el valor digital no v\'alido, el sistema de coordenadas
 entre otros (Figura \ref{fig:general}).
@@ -81,7 +81,7 @@ de reflectancia del p\'ixel seleccionado que pueden mostrarse como
 \end{figure}
 
 \begin{act}
-    Cambie la combinación de bandas de la imagen Landsat 8 a color real y explorela.
+    Cambie la combinación de bandas de la imagen Landsat 8 a color real y expl\'orela.
     Identifique zonas de coberturas uniformes. Pruebe cambiar de
     combinaci\'on de bandas y decida si las zonas siguen siendo uniformes
     despu\'es de cada cambio.
@@ -89,7 +89,7 @@ de reflectancia del p\'ixel seleccionado que pueden mostrarse como
 
 \begin{act}
     Encuentre el sistema de coordenadas en el cual se obtenga la imagen.
-    ¿Cuantas filas y columns tiene?
+    ¿Cu\'antas filas y columnas tiene?
 \end{act}
 
 \begin{act}
@@ -100,7 +100,7 @@ de reflectancia del p\'ixel seleccionado que pueden mostrarse como
 
 \subsection{Creaci\'on de capas vectoriales}
 
-La capas vectoriales nos va a ser de utilidad en este curso, para extrar datos
+La capas vectoriales nos ser\'a de utilidad en este curso, para extrar datos
 cuantitativos de las capas raster.
 
 Con la herramienta \menu{nueva capa de archivo shape} es posible crear una nueva
@@ -121,14 +121,14 @@ de coordenadas correspondiente a la imagen anterior, guardamos en la carpeta
 
 
 Una vez creada, utilizamos la barra de herramientas de QGIS, (Figura \ref{fig:shapetool}),
-para agregarle geometrias. Para esto hacemos click en el bot\'on
+para agregarle geometr\'ias. Para esto hacemos click en el bot\'on
 de agregar geometr\'ia y digitalizamos una zona uniforme dentro de la imagen.
 \begin{figure}[h!]
 \begin{center}
     \includegraphics[scale=0.5]{shapetool.png}
 \end{center}
 \caption{Herramientas de edición vectorial. De izquierda a derecha: 1. Conmutar
-    edicion, 2. Guardar cambios a la capa, 3. Añadir objeto espacial, 4. Añadir
+    edici\'on, 2. Guardar cambios a la capa, 3. Añadir objeto espacial, 4. Añadir
     cadena circular, 5. Mover objeto espacial, 6. Herramienta de nodos, 7.
     Borrar lo seleccionado, 8. Cortar objetos espaciales, 9. Copiar objetos
     espaciales, 10. Pegar objetos espaciales.}
@@ -224,22 +224,23 @@ Una vez en la carpeta, existen varias maneras de abrir una imagen. Con el comand
     writeRaster(ref.2016,"raster\_data/processed/ref2016")
     \end{lstlisting}
 
-    Analicemos el c\'odigo linea por linea.
+    Analicemos el c\'odigo l\'inea por l\'inea.
     \begin{itemize}
-    \item La primera abre la imagen como  un raster de multiples bandas.
+    \item La primera abre la imagen como  un raster de m\'ultiples bandas.
     \item La segunda, cambia los nombres de cada banda a los que figuran en la
-          lista entre parentesis. Es importante resaltar que el numero de nombres
+          lista entre par\'entesis. Es importante resaltar que el n\'umero de nombres
           debe ser el mismo que el de bandas.
-    \item En tercer, lugar convertimos el archivo de n\'umeros enteros entre 0 y
+    \item En tercer lugar, convertimos el archivo de n\'umeros enteros entre 0 y
           10000 a valores entre 0 y 1.
-    \item La cuarta linea es necesaria correrla una sola vez por sesion. La misma
+    \item La cuarta linea es necesaria correrla una sola vez por sesi\'on. La misma
           agrega el header de ENVI a nuestro output para poder abrir el archivo
           desde QGIS
-      \item La quinta linea guarda el archivo raster con el nombre \file{ref2016}
+      \item La quinta l\'inea guarda el archivo raster con el nombre \file{ref2016}
           . En este caso estamos usando el formato nativo de R.
     \end{itemize}
     Podemos graficar una combinacion de bandas con el comando
     \texttt{plotRGB(ref.2016,r=4,g=5,b=3, stretch='lin')}(Figura \ref{fig:plot453})
+
     \begin{figure}[h!]
     \begin{center}
         \includegraphics[scale=0.3]{plot453.png}
@@ -247,13 +248,15 @@ Una vez en la carpeta, existen varias maneras de abrir una imagen. Con el comand
     \caption{Combinacion de bandas nir-swir1-red en R.}
     \label{fig:plot453}
     \end{figure}
+
     Para graficar las bandas por separador hacemos \texttt{plotRGB(ref.2016)}
     (Figura \ref{fig:plotband}).
+
     \begin{figure}[h!]
     \begin{center}
         \includegraphics[scale=0.3]{plotband.png}
     \end{center}
-    \caption{Grafico de bandas con realce automatico para cada una.}
+    \caption{Gr\'afico de bandas con realce autom\'atico para cada una.}
     \label{fig:plotband}
     \end{figure}
 
@@ -280,7 +283,7 @@ Veamos como trabajar m\'as en detalle con los valores de nuestra imagen.
     NA's     0.0000 0.0000 0.0000  0.0000  0.0000  0.0000
     \end{Verbatim}
     Calculamos los histogramas de todas las bandas con el
-    comando \texttt{hist(ref.2016)} y el scatter plot entre dos bandas c\'omo
+    comando \texttt{hist(ref.2016)} y el scatter plot entre dos bandas como
   \verb|plot(ref.2016$red,ref.2016$nir)|.
 
     En caso de querer todos los scatterplots e histogramas en un solo gr\'afico
@@ -292,14 +295,14 @@ Veamos como trabajar m\'as en detalle con los valores de nuestra imagen.
 
 Hasta ahora estamos analizando la imagen completa, pero podemos analizar
 determinadas zonas utilizando un archivo vectorial.. Tambi\'en ser\'a
-posible muestrar la imagen usando otro raster, pero lo veremos m\'as adelante.
+posible muestrear la imagen usando otro raster, pero lo veremos m\'as adelante.
 
 Para trabajar con vectores en R utilizaremos la libreria
 \texttt{library(rgal)}.
 
 \begin{exa}
     Veamos como realizar el an\'alisis b\'asico de un vector en R. Comenzamos
-    leyendolo
+    ley\'endolo
 
     \begin{lstlisting}
     firmas <- readOGR(dsn="vector\_data/", layer="firmas")
@@ -329,7 +332,7 @@ Para trabajar con vectores en R utilizaremos la libreria
     plotRGB(ref.2016, stretch="lin")
     plot(firmas,add=TRUE,col='red')
     \end{lstlisting}
-    donde la primera linea grafica la imagen de fondo y la segunda agrega el
+    donde la primera l\'inea grafica la imagen de fondo y la segunda agrega el
     shapefile sobre ella.
 \end{exa}
 
@@ -372,13 +375,13 @@ extraidos antes de entregarlos al usuario. Veamos como usarla para calcular
 datos de interes sobre las coberturas y guardarlo en un archivo vectorial.
 
 \begin{exa}
-     Extraer los promedios y desvio standar de un raster y agregarlos a un
-     vector. Primero extraemos los valores de promedio y desvio
+     Extraer los promedios y desv\'io standar de un raster y agregarlos a un
+     vector. Primero extraemos los valores de promedio y desv\'io
      \begin{lstlisting}
      promedio <- extract(ref.2016,firmas,fun=mean)
      desvio <- extract(ref,firmas,fun=sd)
      \end{lstlisting}
-     renombramos luego las columnas como promedio y devio seguido de la banda a
+     renombramos luego las columnas como promedio y desv\'io seguido de la banda a
      la que pertenecen,
      \begin{lstlisting}
      colnames(promedio) <- paster("mean",colnames("promedio"),sep="_")
@@ -396,7 +399,7 @@ Finalmente, veamos como usar una capa vectorial para graficar las
 firmas espectrales y graficarlas para distintas coberturas
 
 \begin{exa}
-     Graficar las firmas espectrales en funcion de la longitud de onda para cada
+     Graficar las firmas espectrales en funci\'on de la longitud de onda para cada
      pol\'igono. Utilizaremos dos nuevas librerias,
      \texttt{reshape2} y \texttt{lattice}
 
@@ -424,7 +427,7 @@ firmas espectrales y graficarlas para distintas coberturas
      5  1650          Alto  0.133750642
      ...
      \end{Verbatim}
-     Repetimos el proceso para el desvio standar
+     Repetimos el proceso para el desv\'io standar
      \begin{lstlisting}
      dfd <- t(desvio)
      colnames(dfd) <- vector@data$Comment
@@ -451,11 +454,11 @@ firmas espectrales y graficarlas para distintas coberturas
             auto.key=list(space="top", columns=4),
             ty=c("l", "p"))
      \end{lstlisting}
-     Aqu\'i la primer linea dice que grafiquemos la reflectancia como funci\'on de
+     Aqu\'i la primer l\'inea dice que grafiquemos la reflectancia como funci\'on de
      la longitud de onda, obteniendo los datos del dataframe DF y agrupandolos
-     segun la columna cobertura. La siguiente linea agrega la leyenda en la
-     parte superior de la figura con 4 columnas. Por \'ultimo en la tercer linea
-     pedimos que el gr\'afico tenga lineas y puntos (Figura \ref{fig:spectra-1}).
+     seg\'un la columna cobertura. La siguiente l\'inea agrega la leyenda en la
+     parte superior de la figura con 4 columnas. Por \'ultimo en la tercer l\'inea
+     pedimos que el gr\'afico tenga l\'ineas y puntos (Figura \ref{fig:spectra-1}).
 
      \begin{figure}[h!]
      \begin{center}
@@ -490,6 +493,6 @@ firmas espectrales y graficarlas para distintas coberturas
  \end{exa}
 
 \begin{act}
-    Grafique la media y el desvio standar para las distintas coberturas que pudo
+    Grafique la media y el desv\'io standar para las distintas coberturas que pudo
      identificar en el punto uno.
 \end{act}
