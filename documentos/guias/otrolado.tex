@@ -37,15 +37,13 @@ los paquetes \texttt{raster} y \texttt{RStoolbox}
     \begin{lstlisting}
     kmeans.2016 <- unsuperClass(ref.2016, nClasses = 5, nStarts = 100,
                                 nSamples = 100)
-    writeRaster(kmeans.2016, "raster_data/processed/kmeans2016",
+    writeRaster(kmeans.2016$map, "raster_data/processed/kmeans2016",
                 datatype="INT1U")
     \end{lstlisting}
 
-    En este caso estamos solamente usando 5 clases espectrales.
-
-    Podemos ahora graficar por separado cada una de las clases
+    En este caso estamos solamente usando 5 clases espectrales. Podemos ahora graficar por separado cada una de las clases
     \begin{lstlisting}
-        clases.2016 <- layerize(kmeans.2016)
+        clases.2016 <- layerize(kmeans.2016$map)
         plot(clases.2016)
     \end{lstlisting}
 
@@ -55,38 +53,77 @@ los paquetes \texttt{raster} y \texttt{RStoolbox}
     Para realizar la identificacion primero vamos al menu \menu{propiedades de la
     imagen, Estilo, Tipo de renderizacion, Unibanda pseudocolor}. Elegimos de modo
     Intervalo Igual y en numero de clases ponemos con el minimo en 1 y el maximo en
-    100. En estilo de color elegimos colores aleatorios. Iremos luego cambiando los
+    5. En estilo de color elegimos colores aleatorios. Iremos luego cambiando los
     colores uno a uno por un color brillante e identificado a que cobertura
     pertenece dicha clase espectral.
 
     Construiremos con ella una tabla como la siguiente
 
-\begin{verbatim}
-    id  class
-    1   1
-    2   1
-    3   2
-    4   5
-    5   7
-\end{verbatim}
+    \begin{verbatim}
+        id  class
+        1   2
+        2   7
+        3   1
+        4   1
+        5   1
+    \end{verbatim}
 
-que guardaremos en un archivo de texto. El mismo lo utilizaremos para realizar
-la fusion de clases.
+  que guardaremos en un archivo de texto con el nombre \file{class}. El mismo lo utilizaremos para realizar
+  la fusion de clases.
 
-Una vez conocidas las categorias de uso y cobertura correspondientes a cada
-clase espectral podemos combinarlas
+  Una vez conocidas las categorias de uso y cobertura correspondientes a cada
+  clase espectral podemos combinarlas
 
-\begin{lstlisting}
-    clases.2016 <- read.delim("class")
-    reclas.2016 <- subs(kmeans.2016$map, clases.2016)
-\end{lstlisting}
+  \begin{lstlisting}
+      clases.2016 <- read.delim("class")
+      reclas.2016 <- subs(kmeans.2016$map, clases.2016)
+  \end{lstlisting}
 
 \end{exa}
-\begin{act}
-    Clasifique por el metodo de kmeans la imagen en reflectancia con una
-    cantidad de clases espectrales lo suficientemente altas para separar todas
-    las clases espectrales.
-\end{act}
+
+\begin{exa}
+  Hagamos un analisis espectral de las imagenes clasificadas antes y despues de la fusion.
+  Para esto utilizaremos a la imagen clasificada como mascara para asignar los colores
+  al scatterplot. Para esto usaremos la libreria \texttt{rasterVis}.
+
+  Agregamos la imagen clasificada a las bandas de la imagen en reflectancia y luego
+  hacemos los scatterplot segun la clase espectral o de informacion como
+
+  \begin{lstlisting}
+    stack.2016 <- stack(ref.2016, kmeans.2016$map, reclas.2016)
+    xyplot(nir+swir1~red, groups=layer, data=stack.2016)
+    xyplot(nir+swir1~red, groups=class, data=stack.2016)
+  \end{lstlisting}
+
+  Vemos que las clases espectrales pueden unirse en clases de informacion y que algunas
+  clases de informacion no se separan en distintas clases espectrales (figuras a y b).
+
+\end{exa}
+
+\begin{exa}
+  Repitamos este analisis pero con 100 clases espectrales. El algoritmo es el mismo
+  pero ahora vamos a usar el parametro nClasses igual a 100.
+  \begin{lstlisting}
+  kmeans.2016b <- unsuperClass(ref.2016, nClasses = 5, nStarts = 100,
+                              nSamples = 100)
+  writeRaster(kmeans.2016b$map, "raster_data/processed/kmeans2016b",
+              datatype="INT1U")
+  clasesb.2016 <- read.delim("class100")
+  reclasb.2016 <- subs(kmeans.2016b$map, clasesb.2016)
+  plot(reclasb.2016)
+  \end{lstlisting}
+  Comparamos nuevamente los espacios de fase entre la clasificacion obtenida
+  a partir de 5 y 100 clases espectrales
+  \begin{lstlisting}
+    stackb.2016 <- stack(ref.2016, kmeansb.2016$map, reclasb.2016)
+    xyplot(nir+swir1~red, groups=class, data=stack.2016)
+    xyplot(nir+swir1~red, groups=class, data=stackb.2016)
+  \end{lstlisting}
+
+  Vemos en este caso que somos capaces de separar todas las clases de informacion
+  en el espacio de fases.
+
+\end{exa}
 
 \begin{act}
     Vuelva a repetir la clasificacion utilizando la imagen obtenida de la
@@ -94,15 +131,81 @@ clase espectral podemos combinarlas
     menos informacion.
 \end{act}
 
-Podemos ahora utilizar la clasificacion para separar zonas de la imagen en el
-espacio espectral
+\begin{act}
+  Repita la clasificacion para la imagen landsat 7 del año 2000.
+\end{act}
 
-\begin{lstlisting}
-    ref.2016$kmeans <- reclas.2016
-    xyplot(nir~red, groups=kmeans, data=ref.2016)
-\end{lstlisting}
+
+\subsection{Informacion espacio-temporal}
+Con el fin de mejorar la clasificacion podemos incorporar informacion espacial y
+temporal a la informacion radiometrica. De esta forma estaremos, al momento de
+clasificar los pixeles, ya no trabajando en un espacio espectral si no en uno mas
+amplio. Veamos como hacer esto.
+
+\begin{exa}
+  Para incorporar informacion espacial sobre el contexto del p\'ixel, podemos
+  hacerlo tanto antes como despu\'es de la clasificaci\'on. Nos centraremos
+  en este caso en como hacerlo antes.
+
+  Calculamos primero la variabilidad local de brillo para la banda pancromatica
+  de la imagen Landsat 8 como
+
+  \begin{lstlisting}
+    pan.2016 <- raster("raster_data/LC82240782016304LGN00/LC82240782016304LGN00_B8.TIF")
+    window <- matrix(1,nrow=5, ncol=5)
+    sd.2016<-focal(pan.2016,w=window,fun=sd)
+  \end{lstlisting}
+
+  Una vez obtenida la banda de desvio standar, podemos agregarla a las demas, luego
+  de remuestrearla haciendo
+
+  \begin{lstlisting}
+    sd.2016 <- aggregate(sd.2016, fact=2, fun=mean)
+    stack(ref.2016, sd.2016)
+  \end{lstlisting}
+
+  y finalmente calculamos la transformada por componentes principales como
+
+  \begin{lstlisting}
+    pca.2016 <- rasterPCA(stack(ref.2016, sd.2016), spca = TRUE)
+  \end{lstlisting}
+
+  Vemos en este caso, analizando el sumerio, que la banda de textura agrega informacion
+  con respecto a la solo disponible al utilizar las bandas en radiancia. Clasificamos
+  ahora la imagen como hicimos antes utilizando el algoritmo k-means y la guardamos para
+  su posterior comparacion.
+\end{exa}
 
 \begin{act}
-    Grafique en los cortes del espacio espectral la imagen sin fusionar. Compare
-    la diferencia entre clases espectrales y clases de informacion.
+  Repita el ejemplo para la imagen landsat 7 del año 2000.
+\end{act}
+
+\begin{exa}
+  Para incorporar informacion del contexto temporal, agregaremos a la informacion
+  espectral informacion sobre la variacion del indice de vegetacion durante el
+  año en que se tomo la imagen. Primero cargamos las imagenes modis del 2016
+
+  \begin{lstlisting}
+    list.2016 <- list.files("raster_data/MOD13Q1/NDVI/", pattern = "MOD13Q1.A2016+.*tif", full.names = TRUE)
+    ndvi.2016 <- stack(list.2016)/1e4
+    sd.2016 <- calc(ndvi.2016, fun = sd)
+    me.2016 <- calc(ndvi.2016, fun = mean)
+  \end{lstlisting}
+
+  Una vez hecho esto, resampleamos el promedio y el desvio de la serie temporal
+  y lo unimos a las imagenes en reflectancia, sobre las cuales calcularemos
+  la transformada por componentes principales.
+
+  \begin{lstlisting}
+    sd.2016 <- resample(sd.2016, ref.2016, method="ngb")
+    me.2016 <- resample(me.2016, ref.2016, method="ngb")
+    pca.2016 <- rasterPCA(stack(ref.2016, me.2016, sd.2016), spca = TRUE)
+  \end{lstlisting}
+
+  podemos ahora seleccionar las 4 componentes que explican el 99\% de comportamiento
+  de la imagen y clasificarla.
+\end{exa}
+
+\begin{act}
+  Repita el ejemplo para la imagen Landsat 7 del año 2000.
 \end{act}
