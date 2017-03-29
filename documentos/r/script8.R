@@ -59,3 +59,4 @@ prediction_stack <- stack(ensemble)
 names(prediction_stack) <- modelos
 
 model_entropy <- rasterEntropy(prediction_stack)
+vec
