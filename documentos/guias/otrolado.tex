@@ -35,6 +35,7 @@ los paquetes \texttt{raster} y \texttt{RStoolbox}
 
     Luego clasificamos la imagen y la guardamos como vimos en las clases anteriores.
     \begin{lstlisting}
+    set.seed(42)
     kmeans.2016 <- unsuperClass(ref.2016, nClasses = 5, nStarts = 100,
                                 nSamples = 100)
     writeRaster(kmeans.2016$map, "raster_data/processed/kmeans2016",
@@ -90,9 +91,8 @@ los paquetes \texttt{raster} y \texttt{RStoolbox}
   hacemos los scatterplot segun la clase espectral o de informacion como
 
   \begin{lstlisting}
-    stack.2016 <- stack(ref.2016, kmeans.2016$map, reclas.2016)
-    xyplot(nir+swir1~red, groups=layer, data=stack.2016)
-    xyplot(nir+swir1~red, groups=class, data=stack.2016)
+    stack.2016 <- stack(ref.2016, reclas.2016)
+    xyplot(nir+swir1~red, groups=MC_ID, data=stack.2016)
   \end{lstlisting}
 
   Vemos que las clases espectrales pueden unirse en clases de informacion y que algunas
@@ -104,20 +104,21 @@ los paquetes \texttt{raster} y \texttt{RStoolbox}
   Repitamos este analisis pero con 100 clases espectrales. El algoritmo es el mismo
   pero ahora vamos a usar el parametro nClasses igual a 100.
   \begin{lstlisting}
-  kmeans.2016b <- unsuperClass(ref.2016, nClasses = 5, nStarts = 100,
-                              nSamples = 100)
+  set.seed(42)
+  kmeans.2016b <- unsuperClass(ref.2016, nClasses = 100, nStarts = 100,
+                              nSamples = 1000)
   writeRaster(kmeans.2016b$map, "raster_data/processed/kmeans2016b",
-              datatype="INT1U")
-  clasesb.2016 <- read.delim("class100")
+              datatype="INT1U", overwrite=TRUE)
+  clasesb.2016 <- read.delim("class100.txt")
   reclasb.2016 <- subs(kmeans.2016b$map, clasesb.2016)
   plot(reclasb.2016)
   \end{lstlisting}
   Comparamos nuevamente los espacios de fase entre la clasificacion obtenida
   a partir de 5 y 100 clases espectrales
   \begin{lstlisting}
-    stackb.2016 <- stack(ref.2016, kmeansb.2016$map, reclasb.2016)
-    xyplot(nir+swir1~red, groups=class, data=stack.2016)
-    xyplot(nir+swir1~red, groups=class, data=stackb.2016)
+    stackb.2016 <- stack(ref.2016, reclasb.2016)
+    xyplot(nir+swir1~red, groups=MC_ID, data=stack.2016)
+    xyplot(nir+swir1~red, groups=MC_ID, data=stackb.2016)
   \end{lstlisting}
 
   Vemos en este caso que somos capaces de separar todas las clases de informacion
@@ -139,8 +140,7 @@ los paquetes \texttt{raster} y \texttt{RStoolbox}
 \section{Informacion espacio-temporal}
 Con el fin de mejorar la clasificacion podemos incorporar informacion espacial y
 temporal a la informacion radiometrica. De esta forma estaremos, al momento de
-clasificar los pixeles, ya no trabajando en un espacio espectral si no en uno mas
-amplio. Veamos como hacer esto.
+clasificar los pixeles, ya no trabajando en un espacio espectral si no en uno mas amplio. Veamos como hacer esto.
 
 \begin{exa}
   Para incorporar informacion espacial sobre el contexto del p\'ixel, podemos
@@ -154,7 +154,10 @@ amplio. Veamos como hacer esto.
     pan.2016 <- raster("raster_data/LC82240782016304LGN00/LC82240782016304LGN00_B8.TIF")
     window <- matrix(1,nrow=5, ncol=5)
     sd.2016<-focal(pan.2016,w=window,fun=sd)
+    plot(log(sd.2016,base = 10), zlim=(1,4))
   \end{lstlisting}
+
+  Vemos que las zonas con mayor presencia de urbanizaciones presentan una mayor variabilidad que aquellas con menor presencia.
 
   Una vez obtenida la banda de desvio standar, podemos agregarla a las demas, luego
   de remuestrearla haciendo
@@ -162,22 +165,23 @@ amplio. Veamos como hacer esto.
   \begin{lstlisting}
     sd.2016 <- aggregate(sd.2016, fact=2, fun=mean)
     stack(ref.2016, sd.2016)
-  \end{lstlisting}
-
-  y finalmente calculamos la transformada por componentes principales como
-
-  \begin{lstlisting}
     pca.2016 <- rasterPCA(stack(ref.2016, sd.2016), spca = TRUE)
   \end{lstlisting}
 
-  Vemos en este caso, analizando el sumerio, que la banda de textura agrega informacion
-  con respecto a la solo disponible al utilizar las bandas en radiancia. Clasificamos
-  ahora la imagen como hicimos antes utilizando el algoritmo k-means y la guardamos para
-  su posterior comparacion.
+  \begin{Verbatim}[fontsize=\small]
+  Importance of components:
+                            Comp.1    Comp.2    Comp.3     Comp.4      Comp.5      Comp.6      Comp.7
+  Standard deviation     2.1592402 1.1821570 0.8392878 0.40888073 0.196591748 0.143753334 0.096362617
+  Proportion of Variance 0.6660455 0.1996422 0.1006292 0.02388335 0.005521188 0.002952146 0.001326536
+  Cumulative Proportion  0.6660455 0.8656876 0.9663168 0.99020013 0.995721318 0.998673464 1.000000000
+  \end{verbatim}
+
+  Vemos en este caso, analizando el sumario, que la banda de textura agrega informacion
+  con respecto a la solo disponible al utilizar las bandas en radiancia.
 \end{exa}
 
 \begin{act}
-  Repita el ejemplo para la imagen landsat 7 del año 2000.
+  Repita el ejemplo para la imagen landsat 7 del año 2000. Clasifique por el metodo de kmeans las imagenes de los años 2000 y 2016.
 \end{act}
 
 \begin{exa}
@@ -188,8 +192,10 @@ amplio. Veamos como hacer esto.
   \begin{lstlisting}
     list.2016 <- list.files("raster_data/MOD13Q1/NDVI/", pattern = "MOD13Q1.A2016+.*tif", full.names = TRUE)
     ndvi.2016 <- stack(list.2016)/1e4
+    ndvi.2016 <- approxNA(ndvi.2016)
     sd.2016 <- calc(ndvi.2016, fun = sd)
     me.2016 <- calc(ndvi.2016, fun = mean)
+    plot(stack(me.2016,sd.2016))
   \end{lstlisting}
 
   Una vez hecho esto, resampleamos el promedio y el desvio de la serie temporal
@@ -200,12 +206,20 @@ amplio. Veamos como hacer esto.
     sd.2016 <- resample(sd.2016, ref.2016, method="ngb")
     me.2016 <- resample(me.2016, ref.2016, method="ngb")
     pca.2016 <- rasterPCA(stack(ref.2016, me.2016, sd.2016), spca = TRUE)
+    summary(pca.2016$model)
   \end{lstlisting}
 
-  podemos ahora seleccionar las 4 componentes que explican el 99\% de comportamiento
-  de la imagen y clasificarla.
+  podemos ahora seleccionar las 4 componentes que explican el 99\% de comportamiento de la imagen y clasificarla.
+
+  \begin{Verbatim}[fontsize=\small]
+    Importance of components:
+                              Comp.1    Comp.2     Comp.3     Comp.4     Comp.5      Comp.6      Comp.7      Comp.8
+    Standard deviation     2.3109360 1.3111953 0.69083373 0.48042475 0.41555630 0.176127381 0.139538990 0.095410787
+    Proportion of Variance 0.6675532 0.2149042 0.05965641 0.02885099 0.02158588 0.003877607 0.002433891 0.001137902
+    Cumulative Proportion  0.6675532 0.8824573 0.94211373 0.97096472 0.99255060 0.996428206 0.998862098 1.000000000
+  \end{Verbatim}
 \end{exa}
 
 \begin{act}
-  Repita el ejemplo para la imagen Landsat 7 del año 2000.
+  Repita el ejemplo para la imagen Landsat 7 del año 2000. Clasifique por el metodo de kmeans las imagenes de los años 2000 y 2016.
 \end{act}
