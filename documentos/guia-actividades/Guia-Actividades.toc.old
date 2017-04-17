@@ -6,15 +6,13 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {0.1}Organizacion del curso}{\es@scroman {v}}{section.0.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {0.1.1}Cronograma}{\es@scroman {vi}}{subsection.0.1.1}
+\contentsline {subsection}{\numberline {0.1.1}Forma de aprobacion}{\es@scroman {vi}}{subsection.0.1.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {0.1.2}Forma de aprobacion}{\es@scroman {viii}}{subsection.0.1.2}
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {0.2}Materiales del curso}{\es@scroman {viii}}{section.0.2}
+\contentsline {section}{\numberline {0.2}Materiales del curso}{\es@scroman {vii}}{section.0.2}
 \defcounter {refsection}{0}\relax 
 \contentsline {part}{I\hspace {1em}Variables continuas}{1}{part.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {1}Un viaje del sol a los p\'ixeles.}{3}{chapter.1}
+\contentsline {chapter}{\numberline {1}Reflectancia y espacio espectral}{3}{chapter.1}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {1.1}Exploraci\IeC {\'o}n de im\'agenes con el QGIS}{3}{section.1.1}
 \defcounter {refsection}{0}\relax 
@@ -24,7 +22,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {1.4}Manejo vectorial en R}{8}{section.1.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {2}Rebotando por la atm\'osfera}{13}{chapter.2}
+\contentsline {chapter}{\numberline {2}Correccion radiom\'etrica}{13}{chapter.2}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {2.1}C\'alculo de reflectancia a tope de la atm\'osfera}{13}{section.2.1}
 \defcounter {refsection}{0}\relax 
@@ -32,7 +30,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {2.3}6S}{17}{section.2.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {3}Un \'abaco espectral}{19}{chapter.3}
+\contentsline {chapter}{\numberline {3}C\'alculo de \'indices espectrales}{19}{chapter.3}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {3.1}C\'alculo de \'indices entre bandas}{19}{section.3.1}
 \defcounter {refsection}{0}\relax 
@@ -40,7 +38,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {3.3}Estimaci\'on de par\'ametros biof\'isicos}{22}{section.3.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {4}Geometr\'ia espectral}{25}{chapter.4}
+\contentsline {chapter}{\numberline {4}Rotaciones espectrales}{25}{chapter.4}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {4.1}C\'alculo de la transformada tasseled cap para una imagen landsat}{25}{section.4.1}
 \defcounter {refsection}{0}\relax 
@@ -50,32 +48,34 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {part}{II\hspace {1em}Variables discretas}{29}{part.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {5}Clasificacion no supervisada de imagenes}{31}{chapter.5}
+\contentsline {chapter}{\numberline {5}Clasificaci\'on no supervisada}{31}{chapter.5}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {5.1}Clasificaci\'on mediante el m\'etodo k-means}{31}{section.5.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.2}Informacion espacio-temporal}{34}{section.5.2}
+\contentsline {section}{\numberline {5.2}Informacion espacial y temporal}{34}{section.5.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {6}Clasificacion supervisada de imagenes}{37}{chapter.6}
+\contentsline {chapter}{\numberline {6}Clasificaci\'on supervisada}{37}{chapter.6}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6.1}Clasificador por m\'axima verosimilitud}{37}{section.6.1}
+\contentsline {section}{\numberline {6.1}Clasificaci\'on por m\'axima verosimilitud}{37}{section.6.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6.2}Entropia de la clasificacion}{38}{section.6.2}
+\contentsline {section}{\numberline {6.2}Entrop\'ia de la clasificaci\'on}{39}{section.6.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {7}Tecnicas pos-clasificacion}{41}{chapter.7}
+\contentsline {chapter}{\numberline {7}T\'ecnicas pos-clasificaci\'on}{41}{chapter.7}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {7.1}Filtrado de clasificaciones}{41}{section.7.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {7.2}Validacion de clasificaciones}{42}{section.7.2}
+\contentsline {section}{\numberline {7.2}Validaci\'on de clasificaciones}{42}{section.7.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {part}{III\hspace {1em}Apendice}{47}{part.3}
+\contentsline {part}{III\hspace {1em}Ap\'endice}{47}{part.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {A}Instalacion de qgis y R}{49}{appendix.Alph1}
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.1}Instalacion en Windows 10}{49}{section.Alph1.1}
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.2}Instalacion GNU/Linux}{49}{section.Alph1.2}
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.3}Maquina virtual}{50}{section.Alph1.3}
+\contentsline {chapter}{\numberline {A}Cronograma}{49}{appendix.Alph1}
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {B}Categorias de uso y cobertura del suelo}{51}{appendix.Alph2}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {C}Instalacion de qgis y R}{53}{appendix.Alph3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {C.1}Instalacion en Windows 10}{53}{section.Alph3.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {C.2}Instalacion GNU/Linux}{53}{section.Alph3.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {C.3}Maquina virtual}{54}{section.Alph3.3}

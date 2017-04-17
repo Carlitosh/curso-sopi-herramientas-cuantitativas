@@ -1,12 +1,11 @@
-En la sexta clase del curso, continuamos trabajando con algor\'itmos de clasificaci\'on de im\'agenes, centrandonoces ne este caso en los no supervisados. Son nuestros objetivos:
+En la sexta clase del curso, continuamos trabajando con algor\'itmos de clasificaci\'on de im\'agenes, centr\'andonos en este caso en los no supervisados. Son nuestros objetivos:
 
 \begin{itemize}
-  \item Poder realizar clasificaciones no supervisadas utilizando los distintos algoritmos que se encuentran en R.
-  \item Calcular la distancia espectral entre como forma de determinar la separabilidad de dos clases espectrales.
-  \item Comparar utilizando la entropia de un pixel que coberturas presentan  mayor confusion al momento de la clasificacion.
+  \item Poder realizar clasificaciones no supervisadas utilizando los distintos algor\'itmos que se encuentran en R.
+  \item Comparar utilizando la entrop\'ia de un p\'ixel que coberturas presentan  mayor confusi\'on al momento de la clasificaci\'on.
 \end{itemize}
 
-Cargaremos primero la imagen landsat 8 y habilitaremos la opcion para escribir el header de ENVI\@. Usaremos en primer lugar los paquetes \texttt{raster}, \texttt{rgdal}, \texttt{RStoolbox} y \texttt{rasterVis}. Ademass para las clasificaciones vamos a usar las librerias \texttt{e1071}
+Cargaremos primero la imagen Landsat 8 y habilitaremos la opci\'on para escribir el header de ENVI\@. Usaremos en primer lugar los paquetes \texttt{raster}, \texttt{rgdal}, \texttt{RStoolbox} y \texttt{rasterVis}.
 
 \begin{lstlisting}
     rasterOptions(addheader = "ENVI")
@@ -19,11 +18,12 @@ Cargaremos primero la imagen landsat 8 y habilitaremos la opcion para escribir e
     vector <- readOGR(dsn="vector_data", layer="entrenamiento")
 \end{lstlisting}
 
-\section{Clasificador por m\'axima verosimilitud}
+\section{Clasificaci\'on por m\'axima verosimilitud}
 
-Empecemos con la clasificacion por el metodo de maxima verosimilitud, para esto necesitamos del paquete
+Empecemos con la clasificaci\'on por el m\'etodo de m\'axima verosimilitud (figura \ref{fig:MC}).
 
 \begin{lstlisting}
+    library(e1071)
     colores = c('#b2df8a','#33a02c',
                 '#fdbf6f','#ff7f00',
                 '#fb9a99','#e31a1c',
@@ -36,14 +36,14 @@ Empecemos con la clasificacion por el metodo de maxima verosimilitud, para esto 
 \begin{figure}[h!]
   \centering
   \includegraphics[width=0.7\textwidth]{mlc-MC.png}
-  \caption{Clasificacion por maxima verosimilitud sin separar en clases espectrales.}
+  \caption{Clasificaci\'on por m\'axima verosimilitud sin separar en clases espectrales.}
   \label{fig:MC}
 \end{figure}
 
-Cambiando el algoritmo de clasificacion en el parametro \texttt{model} podemoscalcular distintas clasificaciones supervisadas. Algunas de las vistas en clase son \texttt{mlc}, \texttt{rf} y \texttt{svmRadial}. Cada una de ellas usa alguna libreria adicional de las cargadas antes.
+Cambiando el algor\'itmo de clasificaci\'on en el par\'ametro \texttt{model} podemos calcular distintas clasificaciones supervisadas. Algunas de las vistas en clase son \texttt{mlc}, \texttt{rf} y \texttt{svmRadial}. Cada una de ellas usa alguna libreria adicional.
 
 \begin{exa}
-  Una forma de mejorar las clasificaciones supervisadas basadas en el espacio espectral es clasificar por separado distintas clases espectrales y luego unirlas en la misma clase de informacion. Veams como hacerlo.
+  Una forma de mejorar las clasificaciones supervisadas es clasificar por separado distintas clases espectrales y luego unirlas en la misma clase de informaci\'on. Veamos como hacerlo.
 
   \begin{lstlisting}
       sup.2016b <- superClass(ref.2016, vector, responseCol = "C_ID",
@@ -59,30 +59,30 @@ Cambiando el algoritmo de clasificacion en el parametro \texttt{model} podemosca
                 datatype="INT1U")
   \end{lstlisting}
 
-    Podemos finalmente comparar las dos imagenes clasificadas lado a lado ejecuntado el comando \verb|plot(stack(sup.2016$map,sub.2016),col=colores,zlim=c(1,8))|
+    Podemos finalmente comparar las dos imagenes clasificadas lado a lado ejecuntado el comando \verb|plot(stack(sup.2016$map,sub.2016),col=colores,zlim=c(1,8))| (figura \ref{fig:mlc}).
+
     \begin{figure}[h!]
       \centering
       \includegraphics[width=0.7\textwidth]{mlc-comparacion.png}
-      \caption{Comparacion entre la clasificacion utilizando clases de informacion y clases espectrales.}
+      \caption{Comparaci\'on entre la clasificaci\'on utilizando clases de informaci\'on y clases espectrales.}
       \label{fig:mlc}
     \end{figure}
 \end{exa}
 
 \begin{act}
-    Realice clasificaciones por los distintos metodos y comparelas visualmente.
+    Realice clasificaciones por los distintos m\'etodos y comparelas visualmente.
 \end{act}
 
 \begin{act}
-    Agregue las bandas de textura y evolucion temporal del NDVI y vuelva a clasificar las imagenes.
+    Agregue las bandas de textura y vuelva a clasificar las im\'agenes.
 \end{act}
 
-\section{Entropia de la clasificacion}
+\section{Entrop\'ia de la clasificaci\'on}
 
-Para poder comparar en que zonas los clasificadores presentan mas o menos dispersion podemos calcular la entropia de las distintas clasificaciones en cada pixel. Para esto utilizaremos la funcion \texttt{rasterEntropy}.
+Para poder comparar en que zonas los clasificadores presentan mas o menos dispersi\'on podemos calcular la entrop\'ia de las distintas clasificaciones en cada p\'ixel. Para esto utilizaremos la funcion \texttt{rasterEntropy}.
 
 \begin{exa}
-  Para esto comenzamos corriendo la clasificacion para distintos modelos, los apilados y
-  despues calculamos la entropia de los mismos
+  Comenzamos corriendo la clasificaci\'on para distintos modelos.
 
   \begin{lstlisting}
       set.seed(42)
@@ -100,23 +100,31 @@ Para poder comparar en que zonas los clasificadores presentan mas o menos disper
       sup.2016 <- superClass(ref.2016, vector, responseCol = "C_ID",
                            model = "svmLinear")
       svm.2016 <- reclassify(sup.2016$map, subs.2016)
+  \end{lstlisting}
 
+  Los apilamos y calculamos la entrop\'ia en cada p\'ixel.
+
+  \begin{lstlisting}
       prediction_stack <- stack(mlc.2016, rf.2016, svm.2016)
       names(prediction_stack) <- c("mlc","rf","svm")
       model_entropy <- rasterEntropy(prediction_stack)
   \end{lstlisting}
 
-  Podemos graficar la entropia de las clasificaciones como \verb|model_entropy| y ver que zonas presentan mas diferencias a la hora de la clasificacion y cuales no.
+  Podemos graficar la entrop\'ia de las clasificaciones como \verb|model_entropy| y ver que zonas presentan mas diferencias a la hora de la clasificacion y cuales menor (figura \ref{fig:entropia}).
+
   \begin{lstlisting}
     plot(stack(prediction_stack, model_entropy),col=colores)
   \end{lstlisting}
-\end{exa}
+
   \begin{figure}[h!]
     \centering
     \includegraphics[width=0.7\textwidth]{comparacion-sup.png}
-    \caption{Comparacion entre los distintos metodos de clasificacion supervisada usando la entropia de la clasificacion.}
+    \caption{Comparaci\'on entre los distintos m\'etodos de clasificaci\'on supervisada usando la entrop\'ia de la clasificaci\'on.}
     \label{fig:entropia}
   \end{figure}
+
+\end{exa}
+
 \begin{act}
-  Repita las clasificaciones por los metodos de arriba agregando la banda textura. Apilela junto con las clasificaciones por k-means de la clase anterior. ¿A que cobertura pertenecen las zonas con mayor variabilidad?
+  Repita las clasificaciones por los m\'etodos de arriba agregando la banda textura. Apilela junto con las clasificaciones por k-means de la clase anterior. ¿A que cobertura pertenecen las zonas con mayor variabilidad?
 \end{act}
