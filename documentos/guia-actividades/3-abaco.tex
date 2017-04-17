@@ -175,18 +175,18 @@ porcentaje de cobertura, productividad, etc.
     linealmente con el NDVI\@. Por lo tanto, los utilizaremos para hacer un ajuste de nuestro modelo
 
     \begin{lstlisting}
-        lm.2016 <- lm(fcover~ndvi, data=muestreo)
-        plot(muestreo$ndvi, mustreo$fcover)
-        abline(lm.2016, col="red")
-        summary(lm.2016)
+    lm.2016 <- lm(fcover~ndvi, data=muestreo)
+    plot(muestreo$ndvi, mustreo$fcover)
+    abline(lm.2016, col="red")
+    summary(lm.2016)
     \end{lstlisting}
 
     de esta forma obtenemos los par\'ametros de nuestro ajuste.
 
     Para aplicar el modelo a nuestro raster hacemos
     \begin{lstlisting}
-        fcover.2016 <- predict(ndvi.2016,lm.2016)
-        plot(fcover.2016)
+    fcover.2016 <- predict(ndvi.2016,lm.2016)
+    plot(fcover.2016)
     \end{lstlisting}
 \end{exa}
 

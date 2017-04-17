@@ -390,7 +390,7 @@ datos de interes sobre las coberturas y guardarlo en un archivo vectorial.
      finalmente agregamos los archivos a un nuevo shapefile
      \begin{lstlisting}
      firmas@data <- cbind(firmas@data,promedio,desvio)
-     writeOGR(firmas, sdn="vector_data/processed/,"firmas_datos",
+     writeOGR(firmas, sdn="vector_data/processed","firmas_datos",
               driver="ESRI Shapefile")
      \end{lstlisting}
 \end{exa}
