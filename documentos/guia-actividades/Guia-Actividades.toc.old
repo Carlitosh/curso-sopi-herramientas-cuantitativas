@@ -40,42 +40,42 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {3.3}Estimaci\'on de par\'ametros biof\'isicos}{22}{section.3.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {part}{II\hspace {1em}Variables discretas}{25}{part.2}
+\contentsline {chapter}{\numberline {4}Geometr\'ia espectral}{25}{chapter.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {4}Geometr\'ia espectral}{27}{chapter.4}
+\contentsline {section}{\numberline {4.1}C\'alculo de la transformada tasseled cap para una imagen landsat}{25}{section.4.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.1}C\'alculo de la transformada tasseled cap para una imagen landsat}{27}{section.4.1}
+\contentsline {section}{\numberline {4.2}C\'alculo de la transformada por componentes principales}{26}{section.4.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.2}C\'alculo de la transformada por componentes principales}{28}{section.4.2}
+\contentsline {section}{\numberline {4.3}Algunas ideas sobre series temporales}{27}{section.4.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.3}Algunas ideas sobre series temporales}{29}{section.4.3}
+\contentsline {part}{II\hspace {1em}Variables discretas}{29}{part.2}
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {5}Clasificacion no supervisada de imagenes}{31}{chapter.5}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {5.1}Clasificaci\'on mediante el m\'etodo k-means}{31}{section.5.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.2}Informacion espacio-temporal}{33}{section.5.2}
+\contentsline {section}{\numberline {5.2}Informacion espacio-temporal}{37}{section.5.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {6}Clasificacion supervisada de imagenes}{35}{chapter.6}
+\contentsline {chapter}{\numberline {6}Clasificacion supervisada de imagenes}{41}{chapter.6}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6.1}Clasificador por m\'axima verosimilitud}{35}{section.6.1}
+\contentsline {section}{\numberline {6.1}Clasificador por m\'axima verosimilitud}{41}{section.6.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6.2}Entropia de la clasificacion}{36}{section.6.2}
+\contentsline {section}{\numberline {6.2}Entropia de la clasificacion}{43}{section.6.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {7}Tecnicas pos-clasificacion}{39}{chapter.7}
+\contentsline {chapter}{\numberline {7}Tecnicas pos-clasificacion}{47}{chapter.7}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {7.1}Filtrado de clasificaciones}{39}{section.7.1}
+\contentsline {section}{\numberline {7.1}Filtrado de clasificaciones}{47}{section.7.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {7.2}Validacion de clasificaciones}{40}{section.7.2}
+\contentsline {section}{\numberline {7.2}Validacion de clasificaciones}{49}{section.7.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {part}{III\hspace {1em}Apendice}{43}{part.3}
+\contentsline {part}{III\hspace {1em}Apendice}{55}{part.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {A}Instalacion de qgis y R}{45}{appendix.Alph1}
+\contentsline {chapter}{\numberline {A}Instalacion de qgis y R}{57}{appendix.Alph1}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.1}Instalacion en Windows 10}{45}{section.Alph1.1}
+\contentsline {section}{\numberline {A.1}Instalacion en Windows 10}{57}{section.Alph1.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.2}Instalacion GNU/Linux}{45}{section.Alph1.2}
+\contentsline {section}{\numberline {A.2}Instalacion GNU/Linux}{57}{section.Alph1.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.3}Maquina virtual}{46}{section.Alph1.3}
+\contentsline {section}{\numberline {A.3}Maquina virtual}{58}{section.Alph1.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {B}Categorias de uso y cobertura del suelo}{47}{appendix.Alph2}
+\contentsline {chapter}{\numberline {B}Categorias de uso y cobertura del suelo}{59}{appendix.Alph2}

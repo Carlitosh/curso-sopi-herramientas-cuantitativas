@@ -47,9 +47,12 @@ los paquetes \texttt{raster} y \texttt{RStoolbox}
         clases.2016 <- layerize(kmeans.2016$map)
         plot(clases.2016)
     \end{lstlisting}
-
-    Abriremos la imagen ahora en el qgis e identificaremos cada una de las clases
-    realiando interpretacion visual de la imagen.
+    \begin{figure}
+      \includegraphics{clases_5.png}
+      \caption{Clases generadas por el algoritmo kmeans para 5 clases.}
+      \label{fig:clases5}
+    \end{figure}
+    Abriremos la imagen ahora en el qgis e identificaremos cada una de las clases realiando interpretacion visual de la imagen.
 
     Para realizar la identificacion primero vamos al menu \menu{propiedades de la
     imagen, Estilo, Tipo de renderizacion, Unibanda pseudocolor}. Elegimos de modo
@@ -76,10 +79,24 @@ los paquetes \texttt{raster} y \texttt{RStoolbox}
   clase espectral podemos combinarlas
 
   \begin{lstlisting}
-      clases.2016 <- read.delim("class")
+      clases.2016 <- read.delim("aux_data/class.txt")
       reclas.2016 <- subs(kmeans.2016$map, clases.2016)
   \end{lstlisting}
 
+  para graficar ahora con los colores prestablecidos definimos la paleta de colores y fijamos los limites
+
+  \begin{lstlisting}
+    colores = c('#b2df8a','#33a02c',
+                '#fdbf6f','#ff7f00',
+                '#fb9a99','#e31a1c',
+                '#a6cee3','#1f78b4')
+    plot(reclas.2016, col=colores, zlim=c(1,8))
+  \end{lstlisting}
+  \begin{figure}
+    \includegraphics{kmeans-colores.png}
+    \caption{Imagen clasificada por el metodo kmeans con 5 clases.}
+    \label{fig:kmean5}
+  \end{figure}
 \end{exa}
 
 \begin{exa}
@@ -94,9 +111,12 @@ los paquetes \texttt{raster} y \texttt{RStoolbox}
     stack.2016 <- stack(ref.2016, reclas.2016)
     xyplot(nir+swir1~red, groups=MC_ID, data=stack.2016)
   \end{lstlisting}
-
-  Vemos que las clases espectrales pueden unirse en clases de informacion y que algunas
-  clases de informacion no se separan en distintas clases espectrales (figuras a y b).
+  Vemos que las clases espectrales pueden unirse en clases de informacion y que algunas clases de informacion no se separan en distintas clases espectrales (figuras \ref{fig:esk}).
+  \begin{figure}
+    \includegraphics{kmeans-es.png}
+    \caption{Espacio espectral clasificado por kmeans.}
+    \label{fig:esk}
+  \end{figure}
 
 \end{exa}
 
@@ -109,27 +129,30 @@ los paquetes \texttt{raster} y \texttt{RStoolbox}
                               nSamples = 1000)
   writeRaster(kmeans.2016b$map, "raster_data/processed/kmeans2016b",
               datatype="INT1U", overwrite=TRUE)
-  clasesb.2016 <- read.delim("class100.txt")
+  clasesb.2016 <- read.delim("aux_data/class100.txt")
   reclasb.2016 <- subs(kmeans.2016b$map, clasesb.2016)
-  plot(reclasb.2016)
+  plot(reclasb.2016, col=colores, zlim=c(1,8))
   \end{lstlisting}
-  Comparamos nuevamente los espacios de fase entre la clasificacion obtenida
-  a partir de 5 y 100 clases espectrales
+
+  \begin{figure}
+    \includegraphics{5v100.png}
+    \caption{Comparacion entre la clasificacion con 5 clases y 100 clases espectrales.}
+    \label{fig:5v100}
+  \end{figure}
+
+  Comparamos nuevamente los espacios de fase entre la clasificacion obtenida a partir de 5 y 100 clases espectrales
   \begin{lstlisting}
     stackb.2016 <- stack(ref.2016, reclasb.2016)
     xyplot(nir+swir1~red, groups=MC_ID, data=stack.2016)
     xyplot(nir+swir1~red, groups=MC_ID, data=stackb.2016)
   \end{lstlisting}
 
-  Vemos en este caso que somos capaces de separar todas las clases de informacion
-  en el espacio de fases.
+  Vemos en este caso que somos capaces de separar todas las clases de informacion en el espacio de fases.
 
 \end{exa}
 
 \begin{act}
-    Vuelva a repetir la clasificacion utilizando la imagen obtenida de la
-    transformada por componentes principales descartando las bandas que aporten
-    menos informacion.
+    Vuelva a repetir la clasificacion utilizando la imagen obtenida de la transformada por componentes principales descartando las bandas que aporten menos informacion.
 \end{act}
 
 \begin{act}
@@ -138,9 +161,7 @@ los paquetes \texttt{raster} y \texttt{RStoolbox}
 
 
 \section{Informacion espacio-temporal}
-Con el fin de mejorar la clasificacion podemos incorporar informacion espacial y
-temporal a la informacion radiometrica. De esta forma estaremos, al momento de
-clasificar los pixeles, ya no trabajando en un espacio espectral si no en uno mas amplio. Veamos como hacer esto.
+Con el fin de mejorar la clasificacion podemos incorporar informacion espacial y temporal a la informacion radiometrica. De esta forma estaremos, al momento de clasificar los pixeles, ya no trabajando en un espacio espectral si no en uno mas amplio. Veamos como hacer esto.
 
 \begin{exa}
   Para incorporar informacion espacial sobre el contexto del p\'ixel, podemos
@@ -154,10 +175,16 @@ clasificar los pixeles, ya no trabajando en un espacio espectral si no en uno ma
     pan.2016 <- raster("raster_data/LC82240782016304LGN00/LC82240782016304LGN00_B8.TIF")
     window <- matrix(1,nrow=5, ncol=5)
     sd.2016<-focal(pan.2016,w=window,fun=sd)
-    plot(log(sd.2016,base = 10), zlim=(1,4))
+    plot(log(sd.2016,base = 10), zlim=c(1,4))
   \end{lstlisting}
 
   Vemos que las zonas con mayor presencia de urbanizaciones presentan una mayor variabilidad que aquellas con menor presencia.
+
+  \begin{figure}
+    \includegraphics{pan-sd.png}
+    \caption{Desvio standar para una ventana de 5 pixeles por 5 pixeles en escala logaritmica.}
+    \label{fig:pansd}
+  \end{figure}
 
   Una vez obtenida la banda de desvio standar, podemos agregarla a las demas, luego
   de remuestrearla haciendo
