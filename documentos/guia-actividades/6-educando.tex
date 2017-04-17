@@ -33,8 +33,9 @@ Empecemos con la clasificacion por el metodo de maxima verosimilitud, para esto 
     plot(sup.2016$map, col=colores, zlim=c(1,8))
 \end{lstlisting}
 
-\begin{figure}
-  \includegraphics{mlc-MC.png}
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.7\textwidth]{mlc-MC.png}
   \caption{Clasificacion por maxima verosimilitud sin separar en clases espectrales.}
   \label{fig:MC}
 \end{figure}
@@ -59,8 +60,9 @@ Cambiando el algoritmo de clasificacion en el parametro \texttt{model} podemosca
   \end{lstlisting}
 
     Podemos finalmente comparar las dos imagenes clasificadas lado a lado ejecuntado el comando \verb|plot(stack(sup.2016$map,sub.2016),col=colores,zlim=c(1,8))|
-    \begin{figure}
-      \includegraphics{mlc-comparacion.png}
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=0.7\textwidth]{mlc-comparacion.png}
       \caption{Comparacion entre la clasificacion utilizando clases de informacion y clases espectrales.}
       \label{fig:mlc}
     \end{figure}
@@ -109,8 +111,9 @@ Para poder comparar en que zonas los clasificadores presentan mas o menos disper
     plot(stack(prediction_stack, model_entropy),col=colores)
   \end{lstlisting}
 \end{exa}
-  \begin{figure}
-    \includegraphics{comparacion-sup.png}
+  \begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{comparacion-sup.png}
     \caption{Comparacion entre los distintos metodos de clasificacion supervisada usando la entropia de la clasificacion.}
     \label{fig:entropia}
   \end{figure}

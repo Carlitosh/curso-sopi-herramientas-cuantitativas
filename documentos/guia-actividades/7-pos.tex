@@ -38,8 +38,9 @@ Una de las primeras tareas a realizar luego de clasificar una imagen es aplicar 
   \begin{lstlisting}
     plot(stack(mlc.2016, mlc.3x3.2016),col=colores)
   \end{lstlisting}
-  \begin{figure}
-    \includegraphics{filtro3x3.png}
+  \begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{filtro3x3.png}
     \caption{Imagen de la clasificacion con y sin filtro con una ventana de 3x3.}
     \label{fig:3x3}
   \end{figure}
@@ -62,8 +63,9 @@ El segundo procesamiento pos clasificacion, y tal vez el mas importante, es el c
 
   Comenzamos abriendo la imagen \file{mlc3x3-2016} en QGIS. Una vez hecho esto, vamos a vectorizar la clasificacion utilizando la herramienta \menu{Raster, Conversion, Poligonizar}. Guardamos el archivo como \file{2016-3x3.shp} en la carpeta de \file{vector\_data} poniendo en nombre del campo \menu{MC\_ID} (figura \ref{fig:poligon}).
 
-  \begin{figure}
-    \includegraphics{poligon.png}
+  \begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{poligon.png}
     \caption{Menu de poligonizacion}
     \label{fig:poligon}
   \end{figure}
@@ -71,8 +73,9 @@ El segundo procesamiento pos clasificacion, y tal vez el mas importante, es el c
   Una vez hecho esto utilizamos la herramienta \menu{Herramientass de gestion de datos, Dividir capa vectoria} y lo
   guardamos en la carpeta \file{vector\_data,split} (figura \ref{fig:split}).
 
-  \begin{figure}
-    \includegraphics{split.png}
+  \begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{split.png}
     \caption{Herramienta de division de capa vectorial.}
     \label{fig:split}
   \end{figure}
@@ -87,16 +90,18 @@ El segundo procesamiento pos clasificacion, y tal vez el mas importante, es el c
   los p\'ixeles en cada categoria con 50 fijos y 50 segun la frecuencia de aparicion.
   Con una distancia minima de 100m (figura \ref{fig:dots}).
 
-  \begin{figure}
-    \includegraphics{random-dots.png}
+  \begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{random-dots.png}
     \caption{Herramienta de creacion de puntos aleatorios.}
     \label{fig:dots}
   \end{figure}
 
   Elegimos luego en que carpeta guardar los puntos aleatorios y con que nombre y hacemos click en aceptar. Finalmente, una vez creadas las capas de puntos aleatoriosa las unimos utilizando la herramienta \menu{Herramientas de gestion de datos, Combinar capas vectoriales} con el nombre \file{val-2016.shp}.
 
-  \begin{figure}
-    \includegraphics{combinar.png}
+  \begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{combinar.png}
     \caption{Combinacion de poligonos en una capa vectorial.}
     \label{}
   \end{figure}

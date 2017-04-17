@@ -47,8 +47,9 @@ los paquetes \texttt{raster} y \texttt{RStoolbox}
         clases.2016 <- layerize(kmeans.2016$map)
         plot(clases.2016)
     \end{lstlisting}
-    \begin{figure}
-      \includegraphics{clases_5.png}
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=0.7\textwidth]{clases_5.png}
       \caption{Clases generadas por el algoritmo kmeans para 5 clases.}
       \label{fig:clases5}
     \end{figure}
@@ -92,8 +93,9 @@ los paquetes \texttt{raster} y \texttt{RStoolbox}
                 '#a6cee3','#1f78b4')
     plot(reclas.2016, col=colores, zlim=c(1,8))
   \end{lstlisting}
-  \begin{figure}
-    \includegraphics{kmeans-colores.png}
+  \begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{kmeans-colores.png}
     \caption{Imagen clasificada por el metodo kmeans con 5 clases.}
     \label{fig:kmean5}
   \end{figure}
@@ -112,8 +114,9 @@ los paquetes \texttt{raster} y \texttt{RStoolbox}
     xyplot(nir+swir1~red, groups=MC_ID, data=stack.2016)
   \end{lstlisting}
   Vemos que las clases espectrales pueden unirse en clases de informacion y que algunas clases de informacion no se separan en distintas clases espectrales (figuras \ref{fig:esk}).
-  \begin{figure}
-    \includegraphics{kmeans-es.png}
+  \begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{kmeans-es.png}
     \caption{Espacio espectral clasificado por kmeans.}
     \label{fig:esk}
   \end{figure}
@@ -134,8 +137,9 @@ los paquetes \texttt{raster} y \texttt{RStoolbox}
   plot(reclasb.2016, col=colores, zlim=c(1,8))
   \end{lstlisting}
 
-  \begin{figure}
-    \includegraphics{5v100.png}
+  \begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{5v100.png}
     \caption{Comparacion entre la clasificacion con 5 clases y 100 clases espectrales.}
     \label{fig:5v100}
   \end{figure}
@@ -180,8 +184,9 @@ Con el fin de mejorar la clasificacion podemos incorporar informacion espacial y
 
   Vemos que las zonas con mayor presencia de urbanizaciones presentan una mayor variabilidad que aquellas con menor presencia.
 
-  \begin{figure}
-    \includegraphics{pan-sd.png}
+  \begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{pan-sd.png}
     \caption{Desvio standar para una ventana de 5 pixeles por 5 pixeles en escala logaritmica.}
     \label{fig:pansd}
   \end{figure}
