@@ -7,7 +7,7 @@
 ##########################################################################
 
 # get the maps frequencies
-maparea <- freq(mlc.3x3, useNA="no")
+maparea <- freq(mlc.3x3.2016, useNA="no")
 maparea <- maparea[,2]             
 pixelsize <- 0.09 # in Ha
 
