@@ -1,16 +1,16 @@
-Veamos finalmente, en esta pr\'actica, algunas t\'ecnicas de posprocesamiento para im\'agenes satelitales que nos ayudaran a mejorar los valores extraidos y conocer la incerteza en su estimaci\'on. Son nuestros objetivos:
+Veamos finalmente, algunas t\'ecnicas de posprocesamiento para im\'agenes satelitales que nos ayudaran a mejorar los valores extraidos y conocer la incerteza en su estimaci\'on. Son nuestros objetivos:
 
 \begin{itemize}
   \item Aplicar filtros modales a las clasificaciones para eliminar p\'ixeles aislados.
-  \item Calcular la presici\'on total para la clasificaci\'on y sus precisiones del usuario y productor.
-  \item Estimar el error de para las superficies calculadas a partir de la imagen clasificada.
+  \item Calcular la presici\'on total para la clasificaci\'on y las precisiones del usuario y productor.
+  \item Estimar el error de las superficies calculadas a partir de la imagen clasificada.
 \end{itemize}
 
 Vamos a usar los paquetes \texttt{raster}, \texttt{rgdal}, \texttt{RStoolbox} y \texttt{rasterVis}.
 
 \section{Filtrado de clasificaciones}
 
-Una de las primeras tareas a realizar luego de clasificar una imagen es aplicar un filtro a la misma que permite eliminar p\'ixeles aislados. Al hacerlo podremos descartar, por ejemplo, pixeles de ciudad en el medio de la selva o de selva en medio de la ciudad. Esta es otra forma de incorporar el contexto espacial a nuestras clasificaciones
+Luego de clasificar una imagen es necesario aplicar un filtro que permita eliminar p\'ixeles aislados. Al hacerlo, podremos descartar, p\'ixeles de ciudad en el medio de la selva o de selva en medio de la ciudad. \'Esta es otra forma de incorporar el contexto espacial a nuestras clasificaciones
 \begin{exa}
   Veamos como aplicar un filtro por moda a una imagen clasificada. Comencemos cargando una imagen clasificada en R
 
@@ -18,8 +18,7 @@ Una de las primeras tareas a realizar luego de clasificar una imagen es aplicar 
       mlc.2016 = raster("raster_data/processed/mlc2016")
   \end{lstlisting}
 
-  Para aplicar el filtro de 3x3 creamos una matriz con unos de 3x3 y usamos
-  el comando \texttt{focal} con la funcion \texttt{modal}
+  Para aplicar el filtro de 3x3 creamos una matriz de dicha dimensi\'on y usamos el comando \texttt{focal} con la funcion \texttt{modal}
 
   \begin{lstlisting}
     colores = c('#b2df8a','#33a02c',
@@ -31,7 +30,8 @@ Una de las primeras tareas a realizar luego de clasificar una imagen es aplicar 
     writeRaster(mlc.3x3.2016,"raster_data/processed/mlc3x3-2016", datatype = "INT1U", overwrite=TRUE)
     plot(mlc.3x3.2016,col=colores)
   \end{lstlisting}
-  En el caso de un filtro por moda, estaremos dejando el mayor que mas veces aparezca entre los que rodean al pixel. Podemos en este caso mostrar las im\'agenes con y sin el filtro juntas (figura \ref{fig:3x3}).
+
+  En el caso de un filtro por moda, estamos cambiando el valor del p\'ixel por la moda entre los que lo rodean. Podemos en este caso mostrar las im\'agenes con y sin el filtro juntas (figura \ref{fig:3x3}).
 
   \begin{lstlisting}
     plot(stack(mlc.2016, mlc.3x3.2016),col=colores)
@@ -46,22 +46,21 @@ Una de las primeras tareas a realizar luego de clasificar una imagen es aplicar 
 \end{exa}
 
 \begin{act}
-    Aplique filtros de 5x5 y 7x7 para filtrar la imagen. ¿Que problemas desaparecen? ¿Que dificultad introducen?
+    Aplique filtros de 5x5 y 7x7 a la imagen. ¿Qu\'e problemas desaparecen? ¿Qu\'e dificultad introducen?
 \end{act}
 
 \begin{act}
     Aplique el filtro de 3x3 a la imagen correspondiente al año 2000.
 \end{act}
 
-\section{Validaci\'on de clasificaciones}
+\section{Validaci\'on de la clasificaci\'on}
 
-El segundo procesamiento pos-clasificaci\'on, y tal vez el mas importante, es el c\'alculo de la matriz de confusi\'on para n
-uestra clasificacio\'n. Haremos esto en dos partes: crearemos primero el set de datos para la validaci\'on y luego lo usaremos para calcular dicha matriz.
+El segundo procesamiento pos-clasificaci\'on, y tal vez el mas importante, es el c\'alculo de la matriz de confusi\'on para nuestra clasificaci\'on. Lo haremos en dos partes: crearemos primero el set de datos para la validaci\'on y luego lo usaremos para calcular la matriz de confusi\'on.
 
 \begin{exa}
-  Veamos como crear un set de puntos aleatorios de muestreo con QGIS. En este caso utilizaremos como unidad de muestreo al p\'ixel, pero de forma similar pueden usarse poligonos o grupos de poligonos.
+  Veamos como crear un set de puntos aleatorios de muestreo con QGIS. En \'este caso, utilizaremos como unidad de muestreo al p\'ixel, pero de forma similar pueden usarse pol\'igonos o grupos de pol\'igonos.
 
-  Comenzamos abriendo la imagen \file{mlc3x3-2016} en QGIS. Una vez hecho esto, vamos a vectorizar la clasificaci\'on utilizando la herramienta \menu{Raster, Conversion, Poligonizar}. Guardamos el archivo como \file{2016-3x3.shp} en la carpeta de \file{vector\_data} poniendo en nombre del campo \menu{MC\_ID} (figura \ref{fig:poligon}).
+  Comenzamos abriendo la imagen \file{mlc3x3-2016} en QGIS. Luego vamos a vectorizar la clasificaci\'on utilizando la herramienta \menu{Raster, Conversi\'on, Poligonizar}. Guardamos el archivo como \file{2016-3x3.shp} en la carpeta de \file{vector\_data} poniendo en nombre del campo \menu{MC\_ID} (figura \ref{fig:poligon}).
 
   \begin{figure}[h!]
     \centering
@@ -70,7 +69,7 @@ uestra clasificacio\'n. Haremos esto en dos partes: crearemos primero el set de 
     \label{fig:poligon}
   \end{figure}
 
-  Una vez hecho esto utilizamos la herramienta \menu{Herramientass de gesti\'on de datos, Dividir capa vectoria} y lo guardamos en la carpeta \file{vector\_data,split} (figura \ref{fig:split}).
+  Vamos luego a \menu{Herramientas de gesti\'on de datos, Dividir capa vectoria} y guardamos los vectores en la carpeta \file{vector\_data,split} (figura \ref{fig:split}).
 
   \begin{figure}[h!]
     \centering
@@ -79,11 +78,10 @@ uestra clasificacio\'n. Haremos esto en dos partes: crearemos primero el set de 
     \label{fig:split}
   \end{figure}
 
-  Cargamos luego las capas en
-  QGIS, elegimos la herramienta \menu{Herramientas de investigacion, Puntos aleatorios en los limites de la capa} y hacemos click en el boton \menu{Ejecutar proceso por lotes}. Hacemos click en el boton con los tres puntos y elegimos \menu{Seleccionar del sistema de archivos}.  Seleccionamos cada capa y en numero de puntos ponemos la cantidad correspondiente a cada categoria.
+  Cargamos las capas en QGIS. En \menu{Herramientas de investigacion, Puntos aleatorios en los limites de la capa} hacemos click en el bot\'on \menu{Ejecutar proceso por lotes}. Luego hacemos click en el bot\'on con los tres puntos y elegimos \menu{Seleccionar del sistema de archivos}.  Seleccionamos cada capa. En n\'umero de puntos ponemos la cantidad correspondiente a cada categor\'ia.
 
-  Para calcular dicha cantidad usamos el comando \texttt{freq.2016 <- freq(mlc.3x3.2016)}  para conocer las frecuencias de aparicion de cada categoria y luego con el comando  \texttt{freq.2016[,2] <- round(freq.2016[,2]/sum(freq.2016[,2])*250+50)} distribuimos  los p\'ixeles en cada categoria con 50 fijos y 50 segun la frecuencia de aparicion.
-  Con una distancia minima de 100m (figura \ref{fig:dots}).
+  Para calcular dicha cantidad usamos el comando \texttt{freq.2016 <- freq(mlc.3x3.2016)}  para conocer las frecuencias de aparici\'on de cada categor\'ia y luego con el comando  \texttt{freq.2016[,2] <- round(freq.2016[,2]/sum(freq.2016[,2])*250+50)} distribuimos  los p\'ixeles en cada categoria con 50 fijos y 250 segun la frecuencia de aparici\'on.
+  Los repartimos en la imagen con una distancia de separaci\'on m\'inima de 100m (figura \ref{fig:dots}).
 
   \begin{figure}[h!]
     \centering
@@ -92,7 +90,7 @@ uestra clasificacio\'n. Haremos esto en dos partes: crearemos primero el set de 
     \label{fig:dots}
   \end{figure}
 
-  Elegimos luego en que carpeta guardar los puntos aleatorios y con que nombre y hacemos click en aceptar. Finalmente, una vez creadas las capas de puntos aleatoriosa las unimos utilizando la herramienta \menu{Herramientas de gestion de datos, Combinar capas vectoriales} con el nombre \file{val-2016.shp} (figura \ref{fig:combinar}).
+  Elegimos luego en que carpeta guardar los puntos aleatorios y hacemos click en aceptar. Finalmente, una vez creadas las capas de puntos aleatorios las unimos utilizando la herramienta \menu{Herramientas de gestion de datos, Combinar capas vectoriales} con el nombre \file{val-2016.shp} (figura \ref{fig:combinar}).
 
   \begin{figure}[h!]
     \centering
@@ -101,9 +99,9 @@ uestra clasificacio\'n. Haremos esto en dos partes: crearemos primero el set de 
     \label{fig:combinar}
   \end{figure}
 
-  Una vez unidas las capas editamos la tabla de atributos para agregar el campo \verb|MC_ID| y, realizando un an\'alisis visual en distintas combinaciones de bandas, asignamos a cada punto el \verb|MC_ID| de la clase de informaci\'on a la que pertenece.
+  Luego editamos su tabla de atributos para agregar el campo \verb|MC_ID| y, realizando un an\'alisis visual en distintas combinaciones de bandas, asignamos a cada punto el \verb|MC_ID| de la clase de informaci\'on a la que pertenece.
 
-  Para hacerlo podemos utilizar la misma imagen que usamos para clasificar o una de mayor resoluci\'on espacial. Una vez terminado y guardada la capa tendremos nuestra capa de validaci\'on para continuar.
+  Podemos utilizar la misma imagen que usamos para clasificar o una de mayor resoluci\'on espacial. Una vez terminada y guardada tendremos nuestra capa de validaci\'on.
 
 \end{exa}
 
@@ -121,7 +119,7 @@ uestra clasificacio\'n. Haremos esto en dos partes: crearemos primero el set de 
                                 responseCol = "MC_ID")
   \end{lstlisting}
 
-  al inspeccionar el elemento \verb|val.2016$performance| obtenemos la matriz
+  Al inspeccionar el elemento \verb|val.2016$performance| obtenemos la matriz
   de confusi\'on, la presici\'on global como \emph{Acuracy}, la presici\'on del
   productor como \emph{Sensitivity} y la del usuario como \emph{Pos Pred Value}.
 
@@ -159,7 +157,7 @@ uestra clasificacio\'n. Haremos esto en dos partes: crearemos primero el set de 
     Balanced Accuracy      0.8812   0.9212  0.79353  0.86570   0.9323
   \end{Verbatim}
 
-  Una vez obtenidas la matriz de confusi\'on y las superficies mediante el comando \texttt{freq()}, podemos usar el script de R \file{areas.R}. Este nos devolver\'a un archivo csv con la el area del mapa, \emph{adj\_area}, y su error \emph{CI\_adj\_area} como se ve al ejecutar el comando \texttt{ov[c(1:5,11,12)]}.
+  Una vez obtenida la matriz de confusi\'on y las superficies mediante el comando \texttt{freq()}, podemos usar el script de R \file{areas.R}. Nos devolver\'a un archivo csv con las superficies de cada categor\'ia de uso y cobertura, \emph{adj\_area}, y su error \emph{CI\_adj\_area} como se ve al ejecutar el comando \texttt{ov[c(1:5,11,12)]}.
   \begin{Verbatim}[fontsize=\small]
           1     2     5     7     8  adj_area CI_adj_area
     1 0.318 0.053 0.030 0.013 0.004 135500.03   11289.281
@@ -172,5 +170,5 @@ uestra clasificacio\'n. Haremos esto en dos partes: crearemos primero el set de 
 
 
 \begin{act}
-    Construya la matriz de confusi\'on y obtenga la presici\'on global para todas las clasificaciones del a\~no 2000 y 2016. +Que algor\'itmo funciona mejor con la imagen? A partir de este obtenga estimaciones de area para el a\~no 2000 y 2016 y utilicela para estimar la perdida de selva paranaense durante este periodo.
+    Construya la matriz de confusi\'on y obtenga la presici\'on global para todas las clasificaciones del a\~no 2000 y 2016. ¿Qu\'e algor\'itmo funciona mejor? Obtenga estimaciones las superficies para los a\~nos 2000 y 2016 y util\'icela para estimar la perdida de selva paranaense durante este per\'iodo.
 \end{act}

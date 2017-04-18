@@ -3,11 +3,10 @@ de im\'agenes satelitales. Son nuestros objetivos:
 
 \begin{itemize}
   \item Usar la herramienta de clasificaci\'on no supervisada.
-  \item Aprender a indentificar clases espectrales en categor\'ias de uso y cobertura.
+  \item Aprender a indentificar clases espectrales y asignarlas a categor\'ias de uso y cobertura.
   \item Incorporar informaci\'on no espectral a las clasificaciones como
   pueden ser datos temporales o informaci\'on espacial.
-  \item Aplicar la transformada por componentes principales para reducir la dimensionalidad
-  y seleccionar los datos mas relevantes previos a las clasificaciones.
+  \item Aplicar la transformada por componentes principales para reducir la dimensionalidad y seleccionar los datos mas relevantes para realizar las clasificaciones.
 \end{itemize}
 
 \section{Clasificaci\'on mediante el m\'etodo k-means}
@@ -29,10 +28,10 @@ Veamos como clasificar una imagen usando el m\'etodo k-means en R. Vamos a usar
 los paquetes \texttt{raster} y \texttt{RStoolbox}
 
 \begin{exa}
-    Elegimos la semilla para el geneador de n\'umeros aleatorios con el comando \texttt{set.seed(42)}. De esta forma la serie de n\'umeros aleatorios
+    Elegimos la semilla para el geneador de n\'umeros aleatorios con el comando \texttt{set.seed(42)}. De esta forma, la serie de n\'umeros aleatorios
     es la misma para todos.
 
-    Luego clasificamos la imagen y la guardamos como vimos en las clases anteriores.
+    Luego, clasificamos la imagen y la guardamos como vimos en las clases anteriores.
 
     \begin{lstlisting}
     set.seed(42)
@@ -42,7 +41,7 @@ los paquetes \texttt{raster} y \texttt{RStoolbox}
                 datatype="INT1U")
     \end{lstlisting}
 
-    En este caso estamos solamente usando 5 clases espectrales. Podemos ahora graficar por separado cada una de las clases (figura \ref{fig:clases5}).
+    En este caso estamos usando solamente 5 clases espectrales. Podemos ahora graficar por separado cada una de las clases (figura \ref{fig:clases5}).
 
     \begin{lstlisting}
         clases.2016 <- layerize(kmeans.2016$map)
@@ -56,9 +55,7 @@ los paquetes \texttt{raster} y \texttt{RStoolbox}
       \label{fig:clases5}
     \end{figure}
 
-    Abriremos la imagen ahora en el QGIS e identificaremos cada una de las clases.
-
-    Para realizar la identificacion primero vamos al men\'u \menu{propiedades de la imagen, Estilo, Tipo de renderizacion, Unibanda pseudocolor}. Elegimos de modo \menu{Intervalo Igual} y en n\'umero de clases ponemos con el m\'inimo en 1 y el m\'aximo en 5. En estilo de color elegimos colores aleatorios. Iremos luego cambiando los colores uno a uno por un color brillante e identificado a que cobertura pertenece dicha clase espectral.
+    Abrimos la imagen en el QGIS e identificamos cada una de las clases. Para esto primero vamos al men\'u \menu{propiedades de la imagen, Estilo, Tipo de renderizacion, Unibanda pseudocolor}. Elegimos de modo \menu{Intervalo Igual} y en n\'umero de clases ponemos con el m\'inimo en 1 y el m\'aximo en 5. En estilo de color elegimos colores aleatorios.
 
     Construimos una tabla como la siguiente en un editor de texto.
 
@@ -81,7 +78,7 @@ los paquetes \texttt{raster} y \texttt{RStoolbox}
       reclas.2016 <- subs(kmeans.2016$map, clases.2016)
   \end{lstlisting}
 
-  y graficarlas (figura \ref{fig:kmeans5})
+  y graficarlas (figura \ref{fig:kmean5})
 
   \begin{lstlisting}
     colores = c('#b2df8a','#33a02c',
@@ -99,7 +96,7 @@ los paquetes \texttt{raster} y \texttt{RStoolbox}
 \end{exa}
 
 \begin{exa}
-  Hagamos un an\'alisis espectral de las im\'agenes clasificadas antes y despues de la fusi\'on.  Para esto utilizaremos a la imagen clasificada como mascara para asignar los colores  al scatterplot.
+  Hagamos un an\'alisis espectral de las im\'agenes clasificadas antes y despu\'es de la fusi\'on.  Utilizaremos a la imagen clasificada como mascara para asignar los colores  al scatterplot.
 
   Agregamos la imagen clasificada a las bandas de la imagen en reflectancia y luego hacemos los scatterplot segun la clase espectral o de informaci\'on como
 
@@ -133,7 +130,7 @@ los paquetes \texttt{raster} y \texttt{RStoolbox}
   plot(reclasb.2016, col=colores, zlim=c(1,8))
   \end{lstlisting}
 
-  Comparamos las classificacion obtenidas con 5 y 100 classes espectrales (figura \ref{fig:5v100})
+  Comparamos las clasificaciones obtenidas con 5 y 100 classes espectrales (figura \ref{fig:5v100})
 
   \begin{figure}[h!]
     \centering
@@ -142,7 +139,8 @@ los paquetes \texttt{raster} y \texttt{RStoolbox}
     \label{fig:5v100}
   \end{figure}
 
-  Comparamos nuevamente los espacios de fase entre la clasificacion obtenida a partir de 5 y 100 clases espectrales
+  Comparamos nuevamente los espacios de fase entre la clasificaciones obtenidas a partir de 5 y 100 clases espectrales
+
   \begin{lstlisting}
     stackb.2016 <- stack(ref.2016, reclasb.2016)
     xyplot(nir+swir1~red, groups=MC_ID, data=stack.2016)
@@ -156,14 +154,13 @@ los paquetes \texttt{raster} y \texttt{RStoolbox}
 \end{act}
 
 
-\section{Informacion espacial y temporal}
+\section{Informaci\'on espacial y temporal}
 
-Con el fin de mejorar la clasificaci\'on podemos incorporar informaci\'on espacial y temporal a la informaci\'on radiom\'etrica. De esta forma estaremos, al momento de clasificar los p\'ixeles, ya no trabajando en un espacio espectral sino en uno mças amplio. Veamos como hacer esto.
+Con el fin de mejorar la clasificaci\'on podemos incorporar informaci\'on espacial y temporal a la informaci\'on radiom\'etrica. De esta forma, al momento de clasificar los p\'ixeles, ya no estaremos trabajando en un espacio espectral, sino en uno m\'as amplio. Veamos como hacerlo.
 
 \begin{exa}
-  Para incorporar informacion espacial sobre el contexto del p\'ixel, podemos
-  hacerlo tanto antes como despu\'es de la clasificaci\'on. Nos centraremos
-  en este caso en como hacerlo antes.
+  Para incorporar informaci\'on espacial sobre el contexto del p\'ixel, podemos
+  hacerlo antes o despu\'es de la clasificaci\'on. Aqu\'i nos concentraremos en el primer caso
 
   Calculamos primero la variabilidad local de brillo para la banda pancrom\'atica de la imagen Landsat 8 como
 
@@ -174,7 +171,7 @@ Con el fin de mejorar la clasificaci\'on podemos incorporar informaci\'on espaci
     plot(log(sd.2016,base = 10), zlim=c(1,4))
   \end{lstlisting}
 
-  Vemos que las zonas con mayor presencia de urbanizaciones presentan una mayor variabilidad que aquellas con menor presencia (ver figura \ref{fig:pansd}).
+  Vemos que las zonas con mayor presencia de urbanizacion, presentan mayor variabilidad que aquellas con menor (figura \ref{fig:pansd}).
 
   \begin{figure}[h!]
     \centering
@@ -199,7 +196,6 @@ Con el fin de mejorar la clasificaci\'on podemos incorporar informaci\'on espaci
   Cumulative Proportion  0.6660455 0.8656876 0.9663168 0.99020013 0.995721318 ...
   \end{Verbatim}
 
-  Vemos en este caso, analizando el sumario, que la banda de textura agrega informaci\'on con respecto a la s\'olo disponible al utilizar las bandas en reflectancia.
 \end{exa}
 
 \begin{act}
@@ -207,7 +203,7 @@ Con el fin de mejorar la clasificaci\'on podemos incorporar informaci\'on espaci
 \end{act}
 
 \begin{exa}
-  Para incorporar informacion del contexto temporal, agregaremos a la informaci\'on espectral informaci\'on sobre la variaci\'on del \'indice de vegetaci\'on durante el año en que se tomo la imagen. Primero cargamos las im\'agenes MODIS del 2016
+  Para incorporar informaci\'on del contexto temporal, agregaremos el promedio y el desv\'io estandar del NDVI a lo largo del 2016. Primero cargamos las im\'agenes MODIS del 2016
 
   \begin{lstlisting}
     list.2016 <- list.files("raster_data/MOD13Q1/NDVI/", pattern = "MOD13Q1.A2016+.*tif", full.names = TRUE)
