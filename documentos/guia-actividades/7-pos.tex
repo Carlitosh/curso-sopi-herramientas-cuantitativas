@@ -40,7 +40,7 @@ Luego de clasificar una imagen es necesario aplicar un filtro que permita elimin
   \begin{figure}[h!]
     \centering
     \includegraphics[scale=0.4]{filtro3x3.png}
-    \caption{Imagen de la clasificacion con y sin filtro con una ventana de 3x3.}
+    \caption{Imagen de la clasificaci\'on con y sin filtro con una ventana de 3x3.}
     \label{fig:3x3}
   \end{figure}
 \end{exa}
@@ -80,7 +80,7 @@ El segundo procesamiento pos-clasificaci\'on, y tal vez el mas importante, es el
 
   Cargamos las capas en QGIS. En \menu{Herramientas de investigacion, Puntos aleatorios en los limites de la capa} hacemos click en el bot\'on \menu{Ejecutar proceso por lotes}. Luego hacemos click en el bot\'on con los tres puntos y elegimos \menu{Seleccionar del sistema de archivos}.  Seleccionamos cada capa. En n\'umero de puntos ponemos la cantidad correspondiente a cada categor\'ia.
 
-  Para calcular dicha cantidad usamos el comando \texttt{freq.2016 <- freq(mlc.3x3.2016)}  para conocer las frecuencias de aparici\'on de cada categor\'ia y luego con el comando  \texttt{freq.2016[,2] <- round(freq.2016[,2]/sum(freq.2016[,2])*250+50)} distribuimos  los p\'ixeles en cada categoria con 50 fijos y 250 segun la frecuencia de aparici\'on.
+  Para calcular dicha cantidad usamos el comando \texttt{freq.2016 <- freq(mlc.3x3.2016)}  para conocer las frecuencias de aparici\'on de cada categor\'ia y luego con el comando  \texttt{freq.2016[,2] <- round(freq.2016[,2]/sum(freq.2016[,2])*250+50)} distribuimos  los p\'ixeles en cada categoria con 50 fijos y 250 seg\'un la frecuencia de aparici\'on.
   Los repartimos en la imagen con una distancia de separaci\'on m\'inima de 100m (figura \ref{fig:dots}).
 
   \begin{figure}[h!]
@@ -170,5 +170,5 @@ El segundo procesamiento pos-clasificaci\'on, y tal vez el mas importante, es el
 
 
 \begin{act}
-    Construya la matriz de confusi\'on y obtenga la presici\'on global para todas las clasificaciones del a\~no 2000 y 2016. ¿Qu\'e algor\'itmo funciona mejor? Obtenga estimaciones las superficies para los a\~nos 2000 y 2016 y util\'icela para estimar la perdida de selva paranaense durante este per\'iodo.
+    Construya la matriz de confusi\'on y obtenga la presici\'on global para todas las clasificaciones del a\~no 2000 y 2016. ¿Qu\'e algor\'itmo funciona mejor? Obtenga estimaciones de las superficies para los a\~nos 2000 y 2016 y util\'icela para estimar la perdida de selva paranaense durante este per\'iodo.
 \end{act}
