@@ -9,7 +9,7 @@ ref.2016
 names(ref.2016) <- c("blue","green","red","nir","swir1","swir2")
 ref.2016 <- ref.2016/1e4
 rasterOptions(addheader = "ENVI")
-writeRaster(ref.2016,"raster\_data/processed/ref2016")
+#writeRaster(ref.2016,"raster_data/processed/ref2016")
 
 plotRGB(ref.2016,r=4,g=5,b=3, stretch='lin')
 
@@ -20,9 +20,10 @@ summary(ref.2016)
 hist(ref.2016)
 
 pairs(ref.2016)
+layout(matrix(1))
 
 # Ejemplo 1.4.1
-firmas <- readOGR(dsn="vector\_data/", layer="firmas")
+firmas <- readOGR(dsn="vector_data", layer="entrenamiento")
 firmas
 
 plotRGB(ref.2016, stretch="lin")
@@ -35,32 +36,29 @@ points(as.data.frame(datos[1])$red, as.data.frame(datos[1])$nir,col="green",pch 
 
 # Ejemplo 1.4.3
 promedio <- extract(ref.2016,firmas,fun=mean)
-desvio <- extract(ref,firmas,fun=sd)
+desvio <- extract(ref.2016,firmas,fun=sd)
 
-colnames(promedio) <- paster("mean",colnames("promedio"),sep="_")
-colnames(desvio) <- paster("sd",colnames("desvio"),sep="_")
+colnames(promedio) <- paste("mean",colnames(promedio),sep="_")
+colnames(desvio) <- paste("sd",colnames(desvio),sep="_")
 
 firmas@data <- cbind(firmas@data,promedio,desvio)
-writeOGR(firmas, sdn="vector_data/processed","firmas_datos", driver="ESRI Shapefile")
+#writeOGR(firmas, sdn="vector_data/processed","firmas_datos", driver="ESRI Shapefile")
 
 # Ejemplo 1.4.4
 
-library(reshape2)
-library(lattice)
-
-df <- t(promedio)
-colnames(df) <- vector@data$Comment
+df <- as.data.frame(t(promedio))
+colnames(df) <- firmas@data$C_info
 
 df$wl <- as.matrix(c(485,560,660,830,1650,2215))
 df <- melt(df,id.vars="wl", variable.name="cobertura")
 names(df) <- c("wl","Cobertura","Reflectancia")
 
-dfd <- t(desvio)
-colnames(dfd) <- vector@data$Comment
+dfd <- as.data.frame(t(desvio))
+colnames(dfd) <- firmas@data$C_info
 dfd$wl <- as.matrix(c(485,560,660,830,1650,2215))
 dfd <- melt("wl","Cobertura","Desvio")
 df$desvio <- dfd$desvio
-df$MC_ID <- as.character(vector@data$MC_ID[match(df$Cobertura,vector@data$Comment)])
+df$MC_ID <- as.character(firmas@data$MC_ID[match(df$Cobertura,firmas@data$C_info)])
 
 xyplot(Reflectancia~wl, data=df, groups = Cobertura,
        auto.key=list(space="top", columns=4),
