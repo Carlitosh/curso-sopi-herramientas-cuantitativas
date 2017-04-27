@@ -6,10 +6,9 @@ comparaciones.
 
 En la provincia de Misiones, el departamento de Iguaz\'u es lindante a Brasil y
 Paraguay siendo parte de la zona conocida como triple frontera
-perteneciente a la ecorregi\'on conocida como \emph{selva paranaense} (Figura \ref{parque}). Dentro
-del mismo podemos encontrar la Represa de Urugua-\'{\i} y el Parque Nacional
+perteneciente a la ecorregi\'on conocida como \emph{selva paranaense} (Figura \ref{parque}). All\'i podemos encontrar Represa de Urugua-\'{\i} y el Parque Nacional
 Iguaz\'u. El departamento tiene un area de $2.736 km^2$ y una poblaci\'on de
-$82.227$ seg\'un el \'u;timo senso del INDEC.
+$82.227$ seg\'un el \'ultimo senso del INDEC.
 
 \begin{figure}[h!]
   \centering
@@ -18,68 +17,47 @@ $82.227$ seg\'un el \'u;timo senso del INDEC.
   \label{parque}
 \end{figure}
 
-Tomaremos entonces al departamento como \'area de estudio durante este curso
-con el objetivo de obtener un mapa de uso y cobertura dentro del mismo que nos
-permita estimar y validar  las \'areas correspondients a los mismos.
+Tomaremos al departamento como \'area de estudio durante este curso
+con el objetivo de obtener un mapa de uso y cobertura que nos
+permita estimar y validar sus superficies.
 
-Utilizaremos para esto imagenes satelitales de los satelites Landsat 8, Landsat 7 y
-el producto de MOD13Q1 obtenido de los satelites TERRA y AQUA obtenidas durante
+Utilizaremos imagenes de los satelites Landsat 8, Landsat 7 y
+el producto de MOD13Q1 obtenido de los satelites TERRA y AQUA durante
 el periodo 2000-2016.
 
 \section{Organizacion del curso}
 
-El curso se divide en dos partes. En la primera trabajaremos con la compresion
-del espacio espectral y el uso de las imagenes satelitales para extraer valores
-continuos de las variables biofisicas.
+El curso se divide en dos partes. En la primera trabajaremos con la compresi\'on
+del espacio espectral y el uso de las im\'agenes satelitales para extraer valores continuos de las variables biof\'isicas.
 
-En el capitulo \ref{viaje}, \nameref{viaje}, estudiaremos la firma espectral de
-distintas coberturas, veremos como se relacionan con las propiedades biofisicas
-de ellas y por ultimo introduciremos el concepto de espacio espectral como el
-lugar natural donde realizar el analisis en teledeteccion.
+Cap\'itulo  \ref{viaje}, \nameref{viaje}, estudiaremos las firmas espectrales de
+distintas coberturas y como se relacionan con las propiedades biofisicas.
+Introduciremos el concepto de espacio espectral como el
+lugar natural donde realizar el an\'alisis en teledetecci\'on.
 
-En el capitulo \ref{rebotando}, \nameref{rebotando}, estudiaremos distintas
-formas de obtener la reflectancia de las coberturas a partir de los datos obtenidos
-por un satelite. En el estudiaremos metodos de correccion atmosferica basados
-en propiedades estadisticas de las imagenes y en el modelado de la atmosfera.
+Cap\'itulo  \ref{rebotando}, \nameref{rebotando}, estudiaremos distintas
+formas de obtener la reflectancia de las coberturas a partir de los datos satelitales. Analizaremos m\'etodos de correcci\'on atmosf\'erica basados en propiedades estad\'isticas de las im\'agenes y en el modelado de la atm\'osfera.
 
-En el capitulo \ref{abaco}, \nameref{abaco}, veremos como a partir de los valores
-de reflectancia para una cobertura y operaciones matematicas entre los mismos,
-podemos obtener los valores de variables biofisicas continuass como pueden ser
-el contenido de clorofila o humedad.
+Cap\'itulo  \ref{abaco}, \nameref{abaco}, veremos como a partir de los valores de reflectancia para una cobertura y operaciones matem\'aticas, podemos obtener los valores de variables biof\'isicas continuas como son el contenido de clorofila o humedad.
 
-En la segunda parte del curso vamos a trabajar mas en detalle con el espacio
-espectral y vamos a usar sus propiedades para extraer informacion categorica de
-las imagenes.
+Cap\'itulo  \ref{rotaciones}, \nameref{rotaciones}, empezaremos a utilizar herramientas geom\'etricas en el espacio espectral para resaltar distintas propiedades de las im\'agenes y poner en evidencia cuales son las zonas del espectro que m\'as informaci\'on aportan sobre nuesta zona de estudio.
 
-En el capitulo \ref{rotaciones}, \nameref{rotaciones}, veremos como utilizar
-herramientas geometricas en el espacio de reflectancias para resaltar distintas
-propiedades de las imagenes y poner en evidencia cuales son las zonas del espectro
-que mas informacion aportan sobre nuesta zona de interes. Comenzaremos en este
-capitulo tambien a analizar el contexto temporal para nuestras imagenes.
+En la segunda parte del curso trabajaremos m\'as en detalle con el espacio
+espectral usando sus propiedades para extraer informaci\'on categ\'orica de
+las im\'agenes.
 
-En el capitulo \ref{otrolado}, \nameref{otrolado}, veremos como utilizar herramientas
-que no requieren de conocimiento previo del area de estudio para realizar segmentaciones
-en el espacio de fases de la imagen, que luego podremos utilizar para obtener mapas
-de uso y cobertura. Comenzaremos en este capitulo tambiena analizar el contexto
-espacial de cada pixel.
+Cap\'itulo  \ref{otrolado}, \nameref{otrolado}, veremos como utilizar herramientas que no requieren de conocimiento previo del \'area de estudio para realizar segmentaciones en el espacio de fases de la imagen y obtener mapas de uso y cobertura.
 
-En el capitulo \ref{educando}, \nameref{educando}, veremos otros metodos para extraer
-informacion categorica sobre las imagenes satelitales al estudiar distintas
-formas de clasificacion supervisada. Comenzaremos en este capitulo tambien a
-analizar mas en detalle cuales son las coberturas que mayores problemas generan al
-momento de realizar clasificaciones
+Cap\'itulo  \ref{educando}, \nameref{educando}, veremos otros m\'etodos para extraer informaci\'on categ\'orica sobre las im\'agenes satelitales al estudiar distintas formas de clasificaci\'on supervisada.
 
-En el capitulo \ref{pos}, \nameref{pos}, veremos algunas tecnicas de postprocesamiento
-que nos permitiran analizar el contexto espacial de nuestras clasificaciones y
-comenzar a calcular areas de cobertura para nuestras imagenes con su correspondiente incerteza.
+Cap\'itulo  \ref{pos}, \nameref{pos}, veremos algunas t\'ecnicas de postprocesamiento que nos permitiran analizar el contexto espacial de nuestras clasificaciones y calcular superficies de coberturas para las im\'agenes y su correspondiente incerteza.
 
-Puede consultarses el cronograma detallado en el apendice \ref{chap:cronograma}.
+Puede consultar el cronograma detallado en el apendice \ref{chap:cronograma}.
 
-\subsection{Forma de aprobacion}
-Para aprobar el curso se deben juntar al menos 100 puntos entre las distintas actividades.
-Adem\'as se deber\'a completar un cuestionario \emph{obligatorio} sobre el curso al finalizar el mismo.
+\subsection{Forma de aprobaci\'on}
+Para aprobar el curso se deben reunior al menos 100 puntos entre las distintas actividades. Adem\'a deberan completarse dos cuestionarios \emph{obligatorios} al comenzar y finalizar el curso.
 
-La nota final del curso estara dada por la siguiente
+La nota final del curso estara dada por el siguiente rango
 
 \begin{itemize}
 \item 0 - 99 - No aprobó
@@ -90,7 +68,7 @@ La nota final del curso estara dada por la siguiente
 \item 190-200 - Diez
 \end{itemize}
 
-para obtener puntos puede realizarse de la siguiente manera
+Los puntos se determinan de la siguiente manera
 
 \begin{itemize}
   \item Cada cuestionario: 0 a 10 puntos. Máximo 70.
@@ -98,8 +76,8 @@ para obtener puntos puede realizarse de la siguiente manera
   \item Participar en la plataforma: 0 a 10 puntos. Sin máximo.
 \end{itemize}
 
-\section{Materiales del curso}
-Todo el material del curso se encuentra disponible para bajar de la direccion \url{LINK DE DESCARGA}. Este se encuentra organizado de la siguiente manera
+\section{Material del curso}
+Todo el material del curso se encuentra disponible para descargar en el aula virtual del curso. Est\'a organizado de la siguiente manera
 
 \dirtree{%
     .1 material.
@@ -113,5 +91,3 @@ conteniendo la carpeta \file{aux\_data} archivos adicionales para trabajar, \fil
 
 Todos los materiales del curso, con sus correspondientes editables, pueden
 encontrarse en el repositorio de github \url{https://github.com/fnemina/curso-sopi-herramientas-cuantitativas}.
-
-En caso de encontrar cualquier problema en los materiales puede reportarlo ahi y sera subsanado en el menor tiempo posible.
