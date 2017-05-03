@@ -33,6 +33,8 @@ sdos.2000 <- radCor(dn.2000, metaData = meta.2000,
 
 sdos.2000
 
+stack(toa.2000,sdos.2000)
+
 B1 <- densityplot(~B1_tre+B1_sre, data=toa.boa, xlab="Reflectancia",
                   ylab="", main="Banda azul", plot.points=FALSE, xlim=c(0,0.3),
                   key=simpleKey(text=c("Tope de la atmosfera",
