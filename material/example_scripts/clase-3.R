@@ -39,14 +39,14 @@ bsl.2016
 
 # Ejemplo 3.3.1
 vector <- readOGR(dsn="vector_data/", layer="muestreo")
-datos <- extract(ndvi.2016,vector)
-DF <- data.frame(vector@data,datos)
+layer <- extract(ndvi.2016,vector)
+DF <- data.frame(vector@data,layer)
 
-lm.2016 <- lm(fcover~ndvi, data=muestreo)
-plot(muestreo$ndvi, mustreo$fcover)
+lm.2016 <- lm(fcover~layer, data=DF)
+plot(DF$layer, DF$fcover)
 abline(lm.2016, col="red")
 summary(lm.2016)
 pairs(DF)
 
 fcover.2016 <- predict(ndvi.2016,lm.2016)
-plot(fcover.2016)
+plot(fcover.2016, zlim=c(0,1))
