@@ -8,8 +8,7 @@ ref.2016
 
 names(ref.2016) <- c("blue","green","red","nir","swir1","swir2")
 ref.2016 <- ref.2016/1e4
-rasterOptions(addheader = "ENVI")
-writeRaster(ref.2016,"raster_data/processed/ref2016")
+writeRaster(ref.2016,"raster_data/processed/ref2016.tif")
 
 plotRGB(ref.2016,r=4,g=5,b=3, stretch='lin')
 

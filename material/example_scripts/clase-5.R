@@ -16,8 +16,7 @@ names(ref.2016) <- c("blue","green","red","nir","swir1","swir2")
 set.seed(42)
 kmeans.2016 <- unsuperClass(ref.2016, nClasses = 5, nStarts = 100,
                             nSamples = 100)
-writeRaster(kmeans.2016$map, "raster_data/processed/kmeans2016",
-            datatype="INT1U")
+writeRaster(kmeans.2016$map, "raster_data/processed/kmeans2016.tif",datatype="INT1U")
 
 clases.2016 <- layerize(kmeans.2016$map)
 plot(clases.2016)
@@ -39,8 +38,7 @@ xyplot(nir+swir1~red, groups=MC_ID, data=stack.2016)
 set.seed(42)
 kmeans.2016b <- unsuperClass(ref.2016, nClasses = 100, nStarts = 100,
                             nSamples = 1000)
-writeRaster(kmeans.2016b$map, "raster_data/processed/kmeans2016b",
-            datatype="INT1U", overwrite=TRUE)
+writeRaster(kmeans.2016b$map, "raster_data/processed/kmeans2016b.tif",datatype="INT1U", overwrite=TRUE)
 clasesb.2016 <- read.delim("aux_data/class100.txt")
 reclasb.2016 <- subs(kmeans.2016b$map, clasesb.2016)
 plot(reclasb.2016, col=colores, zlim=c(1,8))

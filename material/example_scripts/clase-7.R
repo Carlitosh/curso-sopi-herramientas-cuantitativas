@@ -1,9 +1,10 @@
 library(raster)
 library(RStoolbox)
 library(rasterVis)
+library(rgdal)
 
 # Ejemplo 7.1.1.
-mlc.2016 = raster("raster_data/processed/mlc2016")
+mlc.2016 = raster("raster_data/processed/mlc2016.tif")
 
 colores = c('#b2df8a','#33a02c',
             '#fdbf6f','#ff7f00',
@@ -11,7 +12,7 @@ colores = c('#b2df8a','#33a02c',
             '#a6cee3','#1f78b4')
 window <- matrix(1,nrow=3, ncol=3)
 mlc.3x3.2016 <-focal(mlc.2016,w=window,fun=modal)
-writeRaster(mlc.3x3.2016,"raster_data/processed/mlc3x3-2016", datatype = "INT1U", overwrite=TRUE)
+writeRaster(mlc.3x3.2016,"raster_data/processed/mlc3x3-2016.tif", datatype = "INT1U", overwrite=TRUE)
 plot(mlc.3x3.2016,col=colores)
 
 plot(stack(mlc.2016, mlc.3x3.2016),col=colores)
