@@ -1,0 +1,89 @@
+% Paquetes de la ams
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+% Posibilidad de mover la pagina
+\usepackage[a4paper]{geometry}
+% Saco la indentacion en todos los parrafos.
+%\usepackage{parskip}
+% Codificacion UTF-8
+\usepackage[utf8]{inputenc}
+% Tablas e imagenes en espaniol
+\usepackage[spanish,es-tabla]{babel}
+% Mejores graficos
+\usepackage{graphicx}
+% tablas mas lindas
+\usepackage{booktabs}
+% Posibilidad de tocar los encabezados
+\usepackage{fancyhdr}
+%\pagestyle{fancy}
+% Posibilidad de meter subfiguras
+\usepackage[font=footnotesize, labelfont=it]{subcaption}
+% Links a urls
+\usepackage{url}
+% Linkear referencias en pdfs
+\usepackage{hyperref}
+% Texto mas lindo para los pie de figura
+\usepackage[margin=10pt,font=small,labelfont=bf, labelsep=endash]{caption}
+% Mejores autores
+\usepackage[affil-it]{authblk}
+% Compatibilidad con PDF/A
+\usepackage{xmpincl}
+% Hoja a4 mas ancha
+\usepackage{a4wide}
+% Citas
+\usepackage[backend=biber,style=ieee]{biblatex}
+\addbibresource{biblio.bib}
+% Cambio and por y
+\renewcommand\Authand{y }
+\renewcommand\Authands{, y }
+
+% Codigo
+\usepackage{listings}
+% Configuracion de listings para R
+\lstset{%
+  language=R,                     % the language of the code
+  basicstyle=\footnotesize,       % the size of the fonts that are used for the code
+  numbers=left,                   % where to put the line-numbers
+  numberstyle=\tiny\color{gray},  % the style that is used for the line-numbers
+  stepnumber=1,                   % the step between two line-numbers. If it's 1, each line
+                                  % will be numbered
+  numbersep=5pt,                  % how far the line-numbers are from the code
+  backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+  showspaces=false,               % show spaces adding particular underscores
+  showstringspaces=false,         % underline spaces within strings
+  showtabs=false,                 % show tabs within strings adding particular underscores
+  %frame=single,                   % adds a frame around the code
+  rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))
+  tabsize=2,                      % sets default tabsize to 2 spaces
+  captionpos=b,                   % sets the caption-position to bottom
+  breaklines=true,                % sets automatic line breaking
+  breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+  title=\lstname,                 % show the filename of files included with \lstinputlisting;
+                                  % also try caption instead of title
+  keywordstyle=\color{blue},      % keyword style
+  commentstyle=\color{OliveGreen},   % comment style
+  stringstyle=\color{Plum}       % string literal style
+}
+% Coloreo los links
+\usepackage[usenames,dvipsnames]{xcolor}
+\hypersetup{colorlinks,
+     linkcolor={red!50!black},
+     citecolor={blue!50!black},
+     urlcolor={blue!80!black} }
+% Graficos con tikz
+\usepackage{tikz}
+
+% Dir tree
+\usepackage{dirtree}
+
+
+\usepackage{fancyvrb}
+\usepackage{emptypage}
+
+\definecolor{A11}{HTML}{B2DF8A}
+\definecolor{A12}{HTML}{33A02C}
+\definecolor{A23}{HTML}{FDBF6F}
+\definecolor{A24}{HTML}{FF7F00}
+\definecolor{B15}{HTML}{FB9A99}
+\definecolor{B16}{HTML}{E31A1C}
+\definecolor{B27}{HTML}{A6CEE3}
+\definecolor{B28}{HTML}{1F78B4}

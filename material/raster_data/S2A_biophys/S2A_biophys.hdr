@@ -1,0 +1,14 @@
+ENVI
+description = { lai lai_cab lai_cw fapar fcover } 
+samples =  1834 
+lines =  2412 
+bands =  5 
+header offset = 0
+file type = ENVI Standard
+data type =  5 
+interleave =  BIL 
+sensor type = 
+byte order =  0 
+map info = {projection, 1, 1, 731118.6 ,  7173897 ,  30.00402 ,  30.00265 }
+coordinate system string = {PROJCS["WGS_1984_UTM_Zone_21S",GEOGCS["GCS_WGS_1984",DATUM["D_WGS_1984",SPHEROID["WGS_1984",6378137,298.257223563]],PRIMEM["Greenwich",0],UNIT["Degree",0.017453292519943295]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",-57],PARAMETER["scale_factor",0.9996],PARAMETER["false_easting",500000],PARAMETER["false_northing",10000000],UNIT["Meter",1]]}
+z plot range = { -0.4952296 -148.8518 -0.3838126 -1.129104 0 ,  10.40493 597.7404 0.4284946 0.94 0.9982808 }

@@ -1,0 +1,25 @@
+[general]
+creator=R package 'raster'
+created=2017-01-19 07:45:47
+[georeference]
+nrows=2412
+ncols=1834
+xmin=731118.627160266
+ymin=7101531.03727193
+xmax=786146.008926794
+ymax=7173897.43804899
+projection=+proj=utm +zone=21 +south +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0
+[data]
+datatype=FLT8S
+byteorder=little
+nbands=5
+bandorder=BIL
+minvalue=-0.495229631662369:-148.851821899414:-0.383812636137009:-1.12910413742065:0
+maxvalue=10.4049301147461:597.740356445312:0.428494572639465:0.939999997615814:0.998280763626099
+nodatavalue=-1.7e+308
+[legend]
+legendtype=
+values=
+color=
+[description]
+layername=lai:lai_cab:lai_cw:fapar:fcover

@@ -1,0 +1,67 @@
+\documentclass[a4paper]{book}
+
+% Preambulo por defecto
+\input{../latex-config/preamble.tex}
+\input{../latex-config/commands.tex}
+
+
+\title{{Nivel 2: Herramientas de teledetecci\'on cuantitativa}\\
+\emph{Gu\'{\i}a de actividades: Uso del suelo en el departamento de Iguaz\'u,
+provincia de Misiones}}
+\date{2017-1}
+\author{Francisco Nemiña\thanks{\texttt{fnemina@conae.gov.ar}}}
+\affil{Unidad de Educacion y Formacion Masiva \\ Comisi\'on Nacional de Actividades Espaciales}
+
+\graphicspath{{./figs/}}
+
+
+
+\begin{document}
+\frontmatter
+\maketitle
+
+\tableofcontents
+
+\chapter{Introducción}
+\input{0-intro.tex}
+\mainmatter
+
+\part{Variables continuas}
+
+\chapter{Reflectancia y espacio espectral}
+\label{viaje}
+\input{1-viaje.tex}
+
+\chapter{Correccion radiom\'etrica}
+\label{rebotando}
+\input{2-rebotando.tex}
+
+\chapter{C\'alculo de \'indices espectrales}
+\label{abaco}
+\input{3-abaco.tex}
+
+\chapter{Rotaciones espectrales}
+\label{rotaciones}
+\input{4-rotaciones.tex}
+
+\part{Variables discretas}
+
+\chapter{Clasificaci\'on no supervisada}
+\label{otrolado}
+\input{5-otrolado.tex}
+
+\chapter{Clasificaci\'on supervisada}
+\label{educando}
+\input{6-educando.tex}
+
+\chapter{T\'ecnicas pos-clasificaci\'on}
+\label{pos}
+\input{7-pos.tex}
+\newpage
+
+
+\appendix
+\part{Ap\'endice}
+\input{99-apendices.tex}
+
+\end{document}

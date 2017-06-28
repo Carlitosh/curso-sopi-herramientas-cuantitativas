@@ -1,0 +1,135 @@
+\chapter{Cronograma}\label{chap:cronograma}
+
+Cronograma del curso.
+
+\begin{itemize}
+  \item[25/4] Instalar el QGIS y el R. Ver apendice \ref{chap:instalacion}.
+  \item[26/4] \nameref{viaje}
+  \begin{itemize}
+    \item Clase te\'orica: radiancia y reflectancia. Firmas espectrales y espacio espectral.
+    \item Clase pr\'actica: capitulo \ref{viaje} de la guida pr\'actica.
+    \item Lectura recomendada: Remote sensing digital Image Analysis - John A. Richards. Capitulos 1 y 3
+  \end{itemize}
+  \item[2/5] Entrega del cuestionario 1. Encuesta de inicio del curso.
+  \item[3/5] \nameref{rebotando}
+  \begin{itemize}
+    \item Clase te\'orica: Transferencia radiativa. M\'etodos estad\'isticos y modelado de la atm\'osfera.
+    \item Clase pr\'actica: capitulo de \ref{rebotando} la guia pr\'actica.
+    \item Lectura recomendada: Remote sensing digital Image Analysis - John A. Richards. Capitulos 2
+  \end{itemize}
+  \item[9/5] Entrega del cuestionario 2.
+  \item[10/5] \nameref{abaco}
+  \begin{itemize}
+    \item Clase te\'orica: C\'alculo de \'indices espectrales
+    \item Clase pr\'actica: capitulo de \ref{abaco} la guia pr\'actica.
+    \item Lectura recomendada: Quantitative Remote Sensing - ShunLin Liang. Capitulos 8
+  \end{itemize}
+  \item[16/5] Entrega del cuestionario 3.
+  \item[17/5] \nameref{rotaciones}
+  \begin{itemize}
+    \item Clase te\'orica: Transformada Tasseled Cap y An\'alisis por componentes principales.
+    \item Clase pr\'actica: capitulo de \ref{rotaciones} la guia pr\'actica.
+    \item Lectura recomendada: Remote sensing digital Image Analysis - John A. Richards. Capitulos 6
+  \end{itemize}
+  \item[23/5] Entrega del cuestionario 4.
+  \item[24/5] Clase de consulta.
+  \item[30/5] Entrega del trabajo pr\'actico 1.
+  \item[31/5] \nameref{otrolado}
+  \begin{itemize}
+    \item Clase te\'orica: M\'etodos de clasificaci\'on no supervisados.
+    \item Clase pr\'actica: capitulo de \ref{otrolado} la guia pr\'actica.
+    \item Lectura recomendada: Remote sensing digital Image Analysis - John A. Richards. Capitulos 9
+  \end{itemize}
+  \item[6/6] Entrega del cuestionario 5.
+  \item[7/6] \nameref{educando}
+  \begin{itemize}
+    \item Clase te\'orica: M\'etodos de clasificaci\'on supervisados.
+    \item Clase pr\'actica: capitulo de \ref{educando} la guia pr\'actica.
+    \item Lectura recomendada: Remote sensing digital Image Analysis - John A. Richards. Capitulos 8
+  \end{itemize}
+  \item[13/6] Entrega del cuestionario 6.
+  \item[14/6] \nameref{pos}
+  \begin{itemize}
+    \item Clase te\'orica: Tecnicas pos-clasificaci\'on.
+    \item Clase pr\'actica: capitulo de \ref{pos} la guia pr\'actica.
+    \item Lectura recomendada: Making better use of accuracy data in land change studies: Estimating accuracy and area and quantifying uncertainty using stratified estimation - Olofsson et al.
+  \end{itemize}
+  \item[20/6] Entrega del cuestionario 7.
+  \item[21/6] Clase de consulta.
+  \item[27/6] Entrega del trabajo pr\'actico 2.
+  \item[30/6] Encuesta de fin del curso.
+\end{itemize}
+
+\chapter{Categor\'ias de uso y cobertura del suelo}\label{apcate}
+Categor\'ias de uso y cobertuar segun el esquema LCCS2 de la FAO\@. Los colores son sugerencias por categor\'ia.
+\begin{table}[hbt]
+    \centering
+    \begin{tabular}{p{11cm}cc}
+        \toprule
+        Nombre & Codigo & Color \\
+        \midrule
+        Áreas terrestres cultivadas y manejada & A11 & \textcolor{A11}{$\blacksquare$}\texttt{\#b2df8a}
+        \\
+        Vegetación natural y semi-natural & A12 & \textcolor{A12}{$\blacksquare$}\texttt{\#33a02c}\\
+        Áreas acuáticas o regularmente inundadas cultivadas & A23  &
+        \textcolor{A23}{$\blacksquare$}\texttt{\#fdbf6f}\\
+        Vegetación natural y semi-natural acuática o
+	regularmente inundadas & A24 & \textcolor{A24}{$\blacksquare$}\texttt{\#ff7f00}\\
+        Superficies artificiales y áreas asociadas & B15  &
+        \textcolor{B15}{$\blacksquare$}\texttt{\#fb9a99}\\
+        Áreas descubiertas o desnudas & B16 & \textcolor{B16}{$\blacksquare$}\texttt{\#e31a1c}\\
+        Cuerpos artificiales de agua, nieve y hielo & B27 &
+        \textcolor{B27}{$\blacksquare$}\texttt{\#a6cee3}\\
+        Cuerpos naturales de agua, nieve y hielo & B28&
+        \textcolor{B28}{$\blacksquare$}\texttt{\#1f78b4}\\
+        \bottomrule
+    \end{tabular}
+\caption{\label{tabla1}Categorias usos del suelo segun el esquema LCCS2 de la
+FAO.}
+\end{table}
+
+\chapter{Instalacion de qgis y R} \label{chap:instalacion}
+
+Veamos como instalar Q-GIS y R en Windows 10 y Ubuntu 16.04. De la misma forma deberia poder instalarse en otro sistemas operativos (Windows 7, 8 y 8.1) y GNU/Linux.
+
+\section{Instalaci\'on en Windows 10}
+
+Para realizar la instalacion en Windows 10, descargamos e instalamos en el siguiente orden cada uno de los programas a utilizar.
+
+\begin{enumerate}
+  \item Q-GIS 2.14 o 2.18 de la pagina oficial de QGIS \url{http://www.qgis.org/es/site/}.
+  \item R 3.3 o 3.4 de la pagina de oficial del proyecto R \url{https://cran.r-project.org/bin/windows/base/}.
+  \item R-Studio en su version gratuita de la pagina oficial \url{https://www.rstudio.com/products/rstudio/download/}.
+\end{enumerate}
+
+Siempre en sus instalaciones por defecto y debemos instalarlas en el orden  indicado.
+
+Una vez finalizada, abrimos R-Studio y ejecutamos el siguiente comando en la consola.
+
+\begin{lstlisting}
+  install.packages(c("raster","lattice","RStoolbox","rasterVis","rgal","e1071","randomForest","kernlab"))
+\end{lstlisting}
+
+El mismo descargara todos los paquetes que utilizaremos durante el curso y los instalara. Si la instalaci\'on termina sin ningun error, estamos listos para comenzar a trabajar.
+
+\section{Instalaci\'on GNU/Linux}
+
+Para instalar los programas necesarios en linux debemos seguir los siguientes tutoriales para instalas Q-GIS, R y R-Studio.
+
+\begin{enumerate}
+  \item Q-GIS seguimos las instrucciones para instalar Q-GIS 2.14 o 2.18 \url{http://www.qgis.org/es/site/forusers/alldownloads.html#linux}.
+  \item R segun nuestra distribucion. Para el caso de Ubuntu podemos utilizar \texttt{sudo apt install r-base} y para Fedora podemos utilizar \texttt{yum install R}. En caso de tener otra distribucion preguntar en el foro.
+  \item R-Studio en su version gratuita de la pagina oficial \url{https://www.rstudio.com/products/rstudio/download/}.
+\end{enumerate}
+
+Una vez finalizada la instalacion, abrimos R-Studio y ejecutamos el siguiente comando en la consola.
+
+\begin{lstlisting}
+  install.packages(c("raster","lattice","RStoolbox","rasterVis","rgal","e1071","randomForest","kernlab"))
+\end{lstlisting}
+
+En este caso descargara y recompilara cada uno de los paquetes necesarios para nuestra distribuci\'on.
+
+\section{M\'aquina virtual}
+
+En caso de no querer realizar la instalaci\'on, es posible utilizar la m\'aquina virtual provista por el \href{www.beeoda.org}{Boston Education in Earth Observation Data Analysis} siguiendo las instrucciones en su repositorio de github \url{https://github.com/beeoda/opengeo-vm}.
